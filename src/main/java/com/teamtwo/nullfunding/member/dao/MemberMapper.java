@@ -1,22 +1,11 @@
 package com.teamtwo.nullfunding.member.dao;
 
-import com.ohgiraffers.thymeleafspringboot.member.dto.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
-
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface MemberMapper {
-    String selectMemberById(String memberId);
 
-    int insertMember(MemberDTO member);
-
-    String selectEncryptedPwd(MemberDTO member);
-
-    MemberDTO selectMember(MemberDTO member);
-
-    MemberDTO findByMemberId(String memberId);
-
-    int updateMember(MemberDTO member);
-
-    int deleteMember(MemberDTO member);
+    String selectMemberById(String memEmail);
 }
