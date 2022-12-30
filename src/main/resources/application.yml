@@ -32,11 +32,6 @@ spring:
   image:
     image-dir: src/main/resources
 
-## 타임리프 캐시를 자동으로 지워지게끔 설정하겠다.
-# thymeleaf auto refresh
-thymeleaf:
-  cache: false
-
 ## 입력할 내용이 긴 경우, 내용을 생략하여 반복을 줄임으로써 효율성이 높아진다.
 #mybatis mapping
 mybatis:
