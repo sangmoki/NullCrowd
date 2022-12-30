@@ -1,11 +1,10 @@
 server:
   port: 8888
 
-  # 여기서 오라클 DB 연결을 한다.
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@oracle.coffit.site:1521/xe
+    url: jdbc:oracle:thin:@oracle.coffit.site:1521:xe
     username: C##NULLCROWD
     password: NULLCROWD
   servlet:
@@ -32,18 +31,10 @@ spring:
   image:
     image-dir: src/main/resources
 
-## 타임리프 캐시를 자동으로 지워지게끔 설정하겠다.
-# thymeleaf auto refresh
-thymeleaf:
-  cache: false
 
-## 입력할 내용이 긴 경우, 내용을 생략하여 반복을 줄임으로써 효율성이 높아진다.
 #mybatis mapping
 mybatis:
-  type-aliases-package: two.team.semiproject.mapper
-
-  ## xml의 위치 정보를 기록 -> /**/* 를 사용함으로서 xml로 끝나는 파일은 모두 해당된다는 의미.
-  #mapper.xml location
+  type-aliases-package: com.teamtwo.nullfunding
   mapper-locations: /mybatis/mapper/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
