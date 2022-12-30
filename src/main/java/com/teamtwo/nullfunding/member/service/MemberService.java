@@ -1,15 +1,11 @@
 package com.teamtwo.nullfunding.member.service;
 
-import com.ohgiraffers.thymeleafspringboot.common.exception.member.MemberModifyException;
-import com.ohgiraffers.thymeleafspringboot.common.exception.member.MemberRegistException;
-import com.ohgiraffers.thymeleafspringboot.common.exception.member.MemberRemoveException;
-import com.ohgiraffers.thymeleafspringboot.member.dao.MemberMapper;
-import com.ohgiraffers.thymeleafspringboot.member.dto.MemberDTO;
+import com.teamtwo.nullfunding.member.dao.MemberMapper;
+import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -26,41 +22,16 @@ public class MemberService {
         this.mapper = mapper;
     }
 
-    public boolean selectMemberById(String userId) {
+    public boolean selectMemberById(String memEmail) {
 
-        String result = mapper.selectMemberById(userId);
+        String result = mapper.selectMemberById(memEmail);
 
         return result != null? true : false;
     }
 
-    @Transactional
-    public void registMember(MemberDTO member) throws MemberRegistException{
+    public boolean insertMember(MemberDTO dto) {
+        int n = mapper.insertMember(dto);
 
-        log.info("[MemberService] Insert Member : " + member);
-        int result = mapper.insertMember(member);
-
-        log.info("[MemberService] Insert result : " + ((result > 0) ? "회원가입 성공" : "회원가입 실패"));
-
-        if(!(result > 0 )){
-            throw new MemberRegistException("회원 가입에 실패하였습니다.");
-        }
-    }
-
-    /* 회원 정보 수정용 메소드 */
-    public void modifyMember(MemberDTO member) throws MemberModifyException {
-        int result = mapper.updateMember(member);
-
-        if(!(result > 0)) {
-            throw new MemberModifyException("회원 정보 수정에 실패하셨습니다.");
-        }
-    }
-
-    /* 회원 탈퇴용 메소드 */
-    public void removeMember(MemberDTO member) throws MemberRemoveException {
-        int result = mapper.deleteMember(member);
-
-        if(!(result > 0)) {
-            throw new MemberRemoveException("회원 탈퇴에 실패하셨습니다.");
-        }
+        return n > 0 ? true : false;
     }
 }
