@@ -4,7 +4,6 @@ import com.teamtwo.nullfunding.member.dao.MemberMapper;
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -13,12 +12,10 @@ public class MemberService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private final PasswordEncoder passwordEncoder;
 
     private final MemberMapper mapper;
 
-    public MemberService(PasswordEncoder passwordEncoder, MemberMapper mapper) {
-        this.passwordEncoder = passwordEncoder;
+    public MemberService(MemberMapper mapper) {
         this.mapper = mapper;
     }
 
