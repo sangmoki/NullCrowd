@@ -19,8 +19,4 @@ public class MemberDTO {
     private Date regiDate;
     private String nickName;
     private Date recentLogin;
-    private String phone;
-    private Date birthdate;
-    private String address;
-    private String gender;
 }
