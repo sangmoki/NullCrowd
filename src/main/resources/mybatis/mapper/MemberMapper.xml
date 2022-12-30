@@ -64,13 +64,3 @@
 <selectKey keyColumn="MEM_CODE" keyProperty="MemCode" resultType="_int" order="AFTER">
     SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL;
 </selectKey>
-
-    </insert>
-
-    <!-- 로그인 -->
-    <select id="login" parameterType="com.teamtwo.nullfunding.member.dto.MemberDTO" resultType="com.teamtwo.nullfunding.member.dto.">
-        SELECT EMAIL, NAME, AUTH FROM MEMBERS
-        WHERE ID = #{id} AND PWD = #{pwd}
-    </select>
-
-</mapper>
