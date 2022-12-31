@@ -1,6 +1,6 @@
 package com.teamtwo.nullfunding.model.service;
 
-import com.teamtwo.nullfunding.config.NullfundingApplication;
+import com.teamtwo.nullfunding.NullfundingApplication;
 import com.teamtwo.nullfunding.config.MybatisConfig;
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
 import com.teamtwo.nullfunding.notice.service.NoticeService;
