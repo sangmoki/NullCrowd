@@ -1,18 +1,13 @@
 package com.teamtwo.nullfunding.model.service;
 
-import com.teamtwo.nullfunding.NullfundingApplication;
-import com.teamtwo.nullfunding.common.exception.notice.NoticeModifyException;
-import com.teamtwo.nullfunding.common.exception.notice.NoticeRegistException;
-import com.teamtwo.nullfunding.common.exception.notice.NoticeRemoveException;
+import com.teamtwo.nullfunding.config.NullfundingApplication;
 import com.teamtwo.nullfunding.config.MybatisConfig;
-import com.teamtwo.nullfunding.notice.model.dao.NoticeMapper;
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
 import com.teamtwo.nullfunding.notice.service.NoticeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

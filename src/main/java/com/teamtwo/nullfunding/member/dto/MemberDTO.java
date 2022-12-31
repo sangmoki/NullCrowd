@@ -1,6 +1,5 @@
 package com.teamtwo.nullfunding.member.dto;
 
-            roles.add(new SimpleGrantedAuthority(role));
 import lombok.*;
 
 import java.util.Date;

@@ -1,6 +1,6 @@
 package com.teamtwo.nullfunding.model.dao;
 
-import com.teamtwo.nullfunding.NullfundingApplication;
+import com.teamtwo.nullfunding.config.NullfundingApplication;
 import com.teamtwo.nullfunding.config.MybatisConfig;
 import com.teamtwo.nullfunding.notice.model.dao.NoticeMapper;
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;

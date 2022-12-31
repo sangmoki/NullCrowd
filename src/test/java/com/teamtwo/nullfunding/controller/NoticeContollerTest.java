@@ -1,6 +1,6 @@
 package com.teamtwo.nullfunding.controller;
 
-import com.teamtwo.nullfunding.NullfundingApplication;
+import com.teamtwo.nullfunding.config.NullfundingApplication;
 import com.teamtwo.nullfunding.config.MybatisConfig;
 import com.teamtwo.nullfunding.notice.controller.NoticeController;
 import org.junit.jupiter.api.BeforeEach;
