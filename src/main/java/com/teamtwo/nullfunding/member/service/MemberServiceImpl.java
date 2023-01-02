@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl /*implements MemberService*/{
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 
-    private final MemberMapper mapper;
+    private MemberMapper mapper;
 
     @Autowired
     public MemberServiceImpl(MemberMapper mapper) {
@@ -37,9 +37,9 @@ public class MemberServiceImpl implements MemberService{
         return n > 0 ? true : false;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return null;
+//    }
 }
 
