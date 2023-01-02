@@ -1,9 +1,11 @@
 package com.teamtwo.nullfunding.notice.controller;
 
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
+import com.teamtwo.nullfunding.notice.service.NoticeService;
 import com.teamtwo.nullfunding.notice.service.NoticeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,25 +22,25 @@ import java.util.List;
 @RequestMapping("/notice")
 public class NoticeController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final NoticeServiceImpl noticeServiceImpl;
+    private NoticeService noticeService;
 
-    public NoticeController(NoticeServiceImpl noticeServiceImpl) {
-        this.noticeServiceImpl = noticeServiceImpl;
+    @Autowired
+    public NoticeController(NoticeService noticeService) {
+        this.noticeService = noticeService;
     }
 
-    // 공지사항 리스트 조회하는 용도의 메서드
     @GetMapping("/list")
     public ModelAndView noticeList(ModelAndView mv) {
 
-        List<NoticeDTO> noticeList = noticeServiceImpl.selectAllNoticeList();
+        List<NoticeDTO> noticeList = noticeService.selectAllNoticeList();
 
         mv.addObject("noticeList", noticeList);
 
-        mv.setViewName("notice/list");
+        mv.setViewName("content/notice/noticeList");
 
         return mv;
     }
-    
+
     // 공지사항 추가하는 용도의 메서드
     @GetMapping("/insert")
     public String goInsert() {
@@ -53,7 +55,7 @@ public class NoticeController {
         log.info("[NoticeController] registBoard =========================================================");
         log.info("[NoticeController] registBoard Request : " + notice);
 
-        noticeServiceImpl.insertNotice(notice);
+        noticeService.insertNotice(notice);
 
         rttr.addFlashAttribute("message", "공지사항 등록에 성공하셨습니다!");
 
@@ -68,7 +70,7 @@ public class NoticeController {
 
         int no = Integer.valueOf(request.getParameter("no"));
 
-        NoticeDTO noticeDetail = noticeServiceImpl.selectChoiceNotice(no);
+        NoticeDTO noticeDetail = noticeService.selectChoiceNotice(no);
         model.addAttribute("notice", noticeDetail);
 
         return "content/notice/selectChoiceNotice";
@@ -79,7 +81,7 @@ public class NoticeController {
 
         int no = Integer.valueOf(request.getParameter("no"));
 
-        NoticeDTO notice = noticeServiceImpl.selectChoiceNotice(no);
+        NoticeDTO notice = noticeService.selectChoiceNotice(no);
 
         model.addAttribute("notice", notice);
 

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>메인 페이지</title>
+    <!-- Bootstrap core CSS -->
+
+    <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
+
+<body>
+<!-- 헤더 -->
+<header th:replace="fragments/header :: headerFragment"></header>
+
+<!-- 바디 시작 -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12" style="background-color:grey; height:200px;">
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6">
+                    <div class="request-button">
+                        <h2 align="center"><b>문의등록</b></h2><br><br>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br>
+<div class="container-fluid">
+    <div class="row" style="justify-content: center;">
+        <div class="col-md-12"
+             style="height:auto; background-color: rgb(107, 169, 228); width:460px; padding:20px; border-radius: 20px;">
+            <div class="col-12">
+                <label for="country" class="form-label"><b>문의 접수하실 내용을 선택해주세요:)</b></label>
+                <select class="form-select" id="country2">
+                    <option selected>어떤 문의하실래용?</option>
+                    <option>펀딩 서비스 문의하기</option>
+                    <option>스토어 서비스 문의하기</option>
+                    <option>기타 서비스 문의하기</option>
+                </select>
+                <div class="invalid-feedback">
+                    필수로 선택해주세요.
+                </div>
+            </div>
+            <div class="col-12" style="padding-top:20px;">
+                <label for="email" class="form-label"><b>이메일 주소를 입력해주세요.<span class="red-color">*</span></b></label>
+                <input type="email" class="form-control" id="email" placeholder="Null@example.com"
+                       style="margin-top:-3px;">
+            </div>
+            <div class="col-12" style="padding-top:15px;">
+                <label for="country" class="form-label"><b>문의자 유형을 선택해주세요.<span class="red-color">*</span></b></label>
+                <select class="form-select" id="country" required>
+                    <option selected>유형을 선택해주세요.</option>
+                    <option>프로젝트를 개설한 메이커입니다.</option>
+                    <option>프로젝트에 참여한 서포터입니다.</option>
+                </select>
+                <div class="invalid-feedback">
+                    필수로 선택해주세요.
+                </div>
+            </div>
+            <div class="col-12" style="padding-top:20px;">
+                <label><b>문의사항을 알려주세요.<span class="red-color">*</span></b></label><br>
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                              style="margin-top:8px"></textarea>
+                    <label for="floatingTextarea"></label>
+                </div>
+            </div>
+            <div class="col-12" style="padding-top:10px;">
+                <label><b>첨부 파일(선택 사항)</b></label>
+                <input type="file" class="form-control" id="inputGroupFile01">
+            </div>
+            <br>
+            <div class="request-conform">
+                <button type="button" class="btn btn-primary" style="width:150px; height: 60px;">제출하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+
+<!-- 바디 끝 -->
+<!-- 푸터 시작  -->
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+
+
+</body>
+</html>
+                              
