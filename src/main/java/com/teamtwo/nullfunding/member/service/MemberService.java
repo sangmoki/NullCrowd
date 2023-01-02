@@ -32,3 +32,4 @@ public class MemberService {
         return n > 0 ? true : false;
     }
 }
+

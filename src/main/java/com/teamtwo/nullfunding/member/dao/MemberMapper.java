@@ -12,3 +12,4 @@ public interface MemberMapper {
 
     public int insertMember(MemberDTO member);
 }
+
