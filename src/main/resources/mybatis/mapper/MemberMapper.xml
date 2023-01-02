@@ -42,26 +42,30 @@
     </insert>
 
     <!-- 회원 가입 personalInfo  -->
-<!--    <insert id="insertPersonalInfo" parameterType="com.teamtwo.nullfunding.member.dto.PersonalInfoDTO">-->
-<!--    INSERT /* com.ohgiraffers.thymeleafspringboot.member.dao.MemberMapper#insertPersonalInfo() */-->
-<!--    INTO PERSONALINFO-->
-<!--    (-->
-<!--      MEM_CODE-->
-<!--    , NAME-->
-<!--    , GENDER-->
-<!--    , PHONE-->
-<!--    , ADDRESS-->
-<!--    , BIRTHDATE-->
-<!--    )-->
-<!--    VALUES-->
-<!--    (-->
-<!--      MemCode-->
-<!--    , #{ name }-->
-<!--    , #{ phone }-->
-<!--    , #{ address }-->
-<!--    , #{ birthDate}-->
-<!--    )-->
-<!--<selectKey keyColumn="MEM_CODE" keyProperty="MemCode" resultType="_int" order="AFTER">-->
-<!--    SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL;-->
-<!--</selectKey>-->
+    <insert id="insertPersonalInfo" parameterType="com.teamtwo.nullfunding.member.dto.PersonalInfoDTO">
+    INSERT /* com.ohgiraffers.thymeleafspringboot.member.dao.MemberMapper#insertPersonalInfo() */
+    INTO PERSONALINFO
+    (
+      MEM_CODE
+    , NAME
+    , GENDER
+    , PHONE
+    , ADDRESS
+    , BIRTHDATE
+    )
+    VALUES
+    (
+      MemCode
+    , #{ name }
+    , #{ phone }
+    , #{ address }
+    , #{ birthDate}
+    )
+<selectKey keyColumn="MEM_CODE" keyProperty="MemCode" resultType="_int" order="AFTER">
+    SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL;
+</selectKey>
+
+
+</insert>
+
 </mapper>
