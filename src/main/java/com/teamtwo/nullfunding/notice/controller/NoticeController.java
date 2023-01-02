@@ -32,7 +32,7 @@ public class NoticeController {
 
         mv.addObject("noticeList", noticeList);
 
-        mv.setViewName("content/notice/noticeList");
+        mv.setViewName("content/notice/notice");
 
         log.info("[NoticeController] =========================================================");
 
