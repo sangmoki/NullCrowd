@@ -1,4 +1,4 @@
-package com.teamtwo.nullfunding;
+package com.teamtwo.nullfunding.config;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
