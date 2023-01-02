@@ -16,77 +16,74 @@
     <!-- 모든 공지사항 리스트 조회 -->    <!-- 완료 ! -->
     <select id="selectAllNoticeList" resultMap="noticeResultMap">
         SELECT
-            A.NOTICE_NO
+               A.NOTICE_NO
              , B.NICKNAME
              , A.NOTICE_TITLE
              , A.NOTICE_CONTENT
              , A.UPLOAD_DATE
              , A.READ_COUNT
-        FROM NOTICE A
-                 JOIN MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
+         FROM NOTICE A JOIN MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
         ORDER BY A.NOTICE_NO DESC
     </select>
 
     <!-- 공지사항 게시글 추가 -->
     <insert id="insertNotice" parameterType="NoticeDTO">
         INSERT
-        INTO TBL_NOTICE A
-            (
-          A.NOTICE_NO
-        , A.NOTICE_TITLE
-        , A.NOTICE_BODY
-        , A.NOTICE_WRITER_MEMBER_NO
+        INTO NOTICE A
+        (
+             A.NOTICE_NO
+           , A.NOTICE_TITLE
+           , A.NOTICE_CONTENT
         )
         VALUES
-            (
-            SEQ_NOTICE_NO.NEXTVAL
-                , #{ title }
-                , #{ body }
-                , #{ writerMemberNo }
-            )
+        (
+               SEQ_NOTICE_NO.NEXTVAL
+             , #{ noticeTitle }
+             , #{ noticeContent }
+        )
     </insert>
-
-    <!-- 조회 시 조회 수 증가 -->
-    <update id="incrementNoticeCount" parameterType="long">
-        UPDATE
-            TBL_NOTICE A
-        SET A.NOTICE_COUNT = (SELECT B.NOTICE_COUNT
-                              FROM TBL_NOTICE B
-                              WHERE B.NOTICE_NO = #{ no }
-                             ) + 1
-        WHERE A.NOTICE_NO = #{ no }
-    </update>
-
-    <!-- 검색하여 노티스 조회 -->
-    <select id="selectNoticeDetail" parameterType="long" resultMap="noticeResultMap">
-        SELECT
-            A.NOTICE_NO
-             , A.NOTICE_TITLE
-             , A.NOTICE_BODY
-             , A.NOTICE_WRITER_MEMBER_NO
-             , B.NICKNAME
-             , A.NOTICE_COUNT
-             , A.CREATED_DATE
-        FROM TBL_NOTICE A
-                 JOIN TBL_MEMBER B ON (A.NOTICE_WRITER_MEMBER_NO = B.MEMBER_NO)
-        WHERE A.NOTICE_STATUS = 'Y'
-          AND A.NOTICE_NO = #{ no }
-    </select>
 
     <!-- 공지사항 게시글 수정 -->
     <update id="updateNotice" parameterType="NoticeDTO">
         UPDATE
-            NOTICE A
-        SET A.NOTICE_TITLE = #{ noticeTitle }
-          , A.NOTICE_CONTENT = #{ noticeContent }
+              NOTICE A
+        SET   A.NOTICE_TITLE = #{ noticeTitle }
+            , A.NOTICE_CONTENT = #{ noticeContent }
         WHERE A.NOTICE_NO = #{ no }
     </update>
 
     <!-- 공지사항 게시글 삭제 -->
     <delete id="deleteNotice" parameterType="long">
         DELETE
-        FROM TBL_NOTICE A
-        WHERE A.NOTICE_NO = #{ no }
+        FROM   NOTICE A
+        WHERE  A.NOTICE_NO = #{ no }
     </delete>
 
+    <!-- 검색하여 공지사항 조회 -->
+    <select id="selectChoiceNotice" parameterType="long" resultMap="noticeResultMap">
+        SELECT
+               A.NOTICE_NO
+             , B.NICKNAME
+             , A.NOTICE_TITLE
+             , A.NOTICE_CONTENT
+             , A.UPLOAD_DATE
+             , A.READ_COUNT
+        FROM  NOTICE A
+        JOIN  MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
+        WHERE A.NOTICE_NO = #{ no }
+    </select>
+
+    <!-- 조회 시 조회 수 증가 -->
+    <update id="incrementNoticeCount" parameterType="long">
+        UPDATE
+               NOTICE A
+        SET A.READ_COUNT = (SELECT B.READ_COUNT
+                              FROM  NOTICE B
+                              WHERE B.NOTICE_NO = #{ no }
+                             ) + 1
+        WHERE A.NOTICE_NO = #{ no }
+    </update>
+
 </mapper>
+
+
