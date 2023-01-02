@@ -1,6 +1,5 @@
 package com.teamtwo.nullfunding.notice.controller;
 
-import com.teamtwo.nullfunding.common.exception.notice.NoticeRegistException;
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
 import com.teamtwo.nullfunding.notice.service.NoticeServiceImpl;
 import org.slf4j.Logger;
@@ -47,7 +46,7 @@ public class NoticeController {
     }
 
     @PostMapping("/insertNotice")
-    public String insertNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr) throws NoticeRegistException {
+    public String insertNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr){
 
         log.info("");
         log.info("");

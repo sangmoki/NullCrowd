@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class NoticeServiceImpl implements BoardService{
+public class NoticeServiceImpl implements NoticeService {
 
-    @Autowired // BoardService 인터페이스의 sql문을 읽어와 의존주입으로 객체 생성.
+    @Autowired // NoticeService 인터페이스의 sql문을 읽어와 의존주입으로 객체 생성.
     private NoticeMapper noticeMapper;
 
     // 모든 공지사항 게시글 조회하는 용도의 메서드
