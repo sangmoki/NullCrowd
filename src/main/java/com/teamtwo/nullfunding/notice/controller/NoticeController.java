@@ -1,9 +1,11 @@
 package com.teamtwo.nullfunding.notice.controller;
 
+import com.teamtwo.nullfunding.common.Exception.notice.NoticeInsertException;
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
 import com.teamtwo.nullfunding.notice.service.NoticeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,7 @@ public class NoticeController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final NoticeServiceImpl noticeServiceImpl;
 
+    @Autowired // 의존 주입
     public NoticeController(NoticeServiceImpl noticeServiceImpl) {
         this.noticeServiceImpl = noticeServiceImpl;
     }
@@ -46,7 +49,7 @@ public class NoticeController {
     }
 
     @PostMapping("/insertNotice")
-    public String insertNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr){
+    public String insertNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr) throws NoticeInsertException {
 
         log.info("");
         log.info("");
