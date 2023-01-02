@@ -1,12 +1,10 @@
-package com.teamtwo.nullfunding.notice.model.dao;
+package com.teamtwo.nullfunding.notice.service;
 
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Mapper
-public interface NoticeMapper {
+public interface BoardService {
 
     // 모든 공지사항 리스트 조회하는 용도의 메서드
     List<NoticeDTO> selectAllNoticeList();

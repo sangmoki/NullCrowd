@@ -1,9 +1,9 @@
 package com.teamtwo.nullfunding.model.service;
 
-import com.teamtwo.nullfunding.config.NullfundingApplication;
+import com.teamtwo.nullfunding.NullfundingApplication;
 import com.teamtwo.nullfunding.config.MybatisConfig;
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
-import com.teamtwo.nullfunding.notice.service.NoticeService;
+import com.teamtwo.nullfunding.notice.service.NoticeServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,21 +15,21 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ContextConfiguration(classes = { NullfundingApplication.class, MybatisConfig.class })
-public class NoticeServiceTests {
+public class NoticeServiceImplTests {
 
     @Autowired
-    private NoticeService noticeService;
+    private NoticeServiceImpl noticeServiceImpl;
 
     @Test
     public void testInit(){
 
-        assertNotNull(noticeService);
+        assertNotNull(noticeServiceImpl);
     }
 
     @Test
     public void 전체_공지_조회_메소드_테스트(){
 
-        List<NoticeDTO> noticeList = noticeService.selectAllNoticeList();
+        List<NoticeDTO> noticeList = noticeServiceImpl.selectAllNoticeList();
 
         assertNotNull(noticeList);
         noticeList.forEach(System.out::println);
