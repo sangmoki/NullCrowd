@@ -44,15 +44,15 @@
                     <td>2</td>
 
                 </tr>
-            <c:forEach items="${ noticeList }" var="notice">
-                <tr>
-                    <td><c:out value="${ notice.no }"/></td>
-                    <td><c:out value="${ notice.title }"/></td>
-                    <td><c:out value="${ notice.writer.nickname }"/></td>
-                    <td><c:out value="${ notice.count }"/></td>
-                    <td><c:out value="${ notice.createdDate }"/></td>
-                </tr>
-            </c:forEach>
+<!--            <c:forEach items="${ noticeList }" var="notice">-->
+<!--                <tr>-->
+<!--                    <td><c:out value="${ notice.no }"/></td>-->
+<!--                    <td><c:out value="${ notice.title }"/></td>-->
+<!--                    <td><c:out value="${ notice.writer.nickname }"/></td>-->
+<!--                    <td><c:out value="${ notice.count }"/></td>-->
+<!--                    <td><c:out value="${ notice.createdDate }"/></td>-->
+<!--                </tr>-->
+<!--            </c:forEach>-->
             </tbody>
         </table>
     </div>
@@ -66,9 +66,9 @@
         <button type="submit">검색하기</button>
         
         <!-- 관리자인 경우에만 작성하기 버튼이 보여짐 -->
-        <c:if test="${ sessionScope.loginMember.role eq 'ADMIN' }">
-            <button id="writeNotice">작성하기</button>
-        </c:if>
+<!--        <c:if test="${ sessionScope.loginMember.role eq 'ADMIN' }">-->
+<!--            <button id="writeNotice">작성하기</button>-->
+<!--        </c:if>-->
     </div>
     </div>
     <br><br><br><br>
