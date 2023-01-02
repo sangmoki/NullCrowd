@@ -37,7 +37,7 @@ ul .nav-item {
   margin-top: 12px;
 }
 a {
-  text-decoration-line: none !important;
+  text-decoration-line: none !important;,
   text-decoration-color: none !important;
 }
 
@@ -426,3 +426,47 @@ clear:both;
 }
                         /*   상목 끝 */
 
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.request-project {
+  background-color: red;
+  padding:8px 12px;
+  color:white;
+  border-radius: 5px;
+}
+.grey-text-header{
+  font-size: 18px;
+  padding:5px;
+}
+.grey-text {
+  font-size:16x;
+  color:rgb(133, 124, 124);
+  padding:5px;
+}
+.text-box5-reward {
+  padding: 30px;
+}
