@@ -1,7 +1,7 @@
 package com.teamtwo.nullfunding.notice.controller;
 
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
-import com.teamtwo.nullfunding.notice.service.NoticeService;
+import com.teamtwo.nullfunding.notice.service.NoticeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,17 +20,16 @@ import java.util.List;
 @RequestMapping("/notice")
 public class NoticeController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final NoticeService noticeService;
+    private final NoticeServiceImpl noticeServiceImpl;
 
-    public NoticeController(NoticeService noticeService) {
-        this.noticeService = noticeService;
+    public NoticeController(NoticeServiceImpl noticeServiceImpl) {
+        this.noticeServiceImpl = noticeServiceImpl;
     }
 
-    // 공지사항 리스트 조회하는 용도의 메서드
     @GetMapping("/list")
     public ModelAndView noticeList(ModelAndView mv) {
 
-        List<NoticeDTO> noticeList = noticeService.selectAllNoticeList();
+        List<NoticeDTO> noticeList = noticeServiceImpl.selectAllNoticeList();
 
         mv.addObject("noticeList", noticeList);
 
@@ -40,20 +39,20 @@ public class NoticeController {
     }
 
     // 공지사항 추가하는 용도의 메서드
-    @GetMapping("/regist")
-    public String goRegister() {
+    @GetMapping("/insert")
+    public String goInsert() {
         return "content/notice/noticeInsert";
     }
 
     @PostMapping("/insertNotice")
-    public String insertNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr) throws NoticeRegistException {
+    public String insertNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr){
 
         log.info("");
         log.info("");
         log.info("[NoticeController] registBoard =========================================================");
         log.info("[NoticeController] registBoard Request : " + notice);
 
-        noticeService.registNotice(notice);
+        noticeServiceImpl.insertNotice(notice);
 
         rttr.addFlashAttribute("message", "공지사항 등록에 성공하셨습니다!");
 
@@ -65,18 +64,11 @@ public class NoticeController {
     @GetMapping("/detail")
     public String selectNoticeDetail(HttpServletRequest request, Model model) {
 
-        log.info("");
-        log.info("");
-        log.info("[NoticeController] selectNoticeDetail =========================================================");
 
-        Long no = Long.valueOf(request.getParameter("no"));
-        log.info("[NoticeController] selectNoticeDetail No : " + no);
+        int no = Integer.valueOf(request.getParameter("no"));
 
-        NoticeDTO noticeDetail = noticeService.selectChoiceNotice(no);
-        log.info("[NoticeController] noticeDetail : " + noticeDetail);
+        NoticeDTO noticeDetail = noticeServiceImpl.selectChoiceNotice(no);
         model.addAttribute("notice", noticeDetail);
-
-        log.info("[NoticeController] selectNoticeDetail =========================================================");
 
         return "content/notice/selectChoiceNotice";
     }
@@ -84,9 +76,9 @@ public class NoticeController {
     @GetMapping("/update")
     public String updateNotice(HttpServletRequest request, Model model) {
 
-        Long no = Long.valueOf(request.getParameter("no"));
+        int no = Integer.valueOf(request.getParameter("no"));
 
-        NoticeDTO notice = noticeService.selectChoiceNotice(no);
+        NoticeDTO notice = noticeServiceImpl.selectChoiceNotice(no);
 
         model.addAttribute("notice", notice);
 

@@ -20,7 +20,7 @@
              , B.NICKNAME
              , A.NOTICE_TITLE
              , A.NOTICE_CONTENT
-             , A.UPLOAD_DATE
+             , A.UPLOAD_DATED
              , A.READ_COUNT
          FROM NOTICE A JOIN MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
         ORDER BY A.NOTICE_NO DESC
@@ -53,14 +53,14 @@
     </update>
 
     <!-- 공지사항 게시글 삭제 -->
-    <delete id="deleteNotice" parameterType="long">
+    <delete id="deleteNotice" parameterType="int">
         DELETE
         FROM   NOTICE A
         WHERE  A.NOTICE_NO = #{ no }
     </delete>
 
     <!-- 검색하여 공지사항 조회 -->
-    <select id="selectChoiceNotice" parameterType="long" resultMap="noticeResultMap">
+    <select id="selectChoiceNotice" parameterType="int" resultMap="noticeResultMap">
         SELECT
                A.NOTICE_NO
              , B.NICKNAME
@@ -74,7 +74,7 @@
     </select>
 
     <!-- 조회 시 조회 수 증가 -->
-    <update id="incrementNoticeCount" parameterType="long">
+    <update id="incrementNoticeCount" parameterType="int">
         UPDATE
                NOTICE A
         SET A.READ_COUNT = (SELECT B.READ_COUNT
