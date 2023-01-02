@@ -19,4 +19,5 @@ public class MemberDTO {
     private Date regiDate;
     private String nickName;
     private Date recentLogin;
+
 }

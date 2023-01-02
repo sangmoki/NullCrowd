@@ -64,3 +64,8 @@
 <selectKey keyColumn="MEM_CODE" keyProperty="MemCode" resultType="_int" order="AFTER">
     SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL;
 </selectKey>
+
+
+</insert>
+
+</mapper>
