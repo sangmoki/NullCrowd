@@ -29,7 +29,6 @@ public class NoticeController {
         this.noticeServiceImpl = noticeServiceImpl;
     }
 
-    // 공지사항 리스트 조회하는 용도의 메서드
     @GetMapping("/list")
     public ModelAndView noticeList(ModelAndView mv) {
 
@@ -41,7 +40,7 @@ public class NoticeController {
 
         return mv;
     }
-    
+
     // 공지사항 추가하는 용도의 메서드
     @GetMapping("/insert")
     public String goInsert() {
