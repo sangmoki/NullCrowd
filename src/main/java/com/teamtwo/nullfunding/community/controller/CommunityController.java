@@ -1,7 +1,7 @@
 package com.teamtwo.nullfunding.community.controller;
 
 import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
-import com.teamtwo.nullfunding.community.service.NoticeService;
+import com.teamtwo.nullfunding.community.service.CommunityServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,12 +13,12 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/notice")
-public class NoticeController {
+public class CommunityController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final NoticeService noticeService;
+    private final CommunityServiceImpl communityServiceImpl;
 
-    public NoticeController(NoticeService noticeService) {
-        this.noticeService = noticeService;
+    public CommunityController(CommunityServiceImpl communityServiceImpl) {
+        this.communityServiceImpl = communityServiceImpl;
     }
 
     @GetMapping("/list")
@@ -27,8 +27,8 @@ public class NoticeController {
         log.info("");
         log.info("[NoticeController] =========================================================");
 
-        List<CommunityDTO> noticeList = noticeService.selectAllNoticeList();
-                log.info("[NoticeController] noticeList : " + noticeList);
+        List<CommunityDTO> noticeList = communityServiceImpl.selectAllNoticeList();
+        log.info("[NoticeController] noticeList : " + noticeList);
 
         mv.addObject("noticeList", noticeList);
 

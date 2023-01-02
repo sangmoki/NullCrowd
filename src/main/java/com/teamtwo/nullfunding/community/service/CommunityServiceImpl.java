@@ -1,17 +1,17 @@
 package com.teamtwo.nullfunding.community.service;
 
-import com.teamtwo.nullfunding.community.model.dao.NoticeMapper;
+import com.teamtwo.nullfunding.community.model.dao.CommunityMapper;
 import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class NoticeService {
+public class CommunityServiceImpl {
 
-    private final NoticeMapper mapper;
+    private final CommunityMapper mapper;
 
-    public NoticeService(NoticeMapper mapper) {
+    public CommunityServiceImpl(CommunityMapper mapper) {
         this.mapper = mapper;
     }
 

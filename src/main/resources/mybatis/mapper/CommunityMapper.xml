@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtwo.nullfunding.Community.model.dao.CommunityMapper">
+
+    <resultMap type="CommunityDTO" id="CommunityResultMap">
+        <id property="CommunityNo" column="Community_NO"/>
+        <result property="nickName" column="NICK_NAME"/>
+        <result property="CommunityTitle" column="Community_TITLE"/>
+        <result property="CommunityContent" column="Community_CONTENT"/>
+        <result property="uploadDate" column="UPLOAD_DATE"/>
+        <result property="readCount" column="READ_COUNT"/>
+    </resultMap>
+
+    <!-- 모든 공지사항 리스트 조회 -->    <!-- 완료 ! -->
+    <select id="selectAllCommunityList" resultMap="CommunityResultMap">
+        SELECT
+               A.Community_NO
+             , B.NICKNAME
+             , A.Community_TITLE
+             , A.Community_CONTENT
+             , A.UPLOAD_DATED
+             , A.READ_COUNT
+         FROM Community A JOIN MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
+        ORDER BY A.Community_NO DESC
+    </select>
+
+    <!-- 공지사항 게시글 추가 -->
+    <insert id="insertCommunity" parameterType="CommunityDTO">
+        INSERT
+        INTO Community A
+        (
+             A.Community_NO
+           , A.Community_TITLE
+           , A.Community_CONTENT
+        )
+        VALUES
+        (
+               SEQ_Community_NO.NEXTVAL
+             , #{ CommunityTitle }
+             , #{ CommunityContent }
+        )
+    </insert>
+
+    <!-- 공지사항 게시글 수정 -->
+    <update id="updateCommunity" parameterType="CommunityDTO">
+        UPDATE
+              Community A
+        SET   A.Community_TITLE = #{ CommunityTitle }
+            , A.Community_CONTENT = #{ CommunityContent }
+        WHERE A.Community_NO = #{ no }
+    </update>
+
+    <!-- 공지사항 게시글 삭제 -->
+    <delete id="deleteCommunity" parameterType="int">
+        DELETE
+        FROM   Community A
+        WHERE  A.Community_NO = #{ no }
+    </delete>
+
+    <!-- 검색하여 공지사항 조회 -->
+    <select id="selectChoiceCommunity" parameterType="int" resultMap="CommunityResultMap">
+        SELECT
+               A.Community_NO
+             , B.NICKNAME
+             , A.Community_TITLE
+             , A.Community_CONTENT
+             , A.UPLOAD_DATE
+             , A.READ_COUNT
+        FROM  Community A
+        JOIN  MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
+        WHERE A.Community_NO = #{ no }
+    </select>
+
+    <!-- 조회 시 조회 수 증가 -->
+    <update id="incrementCommunityCount" parameterType="int">
+        UPDATE
+               Community A
+        SET A.READ_COUNT = (SELECT B.READ_COUNT
+                              FROM  Community B
+                              WHERE B.Community_NO = #{ no }
+                             ) + 1
+        WHERE A.Community_NO = #{ no }
+    </update>
+
+</mapper>
+
+

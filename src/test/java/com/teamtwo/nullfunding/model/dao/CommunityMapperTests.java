@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ContextConfiguration(classes = { NullfundingApplication.class, MybatisConfig.class })
-public class NoticeMapperTests {
+public class CommunityMapperTests {
 
     @Autowired
     private NoticeMapper noticeMapper;
