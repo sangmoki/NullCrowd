@@ -10,8 +10,8 @@ public class InquiryServiceImpl implements InquiryService {
     private InquiryMapper inquiryMapper;
 
     @Autowired
-    public InquiryServiceImpl(InquiryMapper inqueryMapper) {
-        this.inquiryMapper = inqueryMapper;
+    public InquiryServiceImpl(InquiryMapper inquiryMapper) {
+        this.inquiryMapper = inquiryMapper;
     }
 
 }

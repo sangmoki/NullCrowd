@@ -18,11 +18,19 @@ public class InquiryController {
         this.inquiryService = inquiryService;
     }
 
-    @GetMapping("/*")
+    @GetMapping("/list")
     public ModelAndView inquiryList(ModelAndView mv){
 
 
         mv.setViewName("content/inquiry/question");
+
+        return mv;
+    }
+
+    @GetMapping("/request")
+    public ModelAndView inquiryRequest(ModelAndView mv){
+
+        mv.setViewName("content/inquiry/request");
 
         return mv;
     }
