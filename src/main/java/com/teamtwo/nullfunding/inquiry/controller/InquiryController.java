@@ -18,7 +18,7 @@ public class InquiryController {
         this.inquiryService = inquiryService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/list")
     public ModelAndView inquiryList(ModelAndView mv){
 
 

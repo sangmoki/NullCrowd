@@ -2,7 +2,6 @@ package com.teamtwo.nullfunding.notice.controller;
 
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
 import com.teamtwo.nullfunding.notice.service.NoticeService;
-import com.teamtwo.nullfunding.notice.service.NoticeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
