@@ -12,9 +12,9 @@ import java.util.Date;
 public class PersonalInfoDTO {
 
     private int memCode;
-    private String name;
-    private String gender;
     private String phone;
-    private String address;
     private Date birthDate;
+    private String address;
+    private String gender;
+    private String name;
 }
