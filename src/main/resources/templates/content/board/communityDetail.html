@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>메인 페이지</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
+    <link rel="stylesheet" href="../css/style.css">
+    
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
+<meta name="theme-color" content="#7952b3">
+
+    
+    <!-- Custom styles for this template -->
+    <link href="css/header.css" rel="stylesheet">
+
+    <style>
+  .common_sub_vi{
+        background-color: #f3f3f3;
+        height:180px;
+        text-align: center;
+  }
+  .common_vi_title {
+    color: #464646;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: -0.7px;
+  }
+  .btn {
+    font-size: 16px;
+  }
+  type[button]{
+    background-color: blue;
+  }
+  .blue_border {
+    border: 2px solid blue;
+    padding: 9px;
+    border-radius: 5px;
+    color:blue;
+    background-color: #f3f3f3;
+  }
+  .red_border {
+    border: 2px solid red;
+    padding: 9px;
+    border-radius: 5px;
+    color:red;
+  }
+  .list-group{
+    padding: 30px;
+  }
+  .list-group a{
+    text-align: center;
+    padding: 15px;
+    margin-left: 10px;
+    font-size:18px;
+    width:200px;
+  }
+  .list-header {
+    padding: 15px;
+    color:rgb(82, 77, 77);
+    font-size:20px;
+    margin-left: 22px;
+  }
+  .common_vi_title{
+    font-size:30px;
+  }
+  .invisible-text {
+    color: rgba(128, 128, 128, 0.63);
+    font-size: 16px;
+  }
+  .form-control{
+    float:right;
+  }
+  .text-box-header{
+    font-size: 18px;
+  }
+  .text-box-body {
+    font-size: 16px;
+  }
+  .input-text {
+    width: 400px;
+  }
+  .pink-text {
+    color:rgb(214, 94, 114)
+  }
+  .b-example-divider {
+    clear:both;
+  }
+    </style>
+  </head>
+
+  <!-- 메인 헤더부분-->
+  <header th:replace="fragments/header :: headerFragment"></header>
+  <!-- 헤더 끝 -->
+<br><br><br>
+
+<div class="container">
+
+    <div align="center">
+        <script>$('#bookmark-mouseover-ico').on('mouseover', function () { $('#bookmark-mouseover-popup').css('display', 'inline-block'); return false; }).on('mouseout', function () { $('#bookmark-mouseover-popup').hide(); return false; }); $('#bookmark-mouseover-popup').on('mouseover', function () { $('#bookmark-mouseover-popup').css('display', 'inline-block'); return false; }).on('mouseout', function () { $('#bookmark-mouseover-popup').hide(); return false; });</script>
+        <style type="text/css">
+            .ajaxtooltip {
+                position: absolute;
+                /*leave this alone*/
+                display: none;
+                /*leave this alone*/
+                left: 0;
+                /*leave this alone*/
+                top: 0;
+                /*leave this alone*/
+                background: lightyellow;
+                border: 1px solid #000000;
+                padding: 0px;
+            }
+        </style>
+
+        <script language="JavaScript" type="text/JavaScript">
+                 var id="freeboard", no="8175523", page="0", select_arrange="", desc="", page_num="", keyword="", category="", sn="", ss="", sc="", su="", url="/zboard/view.php?id=freeboard&no=8175523", pic_overLimit1="900", pic_overLimit2="900", dir="skin/DQ_Revolution_BBS";
+        </script>
+
+
+        <table border="0" cellspacing="0" cellpadding="0" width="900">
+            <tbody>
+                <tr>
+                    <td height="10"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 작성자 이미지 부분 -->
+        <table border="0" cellspacing="0" cellpadding="0" width="900" class="info_bg">
+            <tbody>
+                <tr>
+                    <td valign="top" style="padding:0 8 0 8">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed">
+                            <tbody>
+                                <tr>
+                                    <td valign="top" class="han" width="100" align="right"><img
+                                            src="https://www.ppomppu.co.kr/images/no_face.jpg" border="0"
+                                            onerror="this.src='/images/no_face.jpg'"></td>
+                                           
+                                    <!-- 제목, 닉네임 등등 설정하는 곳 디스플레이 설정 -->
+                                    <td width="6"></td>
+                                    <td class="separator2" width="3"></td>
+                                    <td width="3"></td>
+
+                                    <td valign="top" nowrap="" style="padding-left:6px;line-height:140%;" class="han">
+                                        <div class="sub-top-contents-box">
+                                            <div class="sub-top-text-box" style="width:620px;">
+                                                제목:
+                                                <font class="view_title2"><!--DCM_TITLE-->명성과 연기력에 비해 10년째 국밥 드시는
+                                                    여배우..JPG<!--/DCM_TITLE--></font>&nbsp;<sup><span
+                                                        class="list_comment">12</span></sup><br>
+                                                닉네임: <span title="">
+                                                        <font class="view_name">미니11</font>
+                                                    </span><br><img src="#f" height="5"
+                                                    width="5" border="0"><br>
+                                                등록일: 2023-01-03 09:48<br>
+
+                                                조회수: 3288<br>
+
+                                            <div id="share-popup-new-pos"></div>
+                                            <div style="clear:both;"></div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <hr/>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="8"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table id="revolution_main_table" border="0" cellspacing="0" cellpadding="0" width="900" class="pic_bg">
+
+
+            <tbody>
+                <tr>
+                    <td height="25">
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table border="0" cellspacing="0" cellpadding="0" width="900" class="pic_bg">
+            <tbody>
+                <tr>
+                    <td>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+        <!-- 본문 글 출력 -->
+        <table border="0" cellspacing="0" cellpadding="0" width="900" class="pic_bg">
+            <tbody>
+                <tr>
+                    <td style="padding:0 8 0 8;" align="left">
+
+
+                        <table width="100%" style="word-break:break-all;">
+                            <tbody>
+                                <tr>
+                                    <td><!--DCM_BODY-->
+                                        <table border="0" cellspacing="0" cellpadding="0" width="100%"
+                                            style="table-layout:fixed;" align="left">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="board-contents" align="left" valign="top">
+                                                        <p>&nbsp;</p>
+                                                        <p>
+                                                            <img src="#"
+                                                                style="width: 540px; height: auto; max-width:900px;"
+                                                                data-css_width="540">
+                                                        </p>
+                                                        <p>&nbsp;</p>
+                                                        <p>영화는 2019년에 개봉했던 '백두산'이 흥행하긴 했지만 전도연은 '특별출연'으로 분량은 매우
+                                                            적었음.&nbsp;</p>
+                                                        <p>&nbsp;</p>
+                                                        <p>비록 흥행성적은 아쉽지만 믿고 보는 배우.</p>
+                                                        <p>&nbsp;</p>
+                                                        <p>
+                                                            <br>
+                                                        </p>
+                                                        <p>&nbsp;</p>
+                                                        <p>&nbsp;</p><!--"&lt;-->
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table><!--/DCM_BODY-->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <!-- 본문 글 끝 -->
+
+
+
+                                                <!-- 댓글 부분 -->
+                <div id="iC_87910529" class="comment_wrapper" align="right" style="width: 880px;">
+                    <div id="comment_87910529" style="position:relative; overflow:hidden; width:100%;"
+                        class="comment_div0">
+                        <div style="width:100%;height:auto;" align="left" class="comment_line ">
+
+                            <a name="87910529" id="87910529"></a>
+                            <p style="border-bottom:1px solid #efefef;"></p>
+                            <table border="0" width="100%" cellspacing="0" cellpadding="0" class="info_bg"
+                                style="table-layout:fixed;padding:0 0 0 0">
+                                <tbody>
+                                    <tr valign="top">
+                                        <td width="100px" align="right" style="padding:0 0 0 0">
+                                            <img src="#"
+                                                border="0" class="over_hide">
+                                        </td>
+                                        <td class="info_bg" width="6px"></td>
+                                        <td class="separator2" width="3px"></td>
+                                        <td width="3px"></td>
+                                        <td style=" padding:2px 4px 4px 5px;word-break:break-all;">
+
+                                            <b>뉴타입</b>
+                                            <div id="commentContent_87910529" class="over_hide link-point mid-text-area"
+                                                style="position:relative;overflow:hidden;width:100%;padding:4px 0 0 0;color:#000;min-height: 40px;line-height: 18px;">
+                                                <p>무뢰한 좋았는데 흥행은 잘 안되서 많이는 모르는듯요</p>
+                                                <p>&nbsp;</p>
+                                                <p>본사람들은 다 좋았다고 하더라고요</p>
+                                            </div>
+
+                                            <div id="ori_comment_87910529" style="display:none;"><textarea
+                                                class="ori_comment">&lt;p&gt;무뢰한 좋았는데 흥행은 잘 안되서 많이는 모르는듯요&lt;/p&gt;
+                                                &lt;p&gt;&nbsp;&lt;/p&gt;
+                                                &lt;p&gt;본사람들은 다 좋았다고 하더라고요&lt;/p&gt;</textarea>
+                                            </div>
+                                            <div class="mt8 over_hide">
+                                                <font class="eng-day" title="">10:00:21</font>
+                                                <span class="comment-btn-layout">
+                                                </span>
+                                                <span class="comment-lock">
+
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+</div>
+</div>
+<br><br><br><br><br><br>
+<!-- 바디 끝 -->
+
+  <!-- 푸터 시작  -->
+  <footer th:replace="fragments/footer :: footerFragment"></footer>
+  <!-- 메인 푸터 끝 -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>
+                        

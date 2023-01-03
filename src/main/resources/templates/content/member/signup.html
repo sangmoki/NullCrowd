@@ -8,12 +8,11 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
     <title>메인 페이지</title>
-    
-  <body>
+  </head>
+  <body class="site-body">
     <!-- 메인 헤더 -->
     <header th:replace="fragments/header :: headerFragment"></header>
     <!-- 메인 바디 시작 -->
-    <body class="site-body">
         <div class="container">
             <div style = "padding: 50px 75px 50px 75px;">
                 <h2>회원가입</h2>
@@ -39,15 +38,15 @@
                               <div class="row">
                                 <div class=" col-lg-3">
                                     <label class="form-label">비밀번호</label>
-                                    <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelp">
+                                    <input type="password" id="inputPassword" class="form-control" >
                                 </div>
                                     <div id="passwordHelp" class="form-text pb15">비밀번호는 8~20 자리의 문자나 숫자만 가능합니다. 공백 및 특수문자는 허용하지 않습니다.</div>
                               </div>
                               <div class="row" >
                                 <div class=" col-lg-3">
                                     <label class="form-label">비밀번호 확인</label>
-                                    <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelp">
-                                    <div id="passwordHelp" class="form-text pb15">동일한 비밀번호를 한번 더 입력해주세요.</div>
+                                    <input type="password" id="checkPassword" class="form-control" >
+                                    <div class="form-text pb15">동일한 비밀번호를 한번 더 입력해주세요.</div>
                                 </div>
                               </div>
                               
@@ -55,7 +54,7 @@
                                 <div class=" col-lg-3">
                                   <!-- 정규표현식 영문,한글만 넣어주기 -->
                                     <label class="form-label"> 이름　</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    <input type="email" class="form-control" id="InputEmail1" >
                                 </div>
                               </div>
 
@@ -97,10 +96,11 @@
                               <div></div>
 
                               <div class="row pb15">
-                                <label for="phoneLalabelble">휴대 전화</label>
+                                <label for="phone">휴대 전화
                                 <div class="col-lg-3" >
-                                    <input type="Phone" class="form-control" id="phoneNumber" placeholder="전화번호 입력">
-                                </div> 
+                                    <input type="Phone" class="form-control" id="phone" placeholder="전화번호 입력">
+                                </div>
+                                </label>
                               </div>
 
                               
@@ -108,7 +108,7 @@
                               <div class="row">
                                 <div class=" col-lg-3">
                                       <label  class="form-label">본인 확인 이메일<span>(선택)</span>　</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    <input type="email" class="form-control" id="exampleInputEmail1" >
                                 </div>
                               </div>
                               <div id="emailHelp" class="form-text">
@@ -121,11 +121,6 @@
                   </form>
             </div>
         </div>
-    </body>                   
-
-
-<br><br><br><br><br><br><br><br><br><br>
-
                             <!-- 메인 바디 끝 -->
 
                             <!-- 메인 푸터  -->
