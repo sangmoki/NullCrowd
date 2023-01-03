@@ -22,7 +22,7 @@ public class CommunityController {
     }
 
     @GetMapping("/list")
-    public ModelAndView noticeList(ModelAndView mv) {
+    public ModelAndView communityList(ModelAndView mv) {
 
         mv.setViewName("content/board/community");
 

@@ -1,5 +1,6 @@
 package com.teamtwo.nullfunding.notice.controller;
 
+import com.teamtwo.nullfunding.common.Exception.notice.NoticeInsertException;
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
 import com.teamtwo.nullfunding.notice.service.NoticeService;
 import org.slf4j.Logger;
@@ -32,7 +33,6 @@ public class NoticeController {
     public ModelAndView noticeList(ModelAndView mv) {
 
         List<NoticeDTO> noticeList = noticeService.selectAllNoticeList();
-
         mv.addObject("noticeList", noticeList);
 
         mv.setViewName("content/notice/noticeList");
@@ -47,14 +47,14 @@ public class NoticeController {
     }
 
     @PostMapping("/insertNotice")
-    public String insertNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr){
+    public String insertNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr) throws NoticeInsertException {
 
         log.info("");
         log.info("");
         log.info("[NoticeController] registBoard =========================================================");
         log.info("[NoticeController] registBoard Request : " + notice);
 
-        noticeServiceImpl.insertNotice(notice);
+        noticeService.insertNotice(notice);
 
         rttr.addFlashAttribute("message", "공지사항 등록에 성공하셨습니다!");
 

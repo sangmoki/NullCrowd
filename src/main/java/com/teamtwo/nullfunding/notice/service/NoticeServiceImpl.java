@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,7 +23,17 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public List<NoticeDTO> selectAllNoticeList() {
 
+        Date nowDate = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+
+        // 원하는 데이터 포맷 지정
+        simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
+
+        // 지정한 포맷으로 변환
+        System.out.println(simpleDateFormat.format(nowDate));
+
         List<NoticeDTO> noticeList = noticeMapper.selectAllNoticeList();
+        System.out.println(noticeList);
 
         return noticeList;
     }
