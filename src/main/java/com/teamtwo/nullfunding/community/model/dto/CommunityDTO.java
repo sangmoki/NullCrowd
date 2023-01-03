@@ -1,6 +1,9 @@
 package com.teamtwo.nullfunding.community.model.dto;
 
+<<<<<<< HEAD
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
+=======
+>>>>>>> origin/master
 import lombok.*;
 
 import java.util.Date;
@@ -17,5 +20,8 @@ public class CommunityDTO {
     private String title; // 제목
     private String content; // 내용
     private Date uploadDate; // 작성일
+<<<<<<< HEAD
     private MemberDTO writer;
+=======
+>>>>>>> origin/master
 }

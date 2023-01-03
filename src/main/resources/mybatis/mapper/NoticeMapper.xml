@@ -6,7 +6,7 @@
 
     <resultMap type="NoticeDTO" id="noticeResultMap">
         <id property="noticeNo" column="NOTICE_NO"/>
-        <result property="nickName" column="NICK_NAME"/>
+        <result property="nickName" column="NICKNAME"/>
         <result property="noticeTitle" column="NOTICE_TITLE"/>
         <result property="noticeContent" column="NOTICE_CONTENT"/>
         <result property="uploadDate" column="UPLOAD_DATE"/>
@@ -20,7 +20,7 @@
              , B.NICKNAME
              , A.NOTICE_TITLE
              , A.NOTICE_CONTENT
-             , A.UPLOAD_DATED
+             , A.UPLOAD_DATE
              , A.READ_COUNT
          FROM NOTICE A JOIN MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
         ORDER BY A.NOTICE_NO DESC
