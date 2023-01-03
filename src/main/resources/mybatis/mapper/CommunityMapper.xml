@@ -6,14 +6,14 @@
 
     <resultMap type="CommunityDTO" id="CommunityResultMap">
         <id property="articleNo" column="ARTICLE_NO"/>
-        <result property="nickName" column="NICK_NAME"/>
+<!--        <result property="nickName" column="NICK_NAME"/>-->
         <result property="memCode" column="MEM_CODE"/>
         <result property="title" column="TITLE"/>
         <result property="content" column="CONTENT"/>
         <result property="uploadDate" column="UPLOAD_DATE"/>
 
         <association property="writer" resultMap="memberResultMap"/>
-        <association property="category" resultMap="categoryResultMap"/>
+<!--        <association property="category" resultMap="categoryResultMap"/>-->
     </resultMap>
 
     <resultMap type="MemberDTO" id="memberResultMap">
@@ -27,8 +27,8 @@
         <result property="recentLogin" column="RECENTLOGIN"/>
     </resultMap>
 
-    <resultMap type="ComCommunityDTO" id="ComCommunityResultMap">
-        <id property="no" column="COMMENT_NO"/>
+    <resultMap type="ComCommentDTO" id="ComCommentResultMap">
+        <id property="commentNo" column="COMMENT_NO"/>
         <result property="nickName" column="NICK_NAME"/>
         <result property="memCode" column="MEM_CODE"/>
         <result property="articleNo" column="ARTICLE_NO"/>
@@ -40,74 +40,106 @@
 
     <!-- 모든 게시판 리스트 조회 -->
     <select id="selectAllCommunityList" resultMap="CommunityResultMap">
-        SELECT
-            A.Community_NO
-             , B.NICKNAME
-             , A.Community_TITLE
-             , A.Community_CONTENT
-             , A.UPLOAD_DATED
-             , A.READ_COUNT
-        FROM Community A JOIN MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
-        ORDER BY A.Community_NO DESC
+        SELECT A.ARTICLE_NO
+             , B.MEM_CODE
+             , A.TITLE
+             , A.CONTENT
+             , A.UPLOAD_DATE
+        FROM Community A
+                 JOIN MEMBER B ON (A.MEM_CODE = B.MEM_CODE)
+        ORDER BY A.ARTICLE_NO DESC
     </select>
 
-    <!-- 공지사항 게시글 추가 -->
+    <!-- 게시판 게시글 추가 -->
     <insert id="insertCommunity" parameterType="CommunityDTO">
         INSERT
-        INTO Community A
-            (
-             A.Community_NO
-           , A.Community_TITLE
-           , A.Community_CONTENT
+        INTO COMMUNITY (
+             ARTICLE_NO
+             , MEM_CODE
+             , TITLE
+             , CONTENT
+             , UPLOAD_DATE
         )
         VALUES
             (
-            SEQ_Community_NO.NEXTVAL
-                , #{ CommunityTitle }
-                , #{ CommunityContent }
+            SEQ_COMMUNITY_NO.NEXTVAL
+            , #{ memCode }
+            , #{ title }
+            , #{ content }
+            , SYSDATE
             )
     </insert>
 
-    <!-- 공지사항 게시글 수정 -->
+    <!-- 게시판 게시글 수정 ㅇㅇ -->
     <update id="updateCommunity" parameterType="CommunityDTO">
         UPDATE
-            Community A
-        SET   A.Community_TITLE = #{ CommunityTitle }
-          , A.Community_CONTENT = #{ CommunityContent }
-        WHERE A.Community_NO = #{ no }
+            COMMUNITY A
+        SET A.TITLE   = #{ title }
+          , A.CONTENT = #{ content }
+        WHERE A.ARTICLE_NO = #{ no }
     </update>
 
-    <!-- 공지사항 게시글 삭제 -->
+    <!-- 공지사항 게시글 삭제 ㅇㅇ -->
     <delete id="deleteCommunity" parameterType="int">
         DELETE
-        FROM   Community A
-        WHERE  A.Community_NO = #{ no }
+        FROM COMMUNITY A
+        WHERE A.ARTICLE_NO = #{ no }
     </delete>
 
-    <!-- 검색하여 공지사항 조회 -->
+    <!-- 검색하여 게시판 조회 ㅇㅇ -->
     <select id="selectChoiceCommunity" parameterType="int" resultMap="CommunityResultMap">
-        SELECT
-            A.Community_NO
-             , B.NICKNAME
-             , A.Community_TITLE
-             , A.Community_CONTENT
+        SELECT A.ARTICLE_NO
+             , B.MEM_CODE
+             , A.TITLE
+             , A.CONTENT
              , A.UPLOAD_DATE
-             , A.READ_COUNT
-        FROM  Community A
-                  JOIN  MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
-        WHERE A.Community_NO = #{ no }
+        FROM COMMUNITY A
+                 JOIN MEMBER B ON (A.MEM_CODE = B.MEM_CODE)
+        WHERE A.ARTICLE_NO = #{ no }
     </select>
 
-    <!-- 조회 시 조회 수 증가 -->
-    <update id="incrementCommunityCount" parameterType="int">
-        UPDATE
-            Community A
-        SET A.READ_COUNT = (SELECT B.READ_COUNT
-                            FROM  Community B
-                            WHERE B.Community_NO = #{ no }
-                           ) + 1
-        WHERE A.Community_NO = #{ no }
-    </update>
+    <!-- 모든 댓글 리스트 조회 ㅇㅇ -->
+    <select id="selectComCommentList" resultMap="ComCommentResultMap">
+        SELECT /* com.teamtwo.nullfunding.community.model.dao.CommunityMapper#selectComCommentList() */
+            A.COMMENT_NO
+             , A.ARTICLE_NO
+             , A.CONTENT
+             , A.UPLOAD_DATE
+             , B.MEM_CODE
+             , B.NICKNAME
+        FROM COMMUNITY A
+                 JOIN MEMBER B ON (A.MEM_CODE = B.MEM_CODE)
+        WHERE A.CONTENT IS NOT NULL
+        ORDER BY A.COMMENT_NO
+    </select>
+
+    <!-- 게시판 댓글 추가 ㅇㅇ -->
+    <insert id="comCommentReply">
+        INSERT /* com.teamtwo.nullfunding.community.model.dao.CommunityMapper#insertComComment() */
+        INTO TBL_REPLY A (
+          A.COMMENT_NO
+        , A.ARTICLE_NO
+        , A.MEM_CODE
+        , A.CONTENT
+        , A.UPLOAD_DATE
+        )
+        VALUES
+            (
+            SEQ_COMMENT_NO.NEXTVAL
+                , #{ articleNo }
+                , #{ memCode }
+                , #{ content }
+                , #{ content }
+            )
+    </insert>
+
+    <!-- 모든 게시판 리스트 조회 ㅇㅇ -->
+    <delete id="deleteReply" parameterType="long">
+        DELETE /* com.ohgiraffers.thymeleafspringboot.board.dao.BoardMapper#deleteReply() */
+        FROM TBL_REPLY A
+        WHERE A.REPLY_NO = #{ replyNo }
+    </delete>
+
     <resultMap type="CommunityDTO" id="CommunityResultMap">
         <id property="CommunityNo" column="Community_NO"/>
         <result property="nickName" column="NICK_NAME"/>
@@ -176,14 +208,14 @@
 
     <!-- 모든 공지사항 리스트 조회 -->    <!-- 완료 ! -->
     <select id="selectAllCommunityList" resultMap="CommunityResultMap">
-        SELECT
-            A.Community_NO
+        SELECT A.Community_NO
              , B.NICKNAME
              , A.Community_TITLE
              , A.Community_CONTENT
              , A.UPLOAD_DATED
              , A.READ_COUNT
-        FROM Community A JOIN MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
+        FROM Community A
+                 JOIN MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
         ORDER BY A.Community_NO DESC
     </select>
 
@@ -390,8 +422,7 @@
 
     <insert id="insertReply">
         INSERT /* com.ohgiraffers.thymeleafspringboot.board.dao.BoardMapper#insertReply() */
-        INTO TBL_REPLY A
-            (
+        INTO TBL_REPLY A (
           A.REPLY_NO
         , A.REF_BOARD_NO
         , A.REPLY_BODY
@@ -414,8 +445,7 @@
 
     <insert id="insertBoard">
         INSERT /* com.ohgiraffers.thymeleafspringboot.board.dao.BoardMapper#insertBoard() */
-        INTO TBL_BOARD A
-            (
+        INTO TBL_BOARD A (
           A.BOARD_NO
         , A.BOARD_TYPE
         , A.CATEGORY_CODE
@@ -456,7 +486,7 @@
     </select>
 
 
-    <insert id="insertThumbnailContent" >
+    <insert id="insertThumbnailContent">
         INSERT /* com.ohgiraffers.thymeleafspringboot.board.dao.BoardMapper#insertThumbnailContent() */
         INTO TBL_BOARD A
         (
@@ -483,8 +513,7 @@
 
     <insert id="insertAttachment">
         INSERT /* com.ohgiraffers.thymeleafspringboot.board.dao.BoardMapper#insertAttachment() */
-        INTO TBL_ATTACHMENT A
-            (
+        INTO TBL_ATTACHMENT A (
           A.ATTACHMENT_NO
         , A.REF_BOARD_NO
         , A.ORIGINAL_NAME
@@ -510,8 +539,7 @@
             TBL_BOARD A
         SET A.BOARD_COUNT = (SELECT B.BOARD_COUNT
                              FROM TBL_BOARD B
-                             WHERE B.BOARD_NO = #{ no }
-                            ) + 1
+                             WHERE B.BOARD_NO = #{ no }) + 1
         WHERE A.BOARD_NO = #{ no }
     </update>
 

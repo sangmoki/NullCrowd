@@ -10,7 +10,7 @@ import java.util.Date;
 @ToString
 @Getter
 @Setter
-public class ComcommentDTO {
+public class ComCommentDTO {
 
     private int commentNo; // 댓글번호(시퀀스)
     private int articleNo; // 게시글번호(시퀀스)
