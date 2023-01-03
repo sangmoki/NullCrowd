@@ -2,6 +2,7 @@ package com.teamtwo.nullfunding.community.service;
 
 import com.teamtwo.nullfunding.community.model.dao.CommunityMapper;
 import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,8 +10,9 @@ import java.util.List;
 @Service
 public class CommunityServiceImpl {
 
-    private final CommunityMapper mapper;
+    private  CommunityMapper mapper;
 
+    @Autowired
     public CommunityServiceImpl(CommunityMapper mapper) {
         this.mapper = mapper;
     }

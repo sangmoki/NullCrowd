@@ -1,5 +1,6 @@
 package com.teamtwo.nullfunding.community.model.dto;
 
+import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import lombok.*;
 
 import java.util.Date;
@@ -16,4 +17,5 @@ public class CommunityDTO {
     private String title; // 제목
     private String content; // 내용
     private Date uploadDate; // 작성일
+    private MemberDTO writer;
 }
