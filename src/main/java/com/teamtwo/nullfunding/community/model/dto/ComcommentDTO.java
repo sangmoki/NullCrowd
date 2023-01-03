@@ -18,5 +18,4 @@ public class ComcommentDTO {
     private String content; // 내용
     private Date uploadDate; // 작성일
     private MemberDTO writer;
-
 }

@@ -1,7 +1,7 @@
 package com.teamtwo.nullfunding.community.controller;
 
 import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
-import com.teamtwo.nullfunding.community.service.CommunityServiceImpl;
+import com.teamtwo.nullfunding.community.service.CommunityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,9 +15,9 @@ import java.util.List;
 @RequestMapping("/notice")
 public class CommunityController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final CommunityServiceImpl communityServiceImpl;
+    private final CommunityService communityServiceImpl;
 
-    public CommunityController(CommunityServiceImpl communityServiceImpl) {
+    public CommunityController(CommunityService communityServiceImpl) {
         this.communityServiceImpl = communityServiceImpl;
     }
 
@@ -38,57 +38,57 @@ public class CommunityController {
 
         return mv;
     }
-//
-//    @GetMapping("/regist")
-//    public String goRegister() {
-//        return "content/notice/noticeRegist";
-//    }
-//
-//    @PostMapping("/regist")
-//    public String registNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr) throws NoticeRegistException {
-//
-//        log.info("");
-//        log.info("");
-//        log.info("[NoticeController] registBoard =========================================================");
-//        log.info("[NoticeController] registBoard Request : " + notice);
-//
-//        noticeService.registNotice(notice);
-//
-//        rttr.addFlashAttribute("message", "공지사항 등록에 성공하셨습니다!");
-//
-//        log.info("[NoticeController] registBoard =========================================================");
-//
-//        return "redirect:/notice/list";
-//    }
-//
-//    @GetMapping("/detail")
-//    public String selectNoticeDetail(HttpServletRequest request, Model model) {
-//
-//        log.info("");
-//        log.info("");
-//        log.info("[NoticeController] selectNoticeDetail =========================================================");
-//
-//        Long no = Long.valueOf(request.getParameter("no"));
-//        log.info("[NoticeController] selectNoticeDetail No : " + no);
-//
-//        NoticeDTO noticeDetail = noticeService.selectNoticeDetail(no);
-//        log.info("[NoticeController] noticeDetail : " + noticeDetail);
-//        model.addAttribute("notice", noticeDetail);
-//
-//        log.info("[NoticeController] selectNoticeDetail =========================================================");
-//
-//        return "content/notice/noticeDetail";
-//    }
-//
-//    @GetMapping("/update")
-//    public String goModifyNotice(HttpServletRequest request, Model model) {
-//
-//        log.info("");
-//        log.info("");
-//        log.info("[NoticeController] modifyNotice =========================================================");
-//
-//        Long no = Long.valueOf(request.getParameter("no"));
-//
-//        NoticeDTO notice = noticeService.selectNoticeDetail(no);
+
+    @GetMapping("/regist")
+    public String goRegister() {
+        return "content/notice/noticeRegist";
+    }
+
+    @PostMapping("/regist")
+    public String registNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr) throws NoticeRegistException {
+
+        log.info("");
+        log.info("");
+        log.info("[NoticeController] registBoard =========================================================");
+        log.info("[NoticeController] registBoard Request : " + notice);
+
+        noticeService.registNotice(notice);
+
+        rttr.addFlashAttribute("message", "공지사항 등록에 성공하셨습니다!");
+
+        log.info("[NoticeController] registBoard =========================================================");
+
+        return "redirect:/notice/list";
+    }
+
+    @GetMapping("/detail")
+    public String selectNoticeDetail(HttpServletRequest request, Model model) {
+
+        log.info("");
+        log.info("");
+        log.info("[NoticeController] selectNoticeDetail =========================================================");
+
+        Long no = Long.valueOf(request.getParameter("no"));
+        log.info("[NoticeController] selectNoticeDetail No : " + no);
+
+        NoticeDTO noticeDetail = noticeService.selectNoticeDetail(no);
+        log.info("[NoticeController] noticeDetail : " + noticeDetail);
+        model.addAttribute("notice", noticeDetail);
+
+        log.info("[NoticeController] selectNoticeDetail =========================================================");
+
+        return "content/notice/noticeDetail";
+    }
+
+    @GetMapping("/update")
+    public String goModifyNotice(HttpServletRequest request, Model model) {
+
+        log.info("");
+        log.info("");
+        log.info("[NoticeController] modifyNotice =========================================================");
+
+        Long no = Long.valueOf(request.getParameter("no"));
+
+        NoticeDTO notice = noticeService.selectNoticeDetail(no);
 
 }
