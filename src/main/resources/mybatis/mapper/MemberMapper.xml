@@ -4,6 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamtwo.nullfunding.member.dao.MemberMapper">
+    
+    <resultMap id="loginMemberResultMap" type="MemberDTO">
+
+    </resultMap>
 
     <!-- 아아디 중복 확인 -->
     <select id="selectMemberById" resultType="string">
@@ -15,7 +19,7 @@
     </select>
 
     <!-- 회원 가입 -->
-    <insert id="insertMember" parameterType="com.teamtwo.nullfunding.member.dto.MemberDTO">
+    <insert id="insertMember" parameterType="MemberDTO">
         INSERT /* com.ohgiraffers.thymeleafspringboot.member.dao.MemberMapper#insertMember() */
         INTO MEMBER
         (
@@ -42,7 +46,7 @@
     </insert>
 
     <!-- 회원 가입 personalInfo  -->
-    <insert id="insertPersonalInfo" parameterType="com.teamtwo.nullfunding.member.dto.PersonalInfoDTO">
+    <insert id="insertPersonalInfo" parameterType="PersonalInfoDTO">
     INSERT /* com.ohgiraffers.thymeleafspringboot.member.dao.MemberMapper#insertPersonalInfo() */
     INTO PERSONALINFO
     (
@@ -65,7 +69,7 @@
     SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL;
 </selectKey>
 
-
 </insert>
 
+    <select id="findMemberById" resultMap="loginMemberResultMap"></select>
 </mapper>

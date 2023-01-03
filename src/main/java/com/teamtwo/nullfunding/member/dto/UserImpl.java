@@ -1,15 +1,12 @@
 package com.teamtwo.nullfunding.member.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.Date;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@Getter
-@Setter
-public class MemberDTO {
+
+public class UserImpl extends User {
 
     private int memCode;
     private int authCode;
@@ -20,4 +17,6 @@ public class MemberDTO {
     private String nickName;
     private Date recentLogin;
     private PersonalInfoDTO personalInfoDTO;
+
+
 }
