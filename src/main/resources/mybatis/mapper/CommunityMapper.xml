@@ -5,15 +5,40 @@
 <mapper namespace="com.teamtwo.nullfunding.Community.model.dao.CommunityMapper">
 
     <resultMap type="CommunityDTO" id="CommunityResultMap">
-        <id property="CommunityNo" column="Community_NO"/>
+        <id property="articleNo" column="ARTICLE_NO"/>
         <result property="nickName" column="NICK_NAME"/>
-        <result property="CommunityTitle" column="Community_TITLE"/>
-        <result property="CommunityContent" column="Community_CONTENT"/>
+        <result property="memCode" column="MEM_CODE"/>
+        <result property="title" column="TITLE"/>
+        <result property="content" column="CONTENT"/>
         <result property="uploadDate" column="UPLOAD_DATE"/>
-        <result property="readCount" column="READ_COUNT"/>
+
+        <association property="writer" resultMap="memberResultMap"/>
+        <association property="category" resultMap="categoryResultMap"/>
     </resultMap>
 
-    <!-- 모든 공지사항 리스트 조회 -->    <!-- 완료 ! -->
+    <resultMap type="MemberDTO" id="memberResultMap">
+        <id property="memCode" column="MEM_CODE"/>
+        <result property="authCode" column="AUTH_CODE"/>
+        <result property="memEmail" column="MEM_EMAIL"/>
+        <result property="memPwd" column="MEM_PWD"/>
+        <result property="isActive" column="IS_ACTIVE"/>
+        <result property="regiDate" column="REGI_DATE"/>
+        <result property="nickName" column="NICKNAME"/>
+        <result property="recentLogin" column="RECENTLOGIN"/>
+    </resultMap>
+
+    <resultMap type="ComCommunityDTO" id="ComCommunityResultMap">
+        <id property="no" column="COMMENT_NO"/>
+        <result property="nickName" column="NICK_NAME"/>
+        <result property="memCode" column="MEM_CODE"/>
+        <result property="articleNo" column="ARTICLE_NO"/>
+        <result property="content" column="CONTENT"/>
+        <result property="uploadDate" column="UPLOAD_DATE"/>
+
+        <association property="writer" resultMap="memberResultMap"/>
+    </resultMap>
+
+    <!-- 모든 게시판 리스트 조회 -->
     <select id="selectAllCommunityList" resultMap="CommunityResultMap">
         SELECT
             A.Community_NO
