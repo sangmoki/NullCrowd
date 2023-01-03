@@ -31,28 +31,18 @@
                 <th>번호</th>
                 <th>제목</th>
                 <th>작성자</th>
-                <th>날짜</th>
+                <th>작성일</th>
                 <th>조회수</th>
             </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>아니 진짜 힘드네</td>
-                    <td>이상목</td>
-                    <td>2022-12-21</td>
-                    <td>2</td>
-
-                </tr>
-            <c:forEach items="${ noticeList }" var="notice">
-                <tr>
-                    <td><c:out value="${ notice.no }"/></td>
-                    <td><c:out value="${ notice.title }"/></td>
-                    <td><c:out value="${ notice.writer.nickname }"/></td>
-                    <td><c:out value="${ notice.count }"/></td>
-                    <td><c:out value="${ notice.createdDate }"/></td>
-                </tr>
-            </c:forEach>
+           <tr th:each="notice : ${noticeList}">
+                    <td th:text="${notice.noticeNo}"></td>
+                    <td th:text="${notice.noticeTitle}"></td>
+                    <td th:text="${notice.nickName}"></td>
+                    <td th:text="${#dates.format(notice.uploadDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${notice.readCount}"></td>
+           </tr>
             </tbody>
         </table>
     </div>
@@ -64,11 +54,11 @@
         </select>
         <input type="search">
         <button type="submit">검색하기</button>
-        
-        <!-- 관리자인 경우에만 작성하기 버튼이 보여짐 -->
-        <c:if test="${ sessionScope.loginMember.role eq 'ADMIN' }">
+
+<!--         관리자인 경우에만 작성하기 버튼이 보여짐  &ndash;&gt; -->
+<!--            <div th:if = "${ sessionScope.authName.role eq 'ADMIN' }">-->
             <button id="writeNotice">작성하기</button>
-        </c:if>
+<!--            </div>-->
     </div>
     </div>
     <br><br><br><br>
@@ -88,7 +78,6 @@
             }
             
             $tds[i].onclick = function() {
-                /* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
                 const no = this.parentNode.children[0].innerText;
                 location.href = "${ pageContext.servletContext.contextPath }/notice/detail?no=" + no;
             }
