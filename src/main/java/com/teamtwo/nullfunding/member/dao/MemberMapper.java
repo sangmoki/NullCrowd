@@ -7,9 +7,12 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface MemberMapper {
+    MemberDTO findMemberById(String memEmail);
 
-    public String selectMemberById(String memEmail);
+//    public String selectMemberById(String memEmail);
+//
+//    public int insertMember(MemberDTO member);
 
-    public int insertMember(MemberDTO member);
+    
 }
 

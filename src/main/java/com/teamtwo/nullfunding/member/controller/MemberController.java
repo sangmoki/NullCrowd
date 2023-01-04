@@ -1,16 +1,27 @@
 package com.teamtwo.nullfunding.member.controller;
 
 import com.teamtwo.nullfunding.member.service.MemberService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 @RequestMapping("/member")
 public class MemberController {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final PasswordEncoder passwordEncoder;
+    private MemberService memberService;
 
+    @Autowired
+    public MemberController(PasswordEncoder passwordEncoder, MemberService memberService) {
+        this.passwordEncoder = passwordEncoder;
+        this.memberService = memberService;
+    }
 
     @GetMapping("/signup")
     public String signupMember(){
@@ -19,11 +30,8 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public ModelAndView goLogIn(ModelAndView mv){
-
-        mv.setViewName("content/member/login");
-
-        return mv;
+    public String goLogIn(){
+        return "content/member/login";
     }
 }
 
