@@ -18,8 +18,10 @@ public class ProjectController {
 
     @RequestMapping("/makeProject")
     public String makeProject(){
+        String projectPage = "/content/project/makePJ1";
 
 
-        return "";
+
+        return projectPage;
     }
 }
