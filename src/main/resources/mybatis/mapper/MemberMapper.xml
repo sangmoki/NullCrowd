@@ -16,7 +16,15 @@
         <result property="authName" column="AUTH_NAME"/>
 
         <association property="personalInfoDTO" resultMap="personalInfoDTO"/>
+        <association property="fundRaiserDTO" resultMap="fundRaiserDTO"/>
+    </resultMap>
 
+    <resultMap id="fundRaiserDTO" type="FundRaiserDTO">
+        <id property="raiserCode" column="RAISER_CODE"/>
+        <result property="raiNickname" column="RAI_NICKNAME"/>
+        <result property="raiAddress" column="RAI_ADDRESS"/>
+        <result property="raiEmail" column="RAI_EMAIL"/>
+        <result property="raiPhone" column="RAI_PHONE"/>
     </resultMap>
 
     <resultMap id="personalInfoDTO" type="PersonalInfoDTO">
@@ -107,8 +115,14 @@
               , B.ADDRESS
               , B.GENDER
               , B.NAME
+              , C.RAISER_CODE
+              , C.RAI_NICKNAME
+              , C.RAI_ADDRESS
+              , C.RAI_EMAIL
+              , C.RAI_PHONE
         FROM MEMBER A
         LEFT JOIN PERSONALINFO B ON (A.MEM_CODE = B.MEM_CODE)
+        LEFT JOIN FUNDRAISER C ON (A.MEM_CODE = C.RAISER_CODE)
        WHERE A.MEM_EMAIL = #{ memEmail }
     </select>
 </mapper>
