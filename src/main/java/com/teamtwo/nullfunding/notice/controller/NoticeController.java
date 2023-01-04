@@ -1,6 +1,5 @@
 package com.teamtwo.nullfunding.notice.controller;
 
-import com.teamtwo.nullfunding.common.Exception.notice.NoticeInsertException;
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
 import com.teamtwo.nullfunding.notice.service.NoticeService;
 import org.slf4j.Logger;
@@ -19,6 +18,7 @@ import java.util.List;
 @RequestMapping("/notice")
 public class NoticeController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     private NoticeService noticeService;
 
     @Autowired
@@ -26,6 +26,7 @@ public class NoticeController {
         this.noticeService = noticeService;
     }
 
+    // 모든 공지사항 조회
     @GetMapping("/list")
     public ModelAndView noticeList(ModelAndView mv) {
 
@@ -37,47 +38,67 @@ public class NoticeController {
         return mv;
     }
 
-    // 공지사항 추가하는 용도의 메서드
-    @GetMapping("/insert")
+    // 공지사항 검색하여 조회
+//    @GetMapping("/list")
+//    public ModelAndView selectChoiceNotice(ModelAndView mv){
+//
+//        List<NoticeDTO> noticeList = noticeService.selectChoiceNotice();
+//        mv.addObject("noticeList", noticeList);
+//
+//        mv.setViewName("content/notice/noticeList");
+//
+//        return mv;
+//    }
+
+    // 공지사항 상세보기 페이지
+//    @GetMapping("/list")
+//    public ModelAndView goChoiceNotice(ModelAndView mv) {
+//
+//        int no = 0;
+//
+//        List<NoticeDTO> noticeList = noticeService.selectChoiceNotice(no);
+//        mv.addObject("noticeList", noticeList);
+//
+//        mv.setViewName("content/notice/noticeList");
+//
+//        return mv;
+//    }
+
+
+//     공지사항 추가하는 용도의 메서드
+    @GetMapping("insert")
     public String goInsert() {
 
         return "content/notice/noticeInsert";
     }
 
-    @PostMapping("/insertNotice")
-    public String insertNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr){
+    @PostMapping("insert")
+    public String insertNotice(Model model, @RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContent") String noticeContent) throws Exception {
 
+        NoticeDTO notice = new NoticeDTO();
+
+        notice.setNoticeTitle(noticeTitle);
+        notice.setNoticeContent(noticeContent);
+
+        System.out.println("들어온 값");
+        System.out.println(notice);
         noticeService.insertNotice(notice);
-
-        rttr.addFlashAttribute("message", "공지사항 등록에 성공하셨습니다!");
 
         return "redirect:/notice/list";
     }
 
-    // 공지사항 상세보기 페이지
-    @GetMapping("/detail")
-    public String selectNoticeDetail(HttpServletRequest request, Model model) {
 
-
-        int no = Integer.valueOf(request.getParameter("no"));
-
-        NoticeDTO noticeDetail = noticeService.selectChoiceNotice(no);
-        model.addAttribute("notice", noticeDetail);
-
-        return "content/notice/noticeDetail";
-    }
-
-    @GetMapping("/update")
-    public String updateNotice(HttpServletRequest request, Model model) {
-
-        int no = Integer.valueOf(request.getParameter("no"));
-
-        NoticeDTO notice = noticeService.selectChoiceNotice(no);
-
-        model.addAttribute("notice", notice);
-
-        return "content/notice/noticeUpdate";
-    }
-
-
+//    @GetMapping("/update")
+//    public String updateNotice(HttpServletRequest request, Model model) {
+//
+//        int no = Integer.valueOf(request.getParameter("no"));
+//
+//        NoticeDTO notice = noticeService.updateNotice(no);
+//
+//        model.addAttribute("notice", notice);
+//
+//        return "content/notice/noticeUpdate";
+//    }
 }
+
+
