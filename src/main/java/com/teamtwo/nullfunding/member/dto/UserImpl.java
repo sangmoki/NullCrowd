@@ -10,7 +10,7 @@ import java.util.Date;
 public class UserImpl extends User {
 
     private int memCode;
-    private int authCode;
+    private String authName;
     private String memEmail;
     private String memPwd;
     private String isActive;
@@ -26,7 +26,7 @@ public class UserImpl extends User {
     public void setDetails(MemberDTO member) {
 
         this.memCode = member.getMemCode();
-        this.authCode = member.getAuthCode();
+        this.authName = member.getAuthName();
         this.memEmail = member.getMemEmail();
         this.memPwd = member.getMemPwd();
         this.isActive = member.getIsActive();
@@ -38,7 +38,7 @@ public class UserImpl extends User {
 
     public int getMemCode() { return memCode; }
 
-    public int getAuthCode() { return authCode; }
+    public String getAuthority() { return authName; }
 
     public String getMemEmail() { return memEmail; }
 
@@ -58,7 +58,7 @@ public class UserImpl extends User {
     public String toString() {
         return "UserImpl{" +
                 "memCode=" + memCode +
-                ", authCode=" + authCode +
+                ", authName=" + authName +
                 ", memEmail='" + memEmail + '\'' +
                 ", memPwd='" + memPwd + '\'' +
                 ", isActive='" + isActive + '\'' +

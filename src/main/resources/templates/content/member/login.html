@@ -9,6 +9,8 @@
     <meta name="generator" content="Hugo 0.88.1">
     <title>로그인 페이지</title>
     <!-- Bootstrap core CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
 </head>
 <body>
                               <!-- 헤더 -->
@@ -16,24 +18,27 @@
                             <!-- 메인 바디 시작 -->
 
 <main class="form-signin text-center">
-  <form>
+  <form action="/member/login" method="post" id="loginForm">
     <img class="mb-4 center" src="/img/loginLogo.png" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
                             
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="username">
         <label for="floatingInput">Email address</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
         <label for="floatingPassword">Password</label>
       </div>
-                            
+  </form>
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me
         </label>
-        <!-- Button trigger modal -->
+      </div>
+
+
+  <!-- Button trigger modal -->
         <div style="float: right;">
           <button type="button" class="btn btn-sm btn-Light text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Forgot password?
@@ -48,7 +53,16 @@
       </div>
       <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2022-2023</p>
-      
+
+      <script>
+        $(function(){
+          $("input[name=username]").focus();
+
+          $("button[type=submit]").click(function(){
+            $("#loginForm").submit();
+          });
+        })
+      </script>
       <!-- Modal -->
 
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
@@ -92,7 +106,7 @@
       </div>
                        <!-- 여기에 넘어갈모달 a태그 -->
   </div>
-  </form>
+
 </main>
                               
 	

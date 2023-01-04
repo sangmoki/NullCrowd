@@ -7,14 +7,14 @@
     
     <resultMap id="loginMemberResultMap" type="MemberDTO">
         <id property="memCode" column="MEM_CODE"/>
-        <result property="authCode" column="AUTH_CODE"/>
         <result property="memEmail" column="MEM_EMAIL"/>
         <result property="memPwd" column="MEM_PWD"/>
         <result property="isActive" column="IS_ACTIVE"/>
         <result property="regiDate" column="REGI_DATE"/>
         <result property="nickName" column="NICKNAME"/>
         <result property="recentLogin" column="RECENTLOGIN"/>
-        
+        <result property="authName" column="AUTH_NAME"/>
+
         <association property="personalInfoDTO" resultMap="personalInfoDTO"/>
 
     </resultMap>
@@ -28,72 +28,73 @@
         <result property="name" column="NAME"/>
     </resultMap>
 
+
     <!-- 아아디 중복 확인 -->
-<!--    <select id="selectMemberById" resultType="string">-->
-<!--        SELECT /* com.ohgiraffers.thymeleafspringboot.member.dao.MemberMapper#selectMemberById() */-->
-<!--             MEM_EMAIL-->
-<!--        FROM MEMBER-->
-<!--        WHERE IS_ACTIVE = 'Y'-->
-<!--          AND MEM_EMAIL = #{ memEmail }-->
-<!--    </select>-->
+    <select id="selectMemberById" resultType="string">
+        SELECT
+             MEM_EMAIL
+        FROM MEMBER
+        WHERE IS_ACTIVE = 'Y'
+          AND MEM_EMAIL = #{ memEmail }
+    </select>
 
-<!--    &lt;!&ndash; 회원 가입 &ndash;&gt;-->
-<!--    <insert id="insertMember" parameterType="MemberDTO">-->
-<!--        INSERT /* com.ohgiraffers.thymeleafspringboot.member.dao.MemberMapper#insertMember() */-->
-<!--        INTO MEMBER-->
-<!--        (-->
-<!--          MEM_CODE-->
-<!--        , AUTH_CODE-->
-<!--        , MEM_EMAIL-->
-<!--        , MEM_PWD-->
-<!--        , IS_ACTIVE-->
-<!--        , REGI_DATE-->
-<!--        , NICKNAME-->
-<!--        , RECENTLOGIN-->
-<!--        )-->
-<!--        VALUES-->
-<!--        (-->
-<!--          SEQ_MEMBER_NO.NEXTVAL-->
-<!--        , default-->
-<!--        , #{ memEmail }-->
-<!--        , #{ memPwd }-->
-<!--        , default-->
-<!--        , sysdate-->
-<!--        , #{ nickName }-->
-<!--        , sysdate-->
-<!--        )-->
-<!--    </insert>-->
+    <!-- 회원 가입 -->
+    <insert id="insertMember" parameterType="memberDTO">
+        INSERT
+        INTO MEMBER
+        (
+          MEM_CODE
+        , AUTH_CODE
+        , MEM_EMAIL
+        , MEM_PWD
+        , IS_ACTIVE
+        , REGI_DATE
+        , NICKNAME
+        , RECENTLOGIN
+        )
+        VALUES
+        (
+          SEQ_MEMBER_NO.NEXTVAL
+        , default
+        , #{ memEmail }
+        , #{ memPwd }
+        , default
+        , sysdate
+        , #{ nickName }
+        , sysdate
+        )
+    </insert>
 
-<!--    &lt;!&ndash; 회원 가입 personalInfo  &ndash;&gt;-->
-<!--    <insert id="insertPersonalInfo" parameterType="PersonalInfoDTO">-->
-<!--    INSERT /* com.ohgiraffers.thymeleafspringboot.member.dao.MemberMapper#insertPersonalInfo() */-->
-<!--    INTO PERSONALINFO-->
-<!--    (-->
-<!--      MEM_CODE-->
-<!--    , NAME-->
-<!--    , GENDER-->
-<!--    , PHONE-->
-<!--    , ADDRESS-->
-<!--    , BIRTHDATE-->
-<!--    )-->
-<!--    VALUES-->
-<!--    (-->
-<!--      MemCode-->
-<!--    , #{ name }-->
-<!--    , #{ phone }-->
-<!--    , #{ address }-->
-<!--    , #{ birthDate}-->
-<!--    )-->
-<!--<selectKey keyColumn="MEM_CODE" keyProperty="MemCode" resultType="_int" order="AFTER">-->
-<!--    SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL;-->
-<!--</selectKey>-->
+    <!-- 회원 가입 personalInfo  -->
+    <insert id="insertPersonalInfo" parameterType="personalInfoDTO">
+    INSERT
+    INTO PERSONALINFO
+    (
+      MEM_CODE
+    , NAME
+    , GENDER
+    , PHONE
+    , ADDRESS
+    , BIRTHDATE
+    )
+    VALUES
+    (
+      MemCode
+    , #{ name }
+    , #{ phone }
+    , #{ address }
+    , #{ birthDate}
+    )
+<selectKey keyColumn="MEM_CODE" keyProperty="MemCode" resultType="_int" order="AFTER">
+    SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL;
+</selectKey>
 
-<!--</insert>-->
+</insert>
 
     <select id="findMemberById" resultMap="loginMemberResultMap">
         SELECT
                 A.MEM_CODE
-              , A.AUTH_CODE
+              , A.AUTH_NAME
               , A.MEM_EMAIL
               , A.MEM_PWD
               , A.IS_ACTIVE
