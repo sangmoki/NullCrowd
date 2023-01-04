@@ -13,12 +13,15 @@ import java.util.List;
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
-    @Autowired // NoticeService 인터페이스의 sql문을 읽어와 의존주입으로 객체 생성.
     private NoticeMapper noticeMapper;
+
+    public NoticeServiceImpl(NoticeMapper noticeMapper) {
+        this.noticeMapper = noticeMapper;
+    }
 
     // 모든 공지사항 게시글 조회하는 용도의 메서드
     @Override
-    public List<NoticeDTO> selectAllNoticeList() {
+    public List<NoticeDTO> selectAllNoticeList() { // 완료
 
         Date nowDate = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
@@ -33,51 +36,75 @@ public class NoticeServiceImpl implements NoticeService {
         System.out.println(noticeList);
 
         return noticeList;
+
+
     }
 
-    // 공지사항 게시글 추가하는 용도의 메서드
+    // 공지사항 검색하여 조회하는 용도의 메서드
+    @Override
+    public List<NoticeDTO> selectChoiceNotice() {
+        return null;
+    }
+
+    // 공지사항 상세보기 용도의 메서드
+    @Override
+    public NoticeDTO selectNoticeDetail(int no) {
+
+        return noticeMapper.selectNoticeDetail(no);
+    }
+
+    // 공지사항 추가하는 용도의 메서드
     @Override
     @Transactional
-    public int insertNotice(NoticeDTO notice){
+    public int insertNotice(NoticeDTO notice) {
 
         int result = 0;
 
-    return result;
-    }
+        if(notice != null) {
 
-    // 공지사항 게시글 수정하는 용도의 메서드
-    @Override
-    @Transactional
-    public int updateNotice(NoticeDTO notice){
-
-        return 0;
-    }
-
-    // 공지번호를 입력받아 게시글을 삭제하는 용도의 메서드
-    @Override
-    @Transactional
-    public int deleteNotice(int noticeNo){
-
-        return 0;
-    }
-
-    // 공지사항 게시글의 상세 페이지를 조회하는 용도의 메서드
-    // 게시글 클릭 시 조회수가 증가한다.
-    @Override
-    public NoticeDTO selectChoiceNotice(int no) {
-        NoticeDTO noticeDetail = null;
-
-        int result = noticeMapper.incrementNoticeCount(no);
-
-        if(result > 0) {
-            noticeDetail = noticeMapper.selectChoiceNotice(no);
+            result = noticeMapper.insertNotice(notice);
         }
 
-        return noticeDetail;
+        return result;
     }
 
+    // 공지사항 변경하는 용도의 메서드
+    @Override
+    public int updateNotice(NoticeDTO notice) {
+        int result = 0;
+
+        if(result <= 0){
+
+            result = noticeMapper.updateNotice(notice);
+        }
+
+        return result;
+    }
+
+    // 공지사항 삭제하는 용도의 메서드
+    @Override
+    public int deleteNotice(int no) {
+
+        int result = 0;
+
+        if(result <= 0){
+
+            result = noticeMapper.deleteNotice(no);
+        }
+
+        return result;
+    }
+    
+    // 공지사항 상세보기 시 조회수 증가하는 용도의 메서드
     @Override
     public int incrementNoticeCount(int no) {
+
+        int result = 0;
+
+        if(result <= 0){
+
+            result = noticeMapper.incrementNoticeCount(no);
+        }
 
         return 0;
     }

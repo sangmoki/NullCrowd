@@ -35,10 +35,13 @@
         <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
           <span class="fs-4"><b>NULL</b></span>
         </a>
+
+        <!-- 로그인 전 뷰 화면 -->
+        <th:block sec:authorize="isAnonymous()">
         <div class="floatRight cNav-topMenu-right">
-          <div class="floatRight cursor-pointer"><a href="/project/makeProject" target="_self" class="floatRight">
-            <div class="cursor-pointer cNav-btn-makePj nav-right-text">프로젝트 만들기</div>
-          </a></div>
+          <div class="floatRight cursor-pointer"><a href="#" target="_self" class="floatRight">
+            <div class="cursor-pointer cNav-btn-makePj nav-right-text">프로젝트 만들기</div></a>
+          </div>
           <div class="floatRight cursor-pointer">
             <div><a href="/member/signup"><!---->
               <div class="floatRight cNav-topMenu-right-hov nav-right-text" style="margin-right: 24px;">회원가입</div>
@@ -48,12 +51,61 @@
             <div><a href="/member/login">
               <div class="floatRight cNav-topMenu-split">|</div>
               <div class="floatRight cNav-topMenu-right-hov nav-right-text" style="margin-right: 6px;">로그인</div>
-            </a></div>
+                </a>
+            </div>
           </div>
           <div class="floatRight cursor-pointer">
             <div><!----></div>
           </div>
         </div>
+        </th:block>
+
+        <!-- 로그인 시 뷰 화면 -->
+        <th:block sec:authorize="isAuthenticated()">
+        <div class="floatRight cNav-topMenu-right">
+
+          <!-- 인증 후 회원 전용 뷰 -->
+          <th:block sec:authorize="hasRole('MEMBER')">
+          <div class="floatRight cursor-pointer"><a href="/project/makeProject" target="_self" class="floatRight">
+            <div class="cursor-pointer cNav-btn-makePj nav-right-text">프로젝트 만들기</div></a>
+          </div>
+          </th:block>
+
+          <!-- 인증 후 관리자 전용 뷰 -->
+
+          <div class="floatRight cursor-pointer">
+            <div><a href="/member/logout"><!---->
+              <div class="floatRight cNav-topMenu-right-hov nav-right-text" style="margin-right: 24px;">로그아웃</div>
+            </a></div>
+          </div>
+          <div class="floatRight cursor-pointer">
+
+            <th:block sec:authorize="hasRole('MEMBER')">
+              <div><a href="/member/mypage">
+              <div class="floatRight cNav-topMenu-split">|</div>
+              <div class="floatRight cNav-topMenu-right-hov nav-right-text" style="margin-right: 6px;">마이페이지</div>
+              </a>
+              </div>
+            </th:block>
+
+            <th:block sec:authorize="hasRole('ADMIN')">
+            <div><a href="/member/mypage">
+              <div class="floatRight cNav-topMenu-split">|</div>
+              <div class="floatRight cNav-topMenu-right-hov nav-right-text" style="margin-right: 6px;">관리자페이지</div>
+            </a>
+            </div>
+            </th:block>
+          </div>
+          <div class="floatRight">
+          <span sec:authentication="principal.nickName"></span>님 환영합니다. &nbsp&nbsp&nbsp
+          </div>
+          <div class="floatRight cursor-pointer">
+            <div><!----></div>
+          </div>
+        </div>
+        </th:block>
+
+
       </div>
     </header>
     <nav class="white">
