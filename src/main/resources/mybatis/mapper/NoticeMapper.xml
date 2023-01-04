@@ -45,7 +45,6 @@
         ORDER BY A.NOTICE_NO DESC
 </select>
 
-            <!-- 여기에 like 어케 붙여요 -->
 
     <!-- 공지사항 상세보기 조회 -->
     <select id="selectNoticeDetail" resultMap="noticeResultMap">
@@ -67,16 +66,20 @@
         INTO NOTICE A
         (
              A.NOTICE_NO
+           , A.MEMBER_CODE
            , A.NOTICE_TITLE
            , A.NOTICE_CONTENT
            , A.UPLOAD_DATE
+           , A.READ_COUNT
         )
         VALUES
         (
                SEQ_NOTICE_NO.NEXTVAL
+             , #{ memberCode}
              , #{ noticeTitle }
              , #{ noticeContent }
              , SYSDATE
+             , 0
         )
     </insert>
 

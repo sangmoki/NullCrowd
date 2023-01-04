@@ -55,14 +55,31 @@
             </select>
             <input type="search">
             <input type="button" onclick="getSearchList()" class="btn btn-outline-primary mr-2" value="검색하기"></input>
+        </form>
 
 <!--        <th:block sec:authorize="hasRole('ADMIN')">-->
             <button class="btn btn-or" id="writeNotice" th:onclick="'location.href=\'insert\''">
                 작성하기
             </button>
     <!--                    </th:block>-->
-        </form>
     </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#" tabindex="-1" aria-label="Previous">
+                    <span aria-hidden="true" style="color:black;">«</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#" style="color:black;">1</a></li>
+            <li class="page-item"><a class="page-link" href="#" style="color:black;">2</a></li>
+            <li class="page-item"><a class="page-link" href="#" style="color:black;">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">»</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
     </div>
     <br><br><br><br>
 </div>

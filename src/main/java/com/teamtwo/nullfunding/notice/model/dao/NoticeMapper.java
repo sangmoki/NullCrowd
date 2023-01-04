@@ -24,9 +24,9 @@ public interface NoticeMapper {
     int updateNotice(NoticeDTO notice);
 
     // 공지사항 게시글 삭제하는 용도의 메서드
-    int deleteNotice(int noticeNo);
+    int deleteNotice(int no);
 
 
     // 게시글 조회 시 조회 수 증가하는 용도의 메서드
-    int incrementNoticeCount(int count);
+    int incrementNoticeCount(int no);
 }
