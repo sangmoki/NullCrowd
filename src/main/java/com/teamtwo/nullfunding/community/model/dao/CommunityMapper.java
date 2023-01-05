@@ -10,27 +10,27 @@ import java.util.Map;
 @Mapper
 public interface CommunityMapper {
 
-    public interface BoardMapper {
+    public interface CommunityMapper {
         int selectTotalCount(Map<String, String> searchMap);
-        List<BoardDTO> selectBoardList(SelectCriteria selectCriteria);
+        List<CommunityDTO> selectCommunityList(SelectCriteria selectCriteria);
 
-        BoardDTO selectBoardDetail(Long no);
+        CommunityDTO selectCommunityDetail(Long no);
 
-        List<ReplyDTO> selectComcommunityList(Long boardNo);
+        List<ComCommentDTO> selectComcommunityList(Long communityNo);
 
-        int insertReply(ReplyDTO registReply);
+        int insertComComment(ComCommentDTO registComComment);
 
-        int deleteReply(Long no);
+        int deleteComComment(Long no);
 
-        int insertBoard(BoardDTO board);
+        int insertCommunity(CommunityDTO community);
 
-//        List<BoardDTO> selectAllThumbnailList();
+//        List<CommunityDTO> selectAllThumbnailList();
 
-//        int insertThumbnailContent(BoardDTO thumbnail);
+//        int insertThumbnailContent(CommunityDTO thumbnail);
 
 //        int insertAttachment(AttachmentDTO attachmentDTO);
 
-//        int incrementBoardCount(Long no);
+//        int incrementCommunityCount(Long no);
 
-//        BoardDTO selectThumbnailDetail(Long no);
+//        CommunityDTO selectThumbnailDetail(Long no);
     }

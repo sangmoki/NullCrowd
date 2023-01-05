@@ -1,5 +1,7 @@
 package com.teamtwo.nullfunding.community.controller;
 
+import com.teamtwo.nullfunding.common.paging.Pagenation;
+import com.teamtwo.nullfunding.common.paging.SelectCriteria;
 import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
 import com.teamtwo.nullfunding.community.service.CommunityService;
 import org.slf4j.Logger;
@@ -17,13 +19,13 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/notice")
-public class BoardController {
+@RequestMapping("/community")
+public class CommunityController {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final BoardService boardService;
+    private final CommunityService boardService;
 
-    public BoardController(BoardService boardService) {
+    public CommunityController(CommunityService boardService) {
         this.boardService = boardService;
     }
 
@@ -40,7 +42,7 @@ public class BoardController {
         String currentPage = request.getParameter("currentPage");
         int pageNo = 1;
 
-        if(currentPage != null && !"".equals(currentPage)) {
+        if (currentPage != null && !"".equals(currentPage)) {
             pageNo = Integer.parseInt(currentPage);
         }
 
@@ -51,7 +53,7 @@ public class BoardController {
         searchMap.put("searchCondition", searchCondition);
         searchMap.put("searchValue", searchValue);
 
-        log.info("[BoardController] 컨트롤러에서 검색조건 확인하기 : " + searchMap);
+        log.info("[CommunityController] 컨트롤러에서 검색조건 확인하기 : " + searchMap);
 
         /*
          * 전체 게시물 수가 필요하다.
@@ -59,10 +61,10 @@ public class BoardController {
          * 검색조건이 있는 경우 검색 조건에 맞는 전체 게시물 수를 조회한다.
          */
         int totalCount = boardService.selectTotalCount(searchMap);
-        log.info("[BoardController] totalBoardCount : " + totalCount);
+        log.info("[CommunityController] totalCommunityCount : " + totalCount);
 
         /* 한 페이지에 보여 줄 게시물 수 */
-        int limit = 10;		//얘도 파라미터로 전달받아도 된다.
+        int limit = 10;        //얘도 파라미터로 전달받아도 된다.
 
         /* 한 번에 보여질 페이징 버튼의 갯수 */
         int buttonAmount = 5;
@@ -70,101 +72,101 @@ public class BoardController {
         /* 페이징 처리를 위한 로직 호출 후 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환받는다. */
         SelectCriteria selectCriteria = null;
 
-        if(searchCondition != null && !"".equals(searchCondition)) {
+        if (searchCondition != null && !"".equals(searchCondition)) {
             selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue);
         } else {
             selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
         }
 
-        log.info("[BoardController] selectCriteria : " + selectCriteria);
+        log.info("[CommunityController] selectCriteria : " + selectCriteria);
 
         /* 조회해 온다 */
-        List<BoardDTO> boardList = boardService.selectBoardList(selectCriteria);
+        List<CommunityDTO> communityList = communityService.selectCommunityList(selectCriteria);
 
-        log.info("[BoardController] boardList : " + boardList);
+        log.info("[CommunityController] communityList : " + communityList);
 
-        mv.addObject("boardList", boardList);
+        mv.addObject("communityList", communityList);
         mv.addObject("selectCriteria", selectCriteria);
-        log.info("[BoardController] SelectCriteria : " + selectCriteria);
-        mv.setViewName("content/board/boardList");
+        log.info("[CommunityController] SelectCriteria : " + selectCriteria);
+        mv.setViewName("content/community/communityList");
 
-        log.info("[BoardController] =========================================================");
+        log.info("[CommunityController] =========================================================");
         return mv;
     }
 
     @GetMapping("/detail")
-    public String selectBoardDetail(HttpServletRequest request, Model model) {
+    public String selectCommunityDetail(HttpServletRequest request, Model model) {
         log.info("");
         log.info("");
-        log.info("[BoardController] =========================================================");
+        log.info("[CommunityController] =========================================================");
 
         Long no = Long.valueOf(request.getParameter("no"));
-        BoardDTO boardDetail = boardService.selectBoardDetail(no);
-        log.info("[BoardController] boardDetail : " + boardDetail);
+        CommunityDTO communityDetail = communityService.selectCommunityDetail(no);
+        log.info("[CommunityController] communityDetail : " + communityDetail);
 
-        model.addAttribute("board", boardDetail);
+        model.addAttribute("community", communityDetail);
 
         /* 댓글 작성 완료 후 추가할 것 */
-        List<ReplyDTO> replyList = boardService.selectAllReplyList(no);
-        model.addAttribute("replyList", replyList);
-        log.info("[BoardController] replyList : " + replyList);
+        List<ComCommentDTO> comCommentList = communityService.selectAllComCommentList(no);
+        model.addAttribute("comCommentList", comCommentList);
+        log.info("[CommunityController] comCommentList : " + comCommentList);
 
-        log.info("[BoardController] =========================================================");
-        return "content/board/boardDetail";
+        log.info("[CommunityController] =========================================================");
+        return "content/community/communityDetail";
     }
 
-    @PostMapping("/registReply")
-    public ResponseEntity<List<ReplyDTO>> registReply(@RequestBody ReplyDTO registReply) throws ReplyRegistException {
+    @PostMapping("/registComComment")
+    public ResponseEntity<List<ComCommentDTO>> registComComment(@RequestBody ComCommentDTO registComComment) throws ComCommentRegistException {
 
         log.info("");
         log.info("");
-        log.info("[BoardController] =========================================================");
-        log.info("[BoardController] registReply Request : " + registReply);
+        log.info("[CommunityController] =========================================================");
+        log.info("[CommunityController] registComComment Request : " + registComComment);
 
-        List<ReplyDTO> replyList = boardService.registReply(registReply);
+        List<ComCommentDTO> comCommentList = communityService.registComComment(registComComment);
 
-        log.info("[BoardController] replyList : " + replyList);
-        log.info("[BoardController] =========================================================");
+        log.info("[CommunityController] comCommentList : " + comCommentList);
+        log.info("[CommunityController] =========================================================");
 
-        return ResponseEntity.ok(replyList);
+        return ResponseEntity.ok(comCommentList);
     }
 
-    @DeleteMapping("/removeReply")
-    public ResponseEntity<List<ReplyDTO>> removeReply(@RequestBody ReplyDTO removeReply) throws ReplyRemoveException {
+    @DeleteMapping("/removeComComment")
+    public ResponseEntity<List<ComCommentDTO>> removeComComment(@RequestBody ComCommentDTO removeComComment) throws ComCommentRemoveException {
 
         log.info("");
         log.info("");
-        log.info("[BoardController] =========================================================");
-        log.info("[BoardController] removeReply Request : " + removeReply);
+        log.info("[CommunityController] =========================================================");
+        log.info("[CommunityController] removeComComment Request : " + removeComComment);
 
-        List<ReplyDTO> replyList = boardService.removeReply(removeReply);
+        List<ComCommentDTO> comCommentList = communityService.removeComComment(removeComComment);
 
-        log.info("[BoardController] replyList : " + replyList);
-        log.info("[BoardController] =========================================================");
+        log.info("[CommunityController] comCommentList : " + comCommentList);
+        log.info("[CommunityController] =========================================================");
 
-        return ResponseEntity.ok(replyList);
+        return ResponseEntity.ok(comCommentList);
     }
 
     @GetMapping("/regist")
     public String goRegister() {
-        return "content/board/boardRegist";
+        return "content/community/communityRegist";
     }
 
     @PostMapping("/regist")
-    public String registBoard(@ModelAttribute BoardDTO board, RedirectAttributes rttr) throws BoardRegistException {
+    public String registCommunity(@ModelAttribute CommunityDTO community, RedirectAttributes rttr) throws CommunityRegistException {
 
         log.info("");
         log.info("");
-        log.info("[BoardController] registBoard =========================================================");
-        log.info("[BoardController] registBoard Request : " + board);
+        log.info("[CommunityController] registCommunity =========================================================");
+        log.info("[CommunityController] registCommunity Request : " + community);
 
-        boardService.registBoard(board);
+        communityService.registCommunity(community);
 
         rttr.addFlashAttribute("message", "게시글 등록에 성공하셨습니다!");
 
-        log.info("[BoardController] registBoard =========================================================");
+        log.info("[CommunityController] registCommunity =========================================================");
 
-        return "redirect:/board/list";
+        return "redirect:/community/list";
     }
 
 
