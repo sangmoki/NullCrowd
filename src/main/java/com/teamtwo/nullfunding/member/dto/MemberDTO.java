@@ -12,12 +12,14 @@ import java.util.Date;
 public class MemberDTO {
 
     private int memCode;
-    private int authCode;
+    private String authName;
     private String memEmail;
     private String memPwd;
     private String isActive;
     private Date regiDate;
     private String nickName;
     private Date recentLogin;
+    private PersonalInfoDTO personalInfoDTO;
+    private FundRaiserDTO fundRaiserDTO;
 
 }

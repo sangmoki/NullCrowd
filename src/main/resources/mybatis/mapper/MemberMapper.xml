@@ -4,10 +4,42 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamtwo.nullfunding.member.dao.MemberMapper">
+    
+    <resultMap id="loginMemberResultMap" type="MemberDTO">
+        <id property="memCode" column="MEM_CODE"/>
+        <result property="memEmail" column="MEM_EMAIL"/>
+        <result property="memPwd" column="MEM_PWD"/>
+        <result property="isActive" column="IS_ACTIVE"/>
+        <result property="regiDate" column="REGI_DATE"/>
+        <result property="nickName" column="NICKNAME"/>
+        <result property="recentLogin" column="RECENTLOGIN"/>
+        <result property="authName" column="AUTH_NAME"/>
+
+        <association property="personalInfoDTO" resultMap="personalInfoDTO"/>
+        <association property="fundRaiserDTO" resultMap="fundRaiserDTO"/>
+    </resultMap>
+
+    <resultMap id="fundRaiserDTO" type="FundRaiserDTO">
+        <id property="raiserCode" column="RAISER_CODE"/>
+        <result property="raiNickname" column="RAI_NICKNAME"/>
+        <result property="raiAddress" column="RAI_ADDRESS"/>
+        <result property="raiEmail" column="RAI_EMAIL"/>
+        <result property="raiPhone" column="RAI_PHONE"/>
+    </resultMap>
+
+    <resultMap id="personalInfoDTO" type="PersonalInfoDTO">
+        <id property="memCode" column="MEM_CODE"/>
+        <result property="phone" column="PHONE"/>
+        <result property="birthDate" column="BIRTHDATE"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="gender" column="GENDER"/>
+        <result property="name" column="NAME"/>
+    </resultMap>
+
 
     <!-- 아아디 중복 확인 -->
     <select id="selectMemberById" resultType="string">
-        SELECT /* com.ohgiraffers.thymeleafspringboot.member.dao.MemberMapper#selectMemberById() */
+        SELECT
              MEM_EMAIL
         FROM MEMBER
         WHERE IS_ACTIVE = 'Y'
@@ -15,8 +47,8 @@
     </select>
 
     <!-- 회원 가입 -->
-    <insert id="insertMember" parameterType="com.teamtwo.nullfunding.member.dto.MemberDTO">
-        INSERT /* com.ohgiraffers.thymeleafspringboot.member.dao.MemberMapper#insertMember() */
+    <insert id="insertMember" parameterType="memberDTO">
+        INSERT
         INTO MEMBER
         (
           MEM_CODE
@@ -42,8 +74,8 @@
     </insert>
 
     <!-- 회원 가입 personalInfo  -->
-    <insert id="insertPersonalInfo" parameterType="com.teamtwo.nullfunding.member.dto.PersonalInfoDTO">
-    INSERT /* com.ohgiraffers.thymeleafspringboot.member.dao.MemberMapper#insertPersonalInfo() */
+    <insert id="insertPersonalInfo" parameterType="personalInfoDTO">
+    INSERT
     INTO PERSONALINFO
     (
       MEM_CODE
@@ -65,7 +97,32 @@
     SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL;
 </selectKey>
 
-
 </insert>
 
+    <select id="findMemberById" resultMap="loginMemberResultMap">
+        SELECT
+                A.MEM_CODE
+              , A.AUTH_NAME
+              , A.MEM_EMAIL
+              , A.MEM_PWD
+              , A.IS_ACTIVE
+              , A.REGI_DATE
+              , A.NICKNAME
+              , A.RECENTLOGIN
+              , B.MEM_CODE
+              , B.PHONE
+              , B.BIRTHDATE
+              , B.ADDRESS
+              , B.GENDER
+              , B.NAME
+              , C.RAISER_CODE
+              , C.RAI_NICKNAME
+              , C.RAI_ADDRESS
+              , C.RAI_EMAIL
+              , C.RAI_PHONE
+        FROM MEMBER A
+        LEFT JOIN PERSONALINFO B ON (A.MEM_CODE = B.MEM_CODE)
+        LEFT JOIN FUNDRAISER C ON (A.MEM_CODE = C.RAISER_CODE)
+       WHERE A.MEM_EMAIL = #{ memEmail }
+    </select>
 </mapper>
