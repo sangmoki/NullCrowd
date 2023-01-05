@@ -33,5 +33,11 @@ public class MemberController {
     public String goLogIn(){
         return "content/member/login";
     }
+
+    @GetMapping("myPage")
+    public String goMyPage(){
+
+        return "content/member/myPage";
+    }
 }
 
