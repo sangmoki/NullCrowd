@@ -20,5 +20,6 @@ public class MemberDTO {
     private String nickName;
     private Date recentLogin;
     private PersonalInfoDTO personalInfoDTO;
+    private FundRaiserDTO fundRaiserDTO;
 
 }

@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
         }
         @Test
         void findMemberById() {
-            MemberDTO member = memberMapper.findMemberById("hg1540@naver.com");
+            MemberDTO member = memberMapper.findMemberById("test@naver.com");
             assertNotNull(member);
             System.out.println("member = " + member);
         }
