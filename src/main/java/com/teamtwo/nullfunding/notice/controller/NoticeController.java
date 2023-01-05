@@ -70,9 +70,9 @@ public class NoticeController {
 
 //     공지사항 추가하는 용도의 메서드
     @GetMapping("insert")
-    public String goInsert(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-
-        model.addAttribute("memberCode", ((UserImpl)userDetails).getMemCode());
+    public String goInsert() {
+                        // @AuthenticationPrincipal UserDetails userDetails, Model model
+//        model.addAttribute("memberCode", ((UserImpl)userDetails).getMemCode());
 
         return "content/notice/noticeInsert";
     }

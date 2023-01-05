@@ -63,6 +63,14 @@
         </th:block>
 
     </div>
+        <script>
+            $("#writeNotice").on("click", function(){
+                window.location.href=
+                    "http://localhost:8888/notice/insert"
+            });
+        </script>
+
+    <br><br>
          <script>
         document.getElementById('searchList').onclick = function() {
                 var select = document.getElementById('searchNotice');
