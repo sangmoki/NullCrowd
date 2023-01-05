@@ -2,7 +2,7 @@ function getSearchList(){
         $.ajax({
                 type: 'GET',
                 url: "/getSearchList",
-                data : $("form[name=search-form").serialize(),
+                data : $("form[name=search-form]").serialize(),
                 success : function (result){
                         // 테이블 초기화
                         $('#boardtable > tbody').empty();
@@ -16,3 +16,4 @@ function getSearchList(){
                 }
         })
 }
+

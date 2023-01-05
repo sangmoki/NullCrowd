@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+</head>
+<link rel="stylesheet" href="../css/admin.css">
+<script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/cho.js"></script>
+
+<body>
+<!-- 메인 헤더 -->
+<header th:replace="fragments/header :: headerFragment"></header>
+<!-- 메인 바디 시작 -->
+
+<div class="MainWrapper_content__GZkTa">
+    <div class="NullPage_NullPage__wOTdS">
+        <div class="NullPage_profileBackground__T_LTr">
+        </div>
+        <div class="NullPage_inner__1oq9M">
+            <div class="NullHeader_wadizHeader__8fJ9f">
+                <div class="NullNow_wadizNow__zBMhC">
+                    <div class="NullNow_slider__26Xn7">
+                        <ul class="">
+                            <li class="NullNow_nowItem__3sOGo"><a href="/web/wboard/newsBoardDetail/8377"
+                                                                  data-event="news"><strong>공지</strong>
+                                <p>[서비스 안내] NULL SNS 광고 수수료 변경 및 정책 안내</p>
+                            </a></li>
+                            <li class="NullNow_nowItem__3sOGo NullNow_show__1-dMD"><a
+                                    href="/web/wboard/newsBoardDetail/8388" data-event="event"><strong>이벤트</strong>
+                                <p>[이벤트] 12/21 OPEN | What day is it? 한 달에 딱 3일, NULL 데이</p>
+                            </a></li>
+                            <li class="NullNow_nowItem__3sOGo"><a href="/web/wcast/detail/8380"
+                                                                  data-event="trustcenter"><strong>신뢰센터</strong>
+                                <p>[투명성 보고서] 2022년 11월 투명성 보고서 - 주요 펀딩 데이터를 중심으로 #믿고펀딩하는NULL</p>
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="NullUserTypeSwitch_container__8B_kv NullHeader_switch__2WQSt">
+                    <button id="supporter_mode"
+                            class="NullUserTypeSwitch_button__BYDWf NullUserTypeSwitch_supporter__1yivJ">
+                    </button>
+                    <button id="maker_mode"
+                            class="NullUserTypeSwitch_button__BYDWf NullUserTypeSwitch_maker__3C77T NullUserTypeSwitch_active__dwn-k">
+                    </button>
+                </div>
+            </div>
+            <div class="NullPage_contentsWrapper__1dzMJ">
+                <div class="NullSupporter_supporterMode__2XDQZ" id="personal_supporterMode">
+                    <div class="NullSupporterProfile_profileContainer__1q7eh">
+                        <div class="NullSupporterProfile_profileImage__1eEvS">
+                            <button
+                                    class="NullSupporterProfile_detailProfile__1JImc" title="프로필 상세 보기"
+                                    data-event="profile"
+                                    style="background-image: url(https://www.wadiz.kr/wwwwadiz/green001/sns_profile_pics/20221223111941056_2591655459.jpg);"></button>
+                            <button
+                                    class="NullSupporterProfile_editProfile__3HG_Z" title="프로필 편집하기"
+                                    data-event="profile_edit">
+                                <svg viewBox="0 0 32 32" focusable="false"
+                                     role="presentation" class="withIcon_icon__FgeYa" aria-hidden="true">
+                                    <path
+                                            d="M24 1.6L1.6 24v6.4H8L30.4 8zM7.36 28.8H3.2v-4.16L19.76 8.08l4.16 4.16zm17.68-17.68l-4.16-4.16L24 3.84 28.16 8z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="NullSupporterProfile_profileUser__a_r1P">
+                            <button
+                                    data-event="profile"><strong><span>조성일 Tony<i>님</i></span>
+                                <svg viewBox="0 0 40 40"
+                                     focusable="false" role="presentation" class="withIcon_icon__FgeYa"
+                                     aria-hidden="true">
+                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z"></path>
+                                </svg>
+                            </strong></button>
+                            <div class="NullSupporterProfile_profileUserLabel__1fiU3">서포터 ∙ 개인 회원</div>
+                        </div>
+                        <div class="NullSupporterProfile_setting__n8-M7">
+                            <p class="NullLoginMode_loginMode__2smkD"><span
+                                    class="NullLoginMode_kakaoIcon__MfcN0"><svg viewBox="0 0 32 32"
+                                                                                focusable="false" role="presentation"
+                                                                                class="withIcon_icon__FgeYa"
+                                                                                aria-hidden="true">
+                                            <path
+                                                    d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.32 6.64 5.76 8.48l-.96 4.96 5.44-3.6 2.4.16c6.96 0 12.64-4.48 12.64-10.08S22.96 4.56 16 4.64z">
+                                            </path>
+                                        </svg></span>카카오로 로그인 중
+                            </p>
+                            <button
+                                    class="Button_button__MvCi9 Button_md__3RBTF Button_circular__2lnPs Button_block__3LZpG"
+                                    type="button"><span><span class="Button_children__25PKp">로그아웃</span></span></button>
+                        </div>
+                    </div>
+                    <div class="NullSupporter_contents__1TmJ_">
+                        <div class="NullSection_section__3FCv1">
+                            <div class="NullProject_projectContainer__3FK3_">
+                                <div class="NullProjectInfo_project__2mWlY">
+                                    <ul class="NullProjectInfo_projectList__QUfu2">
+                                        <li><a
+                                                href="/web/Null/myfunding/fundinglist"><span><b>0<i></i></b>펀딩</span></a>
+                                        </li>
+                                        <li><a href="/web/Null/store/order"><span><b>0<i></i></b>구매</span></a>
+                                        </li>
+                                        <li><a href="/web/wstartup/contactList"><span><b>0<i></i></b>스타트업
+                                                        문의</span></a>
+                                        </li>
+                                    </ul>
+                                    <ul class="NullProjectInfo_projectLink__3lzCX">
+                                        <li><a href="/web/myreward"><span><svg viewBox="0 0 32 32" focusable="false"
+                                                                               role="presentation"
+                                                                               class="withIcon_icon__FgeYa"
+                                                                               aria-hidden="true">
+                                                            <path
+                                                                    d="M1.6 6.4v19.2h28.8V6.4zM28.8 8v1.6H3.2V8zM3.2 24V12.8h25.6V24z">
+                                                            </path>
+                                                            <path d="M16 15.2H4.8v1.6H16v-1.6z"></path>
+                                                        </svg><span>간편결제</span></span></a></li>
+                                        <li><a href="/web/waccount/equity/join"><span><svg viewBox="0 0 40 40"
+                                                                                           focusable="false"
+                                                                                           role="presentation"
+                                                                                           class="withIcon_icon__FgeYa"
+                                                                                           aria-hidden="true">
+                                                            <path fill="none" d="M0 0h40v40H0z"></path>
+                                                            <path fill="none"
+                                                                  d="M20 2.8A16.9 16.9 0 0 0 7.19 30.74c2.14-4 7.86-4.6 12.81-4.6s10.67.57 12.81 4.6A16.9 16.9 0 0 0 20 2.8zm5.24 17.51A7.44 7.44 0 0 1 20 22.48a8.52 8.52 0 0 1-1.42-.13 7.39 7.39 0 0 1-5.83-5.83 7.41 7.41 0 0 1 8.71-8.71 7.39 7.39 0 0 1 5.83 5.83 7.47 7.47 0 0 1-2.05 6.67z">
+                                                            </path>
+                                                            <path
+                                                                    d="M21.44 7.81a7.41 7.41 0 0 0-8.71 8.71 7.39 7.39 0 0 0 5.83 5.83 8.52 8.52 0 0 0 1.42.13 7.41 7.41 0 0 0 1.46-14.67zM6.85 33.41l-.11-.11zM6.42 33l.14.13-.14-.13z">
+                                                            </path>
+                                                            <path
+                                                                    d="M39 19.72A19 19 0 1 0 6.42 33l.14.14a1.62 1.62 0 0 0 .19.18l.11.11a16.76 16.76 0 0 0 1.35 1.17c.45.36.92.69 1.4 1l.12.07c.46.3.94.58 1.42.83l.17.09c.48.24 1 .47 1.46.67l.2.08c.49.2 1 .37 1.51.53h.2c.51.15 1 .28 1.57.39h.17q.82.15 1.65.24h.12c.58 0 1.16.08 1.75.08s1.17 0 1.75-.08h.12q.82-.09 1.65-.24h.17c.53-.11 1-.24 1.57-.39h.2c.51-.16 1-.33 1.5-.53l.21-.08c.5-.2 1-.43 1.45-.67l.18-.09c.49-.25 1-.53 1.42-.82l.12-.08c.48-.32.95-.65 1.4-1h.05c.47-.37.92-.77 1.35-1.18l.1-.1a1.62 1.62 0 0 0 .19-.18l.14-.13A18.94 18.94 0 0 0 39 19.72zm-6.19 11c-2.14-4-7.86-4.6-12.81-4.6s-10.67.57-12.81 4.6a16.92 16.92 0 1 1 25.62 0z">
+                                                            </path>
+                                                        </svg><span>NULL 계좌</span></span></a></li>
+                                        <li><a href="/web/wstartup/main"><span><svg viewBox="0 0 24 24"
+                                                                                    focusable="false"
+                                                                                    role="presentation"
+                                                                                    class="withIcon_icon__FgeYa"
+                                                                                    aria-hidden="true">
+                                                            <path
+                                                                    d="M14.559 13.587a3.972 3.972 0 0 1 6.747 2.931 3.792 3.792 0 0 1-.768 2.28l2.808 2.736-.84.858-2.82-2.748a4.014 4.014 0 0 1-2.352.756 3.972 3.972 0 0 1-2.775-6.813zM20.562 2.64v7.926h-1.2V3.84H8.838v17.628h-1.2V9.708H1.674v11.76h-1.2V8.508h7.164V2.64h12.924zm-1.294 11.798a2.772 2.772 0 0 0-4.7 2.08 2.724 2.724 0 0 0 2.766 2.682 2.772 2.772 0 0 0 1.934-4.762zm-13.4.256v1.2H3.492v-1.2h2.376zm0-3.12v1.2H3.492v-1.2h2.376zm7.95-2.52v1.2h-2.652v-1.2h2.652zm3.12-3.12v1.2h-5.772v-1.2h5.772z">
+                                                            </path>
+                                                        </svg><span>스타트업 찾기</span></span></a></li>
+                                    </ul>
+                                </div>
+                                <a
+                                        class="NullSupporterClubLinkButton_container__2WhpH NullProject_supporterClubLinkButton__3rzyH"
+                                        href="/web/supporter-club/intro">
+                                    <div class="NullSupporterClubLinkButton_title__1EUEL">서포터클럽</div>
+                                    <div class="NullSupporterClubLinkButton_message__3xRb-">
+                                        <div>횟수 제한 없는 <span class="NullSupporterClubLinkButton_highlight__dK7Qz">배송비
+                                                    3,000원 할인</span>과 <span
+                                                class="NullSupporterClubLinkButton_highlight__dK7Qz">쿠폰팩</span>
+                                            만나보세요
+                                        </div>
+                                    </div>
+                                    <div class="NullSupporterClubLinkButton_arrow__1uymK">
+                                        <svg viewBox="0 0 40 40"
+                                             focusable="false" role="presentation" class="withIcon_icon__20lDO"
+                                             aria-hidden="true" style="width: 16px; height: 16px;">
+                                            <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z"></path>
+                                        </svg>
+                                    </div>
+                                </a>
+                                <div class="NullOpenAccountProgress_openAccountContainer__3TrEK"><a
+                                        href="/web/waccount/equity/join/step2">
+                                    <div class="NullOpenAccountProgress_chart__1jMYo">
+                                        <svg width="40"
+                                             height="40">
+                                            <g transform="translate(20, 20)">
+                                                <g class="arc">
+                                                    <path
+                                                            style="stroke: rgb(255, 255, 255); fill: rgb(0, 196, 196);"
+                                                            d="M1.2246467991473533e-15,-20A20,20,0,1,1,-20,2.4492935982947065e-15L-15,1.83697019872103e-15A15,15,0,1,0,9.18485099360515e-16,-15Z">
+                                                    </path>
+                                                </g>
+                                                <g class="arc">
+                                                    <path
+                                                            style="stroke: rgb(255, 255, 255); fill: rgb(242, 244, 246);"
+                                                            d="M-20,2.4492935982947065e-15A20,20,0,0,1,-3.673940397442059e-15,-20L-2.7554552980815444e-15,-15A15,15,0,0,0,-15,1.83697019872103e-15Z">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="NullOpenAccountProgress_ratio__3HYda">75<span>%</span></div>
+                                    <p class="NullOpenAccountProgress_openAccount__1t_8j">NULL 계좌 개설</p>
+                                    <p class="NullOpenAccountProgress_openAccountStatus__1zl57">신분증만 있으면 끝🔥
+                                    </p>
+                                    <i class="icon chevron-right NullOpenAccountProgress_move__3tVFB"></i>
+                                </a></div>
+                                <div>
+                                    <div class="NullProject_divider__2I-q4"></div>
+                                    <div class="NullMenu_menu__3b-H-"><a
+                                            href="/web/wmypage/mybenefit/pointlist"><span
+                                            class="NullMenu_icon__1sqne"><svg viewBox="0 0 40 40"
+                                                                              focusable="false" role="presentation"
+                                                                              class="withIcon_icon__FgeYa"
+                                                                              aria-hidden="true">
+                                                        <g data-name="레이어 2">
+                                                            <path
+                                                                    d="M21.19 12.5h-5.91v15.16h2.16v-4.59h3.75a7 7 0 0 0 4.63-1.41 4.75 4.75 0 0 0 1.69-3.87 4.77 4.77 0 0 0-1.69-3.88 7 7 0 0 0-4.63-1.41zm3.07 7.81a4.84 4.84 0 0 1-3.14.88h-3.68v-6.8h3.68a4.9 4.9 0 0 1 3.14.87 3.06 3.06 0 0 1 1.09 2.53 3 3 0 0 1-1.09 2.52z">
+                                                            </path>
+                                                            <path
+                                                                    d="M20 1.67A18.33 18.33 0 1 0 38.33 20 18.35 18.35 0 0 0 20 1.67zm0 34.66A16.33 16.33 0 1 1 36.33 20 16.35 16.35 0 0 1 20 36.33z">
+                                                            </path>
+                                                            <path fill="none" d="M0 0h40v40H0z"></path>
+                                                        </g>
+                                                    </svg></span><strong class="NullMenu_text__9ryGW">포인트</strong><span
+                                            class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                                   focusable="false" role="presentation"
+                                                                                   class="withIcon_icon__FgeYa"
+                                                                                   aria-hidden="true">
+                                                        <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                        </path>
+                                                    </svg></span></a></div>
+                                    <div class="NullMenu_menu__3b-H-"><a href="/web/coupon-zone"
+                                                                         data-event="coupon"><span
+                                            class="NullMenu_icon__1sqne"><svg
+                                            viewBox="0 0 40 40" focusable="false" role="presentation"
+                                            class="withIcon_icon__FgeYa" aria-hidden="true">
+                                                        <g data-name="레이어 2">
+                                                            <path
+                                                                    d="M37.64 17.54l.86-.12V8.5a2 2 0 0 0-2-2h-33a2 2 0 0 0-2 2v8.92l.86.12a2.48 2.48 0 0 1 0 4.92l-.86.12v8.92a2 2 0 0 0 2 2h33a2 2 0 0 0 2-2v-8.92l-.86-.12a2.48 2.48 0 0 1 0-4.92zm-1.14 6.69v7.27h-33v-7.27a4.48 4.48 0 0 0 0-8.46V8.5h33v7.27a4.48 4.48 0 0 0 0 8.46z">
+                                                            </path>
+                                                            <path
+                                                                    d="M18.16 16.73a2.66 2.66 0 1 0-2.66 2.66 2.66 2.66 0 0 0 2.66-2.66zm-3.8 0a1.14 1.14 0 1 1 1.14 1.14 1.14 1.14 0 0 1-1.14-1.14zm12.14 4.34a2.66 2.66 0 1 0 2.66 2.66 2.66 2.66 0 0 0-2.66-2.66zm0 3.8a1.14 1.14 0 1 1 1.14-1.14 1.14 1.14 0 0 1-1.14 1.14zm.43-10.45l-1.08-.98-10.99 12.01-.09.09 1.08.98 10.99-12.01.09-.09z">
+                                                            </path>
+                                                            <path fill="none" d="M0 0h40v40H0z"></path>
+                                                        </g>
+                                                    </svg></span><strong class="NullMenu_text__9ryGW">쿠폰</strong><span
+                                            class="NullMenu_hint__bqTpy">다운로드 가능 2장</span><span
+                                            class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                                   focusable="false" role="presentation"
+                                                                                   class="withIcon_icon__FgeYa"
+                                                                                   aria-hidden="true">
+                                                        <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                        </path>
+                                                    </svg></span></a></div>
+                                    <div class="NullMenu_menu__3b-H-"><a
+                                            href="/web/board/personalMessage/inbox"><span
+                                            class="NullMenu_icon__1sqne"><svg viewBox="0 0 39.98 39.98"
+                                                                              focusable="false" role="presentation"
+                                                                              class="withIcon_icon__FgeYa"
+                                                                              aria-hidden="true">
+                                                        <g data-name="레이어 2">
+                                                            <path fill="none" d="M0 0h39.98v39.98H0z"></path>
+                                                            <path
+                                                                    d="M36.89 6.66H3.61a2 2 0 0 0-1.94 1.95v23.26a1.94 1.94 0 0 0 1.94 1.95h33.28a2 2 0 0 0 2-1.95V8.61a2 2 0 0 0-2-1.95zM3.67 31.87V8.66l33.17-.05v23.21z">
+                                                            </path>
+                                                            <path
+                                                                    d="M21.15 22a1.33 1.33 0 0 1-1.8 0L8.07 11.69l-1.34 1.48L18 23.46a3.3 3.3 0 0 0 4.49 0l11.13-10.15-1.35-1.48z">
+                                                            </path>
+                                                        </g>
+                                                    </svg></span><strong class="NullMenu_text__9ryGW">메시지</strong><span
+                                            class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                                   focusable="false" role="presentation"
+                                                                                   class="withIcon_icon__FgeYa"
+                                                                                   aria-hidden="true">
+                                                        <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                        </path>
+                                                    </svg></span></a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="NullEventBanner_pare__2jf7V">
+                            <div class="banner_eventBanner__cLcyF NullEventBanner_banner__2PC1U NullEventBanner_banner__2PC1U"
+                                 style="background-color: rgb(210, 217, 222);">
+                                <div class="banner_adBadge__2iyux">AD</div>
+                                <a
+                                        href="https://www.wadiz.kr/web/wcomingsoon/rwd/176084?acid=10024261&amp;_refer_section_st=ME4_1"
+                                        class="banner_link__11Ogl" data-promo-acid="10024261"
+                                        data-promo-id="https://www.wadiz.kr/web/wcomingsoon/rwd/176084?acid=10024261&amp;_refer_section_st=ME4_1"
+                                        data-promo-name="갓짜낸 참기름 들기름세트" data-promo-position="ME4"
+                                        data-gtm-vis-recent-on-screen-11319722_2115="1332186"
+                                        data-gtm-vis-first-on-screen-11319722_2115="1332186"
+                                        data-gtm-vis-total-visible-time-11319722_2115="2000"
+                                        data-gtm-vis-recent-on-screen-11319722_2047="1332187"
+                                        data-gtm-vis-first-on-screen-11319722_2047="1332187"
+                                        data-gtm-vis-total-visible-time-11319722_2047="2000"
+                                        data-gtm-vis-has-fired-11319722_2115="1"
+                                        data-gtm-vis-has-fired-11319722_2047="1">
+                                    <div class="banner_inner__1Pn-n">
+                                        <div class="banner_contents__1rLTm"
+                                             style="background-image: url(&quot;https://cdn1.wadiz.kr/images/20221221/1671613152866.png/wadiz/optimize&quot;);">
+                                            <div class="banner_text__ROckl">
+                                                <p>찐한 꼬소함 입맛 돋우는</p><strong>갓짜낸 참기름 들기름세트</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="banner_eventBanner__cLcyF NullEventBanner_banner__2PC1U NullEventBanner_banner__2PC1U"
+                                 style="background-color: rgb(165, 229, 230);"><a
+                                    href="https://ad.wadiz.kr?_refer_section_st=MY3_0" class="banner_link__11Ogl"
+                                    data-promo-id="https://ad.wadiz.kr?_refer_section_st=MY3_0"
+                                    data-promo-name="프로젝트 홍보를 시작하세요!" data-promo-position="MY3"
+                                    data-gtm-vis-recent-on-screen-11319722_2047="1332187"
+                                    data-gtm-vis-first-on-screen-11319722_2047="1332187"
+                                    data-gtm-vis-total-visible-time-11319722_2047="2000"
+                                    data-gtm-vis-has-fired-11319722_2047="1">
+                                <div class="banner_inner__1Pn-n">
+                                    <div class="banner_contents__1rLTm"
+                                         style="background-image: url(&quot;https://static.wadiz.kr/main/media/group-23@3x.1afee7f0.png&quot;);">
+                                        <div class="banner_text__ROckl">
+                                            <p>NULL 광고센터에서</p><strong>프로젝트 홍보를 시작하세요!</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a></div>
+                        </div>
+                        <div class="NullSection_section__3FCv1">
+                            <h3 class="NullSection_title__2pnV3">나의 활동</h3>
+                            <div>
+                                <div class="NullMenu_menu__3b-H-"><a href="/web/wish/main"><span
+                                        class="NullMenu_icon__1sqne"><svg viewBox="0 0 32 32" focusable="false"
+                                                                          role="presentation"
+                                                                          class="withIcon_icon__FgeYa"
+                                                                          aria-hidden="true">
+                                                    <path
+                                                            d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085zm-5.28 21.84l-.88.8-.88-.8h-.08C8.4 19.76 4 15.84 4 11.44l-.001-.082A5.76 5.76 0 0 1 9.928 5.6a6.542 6.542 0 0 1 4.865 2.232l.486.567h1.52l.48-.56a6.548 6.548 0 0 1 4.877-2.24l.084-.001a5.76 5.76 0 0 1 5.76 5.76l-.001.085c0 4.396-4.4 8.316-11.12 14.396z">
+                                                    </path>
+                                                </svg></span><strong class="NullMenu_text__9ryGW">찜하기</strong><span
+                                        class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                               focusable="false" role="presentation"
+                                                                               class="withIcon_icon__FgeYa"
+                                                                               aria-hidden="true">
+                                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z"></path>
+                                                </svg></span></a></div>
+
+                            </div>
+                        </div>
+                        <div class="NullSection_section__3FCv1">
+                            <h3 class="NullSection_title__2pnV3">기타</h3>
+                        </div>
+                        <div class="NullSection_section__3FCv1">
+                            <div>
+                                <div class="NullMenu_menu__3b-H-"><a href="/web/wboard/newsBoardList"><strong
+                                        class="NullMenu_text__9ryGW">공지사항</strong><span
+                                        class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                               focusable="false" role="presentation"
+                                                                               class="withIcon_icon__FgeYa"
+                                                                               aria-hidden="true">
+                                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                    </path>
+                                                </svg></span></a></div>
+                                <div class="NullMenu_menu__3b-H-"><a
+                                        href="https://helpcenter.wadiz.kr/hc/ko"><strong
+                                        class="NullMenu_text__9ryGW">도움말센터</strong><span
+                                        class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                               focusable="false" role="presentation"
+                                                                               class="withIcon_icon__FgeYa"
+                                                                               aria-hidden="true">
+                                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                    </path>
+                                                </svg></span></a></div>
+                                <div class="NullMenu_menu__3b-H-">
+                                    <button data-event="inquire"><strong
+                                            class="NullMenu_text__9ryGW">NULL에 문의하기</strong><span
+                                            class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                                   focusable="false" role="presentation"
+                                                                                   class="withIcon_icon__FgeYa"
+                                                                                   aria-hidden="true">
+                                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                    </path>
+                                                </svg></span></button>
+                                </div>
+                                <div class="NullMenu_menu__3b-H-"><a
+                                        href="/web/waccount/wAccountUpdateBasicInfoIntro"><strong
+                                        class="NullMenu_text__9ryGW">설정</strong><span
+                                        class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                               focusable="false" role="presentation"
+                                                                               class="withIcon_icon__FgeYa"
+                                                                               aria-hidden="true">
+                                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                    </path>
+                                                </svg></span></a></div>
+                                <div class="NullOtherMenu_btnWrapper__2qG2E">
+                                    <div class="NullOtherMenu_loginMode__3x6tN">
+                                        <p class="NullLoginMode_loginMode__2smkD"><span
+                                                class="NullLoginMode_kakaoIcon__MfcN0"><svg viewBox="0 0 32 32"
+                                                                                            focusable="false"
+                                                                                            role="presentation"
+                                                                                            class="withIcon_icon__FgeYa"
+                                                                                            aria-hidden="true">
+                                                        <path
+                                                                d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.32 6.64 5.76 8.48l-.96 4.96 5.44-3.6 2.4.16c6.96 0 12.64-4.48 12.64-10.08S22.96 4.56 16 4.64z">
+                                                        </path>
+                                                    </svg></span>카카오로 로그인 중
+                                        </p>
+                                        <button
+                                                class="Button_button__mRXZC Button_md__136bx Button_block__1LAUA"
+                                                type="button"><span><span
+                                                class="Button_children__3HY2l">로그아웃</span></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="NullMaker_makerMode__19jDX" style="display: none;" id="personal_makerMode">
+                    <div class="NullMakerProfile_profileContainer__1SNqv">
+                        <div class="NullMakerProfile_baseInfoSection__2bk8B">
+                            <div class="NullMakerProfile_profileImage__110Wi">
+                                <button
+                                        class="NullMakerProfile_detailProfile__13QK_ NullMakerProfile_noLogo__1-PDp"
+                                        title="메이커 등록하기"></button>
+                            </div>
+                            <div class="NullMakerProfile_profileUser__2cuK9">
+                                <button
+                                        class="NullMakerProfile_makerName__RJLqx"><strong
+                                        class="NullMakerProfile_text__8kdAr"><span>NULL
+                                                메이커님</span></strong></button>
+                                <button
+                                        class="NullMakerProfile_myFollower__13Qbd"><span>내 팔로워</span><span
+                                        class="NullMakerProfile_value__3q2bE">0</span></button>
+                            </div>
+                        </div>
+                        <button class="NullMakerPageCompletion_container__-uhDn">
+                            <div class="NullMakerPageCompletion_content__3vzUj">
+                                <div class="NullMakerPageCompletion_header__23t_l">
+                                    <div class="NullMakerPageCompletion_titleWrapper__38DCM"><img
+                                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTciIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNyAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiByeD0iNCIgZmlsbD0iI0NERDNEOCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLjkzNCkiLz4KICAgICAgICA8ZyBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iPgogICAgICAgICAgICA8cGF0aCBkPSJNOC45MzQgOGExLjk5NSAxLjk5NSAwIDAgMS0yLTIuMDI4YzAtMS4wNzcuODk4LTEuOTcyIDItMS45NzIgMS4xMDIgMCAyIC44OTUgMiAxLjk3MiAwIDEuMTYtLjg5OCAyLjAzNS0yIDIuMDI4ek0xMi40NzUgMTJINS4zOTNjLS4zMTYgMC0uNDU5LS4yMDEtLjQ1OS0uNDg0IDAtLjgzNCAxLjI3OC0zLjAxNiA0LTMuMDE2czQgMi4xODIgNCAzLjAxNmMwIC4yODMtLjE0My40ODQtLjQ1OS40ODR6Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K"
+                                            alt="" class="NullMakerPageCompletion_profileIcon__13-7j"><strong
+                                            class="NullMakerPageCompletion_title__dKDis">메이커 페이지</strong></div>
+                                    <span
+                                            class="Badge_container__3ioDw Badge_visible__n2Hg1"><span
+                                            class="Badge_badge__2h6cT Badge_label__VC3QR Badge_sm__1ia4P Badge_secondary__1o9ka Badge_circular__nBLvt Badge_outlined__3qJvX">없음</span></span>
+                                </div>
+                                <p class="NullMakerPageCompletion_description__34P_w">메이커 페이지 만들고 팔로워를 늘려보세요</p>
+                            </div>
+                            <div class="NullMakerPageCompletion_button__2Zdp5"><span
+                                    class="NullMakerPageCompletion_text__1Nn34">페이지 만들기</span>
+                                <svg
+                                        viewBox="0 0 40 40" focusable="false" role="presentation"
+                                        class="withIcon_icon__FgeYa NullMakerPageCompletion_arrowIcon__nAjwH"
+                                        aria-hidden="true">
+                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="NullMakerProfile_setting__3yxCI">
+                            <p class="NullLoginMode_loginMode__2smkD"><span
+                                    class="NullLoginMode_kakaoIcon__MfcN0"><svg viewBox="0 0 32 32"
+                                                                                focusable="false" role="presentation"
+                                                                                class="withIcon_icon__FgeYa"
+                                                                                aria-hidden="true">
+                                            <path
+                                                    d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.32 6.64 5.76 8.48l-.96 4.96 5.44-3.6 2.4.16c6.96 0 12.64-4.48 12.64-10.08S22.96 4.56 16 4.64z">
+                                            </path>
+                                        </svg></span>카카오로 로그인 중
+                            </p>
+                            <button
+                                    class="Button_button__MvCi9 Button_md__3RBTF Button_circular__2lnPs Button_block__3LZpG"
+                                    type="button"><span><span class="Button_children__25PKp">로그아웃</span></span></button>
+                        </div>
+                    </div>
+                    <div class="NullMaker_contents__1blQZ">
+                        <div class="NullSection_section__3FCv1">
+                            <div>
+                                <div class="Tabs_tabsWrapper__1dcH4">
+                                    <ul class="Tabs_tabs__GylX6 NullMyProject_tab__FWE9W">
+                                        <li data-index="0">
+                                            <button type="button"
+                                                    class="Tab_tab__2lN8p Tab_first__3PMPz Tab_active__1D9Tt"
+                                                    data-event="funding" data-value="0"><span>펀딩</span></button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="TabPanels_tabPanels__37eeu">
+                                    <div class="NullMyProject_projectListContainer__2C9hy">
+                                        <div class="NullMyProject_empty__kdg-A">
+                                            <div class="NullMyProject_icon__sGTfR">
+                                                <svg viewBox="0 0 40 40"
+                                                     focusable="false" role="presentation"
+                                                     class="withIcon_icon__FgeYa" aria-hidden="true">
+                                                    <path fill="none" d="M0 0h40v40H0z"></path>
+                                                    <path
+                                                            d="M28.83 11a4.59 4.59 0 0 0 1.78-2 4 4 0 0 0 0-3.33 3.62 3.62 0 0 0-2.22-2c-1.51-.46-3.1 0-4.7 1.37A17.77 17.77 0 0 0 20 9.85a17.77 17.77 0 0 0-3.73-4.79c-1.6-1.38-3.19-1.84-4.7-1.37a3.6 3.6 0 0 0-2.22 2A4 4 0 0 0 9.39 9a4.59 4.59 0 0 0 1.78 2H3.3v25.15h2.4V13.38h28.6v22.77h2.4V11zM25 6.57c1.42-1.21 2.28-1.13 2.82-1a1.68 1.68 0 0 1 1 .91 2 2 0 0 1 0 1.68c-.63 1.41-3.26 2.35-7 2.58A16.06 16.06 0 0 1 25 6.57zm-13.83-.06a1.68 1.68 0 0 1 1-.91 2 2 0 0 1 .59-.09A3.56 3.56 0 0 1 15 6.57a16.06 16.06 0 0 1 3.25 4.2c-3.75-.23-6.37-1.17-7-2.58a2 2 0 0 1-.08-1.68z">
+                                                    </path>
+                                                    <path d="M18.8 16.57h2.4v19.4h-2.4z"></path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <p class="NullMyProject_title__2cowP">펀딩한 서포터에게 제품이나 서비스를 제공합니다</p>
+                                                <p class="NullMyProject_discription__3eGOm">NULL 펀딩으로 처음을 만들어보세요</p>
+                                            </div>
+                                        </div>
+                                        <a href="/web/wsub/openfunding/reward"
+                                           class="Button_button__MvCi9 Button_primary__2drNJ Button_contained__2QbHh Button_lg__2VLQ5 Button_block__3LZpG NullMyProject_button__3WHeG"><span><span
+                                                class="Button_children__25PKp">펀딩 오픈 신청하기</span></span></a><a
+                                            class="NullMyProject_info__1rRr9"
+                                            href="/web/wterms/funding_plan_policy">펀딩 요금제 안내
+                                        <svg
+                                                viewBox="0 0 40 40" focusable="false" role="presentation"
+                                                class="withIcon_icon__FgeYa" aria-hidden="true">
+                                            <path fill="none" d="M0 0h40v40H0z"></path>
+                                            <path
+                                                    d="M20 39a19 19 0 1 1 19-19 19.06 19.06 0 0 1-19 19zm0-36a17 17 0 1 0 17 17A17 17 0 0 0 20 3z">
+                                            </path>
+                                            <path
+                                                    d="M20 10.4a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 1 0 0-3.6zm-1.04 6.43h2.08v13h-2.08z">
+                                            </path>
+                                        </svg>
+                                    </a>
+                                    </div>
+                                    <ul>
+                                        <div class="NullMenu_menu__3b-H-"><a
+                                                href="/web/board/personalMessage/inbox"><span
+                                                class="NullMenu_icon__1sqne"><svg viewBox="0 0 39.98 39.98"
+                                                                                  focusable="false" role="presentation"
+                                                                                  class="withIcon_icon__FgeYa"
+                                                                                  aria-hidden="true">
+                                                            <g data-name="레이어 2">
+                                                                <path fill="none" d="M0 0h39.98v39.98H0z"></path>
+                                                                <path
+                                                                        d="M36.89 6.66H3.61a2 2 0 0 0-1.94 1.95v23.26a1.94 1.94 0 0 0 1.94 1.95h33.28a2 2 0 0 0 2-1.95V8.61a2 2 0 0 0-2-1.95zM3.67 31.87V8.66l33.17-.05v23.21z">
+                                                                </path>
+                                                                <path
+                                                                        d="M21.15 22a1.33 1.33 0 0 1-1.8 0L8.07 11.69l-1.34 1.48L18 23.46a3.3 3.3 0 0 0 4.49 0l11.13-10.15-1.35-1.48z">
+                                                                </path>
+                                                            </g>
+                                                        </svg></span><strong
+                                                class="NullMenu_text__9ryGW">메시지</strong><span
+                                                class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                                       focusable="false"
+                                                                                       role="presentation"
+                                                                                       class="withIcon_icon__FgeYa"
+                                                                                       aria-hidden="true">
+                                                            <path
+                                                                    d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                            </path>
+                                                        </svg></span></a></div>
+                                        <div class="NullMenu_menu__3b-H-"><a
+                                                href="https://help.wadiz.kr/ko/collections/523298-3-%ED%8E%80%EB%94%A9-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%9C%EC%84%A4%EB%B0%A9%EB%B2%95%EC%9D%B4-%EA%B6%81%EA%B8%88%ED%95%98%EB%8B%A4%EB%A9%B4"><span
+                                                class="NullMenu_icon__1sqne"><svg viewBox="0 0 40 40"
+                                                                                  focusable="false" role="presentation"
+                                                                                  class="withIcon_icon__FgeYa"
+                                                                                  aria-hidden="true">
+                                                            <g data-name="레이어 2">
+                                                                <path
+                                                                        d="M18.86 35.91H6.63a2.37 2.37 0 0 1-2.37-2 2.32 2.32 0 0 1 2.29-2.62H16.9a12.05 12.05 0 0 1-.24-2.1H6.55a4.38 4.38 0 0 0-2.31.66V6.38a2.31 2.31 0 0 1 2.31-2.31h23.63v13.11a10.46 10.46 0 0 1 2.1.45V2H6.55a4.41 4.41 0 0 0-4.41 4.38V33.6A4.42 4.42 0 0 0 6.55 38h13.82a.21.21 0 0 0 .14-.36 11.88 11.88 0 0 1-1.65-1.73z">
+                                                                </path>
+                                                                <path
+                                                                        d="M10.13 9.77v2.11h14.05a1 1 0 0 0 1-1V9.77H10.13zm18.48 9.77a9.25 9.25 0 1 0 9.25 9.25 9.25 9.25 0 0 0-9.25-9.25zm0 16.63A7.38 7.38 0 1 1 36 28.79a7.39 7.39 0 0 1-7.39 7.38z">
+                                                                </path>
+                                                                <path
+                                                                        d="M28.61 24.06a1.13 1.13 0 1 0 0 2.26 1.13 1.13 0 1 0 0-2.26zm-.89 3.71h1.79v5.98h-1.79z">
+                                                                </path>
+                                                                <path fill="none" d="M0 0h40v40H0z"></path>
+                                                            </g>
+                                                        </svg></span><strong class="NullMenu_text__9ryGW">프로젝트 개설
+                                            안내</strong><span class="NullMenu_arrowIcon__2sutN"><svg
+                                                viewBox="0 0 40 40" focusable="false" role="presentation"
+                                                class="withIcon_icon__FgeYa" aria-hidden="true">
+                                                            <path
+                                                                    d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                            </path>
+                                                        </svg></span></a></div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="NullEventBanner_pare__2jf7V">
+                            <div class="banner_eventBanner__cLcyF NullEventBanner_banner__2PC1U NullEventBanner_banner__2PC1U"
+                                 style="background-color: rgb(254, 237, 132);">
+                                <div class="banner_adBadge__2iyux">AD</div>
+                                <a
+                                        href="https://www.wadiz.kr/web/wcomingsoon/rwd/174431?acid=10024016&amp;_refer_section_st=ME4_0"
+                                        class="banner_link__11Ogl" data-promo-acid="10024016"
+                                        data-promo-id="https://www.wadiz.kr/web/wcomingsoon/rwd/174431?acid=10024016&amp;_refer_section_st=ME4_0"
+                                        data-promo-name="2022 품절대란 한정판" data-promo-position="ME4">
+                                    <div class="banner_inner__1Pn-n">
+                                        <div class="banner_contents__1rLTm"
+                                             style="background-image: url(&quot;https://cdn1.wadiz.kr/images/20221215/1671077286008.png/wadiz/optimize&quot;);">
+                                            <div class="banner_text__ROckl">
+                                                <p>자취 필수템 마지막 앵콜</p><strong>2022 품절대란 한정판</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="banner_eventBanner__cLcyF NullEventBanner_banner__2PC1U NullEventBanner_banner__2PC1U"
+                                 style="background-color: rgb(165, 229, 230);"><a
+                                    href="https://ad.wadiz.kr?_refer_section_st=MY3_0" class="banner_link__11Ogl"
+                                    data-promo-id="https://ad.wadiz.kr?_refer_section_st=MY3_0"
+                                    data-promo-name="프로젝트 홍보를 시작하세요!" data-promo-position="MY3">
+                                <div class="banner_inner__1Pn-n">
+                                    <div class="banner_contents__1rLTm"
+                                         style="background-image: url(&quot;https://static.wadiz.kr/main/media/group-23@3x.1afee7f0.png&quot;);">
+                                        <div class="banner_text__ROckl">
+                                            <p>NULL 광고센터에서</p><strong>프로젝트 홍보를 시작하세요!</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a></div>
+                        </div>
+                        <div class="NullSection_section__3FCv1">
+                            <h3 class="NullSection_title__2pnV3">메이커 팁</h3>
+                            <div>
+                                <div class="NullMenu_menu__3b-H-"><a href="/web/wnewsletter/main"><span
+                                        class="NullMenu_icon__1sqne"><svg viewBox="0 0 40 40" focusable="false"
+                                                                          role="presentation"
+                                                                          class="withIcon_icon__FgeYa"
+                                                                          aria-hidden="true">
+                                                    <g data-name="레이어 2">
+                                                        <path
+                                                                d="M23.49 13.11h6.19v1.98h-6.19zm0 6.53h6.19v1.98h-6.19zm-13.18 7.07h19.37v1.98H10.31zm2.6-5.57l1.8-5.37 1.74 5.37h1.97l2.59-7.93h-1.75l-1.85 5.61-1.81-5.61h-1.7l-1.86 5.57-1.79-5.57h-1.9l2.6 7.93h1.96z">
+                                                        </path>
+                                                        <path
+                                                                d="M35.19 3.59a2 2 0 0 0-2 .11l-3.09 2-3.93-2.45a2 2 0 0 0-2.21 0L20 5.73l-3.93-2.48a2 2 0 0 0-2.2 0l-4 2.5-3.04-1.94a2 2 0 0 0-3.09 1.67v26.64a5 5 0 0 0 5 5h22.55a5 5 0 0 0 5-5V5.36a2 2 0 0 0-1.1-1.77zm-1.07 28.53A2.83 2.83 0 0 1 31.29 35H8.71a2.83 2.83 0 0 1-2.83-2.83V5.74l2.9 1.83a2 2 0 0 0 2.2 0l4-2.5 3.91 2.49a2 2 0 0 0 2.2 0l4-2.5L29 7.56a2 2 0 0 0 2.21 0l3-1.95z">
+                                                        </path>
+                                                        <path fill="none" d="M0 0h40v40H0z"></path>
+                                                    </g>
+                                                </svg></span><strong class="NullMenu_text__9ryGW">메이커 뉴스레터</strong><span
+                                        class="NullMenu_hint__bqTpy">구독 신청하기</span><span
+                                        class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                               focusable="false" role="presentation"
+                                                                               class="withIcon_icon__FgeYa"
+                                                                               aria-hidden="true">
+                                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z"></path>
+                                                </svg></span></a></div>
+                                <div class="NullMenu_menu__3b-H-"><a href="/web/wcast/main"
+                                                                     data-event="maker_cast"><span
+                                        class="NullMenu_icon__1sqne"><svg
+                                        viewBox="0 0 39.98 39.98" focusable="false" role="presentation"
+                                        class="withIcon_icon__FgeYa" aria-hidden="true">
+                                                    <g data-name="레이어 2">
+                                                        <path fill="none" d="M0 0h39.98v39.98H0z"></path>
+                                                        <path
+                                                                d="M20 14.76a4.53 4.53 0 1 0 4.53 4.53A4.53 4.53 0 0 0 20 14.76zm0 6.93a2.41 2.41 0 1 1 2.41-2.4 2.41 2.41 0 0 1-2.41 2.4zm-12.76 8.9A16 16 0 0 1 7.24 8l-1.5-1.5a18.12 18.12 0 0 0 0 25.6l1.41 1.4 1.5-1.5-1.41-1.41z">
+                                                        </path>
+                                                        <path
+                                                                d="M12.52 10.44l-1.42 1.41a10.53 10.53 0 0 0 0 14.87l1.4 1.4 1.5-1.5-1.41-1.41a8.4 8.4 0 0 1 0-11.86L14 11.94zm16.36 1.41l-1.4-1.4L26 12l1.41 1.42a8.4 8.4 0 0 1 0 11.86L26 26.64l1.5 1.5 1.41-1.41a10.54 10.54 0 0 0-.03-14.88z">
+                                                        </path>
+                                                        <path
+                                                                d="M34.25 6.49L32.75 8a16 16 0 0 1 0 22.6L31.34 32l1.5 1.5 1.41-1.41a18.12 18.12 0 0 0 0-25.6z">
+                                                        </path>
+                                                    </g>
+                                                </svg></span><strong class="NullMenu_text__9ryGW">NULL 캐스트</strong><span
+                                        class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                               focusable="false" role="presentation"
+                                                                               class="withIcon_icon__FgeYa"
+                                                                               aria-hidden="true">
+                                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z"></path>
+                                                </svg></span></a></div>
+                                <div class="NullMenu_menu__3b-H-"><a href="/web/school/main"><span
+                                        class="NullMenu_icon__1sqne"><svg viewBox="0 0 40 40" focusable="false"
+                                                                          role="presentation"
+                                                                          class="withIcon_icon__FgeYa"
+                                                                          aria-hidden="true">
+                                                    <g data-name="레이어 2">
+                                                        <path fill="none" d="M0 0h40v40H0z"></path>
+                                                        <path
+                                                                d="M17.37 25.75v-2.14h-4.2v-2.12a6.57 6.57 0 0 0-13.17 0v12.77h2.18V21.49a4.42 4.42 0 0 1 8.84 0v4.26zM6.6 13.49a3.88 3.88 0 1 0-3.87-3.87 3.88 3.88 0 0 0 3.87 3.87zm0-5.84a2 2 0 1 1-2 2 2 2 0 0 1 2-2z">
+                                                        </path>
+                                                        <path
+                                                                d="M14.12 5.8v2.14h23.7v24.02h-23.7v2.14h25.84V5.8H14.12z">
+                                                        </path>
+                                                        <path
+                                                                d="M18.69 11.98h15.04v2.14H18.69zm0 5.5h15.04v2.14H18.69z">
+                                                        </path>
+                                                    </g>
+                                                </svg></span><strong class="NullMenu_text__9ryGW">NULL 스쿨</strong><span
+                                        class="NullMenu_hint__bqTpy">수강 신청하기</span><span
+                                        class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                               focusable="false" role="presentation"
+                                                                               class="withIcon_icon__FgeYa"
+                                                                               aria-hidden="true">
+                                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z"></path>
+                                                </svg></span></a></div>
+                                <div class="NullMenu_menu__3b-H-"><a href="https://www.partnerzone.wadiz.kr/"><span
+                                        class="NullMenu_icon__1sqne"><svg viewBox="0 0 40 40" focusable="false"
+                                                                          role="presentation"
+                                                                          class="withIcon_icon__FgeYa"
+                                                                          aria-hidden="true">
+                                                    <g data-name="레이어 2">
+                                                        <path
+                                                                d="M7.46 27.17a4 4 0 1 0-3.95-4 4 4 0 0 0 3.95 4zm0-6a2 2 0 1 1-2 2 2.05 2.05 0 0 1 2-2zm0 7.65a6.6 6.6 0 0 0-6.59 6.6v2.48h1.9v-2.48a4.69 4.69 0 1 1 9.38 0V38h1.9v-2.58a6.6 6.6 0 0 0-6.59-6.6zm31.67 6.6a6.59 6.59 0 1 0-13.18 0V38h1.9v-2.58a4.69 4.69 0 1 1 9.38 0v2.48h1.9v-2.48zm-6.59-8.25a4 4 0 1 0-3.95-4 4 4 0 0 0 3.95 4zm0-6a2 2 0 1 1-2.05 2 2.05 2.05 0 0 1 2.05-2zm2.65-18.12H5.67v13.03h9.96v-1.9H7.57V4.95h25.72v9.23H21.72l-5.7 5.99 1.37 1.31 5.15-5.4h12.65V3.05z">
+                                                        </path>
+                                                        <path fill="none" d="M0 0h40v40H0z"></path>
+                                                    </g>
+                                                </svg></span><strong class="NullMenu_text__9ryGW">NULL 파트너
+                                    서비스</strong><span class="NullMenu_arrowIcon__2sutN"><svg
+                                        viewBox="0 0 40 40" focusable="false" role="presentation"
+                                        class="withIcon_icon__FgeYa" aria-hidden="true">
+                                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z"></path>
+                                                </svg></span></a></div>
+                                <div class="NullMenu_menu__3b-H-"><a href="/web/wpartner/main"><span
+                                        class="NullMenu_icon__1sqne"><svg viewBox="0 0 40 40" focusable="false"
+                                                                          role="presentation"
+                                                                          class="withIcon_icon__FgeYa"
+                                                                          aria-hidden="true">
+                                                    <g data-name="레이어 2">
+                                                        <path fill="none" d="M0 0h40v40H0z"></path>
+                                                        <path
+                                                                d="M37.68 23.89a9.24 9.24 0 0 0-9.23-9.24c-3.89 0-7.54 2.53-10.58 7.33l-.25.4a25.55 25.55 0 0 0-2.91 5.53c-1.16 3.43-.41 7.92 3.24 9.5a5.22 5.22 0 0 0 2 .43 5.22 5.22 0 0 0 2-.43c3.65-1.58 4.4-6.07 3.24-9.5A22.42 22.42 0 0 0 23 23.37l-1.3 1.84a17.68 17.68 0 0 1 1.63 3.36c.86 2.55.41 5.85-2.11 6.94a2.94 2.94 0 0 1-2.46 0c-2.52-1.09-3-4.39-2.11-6.94a24.56 24.56 0 0 1 2.7-5.08l.26-.41c1.84-2.9 4.86-6.37 8.83-6.37a7.18 7.18 0 0 1 7.17 7.18v12.4h2.06v-2zm-26.12-11.2a5.27 5.27 0 1 0-5.27-5.27 5.28 5.28 0 0 0 5.27 5.27zm0-8.47a3.21 3.21 0 1 1-3.21 3.2 3.21 3.21 0 0 1 3.21-3.2zm5.13 14.52l1.3-1.6c-.25-.21-.52-.41-.78-.6a9.75 9.75 0 0 0-5.65-1.89 9.24 9.24 0 0 0-9.24 9.24v12.4h2.06v-12.4a7.19 7.19 0 0 1 7.18-7.18A7.71 7.71 0 0 1 16 18.23c.25.16.47.33.69.51zM28 12.69a5.27 5.27 0 1 0-5.3-5.27 5.27 5.27 0 0 0 5.3 5.27zm0-8.47a3.21 3.21 0 1 1-3.2 3.2 3.21 3.21 0 0 1 3.2-3.2z">
+                                                        </path>
+                                                    </g>
+                                                </svg></span><strong class="NullMenu_text__9ryGW">협력 프로그램</strong><span
+                                        class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                               focusable="false" role="presentation"
+                                                                               class="withIcon_icon__FgeYa"
+                                                                               aria-hidden="true">
+                                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z"></path>
+                                                </svg></span></a></div>
+                                <div class="NullMenu_menu__3b-H-"><a
+                                        href="https://www.wadiz.kr/link/funding_story_partner_makertip"><span
+                                        class="NullMenu_icon__1sqne"><svg viewBox="0 0 130 130"
+                                                                          focusable="false" role="presentation"
+                                                                          class="withIcon_icon__FgeYa"
+                                                                          aria-hidden="true">
+                                                    <path
+                                                            d="M106.7 15.69L91.27 31.12l-4.08 4.08-62.03 62.03v23.3h23.3l62.03-62.03 4.08-4.08L130 38.98l-23.3-23.29zM46.13 114.7H30.99V99.56l60.28-60.28 15.14 15.14-60.28 60.28zm64.36-64.36L95.35 35.2l11.36-11.36 15.14 15.14-11.36 11.36zm7.75 52.53v17.3h-17.3v-17.3h17.3m5-5h-27.3v27.3h27.3v-27.3zM15.21 46.18c5.63 0 10.21 4.58 10.21 10.21S20.84 66.6 15.21 66.6 5 62.03 5 56.4s4.58-10.22 10.21-10.22m0-5C6.81 41.18 0 47.99 0 56.4s6.81 15.21 15.21 15.21S30.43 64.8 30.43 56.4s-6.81-15.22-15.22-15.22zM53.08 10l7.4 12.81h-14.8L53.08 10m0-10L37.02 27.81h32.11L53.08 0z">
+                                                    </path>
+                                                </svg></span><strong class="NullMenu_text__9ryGW">펀딩 콘텐츠 제작
+                                    서비스</strong><span class="NullMenu_hint__bqTpy">서비스 구경하기</span><span
+                                        class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                               focusable="false" role="presentation"
+                                                                               class="withIcon_icon__FgeYa"
+                                                                               aria-hidden="true">
+                                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z"></path>
+                                                </svg></span></a></div>
+                            </div>
+                        </div>
+                        <div class="NullSection_section__3FCv1">
+                            <div>
+                                <div class="NullOtherMenu_otherMenu__2GlwQ">
+                                    <div class="NullMenu_menu__3b-H-"><a href="/web/wboard/newsBoardList"><strong
+                                            class="NullMenu_text__9ryGW">공지사항</strong><span
+                                            class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                                   focusable="false" role="presentation"
+                                                                                   class="withIcon_icon__FgeYa"
+                                                                                   aria-hidden="true">
+                                                        <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                        </path>
+                                                    </svg></span></a></div>
+                                    <div class="NullMenu_menu__3b-H-"><a
+                                            href="https://helpcenter.wadiz.kr/hc/ko"><strong
+                                            class="NullMenu_text__9ryGW">도움말센터</strong><span
+                                            class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                                   focusable="false" role="presentation"
+                                                                                   class="withIcon_icon__FgeYa"
+                                                                                   aria-hidden="true">
+                                                        <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                        </path>
+                                                    </svg></span></a></div>
+                                    <div class="NullMenu_menu__3b-H-">
+                                        <button data-event="inquire"><strong
+                                                class="NullMenu_text__9ryGW">NULL에 문의하기</strong><span
+                                                class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                                       focusable="false"
+                                                                                       role="presentation"
+                                                                                       class="withIcon_icon__FgeYa"
+                                                                                       aria-hidden="true">
+                                                        <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                        </path>
+                                                    </svg></span></button>
+                                    </div>
+                                    <div class="NullMenu_menu__3b-H-"><a
+                                            href="/web/waccount/wAccountUpdateBasicInfoIntro"><strong
+                                            class="NullMenu_text__9ryGW">설정</strong><span
+                                            class="NullMenu_arrowIcon__2sutN"><svg viewBox="0 0 40 40"
+                                                                                   focusable="false" role="presentation"
+                                                                                   class="withIcon_icon__FgeYa"
+                                                                                   aria-hidden="true">
+                                                        <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z">
+                                                        </path>
+                                                    </svg></span></a></div>
+                                </div>
+                                <div class="NullOtherMenu_btnWrapper__2qG2E">
+                                    <div class="NullOtherMenu_loginMode__3x6tN">
+                                        <p class="NullLoginMode_loginMode__2smkD"><span
+                                                class="NullLoginMode_kakaoIcon__MfcN0"><svg viewBox="0 0 32 32"
+                                                                                            focusable="false"
+                                                                                            role="presentation"
+                                                                                            class="withIcon_icon__FgeYa"
+                                                                                            aria-hidden="true">
+                                                        <path
+                                                                d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.32 6.64 5.76 8.48l-.96 4.96 5.44-3.6 2.4.16c6.96 0 12.64-4.48 12.64-10.08S22.96 4.56 16 4.64z">
+                                                        </path>
+                                                    </svg></span>카카오로 로그인 중
+                                        </p>
+                                        <button
+                                                class="Button_button__mRXZC Button_md__136bx Button_block__1LAUA"
+                                                type="button"><span><span
+                                                class="Button_children__3HY2l">로그아웃</span></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 메인 바디 끝 -->
+
+<!-- 메인 푸터  -->
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+</body>
+
+</html>

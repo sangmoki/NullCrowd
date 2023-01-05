@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
-<!--      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">-->
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,21 +48,37 @@
         </table>
     </div>
     <div class="search-area" align="center">
-        <form name="search-form" autocomplete="off">
+        <form name="search-form" autocomplete="off" style="display: inline;">
             <select id="searchNotice" name="searchNotice">
                 <option value="title">제목</option>
                 <option value="nickName">작성자</option>
             </select>
-            <input type="search">
-            <input type="button" onclick="getSearchList()" class="btn btn-outline-primary mr-2" value="검색하기"></input>
+            <input type="search" placeholder="검색할 내용을 입력하세요.">
+            <input type="submit" id=searchList class="btn btn-secondary" value="검색하기"></input>
         </form>
-
-<!--        <th:block sec:authorize="hasRole('ADMIN')">-->
-            <button class="btn btn-or" id="writeNotice" th:onclick="'location.href=\'insert\''">
+        <th:block sec:authorize="hasRole('ADMIN')">
+            <button class="btn btn-secondary" id="writeNotice" style="float:right;">
                 작성하기
             </button>
-    <!--                    </th:block>-->
+        </th:block>
+
     </div>
+         <script>
+        document.getElementById('searchList').onclick = function() {
+                var select = document.getElementById('searchNotice');
+                var selected = [...select.selectedOptions]
+                .map(option => option.value);
+                alert(selected);
+        }
+         </script>
+        <script>
+            $("#writeNotice").on("click", function(){
+                window.location.href=
+                    "http://localhost:8888/notice/insert"
+            });
+        </script>
+
+    <br><br>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item">
