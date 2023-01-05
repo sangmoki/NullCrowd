@@ -18,7 +18,7 @@ public class UserImpl extends User {
     private String nickName;
     private Date recentLogin;
     private PersonalInfoDTO personalInfoDTO;
-
+    private FundRaiserDTO fundRaiserDTO;
     public UserImpl(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
@@ -34,6 +34,7 @@ public class UserImpl extends User {
         this.nickName = member.getNickName();
         this.recentLogin = member.getRecentLogin();
         this.personalInfoDTO = member.getPersonalInfoDTO();
+        this.fundRaiserDTO = member.getFundRaiserDTO();
     }
 
     public int getMemCode() { return memCode; }
@@ -54,11 +55,15 @@ public class UserImpl extends User {
 
     public PersonalInfoDTO getPersonalInfoDTO() { return personalInfoDTO; }
 
+    public FundRaiserDTO getFundRaiserDTO() {return fundRaiserDTO;}
+
+    public void setFundRaiserDTO(FundRaiserDTO fundRaiserDTO) {this.fundRaiserDTO = fundRaiserDTO;}
+
     @Override
     public String toString() {
         return "UserImpl{" +
                 "memCode=" + memCode +
-                ", authName=" + authName +
+                ", authName='" + authName + '\'' +
                 ", memEmail='" + memEmail + '\'' +
                 ", memPwd='" + memPwd + '\'' +
                 ", isActive='" + isActive + '\'' +
@@ -66,6 +71,7 @@ public class UserImpl extends User {
                 ", nickName='" + nickName + '\'' +
                 ", recentLogin=" + recentLogin +
                 ", personalInfoDTO=" + personalInfoDTO +
+                ", fundRaiserDTO=" + fundRaiserDTO +
                 '}';
     }
 }

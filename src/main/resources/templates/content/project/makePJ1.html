@@ -77,104 +77,86 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <br><br><br><br><br>
-            <div class="list-group">
-                <div class="list-header">
-                    <b>프로젝트 만들기</b>
-                </div>
-                <div class="col-md-4"><a href="makePJ1.html" class="list-group-item list-group-item-action"
-                                         style="border:none;">
-                    1. 기본정보</a>
-                </div>
-                <div class="col-md-4"><a href="makePJ2.html" class="list-group-item list-group-item-action"
-                                         style="border:none;">
-                    2. 리워드</a>
-                </div>
-                <div class="col-md-4"><a href="makePJ3.html" class="list-group-item list-group-item-action"
-                                         style="border:none;">
-                    3. 안내사항</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div class="text-group">
-                <br><br><br><br>
-                <div class="text-box1">
-                    <div class="text-box-header" style="font-size:30px;">
-                        <b>프로젝트의 성공 조건 & 수수료 안내</b>
+<form action="/project/makeProject">
+    <div class="container">
+        <div class="row">
+            <div th:replace="fragments/mkPJSidebar :: mkPJSidebar"></div>
+            <div class="col-md-9">
+                <div class="text-group">
+                    <br><br><br><br>
+                    <div class="text-box1">
+                        <div class="text-box-header" style="font-size:30px;">
+                            <b>프로젝트의 성공 조건 & 수수료 안내</b>
+                        </div>
+                        <div class="text-box-body">
+                            <br>
+                            프로젝트 종료일 기준 모금액이 목표금액의 100% 이상인 경우에만 프로젝트가 성공하게 됩니다.<br>
+                            프로젝트가 성공한 경우, NULL 펀딩에서는 모금액에서 수수료를 제외한 금액을 정산해 드립니다.<br>
+                            <span class="invisible-text">* 수수료(vat별도) NULL 펀딩 수수료 10% + 결제 수수료 3%</span>
+                            <br><br>
+                        </div>
                     </div>
-                    <div class="text-box-body">
-                        <br>
-                        프로젝트 종료일 기준 모금액이 목표금액의 100% 이상인 경우에만 프로젝트가 성공하게 됩니다.<br>
-                        프로젝트가 성공한 경우, NULL 펀딩에서는 모금액에서 수수료를 제외한 금액을 정산해 드립니다.<br>
-                        <span class="invisible-text">* 수수료(vat별도) NULL 펀딩 수수료 10% + 결제 수수료 3%</span>
-                        <br><br>
+                    <div class="text-box2">
+                        <div class="text-box-header">
+                            <b> 프로젝트의 제목을 적어주세요</b>
+                            <br>
+                        </div>
+                        <div class="text-box-body">
+                            프로젝트의 핵심 내용을 담을 수 있는 간결한 제목을 정해주세요.<br>
+                            <input tpye="text" class="col-lg-5"> 0 / 40
+                            <br><br>
+                        </div>
                     </div>
-                </div>
-                <div class="text-box2">
-                    <div class="text-box-header">
-                        <b> 프로젝트의 제목을 적어주세요</b>
-                        <br>
-                    </div>
-                    <div class="text-box-body">
-                        프로젝트의 핵심 내용을 담을 수 있는 간결한 제목을 정해주세요.<br>
-                        <input tpye="text" class="col-lg-5"> 0 / 40
-                        <br><br>
-                    </div>
-                </div>
-                <div class="text-box3">
-                    <div class="text-box-header">
-                        <b> 목표 금액을 적어주세요</b><br>
-                    </div>
-                    <div class="text-box-body">
-                        <span class="pink-text">최소 100,000원 이상</span>이어야 합니다.<br>
-                        <input tpye="text" class="col-lg-5"> 원 <br><br>
+                    <div class="text-box3">
+                        <div class="text-box-header">
+                            <b> 목표 금액을 적어주세요</b><br>
+                        </div>
+                        <div class="text-box-body">
+                            <span class="pink-text">최소 100,000원 이상</span>이어야 합니다.<br>
+                            <input tpye="text" class="col-lg-5"> 원 <br><br>
 
+                        </div>
                     </div>
-                </div>
-                <div class="text-box4">
-                    <div class="text-box-header">
-                        <b> 프로젝트 기간을 정해주세요</b> <br>
+                    <div class="text-box4">
+                        <div class="text-box-header">
+                            <b> 프로젝트 기간을 정해주세요</b> <br>
 
+                        </div>
+                        <div class="text-box-body">
+                            <span class="invisible-text">최소 7일부터 60일까지 가능합니다 </span><br>
+                            시작일&nbsp; : &nbsp;<input type="date"> &nbsp; &nbsp; 종료일&nbsp; : &nbsp; <input type="date">
+                            <br><br>
+                        </div>
                     </div>
-                    <div class="text-box-body">
-                        <span class="invisible-text">최소 7일부터 60일까지 가능합니다 </span><br>
-                        시작일&nbsp; : &nbsp;<input type="date"> &nbsp; &nbsp; 종료일&nbsp; : &nbsp; <input type="date">
-                        <br><br>
+                    <div class="text-box5">
+                        <div class="text-box-header">
+                            <b> 프로젝트의 제목을 적어주세요</b>
+                            <br>
+                        </div>
+                        <div class="text-box-body">
+                            프로젝트의 핵심 내용을 담을 수 있는 간결한 제목을 적어주세요.
+                            <br><br>
+                        </div>
                     </div>
+                    <div class="text-box6">
+                        <div class="text-box-header">
+                            <b> 프로젝트 대표 이미지를 넣어주세요.</b>
+                            <br>
+                        </div>
+                        <div class="text-box-body">
+                            <input type="file" class="img-thumbnail">
+                            <br><br>
+                        </div>
+                    </div>
+                    <button type="reset" class="btn btn-block btn-secondary">초기화</button>
+                    <a href="/project/makeProject">
+                        <button class="btn btn-block btn-secondary">다음단계</button>
+                    </a>
                 </div>
-                <div class="text-box5">
-                    <div class="text-box-header">
-                        <b> 프로젝트의 제목을 적어주세요</b>
-                        <br>
-                    </div>
-                    <div class="text-box-body">
-                        프로젝트의 핵심 내용을 담을 수 있는 간결한 제목을 적어주세요.
-                        <br><br>
-                    </div>
-                </div>
-                <div class="text-box6">
-                    <div class="text-box-header">
-                        <b> 프로젝트 대표 이미지를 넣어주세요.</b>
-                        <br>
-                    </div>
-                    <div class="text-box-body">
-                        <input type="file" class="img-thumbnail">
-                        <br><br>
-                    </div>
-                </div>
-                <button type="reset" class="btn btn-block btn-primary" style="background-color:red;">초기화</button>
-                <a href="makePJ2.html">
-                    <button class="btn btn-block btn-primary">다음단계</button>
-                </a>
             </div>
         </div>
     </div>
-</div>
-</div>
+</form>
 <br><br><br><br><br><br>
 <!-- 메인 바디 끝 -->
 
