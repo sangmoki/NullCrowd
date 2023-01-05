@@ -11,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
 
 @Controller
 @RequestMapping("/member")
@@ -27,25 +25,21 @@ public class MemberController {
         this.memberService = memberService;
     }
 
+    @GetMapping("/signup")
+    public String signupMember(){
+
+        return "content/member/signup";
+    }
+
     @GetMapping("/login")
     public String goLogIn(){
         return "content/member/login";
     }
 
-    @GetMapping("/memberList")
-    public String getMeberList(Model model){
+    @GetMapping("myPage")
+    public String goMyPage(){
 
-        log.info("회원목록요청");
-
-        List<MemberDTO> memberList = memberService.getMemberList();
-
-        model.addAttribute("title", "회원목록조회");
-        model.addAttribute("memberList", memberList);
-
-        return "memer/memberList";
+        return "content/member/myPage";
     }
-//
-//    @GetMapping("/signup")
-//    public String signup(){  }
 }
 
