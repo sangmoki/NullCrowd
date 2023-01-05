@@ -29,14 +29,14 @@
     </resultMap>
 
 
-    <!-- 아아디 중복 확인 -->
-    <select id="selectMemberById" resultType="string">
-        SELECT
-             MEM_EMAIL
-        FROM MEMBER
-        WHERE IS_ACTIVE = 'Y'
-          AND MEM_EMAIL = #{ memEmail }
-    </select>
+<!--    &lt;!&ndash; 아아디 중복 확인 &ndash;&gt;-->
+<!--    <select id="selectMemberById" resultType="string">-->
+<!--        SELECT-->
+<!--             MEM_EMAIL-->
+<!--        FROM MEMBER-->
+<!--        WHERE IS_ACTIVE = 'Y'-->
+<!--          AND MEM_EMAIL = #{ memEmail }-->
+<!--    </select>-->
 
     <!-- 회원 가입 -->
     <insert id="insertMember" parameterType="memberDTO">
@@ -63,6 +63,9 @@
         , #{ nickName }
         , sysdate
         )
+        <selectKey keyColumn="MEM_CODE" keyProperty="MemCode" resultType="_int" order="AFTER">
+            SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL;
+        </selectKey>
     </insert>
 
     <!-- 회원 가입 personalInfo  -->
@@ -85,12 +88,13 @@
     , #{ address }
     , #{ birthDate}
     )
-<selectKey keyColumn="MEM_CODE" keyProperty="MemCode" resultType="_int" order="AFTER">
-    SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL;
-</selectKey>
+
 
 </insert>
 
+
+
+<!--    로그인-->
     <select id="findMemberById" resultMap="loginMemberResultMap">
         SELECT
                 A.MEM_CODE

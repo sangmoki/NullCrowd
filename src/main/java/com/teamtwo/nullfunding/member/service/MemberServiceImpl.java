@@ -9,36 +9,26 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
+@Transactional
 public class MemberServiceImpl implements MemberService {
 
 //    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private MemberMapper mapper;
 
+
     @Autowired
     public MemberServiceImpl(MemberMapper mapper) {
 
         this.mapper = mapper;
     }
-
-//    public boolean selectMemberById(String memEmail) {
-//
-//        String result = mapper.selectMemberById(memEmail);
-//
-//        return result != null? true : false;
-//    }
-//
-//    public boolean insertMember(MemberDTO dto) {
-//        int n = mapper.insertMember(dto);
-//
-//        return n > 0 ? true : false;
-//    }
 
     @Override
     public UserDetails loadUserByUsername(String memEmail) throws UsernameNotFoundException {
@@ -57,5 +47,20 @@ public class MemberServiceImpl implements MemberService {
         user.setDetails(member);
         return user;
 
+    }
+
+    public List<MemberDTO> getMemberList(){
+        List<MemberDTO> memberList = mapper.getMemberList();
+
+        return memberList;
+    }
+
+//    public int insertMember(MemberDTO member) {
+//        int result = mapper.insertMember(member);
+//        return result;
+//    }
+
+    public void insertMember(MemberDTO member){
+        mapper.insertMember(member);
     }
 }
