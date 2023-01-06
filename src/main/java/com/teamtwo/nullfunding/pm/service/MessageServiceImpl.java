@@ -18,21 +18,31 @@ public class MessageServiceImpl implements MessageService {
         this.mapper = mapper;
     }
 
+    // 닉네임을 확인하는 메소드
+    @Override
+    public String checkObjectNickname(Map<String, Object> searchMap){
+
+        String result = mapper.checkObjectNickname(searchMap);
+
+        return result;
+
+    }
+
 
     // 현재 확인된 닉네임의 모든 메시지 수를 확인하는 메소드
     @Override
-    public int checkTotalMessages(Map<String, Integer> specificNickname) {
+    public int checkTotalMessages(Map<String, Object> searchMap) {
 
-        int result = mapper.checkTotalMessages(specificNickname);
+        int result = mapper.checkTotalMessages(searchMap);
 
         return result;
     }
 
     // 현재 확인된 닉네임의 모든 메시지를 불러하는 메소드
     @Override
-    public List<MessageDTO> viewAllMessageList(SelectCriteria selectCriteria) {
+    public List<MessageDTO> viewAllMessageList(Map<String, Object> selectCriteriaPlusAlpha) {
 
-        List<MessageDTO> messageList = mapper.viewAllMessageList(selectCriteria);
+        List<MessageDTO> messageList = mapper.viewAllMessageList(selectCriteriaPlusAlpha);
 
         return messageList;
     }
