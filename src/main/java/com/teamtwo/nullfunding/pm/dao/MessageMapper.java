@@ -10,11 +10,11 @@ import java.util.Map;
 @Mapper
 public interface MessageMapper {
 
-    // 현재 로그인 된 세션 & 선택된 닉네임의 모든 메시지 수를 확인하는 메소드
-    int checkTotalMessages(Map<String, String> searchMap);
+    // 현재 확인된 닉네임의 모든 메시지 수를 확인하는 메소드
+    int checkTotalMessages(Map<String, Integer> specificNickname);
 
-    // 현재 로그인 된 세션 & 선택된 닉네임의 모든 메시지를 불러오는 메소드
-    List<MessageDTO> selectAllMessageList();
+    // 현재 로그인된 세션의 모든 메시지를 불러오는 메소드
+    List<MessageDTO> viewAllMessageList(SelectCriteria selectCriteria);
 
     // 현재 로그인된 세션에서, 조건에 맞는 메시지를 불러오는 메소드
     List<MessageDTO> selectMessageByCriteriaList(SelectCriteria selectCriteria);

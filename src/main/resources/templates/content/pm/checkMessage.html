@@ -10,16 +10,17 @@
 
         <div class="outer outer-notice-list">
             <br>
+
             <div class="floatRight">
-                <span sec:authentication="principal.nickName"></span>님의 받은 메시지함. &nbsp&nbsp&nbsp
+                <span th:if="" ="messageList.receiverSupporterNickname"></span>님의 받은 메시지함. &nbsp&nbsp&nbsp
             </div>
             <div class="table-area">
 
                 <table align="center" id="listArea">
                     <tr>
-                        <th>메시지 번호</th>
-                        <th style="width: 200px">메시지 제목</th>
-                        <th style="width: 100px">작성자</th>
+                        <th style="width: 100px">메시지 번호</th>
+                        <th style="width: 500px">메시지 제목</th>
+                        <th style="width: 200px">작성자</th>
                         <th style="width: 100px">작성일</th>
                     </tr>
 

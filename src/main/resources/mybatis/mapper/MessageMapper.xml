@@ -5,7 +5,7 @@
 
 <mapper namespace="com.teamtwo.nullfunding.pm.dao.MessageMapper">
 
-    <resultMap id="CheckMessageResultMap" type="CheckMessageDTO">
+    <resultMap id="CheckMessageResultMap" type="MessageDTO">
         <id property="messageNo" column="MESSAGE_CODE"/>
         <id property="box" column="BOX_TYPE"/>
         <id property="receiverNo" column="MEM_CODE"/>
@@ -17,13 +17,31 @@
         <id property="isDeleted" column="IS_DELETED"/>
     </resultMap>
 
+
     <select id="checkTotalMessages" resultType="_int" parameterType="hashmap">
         SELECT
             COUNT(*)
           FROM MESSAGES
-         WHERE MEM_CODE = #{ receiverNo }
+         WHERE MEM_CODE = #{ selectedMemberNo }
+           AND BOX_TYPE = #{ selectedMessageboxNo }
+    </select>
 
-
+    <select id="viewAllMessageList" resultMap="CheckMessageResultMap">
+        SELECT
+              MESSAGE_CODE,
+              BOX_TYPE,
+              MEM_CODE,
+              TITLE,
+              RECEIVED_TIME,
+              SENTBY,
+              CONTENT,
+              IS_READ,
+              IS_DELETED
+         FROM MESSAGES
+        WHERE MEM_CODE = #{ selectedMemberNo }
+          AND BOX_TYPE = #{ selectedMessageboxNo }
+     ORDER BY MESSAGE_CODE DESC
+       OFFSET #{ startRow } ROWS FETCH FIRST #{ limit } ROWS ONLY;
     </select>
 
 
