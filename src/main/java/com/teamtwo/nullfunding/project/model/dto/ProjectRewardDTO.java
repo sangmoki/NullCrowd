@@ -13,4 +13,11 @@ public class ProjectRewardDTO {
     private String name; // 리워드 명
     private int price; // 리워드 가격
     private String details; // 리워드 내용
+
+    public ProjectRewardDTO(String name, int price, String details) {
+        this.name = name;
+        this.price = price;
+        this.details = details;
+    }
 }
+
