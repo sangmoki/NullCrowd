@@ -37,3 +37,18 @@ $(function(){
         $(this).attr('disabled', true);
     })
 });
+$(function() {
+    $('.goPJ1').click(function () {
+        $("#PJform").attr("action", "/project/makeProject?page=1").submit();
+    })
+})
+$(function() {
+    $('.goPJ2').click(function(){
+        $("#PJform").attr("action", "/project/makeProject?page=2")
+        $("#PJform").submit();
+    });
+})
+$(function(){$('.goPJ3').click(function() {
+    $("#PJform").attr("action", "/project/makeProject?page=3").submit();
+    })
+});

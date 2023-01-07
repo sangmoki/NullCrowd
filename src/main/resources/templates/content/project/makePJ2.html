@@ -10,7 +10,8 @@
     <title>메인 페이지</title>
     <!-- Bootstrap core CSS -->
     <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
-
+    <script src="/js/cho.js"></script>
+    <link rel="stylesheet" href="/css/choStyle.css">
 </head>
 
 
@@ -19,154 +20,116 @@
 <header th:replace="fragments/header :: headerFragment"></header>
 <!-- 메인 바디 시작 -->
 
+<th:block th:replace="fragments/makePJheader :: makePJheader"></th:block>
 
-<div id="list_wrap" class="common_support hidden-xs hidden-sm reward-make-main">
-    <div class="common_sub_vi bg_gray"><br><br><br>
-        <div class="container">
-            <div class="row not-space">
-                <div class="col-md-3">
-                    <div class="common_vi_title webfont2">
-                        <b>기본정보</b>
-                    </div>
-                </div>
-                <div class="col-md-4 text-right">
-                </div>
-                <div class="col-md-5">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <!-- <a class="btn btn-block btn-primary-outline"><span class="blue_border"><b>가이드북 다운로드</b></span></a> -->
-                            <!-- Button to Open the Modal -->
-                            <button type="button" class="btn btn-primary-outline" data-toggle="modal"
-                                    data-target="#myModal">
-                                <span class="blue_border"><b>가이드북 다운로드</b></span>
-                            </button>
-                            <!-- The Modal -->
-                            <div class="modal" id="myModal">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
 
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">준비중입니다.</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-                                            Modal body..
-                                        </div>
-
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" href="#" class="btn btn-block btn-danger-outline"><span
-                                    class="red_border"><b>승인 요청하기</b></span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <br><br><br><br><br>
-            <div class="list-group">
-                <div class="list-header">
-                    <b>프로젝트 만들기</b>
-                </div>
-                <div class="col-md-4"><a href="makePJ1.html" class="list-group-item list-group-item-action"
-                                         style="border:none;">
-                    1. 기본정보</a>
-                </div>
-                <div class="col-md-4"><a href="makePJ2.html" class="list-group-item list-group-item-action"
-                                         style="border:none;">
-                    2. 리워드</a>
-                </div>
-                <div class="col-md-4"><a href="makePJ3.html" class="list-group-item list-group-item-action"
-                                         style="border:none;">
-                    3. 안내사항</a>
-                </div>
-            </div>
-        </div>
+        <div th:replace="fragments/mkPJSidebar :: mkPJSidebar"></div>
         <div class="col-md-9">
             <div class="text-group">
                 <br><br><br><br>
-                <div class="text-box1">
-                    <div class="text-box-header" style="font-size:30px;">
-                        <b>프로젝트 리워드를 구성해주세요</b>
+                <form id="PJform" method="post">
+                    <div class="text-box1">
+                        <div class="text-box-header" style="font-size:30px;">
+                            <b>프로젝트 리워드를 구성해주세요</b>
+                        </div>
+                        <div class="text-box-body">
+                            <br>
+                            프로젝트 시작을 위해서는 <span class="pink-text">최소 1개 이상의 리워드가 있어야 합니다.</span> 배송이 필요한 리워드는 배송비가 포함된
+                            가격을
+                            적어주세요.
+                            <br><br>
+                        </div>
                     </div>
-                    <div class="text-box-body">
-                        <br>
-                        프로젝트 시작을 위해서는 <span class="pink-text">최소 1개 이상의 리워드가 있어야 합니다.</span> 배송이 필요한 리워드는 배송비가 포함된 가격을
-                        적어주세요.
-                        <br><br>
+                    <div class="text-box2">
+                        <div class="text-box-header">
+                            <b> 리워드 금액</b>
+                            <br>
+                        </div>
+                        <div class="text-box-body">
+                            리워드의 최소 금액을 기입해주세요.<br>
+                            <input tpye="text" class="col-lg-5" placeholder="1,000원 이상 입력해 주세요." name="price" id="price">
+                            <br><br>
+                        </div>
                     </div>
-                </div>
-                <div class="text-box2">
-                    <div class="text-box-header">
-                        <b> 리워드 금액</b>
-                        <br>
-                    </div>
-                    <div class="text-box-body">
-                        리워드의 최소 금액을 기입해주세요.<br>
-                        <input tpye="text" class="col-lg-5" placeholder="1,000원 이상 입력해 주세요.">
-                        <br><br>
-                    </div>
-                </div>
-                <div class="text-box3">
-                    <div class="text-box-header">
-                        <b> 리워드 제목</b><br>
-                    </div>
-                    <div class="text-box-body">
-                        <input type="text" class="col-lg-5"> 0 / 30 <br><br>
+                    <div class="text-box3">
+                        <div class="text-box-header">
+                            <b> 리워드 명</b><br>
+                        </div>
+                        <div class="text-box-body">
+                            <input type="text" class="col-lg-5" name="name" id="name"> 0 / 30 <br><br>
 
+                        </div>
                     </div>
+                    <div class="text-box4">
+                        <div class="text-box-header">
+                            <b> 리워드 내용</b> <br>
+                            <textarea class="col-lg-5" name="details" id="details"></textarea> 0 / 70
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-secondary" id="add-reward">등록하기</button>
+                        </div>
+                    </div>
+                    <!--         히든필드           -->
+                    <div style="display: none">
+                        <input name="title" th:value="${ param.title }" >
+                        <input name="fundGoal" th:value="${ param.fundGoal }" >
+                        <input name="description" th:value="${ param.description }" >
+                        <!--                        <input name="title" th:value="${ param.startDate }" >-->
+                    </div>
+                </form>
+            </div>
+            <br><br><br>
+            <script>
+                $(function() {
+                    $('#add-reward').click(function(){
+                        // $("#PJform2").attr("action", "/project/makeProject?page=2")
+                        $("#PJform2").each(function(){
+                            this.reset();
+                        })
+                    });
+                })
+            </script>
+            <div class="" id="added-reward">
+                <div class="col-12 text-box-header">
+                    <strong>
+                        등록된 리워드미리보기
+                    </strong>
                 </div>
-                <div class="text-box4">
-                    <div class="text-box-header">
-                        <b> 리워드 내용</b> <br>
-                        <textarea class="col-lg-5"></textarea> 0 / 70
+                <br>
+                <div class="col-10" id="reward-Preview">
+                    <!--                                여기부터-->
+                    <div class="col-5" style="display: inline-block">
+                        <div class="st-items st-items-loop"><a href="javascript:void(0)"
+                                                               class="st-link">바로가기</a>
+                            <div class="row not-space">
+                                <div class="col-12">
+                                    <div class="st-items-su"><strong><span
+                                            class="webfont2">213,213,123</span>원 펀딩</strong></div>
+                                </div>
+                                <div class="col-12 xs-text-right">
+                                    <div class="col-xs-12">
+                                        <dl>
+                                            <dt>리워드명</dt>
+                                            <dd><strong>영국가고싶다 리워드명</strong></dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="st-items-option">
+                                    <dl>
+                                        <dt>리워드 내용</dt>
+                                        <div class="col-xs-12"><p>해당 리워드는 영국에서 시작하여...</p></div>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-box-body">
-
-                        <br>
-                    </div>
+                    <!--                            여기까지-->
                 </div>
-                <div class="text-box5">
-                    <div class="text-box-header">
-                        <b> 예상 배송일 </b><br>
-                        리워드 완성 시 배송일을 입력해주세요.<br>
-                        <input type="date">
-                    </div>
-                    <br><br>
-                </div>
-                <div class="text-box6">
-                    <div class="text-box-header">
-                        <button type="button" class="btn btn-secondary">등록하기</button>
-                        <input type="reset" class="btn btn-secondary"></input>
-                    </div>
-                </div>
-                <br><br>
-                <a href="makePJ1.html">
-                    <button class="btn btn-block btn-secondary">이전단계</button>
-                </a>
-                <a href="makePJ3.html">
-                    <button class="btn btn-block btn-secondary">다음단계</button>
-                </a>
             </div>
         </div>
     </div>
-</div>
 </div>
 <br><br><br><br><br><br>
 <!-- 메인 바디 끝 -->
