@@ -49,11 +49,11 @@
     </div>
     <div class="search-area" align="center">
         <form name="search-form" autocomplete="off" style="display: inline;">
-            <select id="searchNotice" name="searchNotice">
-                <option value="title">제목</option>
+            <select id="searchCondition" name="searchCondition">
+                <option value="noticeTitle">제목</option>
                 <option value="nickName">작성자</option>
             </select>
-            <input type="search" placeholder="검색할 내용을 입력하세요.">
+            <input type="search" id="searchValue" name="searchValue" placeholder="검색할 내용을 입력하세요.">
             <input type="submit" id=searchList class="btn btn-secondary" value="검색하기"></input>
         </form>
         <th:block sec:authorize="hasRole('ADMIN')">
@@ -61,57 +61,54 @@
                 작성하기
             </button>
         </th:block>
-
     </div>
-         <script>
-        document.getElementById('searchList').onclick = function() {
-                var select = document.getElementById('searchNotice');
-                var selected = [...select.selectedOptions]
-                .map(option => option.value);
-                alert(selected);
-        }
-         </script>
         <script>
             $("#writeNotice").on("click", function(){
                 window.location.href=
                     "http://localhost:8888/notice/insert"
             });
         </script>
-
     <br><br>
-         <script>
-        document.getElementById('searchList').onclick = function() {
-                var select = document.getElementById('searchNotice');
-                var selected = [...select.selectedOptions]
-                .map(option => option.value);
-                alert(selected);
-        }
-         </script>
-        <script>
-            $("#writeNotice").on("click", function(){
-                window.location.href=
-                    "http://localhost:8888/notice/insert"
-            });
-        </script>
+    <!-- 페이지 처리 -->
+    <div class="pagingArea" align="center">
+        <!-- 맨 앞으로 이동 버튼 -->
+        <button
+                th:onclick="'location.href=\'/notice/list?currentPage='+ @{${selectCriteria.startPage}} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
+        >
+            <<
+        </button>
+        <!-- 이전 페이지 버튼 -->
+        <button
+                th:onclick="'location.href=\'/notice/list?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
+        >
+            <
+        </button>
+        <!-- 숫자 버튼 -->
+        <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+            <button
+                    th:text="${ page }"
+                    th:onclick="'location.href=\'/notice/list?currentPage='+ @{${page}} + '\''"
+                    th:disabled="${ selectCriteria.pageNo eq page }">
+            </button>
+        </th:block>
 
-    <br><br>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" tabindex="-1" aria-label="Previous">
-                    <span aria-hidden="true" style="color:black;">«</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#" style="color:black;">1</a></li>
-            <li class="page-item"><a class="page-link" href="#" style="color:black;">2</a></li>
-            <li class="page-item"><a class="page-link" href="#" style="color:black;">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">»</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+        <!-- 다음 페이지 버튼 -->
+        <button
+                th:onclick="'location.href=\'/notice/list?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+        >
+            >
+        </button>
+        <!-- 마지막 페이지로 이동 버튼 -->
+        <button
+                th:onclick="'location.href=\'/notice/list?currentPage='+ @{${selectCriteria.maxPage}} + '\''"
+                th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+        >
+            >>
+        </button>
+    </div>
     </div>
     <br><br><br><br>
 </div>
@@ -131,24 +128,13 @@
             
             $tds[i].onclick = function() {
                 const no = this.parentNode.children[0].innerText;
-                location.href = "/noticeDetail?no=" + no;
+                location.href = "/notice/detail?no=" + no;
             }
             
         }
         
     }
-    
-    /* 제이쿼리 이용하는 경우 */
-    /* $(function() {
-        $("#listArea td").hover(function() {
-            $(this).parent().css({"background":"orangered", "cursor":"pointer"});
-        }, function() {
-            $(this).parent().css({"background":"black"});
-        }).click(function() {
-            const no = $(this).parent().children(":eq(0)").text();
-            location.href = "${ pageContext.servletContext.contextPath }/notice/detail?no=" + no;
-        });
-    }); */
+
 </script>
     
 	
