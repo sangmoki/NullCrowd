@@ -28,8 +28,7 @@
         <div th:replace="fragments/mkPJSidebar :: mkPJSidebar"></div>
         <div class="col-md-9">
             <div class="text-group">
-                <br><br><br><br>
-                <form id="PJform" method="post">
+                <form id="rewardForm" method="post" >
                     <div class="text-box1">
                         <div class="text-box-header" style="font-size:30px;">
                             <b>프로젝트 리워드를 구성해주세요</b>
@@ -49,7 +48,8 @@
                         </div>
                         <div class="text-box-body">
                             리워드의 최소 금액을 기입해주세요.<br>
-                            <input tpye="text" class="col-lg-5" placeholder="1,000원 이상 입력해 주세요." name="price" id="price">
+                            <input tpye="text" class="col-lg-5" placeholder="1,000원 이상 입력해 주세요." name="price"
+                                   id="price">
                             <br><br>
                         </div>
                     </div>
@@ -67,30 +67,39 @@
                             <b> 리워드 내용</b> <br>
                             <textarea class="col-lg-5" name="details" id="details"></textarea> 0 / 70
                         </div>
+
                         <div>
-                            <button type="button" class="btn btn-secondary" id="add-reward">등록하기</button>
+                            <button type="button" class="btn btn-light" id="add-reward">등록하기</button>
                         </div>
                     </div>
+                </form>
+                <script>
+                    $("#add-reward").click(function(){
+                        $.ajax({
+                            url:"/project/addReward",
+                            type:'post',
+                            data:{name:name, price:price, details:details},
+                            success:function(){
+
+                            }
+                        })
+                    })
+
+                </script>
                     <!--         히든필드           -->
                     <div style="display: none">
-                        <input name="title" th:value="${ param.title }" >
-                        <input name="fundGoal" th:value="${ param.fundGoal }" >
-                        <input name="description" th:value="${ param.description }" >
+                        <form id="PJform" method="post">
+                        <input name="title" th:value="${ param.title }">
+                        <input name="fundGoal" th:value="${ param.fundGoal }">
+                        <input name="description" th:value="${ param.description }">
+                        </form>
                         <!--                        <input name="title" th:value="${ param.startDate }" >-->
                     </div>
-                </form>
+
+                <br><br><br><br>
             </div>
-            <br><br><br>
-            <script>
-                $(function() {
-                    $('#add-reward').click(function(){
-                        // $("#PJform2").attr("action", "/project/makeProject?page=2")
-                        $("#PJform2").each(function(){
-                            this.reset();
-                        })
-                    });
-                })
-            </script>
+            <br><br>
+
             <div class="" id="added-reward">
                 <div class="col-12 text-box-header">
                     <strong>
@@ -98,7 +107,7 @@
                     </strong>
                 </div>
                 <br>
-                <div class="col-10" id="reward-Preview">
+                <div class="col-10" id="reward-Preview" th:each="reward : ${ param.rewardList }">
                     <!--                                여기부터-->
                     <div class="col-5" style="display: inline-block">
                         <div class="st-items st-items-loop"><a href="javascript:void(0)"
@@ -106,28 +115,41 @@
                             <div class="row not-space">
                                 <div class="col-12">
                                     <div class="st-items-su"><strong><span
-                                            class="webfont2">213,213,123</span>원 펀딩</strong></div>
+                                            class="webfont2" th:text="${ reward.price }"></span>원 펀딩</strong></div>
                                 </div>
                                 <div class="col-12 xs-text-right">
                                     <div class="col-xs-12">
                                         <dl>
                                             <dt>리워드명</dt>
-                                            <dd><strong>영국가고싶다 리워드명</strong></dd>
+                                            <dd><strong th:text="${ reward.name }"></strong></dd>
                                         </dl>
                                     </div>
                                 </div>
                                 <div class="st-items-option">
                                     <dl>
                                         <dt>리워드 내용</dt>
-                                        <div class="col-xs-12"><p>해당 리워드는 영국에서 시작하여...</p></div>
+                                        <div class="col-xs-12"><p th:text="${ reward.details }"></p></div>
                                     </dl>
+                                </div>
+                                <div class="st-items-option-control"><a href="javascript:void(0);"
+                                                                        class="btn_none_icon btn_modify red-800">수정</a>
+                                    <a href="javascript:void(0);" class="btn_none_icon btn_delete red-800">삭제</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--                            여기까지-->
                 </div>
+                <script>
+                    $()
+                </script>
             </div>
+            <br>
+            <a href="javascript:void(0)">
+                <button class="btn btn-secondary goPJ2">다음단계</button>
+            </a>
+            <a href="javascript:void(0)">
+                <button class="btn btn-secondary goPJ2">다음단계</button>
+            </a>
         </div>
     </div>
 </div>
