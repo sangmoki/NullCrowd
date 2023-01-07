@@ -78,10 +78,10 @@ public class NoticeController {
     }
 
     @PostMapping("insert")
-
     public String insertNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr) {
 
 
+        System.out.println("notice = " + notice);
         noticeService.insertNotice(notice);
 
         rttr.addFlashAttribute("message", "공지사항 등록에 성공하셨습니다!");
