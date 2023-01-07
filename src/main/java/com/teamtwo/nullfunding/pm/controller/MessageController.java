@@ -66,6 +66,7 @@ public class MessageController {
         nickname = messageService.checkObjectNickname(searchMap);
         log.info("[MessageController] 현재 특정된 대상 닉네임 : " + nickname);
         mv.addObject("nickname", nickname);
+        mv.addObject("boxNumber", messageboxNo);
 
 
         /* 조회 대상인 전체 메시지 수를 가져올 것 */
