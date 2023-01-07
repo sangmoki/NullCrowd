@@ -79,6 +79,22 @@
         </script>
 
     <br><br>
+         <script>
+        document.getElementById('searchList').onclick = function() {
+                var select = document.getElementById('searchNotice');
+                var selected = [...select.selectedOptions]
+                .map(option => option.value);
+                alert(selected);
+        }
+         </script>
+        <script>
+            $("#writeNotice").on("click", function(){
+                window.location.href=
+                    "http://localhost:8888/notice/insert"
+            });
+        </script>
+
+    <br><br>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item">

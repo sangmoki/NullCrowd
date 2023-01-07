@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<th:block th:fragment="makePJheader" class="makePJheader">
+    <div id="list_wrap" class="common_support hidden-xs hidden-sm reward-make-main">
+        <div class="common_sub_vi bg_gray"><br><br><br>
+            <div class="container">
+                <div class="row not-space">
+                    <div class="col-md-3">
+                        <div class="common_vi_title webfont2">
+                            <b>기본정보</b>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                    </div>
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- <a class="btn btn-block btn-primary-outline"><span class="blue_border"><b>가이드북 다운로드</b></span></a> -->
+                                <!-- Button to Open the Modal -->
+                                <button type="button" class="btn btn-primary-outline" data-toggle="modal"
+                                        data-target="#myModal">
+                                    <span class="blue_border"><b>가이드북 다운로드</b></span>
+                                </button>
+                                <!-- The Modal -->
+                                <div class="modal" id="myModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">준비중입니다.</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                Modal body..
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
