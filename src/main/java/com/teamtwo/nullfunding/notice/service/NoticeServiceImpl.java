@@ -65,6 +65,7 @@ public class NoticeServiceImpl implements NoticeService {
             result = noticeMapper.insertNotice(notice);
         }
 
+//        noticeMapper.insertNoticeCode();
         return result;
     }
 

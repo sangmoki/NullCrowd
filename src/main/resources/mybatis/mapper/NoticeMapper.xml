@@ -75,7 +75,7 @@
         VALUES
         (
                SEQ_NOTICE_NO.NEXTVAL
-             , #{ memberCode}
+             , #{ memberCode }
              , #{ noticeTitle }
              , #{ noticeContent }
              , SYSDATE
