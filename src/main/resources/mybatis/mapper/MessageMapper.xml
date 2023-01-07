@@ -65,11 +65,11 @@
                      IS_READ,
                      IS_DELETED
                 FROM MESSAGES
-               WHERE IS_DELETED = 'N')
-        WHERE MEM_CODE = #{ memberNo }
-          AND BOX_TYPE = #{ messageboxNo }
-          AND NO > #{ selectCriteria.startPage }
-<![CDATA[ AND NO <= #{ selectCriteria.limit }      ]]>
+               WHERE IS_DELETED = 'N'
+                 AND MEM_CODE = #{ memberNo }
+                 AND BOX_TYPE = #{ messageboxNo })
+        WHERE NO >= #{ selectCriteria.startRow }
+<![CDATA[ AND NO <= #{ selectCriteria.endRow }      ]]>
      ORDER BY MESSAGE_CODE DESC
     </select>
 
