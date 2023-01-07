@@ -1,14 +1,15 @@
 package com.teamtwo.nullfunding.notice.service;
 
+import com.teamtwo.nullfunding.common.paging.SelectCriteria;
 import com.teamtwo.nullfunding.notice.model.dao.NoticeMapper;
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -19,9 +20,17 @@ public class NoticeServiceImpl implements NoticeService {
         this.noticeMapper = noticeMapper;
     }
 
+    @Override
+    public int selectTotalCount(Map<String, String> searchMap) {
+
+        int result = noticeMapper.selectTotalCount(searchMap);
+
+        return result;
+    }
+
     // 모든 공지사항 게시글 조회하는 용도의 메서드
     @Override
-    public List<NoticeDTO> selectAllNoticeList() { // 완료
+    public List<NoticeDTO> selectAllNoticeList(SelectCriteria selectCriteria) { // 완료
 
         Date nowDate = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
@@ -29,28 +38,23 @@ public class NoticeServiceImpl implements NoticeService {
         // 원하는 데이터 포맷 지정
         simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
 
-        // 지정한 포맷으로 변환
-        System.out.println(simpleDateFormat.format(nowDate));
-
-        List<NoticeDTO> noticeList = noticeMapper.selectAllNoticeList();
-        System.out.println(noticeList);
+        List<NoticeDTO> noticeList = noticeMapper.selectAllNoticeList(selectCriteria);
 
         return noticeList;
-
-
-    }
-
-    // 공지사항 검색하여 조회하는 용도의 메서드
-    @Override
-    public List<NoticeDTO> selectChoiceNotice() {
-        return null;
     }
 
     // 공지사항 상세보기 용도의 메서드
     @Override
     public NoticeDTO selectNoticeDetail(int no) {
+        NoticeDTO noticeDetail = null;
 
-        return noticeMapper.selectNoticeDetail(no);
+        int result = noticeMapper.incrementNoticeCount(no);
+
+        if(result > 0){
+            noticeDetail = noticeMapper.selectNoticeDetail(no);
+        }
+
+        return noticeDetail;
     }
 
     // 공지사항 추가하는 용도의 메서드
@@ -96,18 +100,5 @@ public class NoticeServiceImpl implements NoticeService {
         return result;
     }
     
-    // 공지사항 상세보기 시 조회수 증가하는 용도의 메서드
-    @Override
-    public int incrementNoticeCount(int no) {
-
-        int result = 0;
-
-        if(result <= 0){
-
-            result = noticeMapper.incrementNoticeCount(no);
-        }
-
-        return 0;
-    }
 
 }
