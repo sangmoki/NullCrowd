@@ -83,6 +83,7 @@
     <select id="selectNoticeDetail" resultMap="noticeResultMap">
         SELECT
             A.NOTICE_NO
+             , A.MEMBER_CODE
              , B.NICKNAME
              , A.NOTICE_TITLE
              , A.NOTICE_CONTENT
