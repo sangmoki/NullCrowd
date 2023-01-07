@@ -28,7 +28,7 @@
         <div th:replace="fragments/mkPJSidebar :: mkPJSidebar"></div>
         <div class="col-md-9">
             <div class="text-group">
-                <form id="rewardForm" method="post" >
+                <form id="rewardForm" method="post">
                     <div class="text-box1">
                         <div class="text-box-header" style="font-size:30px;">
                             <b>프로젝트 리워드를 구성해주세요</b>
@@ -58,6 +58,7 @@
                             <b> 리워드 명</b><br>
                         </div>
                         <div class="text-box-body">
+
                             <input type="text" class="col-lg-5" name="name" id="name"> 0 / 30 <br><br>
 
                         </div>
@@ -69,34 +70,38 @@
                         </div>
 
                         <div>
-                            <button type="button" class="btn btn-light" id="add-reward">등록하기</button>
+                            <button type="submit" class="btn btn-light" id="add-reward">등록하기</button>
                         </div>
                     </div>
-                </form>
-                <script>
-                    $("#add-reward").click(function(){
-                        $.ajax({
-                            url:"/project/addReward",
-                            type:'post',
-                            data:{name:name, price:price, details:details},
-                            success:function(){
-
-                            }
-                        })
-                    })
-
-                </script>
-                    <!--         히든필드           -->
                     <div style="display: none">
-                        <form id="PJform" method="post">
                         <input name="title" th:value="${ param.title }">
                         <input name="fundGoal" th:value="${ param.fundGoal }">
                         <input name="description" th:value="${ param.description }">
-                        </form>
                         <!--                        <input name="title" th:value="${ param.startDate }" >-->
                     </div>
-
-                <br><br><br><br>
+                </form>
+                <script>
+                    $("#add-reward").click(function () {
+                        $.ajax({
+                            url: "/project/addReward",
+                            type: 'post',
+                            data: {
+                                "name": $('#name').val()
+                                , "price": $('#price').val()
+                                , "details": $('#details').val()
+                            }
+                        })
+                    })
+                </script>
+                <!--         히든필드           -->
+                <div style="display: none">
+                    <form id="PJform" method="post">
+                        <input name="title" th:value="${ param.title }">
+                        <input name="fundGoal" th:value="${ param.fundGoal }">
+                        <input name="description" th:value="${ param.description }">
+                    </form>
+                    <!--                        <input name="title" th:value="${ param.startDate }" >-->
+                </div>
             </div>
             <br><br>
 
@@ -107,37 +112,39 @@
                     </strong>
                 </div>
                 <br>
-                <div class="col-10" id="reward-Preview" th:each="reward : ${ param.rewardList }">
+                <div class="col-10" id="reward-Preview">
                     <!--                                여기부터-->
-                    <div class="col-5" style="display: inline-block">
-                        <div class="st-items st-items-loop"><a href="javascript:void(0)"
-                                                               class="st-link">바로가기</a>
-                            <div class="row not-space">
-                                <div class="col-12">
-                                    <div class="st-items-su"><strong><span
-                                            class="webfont2" th:text="${ reward.price }"></span>원 펀딩</strong></div>
-                                </div>
-                                <div class="col-12 xs-text-right">
-                                    <div class="col-xs-12">
+                    <th:block th:each="reward : ${ rewardList }">
+                        <div class="col-5" style="display: inline-block">
+                            <div class="st-items st-items-loop"><a href="javascript:void(0)"
+                                                                   class="st-link">바로가기</a>
+                                <div class="row not-space">
+                                    <div class="col-12">
+                                        <div class="st-items-su"><strong><span
+                                                class="webfont2" th:text="${ reward.price }"></span>원 펀딩</strong></div>
+                                    </div>
+                                    <div class="col-12 xs-text-right">
+                                        <div class="col-xs-12">
+                                            <dl>
+                                                <dt>리워드명</dt>
+                                                <dd><strong th:text="${ reward.name }"></strong></dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class="st-items-option">
                                         <dl>
-                                            <dt>리워드명</dt>
-                                            <dd><strong th:text="${ reward.name }"></strong></dd>
+                                            <dt>리워드 내용</dt>
+                                            <div class="col-xs-12"><p th:text="${ reward.details }"></p></div>
                                         </dl>
                                     </div>
-                                </div>
-                                <div class="st-items-option">
-                                    <dl>
-                                        <dt>리워드 내용</dt>
-                                        <div class="col-xs-12"><p th:text="${ reward.details }"></p></div>
-                                    </dl>
-                                </div>
-                                <div class="st-items-option-control"><a href="javascript:void(0);"
-                                                                        class="btn_none_icon btn_modify red-800">수정</a>
-                                    <a href="javascript:void(0);" class="btn_none_icon btn_delete red-800">삭제</a>
+                                    <div class="st-items-option-control"><a href="javascript:void(0);"
+                                                                            class="btn_none_icon btn_modify red-800">수정</a>
+                                        <a href="javascript:void(0);" class="btn_none_icon btn_delete red-800">삭제</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </th:block>
                 </div>
                 <script>
                     $()
