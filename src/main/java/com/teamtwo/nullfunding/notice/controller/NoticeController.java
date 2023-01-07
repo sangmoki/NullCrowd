@@ -79,14 +79,13 @@ public class NoticeController {
 
     // 공지사항 상세보기 페이지
     @GetMapping("/detail")
-    public String selectNoticeDetail(HttpServletRequest request, Model model) {
+    public String goNoticeDetail(HttpServletRequest request, Model model) {
 
         int no = Integer.valueOf(request.getParameter("no"));
 
         NoticeDTO noticeDetail = noticeService.selectNoticeDetail(no);
 
         model.addAttribute("detail", noticeDetail);
-
         System.out.println("noticeDetail = " + noticeDetail);
 
         return "content/notice/noticeDetail";
