@@ -16,166 +16,308 @@
     <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body>
-    <th:block layout:fragment="content">
-        <div class="container-fluid">
+<th:block layout:fragment="content">
+    <div class="container-fluid">
 
-            <div class="outer outer-message-list">
+        <div class="outer outer-message-list">
 
-                <br>
-                <div class="floatRight" align="right">
-                    <span th:text="${ nickname }" style="font-weight: bold"></span>
-                    <span> 님의 받은 메시지함 입니다.</span>
-                </div>
-                <br>
-
-                <div class="table-area">
-
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col-1">메시지 번호</th>
-                                <th scope="col-5">메시지 제목</th>
-                                <th scope="col-2">보낸 사람</th>
-                                <th scope="col-3">보낸 시각</th>
-                                <th scope="col-1">읽음여부</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th scope th:each="message : ${ messageList }">
-                                <td scope="row" th:text="${ message.messageNo}"></td>
-                                <td scope="row" th:text="${ message.messageTitle }"></td>
-                                <td scope="row" th:text="${ message.senderNickname }"></td>
-                                <td scope="row" th:text="${ #dates.format(message.sendDate, 'MM-dd HH:mm:ss')}"></td>
-                                <td scope="row" th:if="${ message.isRead() } == true">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-envelope-open" viewBox="0 0 16 16">
-                                        <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882l-6-3.2ZM15 7.383l-4.778 2.867L15 13.117V7.383Zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765l6-3.2Z"/>
-                                    </svg>
-                                </td>
-                                <td th:if="${ message.isRead() } == false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
-                                    </svg>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <br>
+            <div class="floatRight" align="right">
+                <span th:text="${ nickname }" style="font-weight: bold"></span>
+                <span> 님의 받은 메시지함 입니다.</span>
             </div>
-            <!-- 서포터 페이지 처리 -->
-            <div th:if="${ boxNumber } == 1">
-                <div class="pagingArea" align="center">
-                    <!-- 맨 앞으로 이동 버튼 -->
-                    <button
-                            th:onclick="'location.href=\'/pm/checkMessage?box_type=1&amp;currentPage='+ @{${selectCriteria.startPage}} + '\''"
-                            th:disabled="${selectCriteria.pageNo == 1}" >
+            <br>
+            <div>
+                <button type="button" class="btn btn-primary" href="/pm/sendMessage">메시지 보내기</button>
+                <button type="button" class="btn btn-secondary" onclick="messageDelete()">삭제</button>
+
+            </div>
+
+            <div class="table-area">
+
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col-1">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="allCheckBox" name="allCheckBox" onclick="allCheckClicked()">
+                            </label>
+                        </th>
+                        <th scope="col-5">메시지 제목</th>
+                        <th scope="col-2">보낸 사람</th>
+                        <th scope="col-3">보낸 시각</th>
+                        <th scope="col-1">읽음여부</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th scope th:each="message : ${ messageList }">
+                        <td scope="row">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="checked" name="checked" class="check" onclick="checkClicked()" th:value="${ message.messageNo}">
+                            </label>
+                        </td>
+                        <td scope="row" th:text="${ message.messageTitle }"></td>
+                        <td scope="row" th:text="${ message.senderNickname }"></td>
+                        <td scope="row" th:text="${ #dates.format(message.sendDate, 'MM-dd HH:mm:ss')}"></td>
+                        <td scope="row" th:if="${ message.isRead() } == true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-envelope-open" viewBox="0 0 16 16">
+                                <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882l-6-3.2ZM15 7.383l-4.778 2.867L15 13.117V7.383Zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765l6-3.2Z"/>
+                            </svg>
+                        </td>
+                        <td th:if="${ message.isRead() } == false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                            </svg>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- 서포터 페이지 처리 -->
+        <div th:if="${ boxNumber } == 1">
+            <div class="pagingArea" align="center">
+                <!-- 맨 앞으로 이동 버튼 -->
+                <button
+                        th:onclick="'location.href=\'/pm/checkMessage?box_type=1&amp;currentPage='+ @{${selectCriteria.startPage}} + '\''"
+                        th:disabled="${selectCriteria.pageNo == 1}" >
                     <<
-                    </button>
-                    <!-- 이전 페이지 버튼 -->
+                </button>
+                <!-- 이전 페이지 버튼 -->
+                <button
+                        th:onclick="'location.href=\'/pm/checkMessage?box_type=1&amp;currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                        th:disabled="${selectCriteria.pageNo == 1}"
+                >
+                    <
+                </button>
+                <!-- 숫자 버튼 -->
+                <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
                     <button
-                            th:onclick="'location.href=\'/pm/checkMessage?box_type=1&amp;currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
-                            th:disabled="${selectCriteria.pageNo == 1}"
-                    >
-                        <
-                    </button>
-                    <!-- 숫자 버튼 -->
-                    <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
-                        <button
                             th:text="${ page }"
                             th:onclick="'location.href=\'/pm/checkMessage?box_type=1&amp;currentPage='+ @{${page}} + '\''"
                             th:disabled="${ selectCriteria.pageNo eq page }">
-                        </button>
-                    </th:block>
+                    </button>
+                </th:block>
 
-                    <!-- 다음 페이지 버튼 -->
-                    <button
-                            th:onclick="'location.href=\'/pm/checkMessage?box_type=1&amp;currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
-                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                <!-- 다음 페이지 버튼 -->
+                <button
+                        th:onclick="'location.href=\'/pm/checkMessage?box_type=1&amp;currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                        th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                >
                     >
-                        >
-                    </button>
-                    <!-- 마지막 페이지로 이동 버튼 -->
-                    <button
-                            th:onclick="'location.href=\'/pm/checkMessage?box_type=1&amp;currentPage='+ @{${selectCriteria.maxPage}} + '\''"
-                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
-                    >
-                        >>
-                    </button>
-                </div>
-            </div>
-            <!-- 펀드레이저 페이지 처리 -->
-            <div th:if="${ boxNumber } == 2">
-                <div class="pagingArea" align="center">
-                    <!-- 맨 앞으로 이동 버튼 -->
-                    <button
-                            th:onclick="'location.href=\'/pm/checkMessage?box_type=2&amp;currentPage='+ @{${selectCriteria.startPage}} + '\''"
-                            th:disabled="${selectCriteria.pageNo == 1}" >
-                        <<
-                    </button>
-                    <!-- 이전 페이지 버튼 -->
-                    <button
-                            th:onclick="'location.href=\'/pm/checkMessage?box_type=2&amp;currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
-                            th:disabled="${selectCriteria.pageNo == 1}"
-                    >
-                        <
-                    </button>
-                    <!-- 숫자 버튼 -->
-                    <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
-                        <button
-                                th:text="${ page }"
-                                th:onclick="'location.href=\'/pm/checkMessage?box_type=2&amp;currentPage='+ @{${page}} + '\''"
-                                th:disabled="${ selectCriteria.pageNo eq page }">
-                        </button>
-                    </th:block>
-
-                    <!-- 다음 페이지 버튼 -->
-                    <button
-                            th:onclick="'location.href=\'/pm/checkMessage?box_type=2&amp;currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
-                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
-                    >
-                        >
-                    </button>
-                    <!-- 마지막 페이지로 이동 버튼 -->
-                    <button
-                            th:onclick="'location.href=\'/pm/checkMessage?box_type=2&amp;currentPage='+ @{${selectCriteria.maxPage}} + '\''"
-                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
-                    >
+                </button>
+                <!-- 마지막 페이지로 이동 버튼 -->
+                <button
+                        th:onclick="'location.href=\'/pm/checkMessage?box_type=1&amp;currentPage='+ @{${selectCriteria.maxPage}} + '\''"
+                        th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                >
                     >>
-                    </button>
-                </div>
+                </button>
             </div>
         </div>
-        <script th:inline="javascript">
+        <!-- 펀드레이저 페이지 처리 -->
+        <div th:if="${ boxNumber } == 2">
+            <div class="pagingArea" align="center">
+                <!-- 맨 앞으로 이동 버튼 -->
+                <button
+                        th:onclick="'location.href=\'/pm/checkMessage?box_type=2&amp;currentPage='+ @{${selectCriteria.startPage}} + '\''"
+                        th:disabled="${selectCriteria.pageNo == 1}" >
+                    <<
+                </button>
+                <!-- 이전 페이지 버튼 -->
+                <button
+                        th:onclick="'location.href=\'/pm/checkMessage?box_type=2&amp;currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                        th:disabled="${selectCriteria.pageNo == 1}"
+                >
+                    <
+                </button>
+                <!-- 숫자 버튼 -->
+                <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                    <button
+                            th:text="${ page }"
+                            th:onclick="'location.href=\'/pm/checkMessage?box_type=2&amp;currentPage='+ @{${page}} + '\''"
+                            th:disabled="${ selectCriteria.pageNo eq page }">
+                    </button>
+                </th:block>
 
-            /* 게시글 리스트에서 해당 게시글에 마우스를 올릴 떄에 대한 스타일 처리 */
-            if (document.querySelectorAll("#listArea td")) {
-                const $tds = document.querySelectorAll("#listArea td");
-                for (let i = 0; i < $tds.length; i++) {
+                <!-- 다음 페이지 버튼 -->
+                <button
+                        th:onclick="'location.href=\'/pm/checkMessage?box_type=2&amp;currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                        th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                >
+                    >
+                </button>
+                <!-- 마지막 페이지로 이동 버튼 -->
+                <button
+                        th:onclick="'location.href=\'/pm/checkMessage?box_type=2&amp;currentPage='+ @{${selectCriteria.maxPage}} + '\''"
+                        th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                >
+                    >>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
 
-                    $tds[i].onmouseenter = function () {
-                        this.parentNode.style.backgroundColor = "#d3d3d3";
-                        this.parentNode.style.cursor = "pointer";
-                    }
 
-                    $tds[i].onmouseout = function () {
-                        this.parentNode.style.backgroundColor = "white";
-                    }
+            <!-- 체크박스 전체선택 클릭 이벤트 -->
+            function allCheckClicked(target) {
 
-                    $tds[i].onclick = function () {
-                        const no = this.parentNode.children[0].innerText;
-                        location.href = "/pm/checkMessage/detail?no=" + no;
-                    }
+                // 전체 체크박스 버튼
+                const checkbox = document.getElementById('allCheckBox');
+
+                //전체 체크박스 버튼 체크 여부
+                const is_checked = checkbox.checked;
+
+                //전체 체크박스 제외한 모든 체크박스
+                if (is_checked) {
+                    //체크박스 전체 체크
+                    checkAllChecked()
+
+                } else {
+                    //체크박스 전체 해제
+                    checkAllUnchecked()
                 }
             }
-        </script>
-    </th:block>
 
-<!-- 메인 푸터 끝 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+            <!-- 개별 체크박스 클릭 이벤트 -->
+            function checkClicked() {
+
+                // 체크박스 전체 개수
+                const allCount = document.querySelectorAll(".check").length;
+
+                //체크된 체크박스 전체 개수
+                const query = 'input[name="checked"]:checked'
+                const selectedElements = document.querySelectorAll(query)
+                const selectedElementsCount = selectedElements.length;
+
+                //체크박스 전체 개수와 체크된 체크박스 전체 개수가 같으면 전체 체크
+                if (allCount == selectedElementsCount) {
+
+                    document.getElementById('allCheckbox').checked = true;
+
+                } else {
+                    // 같지 않으면, 전체 체크박스 해제
+                    document.getElementById('allCheckBox').checked = false;
+                }
+            }
+
+            <!-- 체크박스 전체 체크 이벤트 -->
+            function checkAllChecked() {
+
+                document.querySelectorAll(".check").forEach(function (v, i) {
+
+                    v.checked = true;
+
+                });
+            }
+
+            <!-- 체크박스 전체 체크 해제 이벤트 -->
+            function checkAllUnchecked() {
+
+                document.querySelectorAll(".check").forEach(function (v, i) {
+
+                    v.checked = false;
+                });
+            }
+
+            <!-- 글 삭제 이벤트 -->
+            function messageDelete() {
+
+                //체크박스 체크된 항목
+                const query = 'input[name="checked"]:checked'
+                const selectedElements = document.querySelectorAll(query)
+
+                // 체크박스 체크된 항목의 개수
+                const selectedElementsCount = selectedElements.length;
+
+                if (selectedElementsCount == 0) {
+
+                    alert("삭제할 메시지를 선택해 주세요!")
+
+                    return false;
+
+                } else {
+
+                    if (confirm("선택한 메시지들을 삭제하시겠습니까?")) {
+
+                        // 배열 생성
+                        const arr = new Array(selectedElementsCount);
+
+                        document.querySelectorAll('input[name="checked"]:checked').forEach(function (v, i) {
+
+                            arr[i] = v.value;
+
+                        });
+
+                        // const form = document.createElement('form');
+                        //
+                        // form.setAttribute('method', 'post');
+                        // form.setAttribute('action', '/delete');
+                        //
+                        // var input1 = document.createElement('input');
+                        // input1.setAttribute("type", "hidden");
+                        // input1.setAttribute("name", "messageNo");
+                        // input1.setAttribute("value", arr);
+                        // form.appendChild(input1);
+                        // console.log(form);
+                        // document.body.appendChild(form);
+                        // form.submit();
+
+                        $.ajax({
+                            type: "post",
+                            url: "/pm/delete.do",
+                            traditional: true,
+                            dataType: "json",
+                            data: {
+                                'delMess': arr
+                            },
+                            success: function (data) {
+                                alert(data + "선택한 메시지 삭제 성공!");
+                            },
+                            error: function (request, status, error) {
+                                alert(error);
+                            }
+                        });
+                    }
+                }
+                window.location.reload();
+            }
+    </script>
+    <!--    <script th:inline="javascript">-->
+
+    <!--        /* 게시글 리스트에서 해당 게시글에 마우스를 올릴 떄에 대한 스타일 처리 */-->
+    <!--        if (document.querySelectorAll("#listArea td")) {-->
+    <!--            const $tds = document.querySelectorAll("#listArea td");-->
+    <!--            for (let i = 0; i < $tds.length; i++) {-->
+
+    <!--                $tds[i].onmouseenter = function () {-->
+    <!--                    this.parentNode.style.backgroundColor = "#d3d3d3";-->
+    <!--                    this.parentNode.style.cursor = "pointer";-->
+    <!--                }-->
+
+    <!--                $tds[i].onmouseout = function () {-->
+    <!--                    this.parentNode.style.backgroundColor = "white";-->
+    <!--                }-->
+
+    <!--                $tds[i].onclick = function () {-->
+    <!--                    const no = this.parentNode.children[0].innerText;-->
+    <!--                    location.href = "/pm/checkMessage/detail?no=" + no;-->
+    <!--                }-->
+    <!--            }-->
+    <!--        }-->
+    <!--    </script>-->
+    <!--</th:block>-->
+
+    <!-- 메인 푸터 끝 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+</th:block>
 </body>
 </html>
+
 
