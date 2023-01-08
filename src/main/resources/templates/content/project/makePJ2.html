@@ -77,7 +77,12 @@
                         <input name="title" th:value="${ param.title }">
                         <input name="fundGoal" th:value="${ param.fundGoal }">
                         <input name="description" th:value="${ param.description }">
+                        <input name="startDate" th:value="${ param.startDate }">
+                        <input name="endDate" th:value="${ param.endDate }">
                         <!--                        <input name="title" th:value="${ param.startDate }" >-->
+                        <input name="refundRule" th:value="${ param.refundRule }">
+                        <input name="tel" th:value="${ param.tel }">
+                        <input name="pjEmail" th:value="${ param.pjEmail }">
                     </div>
                 </form>
                 <script>
@@ -99,8 +104,13 @@
                         <input name="title" th:value="${ param.title }">
                         <input name="fundGoal" th:value="${ param.fundGoal }">
                         <input name="description" th:value="${ param.description }">
+                        <input name="startDate" th:value="${ param.startDate }">
+                        <input name="endDate" th:value="${ param.endDate }">
+                        <!--                        <input name="title" th:value="${ param.startDate }" >-->
+                        <input name="refundRule" th:value="${ param.refundRule }">
+                        <input name="tel" th:value="${ param.tel }">
+                        <input name="pjEmail" th:value="${ param.pjEmail }">
                     </form>
-                    <!--                        <input name="title" th:value="${ param.startDate }" >-->
                 </div>
             </div>
             <br><br>
@@ -114,6 +124,9 @@
                 <br>
                 <div class="col-10" id="reward-Preview">
                     <!--                                여기부터-->
+                    <script>
+
+                    </script>
                     <th:block th:each="reward : ${ rewardList }">
                         <div class="col-5" style="display: inline-block">
                             <div class="st-items st-items-loop"><a href="javascript:void(0)"
@@ -152,10 +165,10 @@
             </div>
             <br>
             <a href="javascript:void(0)">
-                <button class="btn btn-secondary goPJ2">다음단계</button>
+                <button class="btn btn-secondary goPJ1">이전단계</button>
             </a>
             <a href="javascript:void(0)">
-                <button class="btn btn-secondary goPJ2">다음단계</button>
+                <button class="btn btn-secondary goPJ3">다음단계</button>
             </a>
         </div>
     </div>

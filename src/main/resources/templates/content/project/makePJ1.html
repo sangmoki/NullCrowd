@@ -8,8 +8,6 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
     <title>메인 페이지</title>
-    <script src="/summernote/upload.js"></script>
-
 
 
     <!-- Bootstrap core CSS -->
@@ -58,7 +56,8 @@
                         </div>
                         <div class="text-box-body">
                             <span class="pink-text">최소 100,000원 이상</span>이어야 합니다.<br>
-                            <input tpye="text" class="col-lg-5" name="fundGoal"  dir="rtl" th:value="${ param.fundGoal }">원 <br><br>
+                            <input tpye="text" class="col-lg-5" name="fundGoal" dir="rtl"
+                                   th:value="${ param.fundGoal }">원 <br><br>
 
                         </div>
                     </div>
@@ -69,22 +68,30 @@
                         </div>
                         <div class="text-box-body">
                             <span class="invisible-text">최소 7일부터 60일까지 가능합니다 </span><br>
-                            시작일&nbsp; : &nbsp;<input type="date" name="startDate" > &nbsp; &nbsp; 종료일&nbsp; : &nbsp;
-                            <input type="date" name="endDate">
+                            시작일&nbsp; : &nbsp;<input type="date" name="startDate" th:value="${ param.startDate }"> &nbsp; &nbsp; 종료일&nbsp; : &nbsp;
+                            <input type="date" name="endDate" th:value="${ param.endDate }" >
                             <br><br>
                         </div>
+                    </div>
+                    <!--      summernote contetn불러오기용          -->
+                    <div style="display :none">
+                        <input id="readDescription" th:value="${ param.description }">
                     </div>
                     <div class="text-box5">
                         <div class="text-box-header">
                             <b> 프로젝트의 스토리를 적어주세요</b><br>
-                            <div id="summernote" name="description"></div>
-                            <script>
-                                $('#summernote').summernote({
-                                    placeholder: '당신의 스토리를 보여줘~ ',
-                                    tabsize: 2,
-                                    height: 200
-                                })
-                            </script>
+                            <div class="fundingProject content">
+                                <textarea id="summernote" name="description"></textarea>
+                                <script>
+                                    $('#summernote').summernote({
+                                        placeholder: '당신의 스토리를 보여줘~ ',
+                                        tabsize: 2,
+                                        height: 200
+                                    })
+                                    console.log($('#readDescription').val());
+                                    $('#summernote').summernote('code', $('#readDescription').val());
+                                </script>
+                            </div>
                         </div>
                     </div>
                     <br>
@@ -98,7 +105,14 @@
                             <br><br>
                         </div>
                     </div>
+                    <!--        히든필드            -->
+                    <div style="display: none">
+                        <input name="refundRule" th:value="${ param.refundRule }">
+                        <input name="tel" th:value="${ param.tel }">
+                        <input name="pjEmail" th:value="${ param.pjEmail }">
+                    </div>
                 </form>
+
                 <button type="reset" class="btn btn-secondary">초기화</button>
                 <a href="javascript:void(0)">
                     <button class="btn btn-secondary goPJ2">다음단계</button>
