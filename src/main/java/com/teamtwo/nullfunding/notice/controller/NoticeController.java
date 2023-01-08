@@ -112,17 +112,19 @@ public class NoticeController {
     }
 
 
-//    @GetMapping("/update")
-//    public String updateNotice(HttpServletRequest request, Model model) {
-//
-//        int no = Integer.valueOf(request.getParameter("no"));
-//
-//        NoticeDTO notice = noticeService.updateNotice(no);
-//
-//        model.addAttribute("notice", notice);
-//
-//        return "content/notice/noticeUpdate";
-//    }
+    // 공지사항 변경화면
+    @GetMapping("/update")
+    public String updateNotice(HttpServletRequest request, Model model) {
+
+        int no = Integer.valueOf(request.getParameter("no"));
+
+        NoticeDTO notice = noticeService.selectNoticeDetail(no);
+
+        model.addAttribute("notice", notice);
+
+        return "content/notice/noticeUpdate";
+    }
+
 }
 
 
