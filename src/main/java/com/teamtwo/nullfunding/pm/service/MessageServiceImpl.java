@@ -1,6 +1,6 @@
 package com.teamtwo.nullfunding.pm.service;
 
-import com.teamtwo.nullfunding.common.paging.SelectCriteria;
+import com.teamtwo.nullfunding.common.Exception.message.MessageDeleteException;
 import com.teamtwo.nullfunding.pm.dao.MessageMapper;
 import com.teamtwo.nullfunding.pm.dto.MessageDTO;
 import org.springframework.stereotype.Service;
@@ -50,9 +50,9 @@ public class MessageServiceImpl implements MessageService {
 
     // 현재 로그인된 세션에서, 조건에 맞는 메시지를 불러오는 메소드
     @Override
-    public List<MessageDTO> selectMessageByCriteriaList(SelectCriteria selectCriteria) {
+    public List<MessageDTO> selectMessageByCheckedList(MessageDTO messageList) {
 
-        List<MessageDTO> checkMessageList = mapper.selectMessageByCriteriaList(selectCriteria);
+        List<MessageDTO> checkMessageList = mapper.selectMessageByCheckedList(messageList);
 
         return checkMessageList;
     }
@@ -60,13 +60,13 @@ public class MessageServiceImpl implements MessageService {
     // 메시지 상세 조회용 메소드
     @Transactional
     @Override
-    public MessageDTO viewDetailOfSelectedMessage(int no){
+    public MessageDTO viewDetailOfSelectedMessage(int messageNo){
         MessageDTO messageDetail = null;
 
-        boolean isRead = mapper.setRead(no);
+        boolean isRead = mapper.setRead(messageNo);
 
         if(isRead){
-            messageDetail = mapper.viewDetailOfSelectedMessage(no);
+            messageDetail = mapper.viewDetailOfSelectedMessage(messageNo);
         }
 
         return messageDetail;
@@ -83,6 +83,16 @@ public class MessageServiceImpl implements MessageService {
     public String sendMessage(MessageDTO message) {
         return null;
     }
+
+    // 메시지 삭제용 메소드
+    @Transactional
+    public int deleteMessage(Integer deleteMessage) {
+
+        int result = (int) mapper.deleteMessage(deleteMessage);
+
+        return result;
+    }
+
 
 }
 

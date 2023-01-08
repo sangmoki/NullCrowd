@@ -23,6 +23,9 @@ public class ProjectDTO {
     private char isFundable; //후원가능여부 (시작날짜, 종료날짜 사이 =Y, 그 외 N)
     private int funderNum; // 참여자수
     private String mainImg; // 메인이미지주소값(대표이미지)
+    private String tel;  // 문의가능 번호
+    private String pjEmail;  // 문의가능 이메일
+    private String refundRule; // 환불정책
 
     private List<ProjectRewardDTO> projectRewardDTOList; // 리워드 별 이름,가격,내용
     private List<ProjectMediaDTO> projectMediaList;

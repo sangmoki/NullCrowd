@@ -1,4 +1,4 @@
-// 메인 프로젝트 더보기 기능 
+// 메인 프로젝트 더보기 기능
 $(function () {
     $('#moreproject').click(function () {
         $('#parentCard .col:hidden').slice(0, 3).show();
@@ -7,6 +7,7 @@ $(function () {
         }
     });
 });
+
 $(function () {
     $('#morepre').click(function () {
         $('#parentCard2 .col:hidden').slice(0, 3).show();

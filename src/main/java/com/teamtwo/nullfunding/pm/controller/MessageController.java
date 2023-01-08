@@ -2,20 +2,23 @@ package com.teamtwo.nullfunding.pm.controller;
 
 import com.teamtwo.nullfunding.common.paging.Pagenation;
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
-import com.teamtwo.nullfunding.member.dto.MemberDTO;
+import com.teamtwo.nullfunding.common.Exception.message.MessageDeleteException;
 import com.teamtwo.nullfunding.member.dto.UserImpl;
 import com.teamtwo.nullfunding.pm.dto.MessageDTO;
 import com.teamtwo.nullfunding.pm.service.MessageService;
-import org.apache.logging.log4j.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +69,7 @@ public class MessageController {
         nickname = messageService.checkObjectNickname(searchMap);
         log.info("[MessageController] 현재 특정된 대상 닉네임 : " + nickname);
         mv.addObject("nickname", nickname);
+        mv.addObject("boxNumber", messageboxNo);
 
 
         /* 조회 대상인 전체 메시지 수를 가져올 것 */
@@ -99,6 +103,44 @@ public class MessageController {
 
         return mv;
     }
+
+    /* 메시지 삭제 = DB의 'IS_DELETED' 컬럼을 N->Y로 바꿈으로써, 사용자에게만 노출되지 않게 하는 논리적 삭제 실행 */
+    @RequestMapping(value = "/delete.do", method={RequestMethod.GET, RequestMethod.POST})
+    public String processDeleteMessageList(HttpServletRequest request, ModelAndView mv, RedirectAttributes rttr, String[] delMess) {
+
+        for (int i = 0; i < delMess.length; i++) {
+            log.info("[MessageController] 메시지 번호 " + delMess[i] + "의 삭제 대기 중..");
+            messageService.deleteMessage(Integer.valueOf(delMess[i]));
+            log.info("[MessageController] " + delMess[i] + "번 메시지 삭제 성공!");
+//            rttr.addFlashAttribute("message", "success"); => 왜 안될까?? html이랑 연동해서 건드려봐도 안돼서 그냥 html에  $.ajax({쪽 success, error 구문 그대로 방치함...
+        }
+        log.info("[MessageController] 모든 메시지 삭제 완료 : 페이지를 새로고침 합니다!");
+        return "redirect:/pm/checkMessage";
+    }
+
+//        mv.addObject()
+//
+//        for(int i=0; i<arrayParam.length; i++){
+//            log.info("[MessageController] 다음 번호의 메시지 삭제 요청됨 : " + arrayParam[i]);
+//            messageService.deleteMessage(Integer.valueOf(arrayParam[i]));
+//            rttr.addFlashAttribute("message", "메시지 삭제 성공!");
+//        }
+//
+//        return arrayParam;
+//    }
+
+
+
+//    @PostMapping ("/deleteMessage")
+//    public String deleteMessage(@RequestParam List<String> delMessageList) {
+//
+//        for(int i=0; i<delMessageList.size(); i++){
+//
+//            Integer messageNo = Integer.valueOf(delMessageList.get(i));
+//            messageService.deleteMessage(messageNo);
+//        }
+//        return "redirect:/";
+//    }
 
 
     @GetMapping("/sendMessage")
