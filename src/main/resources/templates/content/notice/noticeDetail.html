@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -76,19 +77,19 @@
                 <div class="sub-top-contents-box">
                   <div class="sub-top-text-box" style="width:620px;">
                     제목:
-                    <span th:text="${ notice.noticeTitle }"></span>
+                    <span th:text="${ notice?.noticeTitle }"></span>
                   </div>
                   <div class="sub-top-text-box" style="width:620px;">
                     닉네임:
-                    <span th:text="${ notice.nickName }"></span>
+                    <span th:text="${ notice?.nickName }"></span>
                   </div>
                   <div class="sub-top-text-box" style="width:620px;">
                     등록일:
-                    <span th:text="${ notice.uploadDate }"></span>
+                    <span th:text="${ notice?.uploadDate }"></span>
                   </div>
                   <div class="sub-top-text-box" style="width:620px;">
                     조회수:
-                    <span th:text="${ notice.readCount }"></span>
+                    <span th:text="${ notice?.readCount }"></span>
                   </div>
 
                   <div id="share-popup-new-pos"></div>
@@ -163,8 +164,11 @@
     <!-- 본문 글 끝 -->
     <br><br><br>
     <div class="float-right">
-      <input type="button" class="btn btn-secondary" value="수정하기">
-      <button class="btn btn-secondary">삭제하기</button>
+      <input type="button" class="btn btn-secondary" value="수정하기"
+             th:onclick="'location.href=\'/notice/update?no='+ @{${ notice.no }} + '\''"
+      <button class="btn btn-secondary"
+              th:onclick="'location.href=\'/notice/delete?no='+ @{${ notice.no }} + '\''"
+        삭제하기</button>
     </div>
   </div>
 </div>

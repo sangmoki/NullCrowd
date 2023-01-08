@@ -28,7 +28,11 @@
         <div th:replace="fragments/mkPJSidebar :: mkPJSidebar"></div>
         <div class="col-md-9">
             <div class="text-group">
+<<<<<<< HEAD
                 <form id="rewardForm" method="post">
+=======
+                <form id="rewardForm" method="post" >
+>>>>>>> bdb3ea3 (Merge remote-tracking branch 'origin/master' into 성일)
                     <div class="text-box1">
                         <div class="text-box-header" style="font-size:30px;">
                             <b>프로젝트 리워드를 구성해주세요</b>
@@ -70,6 +74,7 @@
                         </div>
 
                         <div>
+<<<<<<< HEAD
                             <button type="submit" class="btn btn-light" id="add-reward">등록하기</button>
                         </div>
                     </div>
@@ -77,8 +82,40 @@
                         <input name="title" th:value="${ param.title }">
                         <input name="fundGoal" th:value="${ param.fundGoal }">
                         <input name="description" th:value="${ param.description }">
-                        <!--                        <input name="title" th:value="${ param.startDate }" >-->
+                        <input name="startDate" th:value="${ param.startDate }">
+                        <input name="endDate" th:value="${ param.endDate }">
+=======
+                            <button type="button" class="btn btn-light" id="add-reward">등록하기</button>
+                        </div>
                     </div>
+                </form>
+                <script>
+                    $("#add-reward").click(function(){
+                        $.ajax({
+                            url:"/project/addReward",
+                            type:'post',
+                            data:{name:name, price:price, details:details},
+                            success:function(){
+
+                            }
+                        })
+                    })
+
+                </script>
+                    <!--         히든필드           -->
+                    <div style="display: none">
+                        <form id="PJform" method="post">
+                        <input name="title" th:value="${ param.title }">
+                        <input name="fundGoal" th:value="${ param.fundGoal }">
+                        <input name="description" th:value="${ param.description }">
+                        </form>
+>>>>>>> bdb3ea3 (Merge remote-tracking branch 'origin/master' into 성일)
+                        <!--                        <input name="title" th:value="${ param.startDate }" >-->
+                        <input name="refundRule" th:value="${ param.refundRule }">
+                        <input name="tel" th:value="${ param.tel }">
+                        <input name="pjEmail" th:value="${ param.pjEmail }">
+                    </div>
+<<<<<<< HEAD
                 </form>
                 <script>
                     $("#add-reward").click(function () {
@@ -99,9 +136,18 @@
                         <input name="title" th:value="${ param.title }">
                         <input name="fundGoal" th:value="${ param.fundGoal }">
                         <input name="description" th:value="${ param.description }">
+                        <input name="startDate" th:value="${ param.startDate }">
+                        <input name="endDate" th:value="${ param.endDate }">
+                        <!--                        <input name="title" th:value="${ param.startDate }" >-->
+                        <input name="refundRule" th:value="${ param.refundRule }">
+                        <input name="tel" th:value="${ param.tel }">
+                        <input name="pjEmail" th:value="${ param.pjEmail }">
                     </form>
-                    <!--                        <input name="title" th:value="${ param.startDate }" >-->
                 </div>
+=======
+
+                <br><br><br><br>
+>>>>>>> bdb3ea3 (Merge remote-tracking branch 'origin/master' into 성일)
             </div>
             <br><br>
 
@@ -112,8 +158,12 @@
                     </strong>
                 </div>
                 <br>
-                <div class="col-10" id="reward-Preview">
+                <div class="col-10" id="reward-Preview" th:each="reward : ${ param.rewardList }">
                     <!--                                여기부터-->
+<<<<<<< HEAD
+                    <script>
+
+                    </script>
                     <th:block th:each="reward : ${ rewardList }">
                         <div class="col-5" style="display: inline-block">
                             <div class="st-items st-items-loop"><a href="javascript:void(0)"
@@ -141,10 +191,41 @@
                                                                             class="btn_none_icon btn_modify red-800">수정</a>
                                         <a href="javascript:void(0);" class="btn_none_icon btn_delete red-800">삭제</a>
                                     </div>
+=======
+                    <div class="col-5" style="display: inline-block">
+                        <div class="st-items st-items-loop"><a href="javascript:void(0)"
+                                                               class="st-link">바로가기</a>
+                            <div class="row not-space">
+                                <div class="col-12">
+                                    <div class="st-items-su"><strong><span
+                                            class="webfont2" th:text="${ reward.price }"></span>원 펀딩</strong></div>
+                                </div>
+                                <div class="col-12 xs-text-right">
+                                    <div class="col-xs-12">
+                                        <dl>
+                                            <dt>리워드명</dt>
+                                            <dd><strong th:text="${ reward.name }"></strong></dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="st-items-option">
+                                    <dl>
+                                        <dt>리워드 내용</dt>
+                                        <div class="col-xs-12"><p th:text="${ reward.details }"></p></div>
+                                    </dl>
+>>>>>>> bdb3ea3 (Merge remote-tracking branch 'origin/master' into 성일)
+                                </div>
+                                <div class="st-items-option-control"><a href="javascript:void(0);"
+                                                                        class="btn_none_icon btn_modify red-800">수정</a>
+                                    <a href="javascript:void(0);" class="btn_none_icon btn_delete red-800">삭제</a>
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
                     </th:block>
+=======
+                    </div>
+>>>>>>> bdb3ea3 (Merge remote-tracking branch 'origin/master' into 성일)
                 </div>
                 <script>
                     $()
@@ -152,10 +233,17 @@
             </div>
             <br>
             <a href="javascript:void(0)">
+<<<<<<< HEAD
+                <button class="btn btn-secondary goPJ1">이전단계</button>
+            </a>
+            <a href="javascript:void(0)">
+                <button class="btn btn-secondary goPJ3">다음단계</button>
+=======
                 <button class="btn btn-secondary goPJ2">다음단계</button>
             </a>
             <a href="javascript:void(0)">
                 <button class="btn btn-secondary goPJ2">다음단계</button>
+>>>>>>> bdb3ea3 (Merge remote-tracking branch 'origin/master' into 성일)
             </a>
         </div>
     </div>
