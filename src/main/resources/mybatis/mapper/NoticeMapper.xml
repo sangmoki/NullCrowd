@@ -18,17 +18,19 @@
         SELECT
         COUNT(*)
         FROM NOTICE A
+        JOIN MEMBER B ON(A.MEMBER_CODE = B.MEM_CODE)
         <where>
-            <if test="searchCondition == ' searchCondition '">
-                A.NOTICE_TITLE LIKE '%' || #{ noticeTitle } || '%'
+            <if test="searchCondition == ' noticeTitle '">
+                A.NOTICE_TITLE LIKE '%' || #{ searchValue } || '%'
             </if>
 
             <if test="searchCondition == 'nickName'">
-                A.NICKNAME LIKE '%' || #{ nickName } || '%'
+                B.NICKNAME LIKE '%' || #{ searchValue } || '%'
             </if>
         </where>
     </select>
 
+    <!-- 검색하여 공지사항 조회 -->
     <!-- 검색하여 공지사항 조회 -->
     <select id="selectAllNoticeList" resultMap="noticeResultMap">
 
@@ -68,11 +70,11 @@
         ) A
         <where>
             A.RNUM >= #{ startRow }
-            <if test="searchValue == 'searchValue'">
-                AND  A.NOTICE_TITLE LIKE '%' || #{ searchValue } || '%'
+            <if test="searchCondition == 'noticeTitle'">
+                AND  A.NOTICE_TITLE LIKE '%' || #{searchValue} || '%'
             </if>
-            <if test="searchValue == 'searchValue'">
-                AND  A.NICKNAME LIKE '%' || #{ searchValue } || '%'
+            <if test="searchCondition == 'nickName'">
+                AND  A.NICKNAME LIKE '%' || #{searchValue} || '%'
             </if>
         </where>
 
@@ -82,8 +84,7 @@
     <!-- 공지사항 상세보기 조회 -->
     <select id="selectNoticeDetail" resultMap="noticeResultMap">
         SELECT
-            A.NOTICE_NO
-             , A.MEMBER_CODE
+               A.NOTICE_NO
              , B.NICKNAME
              , A.NOTICE_TITLE
              , A.NOTICE_CONTENT
