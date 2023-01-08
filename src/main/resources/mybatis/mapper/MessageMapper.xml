@@ -73,6 +73,28 @@
      ORDER BY MESSAGE_CODE DESC
     </select>
 
+    <select id="viewDetailOfSelectedMessage" resultMap="MessageResultMap">
+        SELECT
+              MESSAGE_CODE,
+              BOX_TYPE,
+              MEM_CODE,
+              TITLE,
+              RECEIVED_TIME,
+              SENTBY,
+              CONTENT,
+              IS_READ,
+              IS_DELETED
+         FROM MESSAGES
+        WHERE MESSAGE_CODE = #{ messageNo }
+          AND IS_DELETED = 'N'
+    </select>
+
+    <update id="setRead" parameterType="Integer">
+        UPDATE MESSAGES
+           SET IS_READ = 'Y'
+         WHERE MESSAGE_CODE = #{ messageNo }
+    </update>
+
 
 
 

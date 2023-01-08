@@ -118,6 +118,20 @@ public class MessageController {
         return "redirect:/pm/checkMessage";
     }
 
+    /* 메시지 보기 */
+    @GetMapping("/readMessage")
+    public String readIndividualMessage(HttpServletRequest request, @RequestParam(value="currentMessage") int messageNo, Model model){
+
+        log.info("[MessageController] 읽기 요청된 메시지 번호 : " + messageNo);
+        MessageDTO messageDetail = messageService.viewDetailOfSelectedMessage(messageNo);
+        log.info("[MessageController] 읽기 요청된 메시지 정보 : " + messageDetail);
+        model.addAttribute("message", messageDetail);
+
+        return "content/pm/readMessage";
+
+    }
+
+
 //        mv.addObject()
 //
 //        for(int i=0; i<arrayParam.length; i++){
