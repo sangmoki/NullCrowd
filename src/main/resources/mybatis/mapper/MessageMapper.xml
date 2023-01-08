@@ -5,7 +5,7 @@
 
 <mapper namespace="com.teamtwo.nullfunding.pm.dao.MessageMapper">
 
-    <resultMap id="CheckMessageResultMap" type="MessageDTO">
+    <resultMap id="MessageResultMap" type="MessageDTO">
         <id property="messageNo" column="MESSAGE_CODE"/>
         <id property="boxType" column="BOX_TYPE"/>
         <id property="receiverMemberNo" column="MEM_CODE"/>
@@ -42,7 +42,7 @@
            AND IS_DELETED = 'N'
     </select>
 
-    <select id="viewAllMessageList" resultMap="CheckMessageResultMap" parameterType="hashmap">
+    <select id="viewAllMessageList" resultMap="MessageResultMap" parameterType="hashmap">
         SELECT
               MESSAGE_CODE,
               BOX_TYPE,
@@ -65,13 +65,24 @@
                      IS_READ,
                      IS_DELETED
                 FROM MESSAGES
-               WHERE IS_DELETED = 'N')
-        WHERE MEM_CODE = #{ memberNo }
-          AND BOX_TYPE = #{ messageboxNo }
-          AND NO > #{ selectCriteria.startPage }
-<![CDATA[ AND NO <= #{ selectCriteria.limit }      ]]>
+               WHERE IS_DELETED = 'N'
+                 AND MEM_CODE = #{ memberNo }
+                 AND BOX_TYPE = #{ messageboxNo })
+        WHERE NO >= #{ selectCriteria.startRow }
+<![CDATA[ AND NO <= #{ selectCriteria.endRow }      ]]>
      ORDER BY MESSAGE_CODE DESC
     </select>
+
+
+
+
+
+
+    <update id="deleteMessage" parameterType="Integer">
+        UPDATE MESSAGES
+           SET IS_DELETED = 'Y'
+         WHERE MESSAGE_CODE = #{ messageNo }
+    </update>
 
 
 
