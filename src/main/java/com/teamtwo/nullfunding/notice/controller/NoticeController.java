@@ -3,6 +3,7 @@ package com.teamtwo.nullfunding.notice.controller;
 import com.teamtwo.nullfunding.member.dto.UserImpl;
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
 import com.teamtwo.nullfunding.notice.service.NoticeService;
+import com.teamtwo.nullfunding.notice.service.NoticeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,20 +71,26 @@ public class NoticeController {
 
 //     공지사항 추가하는 용도의 메서드
     @GetMapping("insert")
-    public String goInsert(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String goInsert( Model model) {
 
-        model.addAttribute("memberCode", ((UserImpl)userDetails).getMemCode());
+
+//        System.out.println("userDetails = " +  ((UserImpl)userDetails));
+
+
+//        String memCode = noticeService.insertNoticeCode(((UserImpl)userDetails).getMemCode());
 
         return "content/notice/noticeInsert";
     }
 
+
+
     @PostMapping("insert")
-
-    public String insertNotice(@ModelAttribute NoticeDTO notice, RedirectAttributes rttr) {
-
-
+    public String insertNotice(@ModelAttribute NoticeDTO notice
+            , RedirectAttributes rttr, @AuthenticationPrincipal UserDetails userDetails) {
+        int memberCode = ((UserImpl)userDetails).getMemCode();
+        System.out.println("memberCode = " + memberCode);
+        notice.setMemberCode(memberCode);
         noticeService.insertNotice(notice);
-
         rttr.addFlashAttribute("message", "공지사항 등록에 성공하셨습니다!");
 
         return "redirect:/notice/list";
