@@ -31,7 +31,6 @@
     </select>
 
     <!-- 검색하여 공지사항 조회 -->
-    <!-- 검색하여 공지사항 조회 -->
     <select id="selectAllNoticeList" resultMap="noticeResultMap">
 
         SELECT
@@ -85,6 +84,7 @@
     <select id="selectNoticeDetail" resultMap="noticeResultMap">
         SELECT
                A.NOTICE_NO
+             , A.MEMBER_CODE
              , B.NICKNAME
              , A.NOTICE_TITLE
              , A.NOTICE_CONTENT
