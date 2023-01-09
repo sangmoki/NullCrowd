@@ -73,10 +73,7 @@
                             <br><br>
                         </div>
                     </div>
-                    <!--      summernote contetn불러오기용          -->
-                    <div style="display :none">
-                        <input id="readDescription" th:value="${ param.description }">
-                    </div>
+                    <!--      summernote content불러오기용          -->
                     <div class="text-box5">
                         <div class="text-box-header">
                             <b> 프로젝트의 스토리를 적어주세요</b><br>
@@ -88,8 +85,9 @@
                                         tabsize: 2,
                                         height: 200
                                     })
-                                    console.log($('#readDescription').val());
-                                    $('#summernote').summernote('code', $('#readDescription').val());
+
+                                    const readDescription = '[[${ description }]]'
+                                    $('#summernote').summernote('code', readDescription);
                                 </script>
                             </div>
                         </div>
