@@ -44,6 +44,7 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     // 공지사항 상세보기 용도의 메서드
+    @Transactional
     @Override
     public NoticeDTO selectNoticeDetail(int no) {
         NoticeDTO noticeDetail = null;
@@ -52,6 +53,7 @@ public class NoticeServiceImpl implements NoticeService {
 
         if(result > 0){
             noticeDetail = noticeMapper.selectNoticeDetail(no);
+            System.out.println("noticeDetail ===============================> " + noticeDetail);
         }
 
         return noticeDetail;
@@ -69,16 +71,16 @@ public class NoticeServiceImpl implements NoticeService {
             result = noticeMapper.insertNotice(notice);
         }
 
-//        noticeMapper.insertNoticeCode();
         return result;
     }
 
     // 공지사항 변경하는 용도의 메서드
     @Override
+    @Transactional
     public int updateNotice(NoticeDTO notice) {
         int result = 0;
 
-        if(result <= 0){
+        if(notice != null){
 
             result = noticeMapper.updateNotice(notice);
         }
@@ -88,17 +90,14 @@ public class NoticeServiceImpl implements NoticeService {
 
     // 공지사항 삭제하는 용도의 메서드
     @Override
+    @Transactional
     public int deleteNotice(int no) {
 
-        int result = 0;
-
-        if(result <= 0){
-
-            result = noticeMapper.deleteNotice(no);
-        }
+        int result = noticeMapper.deleteNotice(no);
 
         return result;
+
     }
-    
+
 
 }

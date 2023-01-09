@@ -42,11 +42,6 @@
       }
     </style>
 
-    <script language="JavaScript" type="text/JavaScript">
-      var id="freeboard", no="8175523", page="0", select_arrange="", desc="", page_num="", keyword="", category="", sn="", ss="", sc="", su="", url="/zboard/view.php?id=freeboard&no=8175523", pic_overLimit1="900", pic_overLimit2="900", dir="skin/DQ_Revolution_BBS";
-    </script>
-
-
     <table border="0" cellspacing="0" cellpadding="0" width="900">
       <tbody>
       <tr>
@@ -129,9 +124,6 @@
       </tbody>
     </table>
 
-
-
-
     <!-- 본문 글 출력 -->
     <table border="0" cellspacing="0" cellpadding="0" width="900" class="pic_bg">
       <tbody>
@@ -145,9 +137,7 @@
                        style="table-layout:fixed;" align="left">
                   <tbody>
                   <tr>
-                    <td class="board-contents" align="left" valign="top">
-                    <td th:text="${ detail.noticeContent }"></td>
-                    </td>
+                    <td class="text-center" th:utext="${ detail.noticeContent }"></td>
                   </tr>
                   </tbody>
                 </table><!--/DCM_BODY-->
@@ -160,17 +150,24 @@
       </tbody>
     </table>
     <!-- 본문 글 끝 -->
-    <br><br><br>
+    <br><br><br><br><br><br><br><br><br>
     <div class="float-right">
+      <button class="btn btn-secondary"
+              th:onclick="'location.href=\'/notice/list\''">
+              목록보기
+      </button>
+      <th:block sec:authorize="hasRole('ADMIN')">
       <input type="button" class="btn btn-secondary" value="수정하기"
              th:onclick="'location.href=\'/notice/update?no='+ @{${ detail.noticeNo }} + '\''">
       <button class="btn btn-secondary"
               th:onclick="'location.href=\'/notice/delete?no='+ @{${ detail.noticeNo }} + '\''">
-        삭제하기</button>
+        삭제하기
+      </button>
+      </th:block>
     </div>
   </div>
 </div>
-<br><br><br><br><br><br>
+<br>
 <!-- 바디 끝 -->
 
 <!-- 푸터 시작  -->
