@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.lang.model.SourceVersion;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -78,9 +81,9 @@ public class NoticeController {
 
 
     // 공지사항 상세보기 페이지
+
     @GetMapping("/detail")
     public String goNoticeDetail(HttpServletRequest request, Model model) {
-
         int no = Integer.valueOf(request.getParameter("no"));
 
         NoticeDTO noticeDetail = noticeService.selectNoticeDetail(no);
@@ -99,10 +102,13 @@ public class NoticeController {
 
 
 
+    // 공지사항 작성하여 전송하기
     @PostMapping("insert")
     public String insertNotice(@ModelAttribute NoticeDTO notice
             , @AuthenticationPrincipal UserDetails userDetails) {
+
         int memberCode = ((UserImpl)userDetails).getMemCode();
+
         notice.setMemberCode(memberCode);
         noticeService.insertNotice(notice);
 
@@ -115,15 +121,35 @@ public class NoticeController {
     public String goUpdate(HttpServletRequest request, Model model) {
 
         int no = Integer.valueOf(request.getParameter("no"));
-        
+
         NoticeDTO notice = noticeService.selectNoticeDetail(no);
-        
+
         model.addAttribute("notice", notice);
 
-        System.out.println("notice = " + notice);
-        
         return "content/notice/noticeUpdate";
     }
+
+    // 공지사항 작성하여 변경하기
+    @PostMapping("/update")
+    public String updateNotice(@ModelAttribute NoticeDTO notice){
+
+        noticeService.updateNotice(notice);
+
+    return "redirect:/notice/list";
+
+    }
+
+    // 공지사항 삭제
+    @GetMapping("/delete")
+    public String deleteNotice(HttpServletRequest request){
+
+        int no = Integer.valueOf(request.getParameter("no"));
+        noticeService.deleteNotice(no);
+
+        return "redirect:/notice/list";
+
+    }
+
 
 }
 
