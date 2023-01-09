@@ -8,6 +8,8 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
     <title>메인 페이지</title>
+    <script src="/summernote/upload.js"></script>
+
 
 
     <!-- Bootstrap core CSS -->
@@ -56,8 +58,12 @@
                         </div>
                         <div class="text-box-body">
                             <span class="pink-text">최소 100,000원 이상</span>이어야 합니다.<br>
+<<<<<<< HEAD
                             <input tpye="text" class="col-lg-5" name="fundGoal" dir="rtl"
                                    th:value="${ param.fundGoal }">원 <br><br>
+=======
+                            <input tpye="text" class="col-lg-5" name="fundGoal"  dir="rtl" th:value="${ param.fundGoal }">원 <br><br>
+>>>>>>> bdb3ea3 (Merge remote-tracking branch 'origin/master' into 성일)
 
                         </div>
                     </div>
@@ -73,10 +79,7 @@
                             <br><br>
                         </div>
                     </div>
-                    <!--      summernote contetn불러오기용          -->
-                    <div style="display :none">
-                        <input id="readDescription" th:value="${ param.description }">
-                    </div>
+                    <!--      summernote content불러오기용          -->
                     <div class="text-box5">
                         <div class="text-box-header">
                             <b> 프로젝트의 스토리를 적어주세요</b><br>
@@ -88,8 +91,9 @@
                                         tabsize: 2,
                                         height: 200
                                     })
-                                    console.log($('#readDescription').val());
-                                    $('#summernote').summernote('code', $('#readDescription').val());
+
+                                    const readDescription = '[[${ description }]]'
+                                    $('#summernote').summernote('code', readDescription);
                                 </script>
                             </div>
                         </div>

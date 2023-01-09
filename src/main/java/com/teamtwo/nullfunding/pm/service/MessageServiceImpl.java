@@ -66,7 +66,7 @@ public class MessageServiceImpl implements MessageService {
         boolean isRead = mapper.setRead(messageNo);
 
         if(isRead){
-            messageDetail = mapper.viewDetailOfSelectedMessage(messageNo);
+            messageDetail = mapper.viewDetailOfSelectedMessage(Integer.valueOf(messageNo));
         }
 
         return messageDetail;
@@ -74,8 +74,10 @@ public class MessageServiceImpl implements MessageService {
 
     // 메시지 '읽었음' 표시용 메소드
     @Override
-    public boolean setRead(int no) {
-        return false;
+    public boolean setRead(int messageNo) {
+
+        boolean result = mapper.setRead(Integer.valueOf(messageNo));
+        return result;
     }
 
     // 메시지 발신용 메소드

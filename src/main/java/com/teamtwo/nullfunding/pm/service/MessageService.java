@@ -20,10 +20,10 @@ public interface MessageService {
     List<MessageDTO> selectMessageByCheckedList(MessageDTO messageList);
 
     // 선택한 개별 메시지의 세부내용을 불러오는 메소드
-    MessageDTO viewDetailOfSelectedMessage(int no);
+    MessageDTO viewDetailOfSelectedMessage(int messageNo);
 
     // 메시지 '읽었음' 표시용 메소드
-    boolean setRead(int no);
+    boolean setRead(int messageNo);
 
     // 메시지 발신용 메소드
     String sendMessage(MessageDTO message);

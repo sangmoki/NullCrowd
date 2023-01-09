@@ -29,15 +29,13 @@ public class ProjectController {
 
     @RequestMapping("/addReward")
     @ResponseBody
-    public HttpServletResponse addReward
-            (@ModelAttribute ProjectRewardDTO projectRewardDTO, HttpServletResponse response, HttpServletRequest request){
+    public void addReward(@ModelAttribute ProjectRewardDTO projectRewardDTO, HttpServletRequest request){
 
 
         rewardList.add(projectRewardDTO);
         System.out.println("rewardList = " + rewardList);
         request.setAttribute("rewardList", rewardList);
 
-        return response;
     }
 
     @RequestMapping("/makeProject")
@@ -69,6 +67,12 @@ public class ProjectController {
     public String projectInfo(){
 
         return "content/project/project-info";
+    }
+
+    @RequestMapping("/removeReward")
+    @ResponseBody
+    public void modifyReward(@RequestParam int index){
+        rewardList.remove(index);
     }
 
 }
