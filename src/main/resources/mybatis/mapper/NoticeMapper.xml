@@ -20,7 +20,7 @@
         FROM NOTICE A
         JOIN MEMBER B ON(A.MEMBER_CODE = B.MEM_CODE)
         <where>
-            <if test="searchCondition == ' noticeTitle '">
+            <if test="searchCondition == 'noticeTitle'">
                 A.NOTICE_TITLE LIKE '%' || #{ searchValue } || '%'
             </if>
 
@@ -124,7 +124,7 @@
               NOTICE A
         SET   A.NOTICE_TITLE = #{ noticeTitle }
             , A.NOTICE_CONTENT = #{ noticeContent }
-        WHERE A.NOTICE_NO = #{ no }
+        WHERE A.NOTICE_NO = #{ noticeNo }
     </update>
 
     <!-- 공지사항 게시글 삭제 -->
@@ -139,10 +139,7 @@
     <update id="incrementNoticeCount" parameterType="int">
         UPDATE
                NOTICE A
-        SET A.READ_COUNT = (SELECT B.READ_COUNT
-                              FROM  NOTICE B
-                              WHERE B.NOTICE_NO = #{ no }
-                             ) + 1
+        SET A.READ_COUNT = A.READ_COUNT + 1
         WHERE A.NOTICE_NO = #{ no }
     </update>
 
