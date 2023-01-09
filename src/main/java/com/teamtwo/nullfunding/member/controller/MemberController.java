@@ -65,8 +65,9 @@ public class MemberController {
 
         return "content/member/myPage";
     }
-    @ResponseBody
+
     @PostMapping("/idDupCheck")
+    @ResponseBody
     public int idDupCheck(@RequestParam("memEmail") String memEmail) {
 
         int result = memberService.idDupCheck(memEmail);

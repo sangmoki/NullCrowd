@@ -3,8 +3,8 @@ let idCheck = false;
 
 
 // 아이디 중복 체크
-$(function() {
-    $('#memEmail').on('click', function () {
+$(function(){
+    $('#certifyEmail').on('click', function () {
 
         let memEmail = $('#memEmail').val();
 
@@ -14,16 +14,21 @@ $(function() {
             data: {memEmail: memEmail},
             success: function (result) {
                 if (result == 0) {
-                    $('.idCheck').html('사용 가능한 아이디입니다.');
                     idCheck = true;
+                    $('#emailHelp').hide();
+                    $('#certifyEmail').attr('disabled', true);
+                    $('#emailId').attr('disabled', true);
+                    $(this).html('발송되었습니다');
+                    $('#checkEmail').show();
                 } else {
-                    $('.idCheck').html('이미 사용하고 있는 이메일입니다.');
+                    alert('사용중인 아이디입니다')
                     idCheck = false;
                 }
             }
         });
     })
-});
+})
+
 
 
 // 닉네임 중복 체크

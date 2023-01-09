@@ -79,7 +79,9 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int idDupCheck(String memEmail) {
 
-        return 0;
+        int result = mapper.idDupCheck(memEmail);
+
+        return result;
     }
 
 }
