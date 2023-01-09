@@ -11,91 +11,35 @@
 
 
     <!-- Bootstrap core CSS -->
-    <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
-
-
+    <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="/js/cho.js"></script>
 </head>
 <body>
+
 <!-- 메인 헤더-->
-<header th:replace="fragments/header :: headerFragment"></header>
+<header th:replace="fragments/header2 :: headerFragment2"></header>
 <!-- 메인 바디 시작 -->
 
-
-<div id="list_wrap" class="common_support hidden-xs hidden-sm reward-make-main">
-    <div class="common_sub_vi bg_gray"><br><br><br>
-        <div class="container">
-            <div class="row not-space">
-                <div class="col-md-3">
-                    <div class="common_vi_title webfont2">
-                        <b>기본정보</b>
+<th:block th:replace="fragments/makePJheader :: makePJheader"></th:block>
+<div class="container">
+    <div class="row">
+        <div th:replace="fragments/mkPJSidebar :: mkPJSidebar"></div>
+        <div class="col-md-9">
+            <div class="text-group">
+                <br><br><br><br>
+                <div class="text-box1">
+                    <div class="text-box-header" style="font-size:30px;">
+                        <b>프로젝트의 성공 조건 & 수수료 안내</b>
+                    </div>
+                    <div class="text-box-body">
+                        <br>
+                        프로젝트 종료일 기준 모금액이 목표금액의 100% 이상인 경우에만 프로젝트가 성공하게 됩니다.<br>
+                        프로젝트가 성공한 경우, NULL 펀딩에서는 모금액에서 수수료를 제외한 금액을 정산해 드립니다.<br>
+                        <span class="invisible-text">* 수수료(vat별도) NULL 펀딩 수수료 10% + 결제 수수료 3%</span>
+                        <br><br>
                     </div>
                 </div>
-                <div class="col-md-4 text-right">
-                </div>
-                <div class="col-md-5">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <!-- <a class="btn btn-block btn-primary-outline"><span class="blue_border"><b>가이드북 다운로드</b></span></a> -->
-                            <!-- Button to Open the Modal -->
-                            <button type="button" class="btn btn-primary-outline" data-toggle="modal"
-                                    data-target="#myModal">
-                                <span class="blue_border"><b>가이드북 다운로드</b></span>
-                            </button>
-                            <!-- The Modal -->
-                            <div class="modal" id="myModal">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">준비중입니다.</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-                                            Modal body..
-                                        </div>
-
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" href="#" class="btn btn-block btn-danger-outline"><span
-                                    class="red_border"><b>승인 요청하기</b></span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<form action="/project/makeProject">
-    <div class="container">
-        <div class="row">
-            <div th:replace="fragments/mkPJSidebar :: mkPJSidebar"></div>
-            <div class="col-md-9">
-                <div class="text-group">
-                    <br><br><br><br>
-                    <div class="text-box1">
-                        <div class="text-box-header" style="font-size:30px;">
-                            <b>프로젝트의 성공 조건 & 수수료 안내</b>
-                        </div>
-                        <div class="text-box-body">
-                            <br>
-                            프로젝트 종료일 기준 모금액이 목표금액의 100% 이상인 경우에만 프로젝트가 성공하게 됩니다.<br>
-                            프로젝트가 성공한 경우, NULL 펀딩에서는 모금액에서 수수료를 제외한 금액을 정산해 드립니다.<br>
-                            <span class="invisible-text">* 수수료(vat별도) NULL 펀딩 수수료 10% + 결제 수수료 3%</span>
-                            <br><br>
-                        </div>
-                    </div>
+                <form th:action id="PJform" method="post">
                     <div class="text-box2">
                         <div class="text-box-header">
                             <b> 프로젝트의 제목을 적어주세요</b>
@@ -103,7 +47,7 @@
                         </div>
                         <div class="text-box-body">
                             프로젝트의 핵심 내용을 담을 수 있는 간결한 제목을 정해주세요.<br>
-                            <input tpye="text" class="col-lg-5"> 0 / 40
+                            <input type="text" class="col-lg-5" name="title" th:value="${ param.title }"> 0 / 40
                             <br><br>
                         </div>
                     </div>
@@ -113,7 +57,8 @@
                         </div>
                         <div class="text-box-body">
                             <span class="pink-text">최소 100,000원 이상</span>이어야 합니다.<br>
-                            <input tpye="text" class="col-lg-5"> 원 <br><br>
+                            <input tpye="text" class="col-lg-5" name="fundGoal" dir="rtl"
+                                   th:value="${ param.fundGoal }">원 <br><br>
 
                         </div>
                     </div>
@@ -124,45 +69,79 @@
                         </div>
                         <div class="text-box-body">
                             <span class="invisible-text">최소 7일부터 60일까지 가능합니다 </span><br>
-                            시작일&nbsp; : &nbsp;<input type="date"> &nbsp; &nbsp; 종료일&nbsp; : &nbsp; <input type="date">
+                            시작일&nbsp; : &nbsp;<input type="date" name="startDate" th:value="${ param.startDate }">
+                            &nbsp; &nbsp; 종료일&nbsp; : &nbsp;
+                            <input type="date" name="endDate" th:value="${ param.endDate }">
                             <br><br>
                         </div>
                     </div>
+                    <!--      summernote content불러오기용          -->
                     <div class="text-box5">
                         <div class="text-box-header">
-                            <b> 프로젝트의 제목을 적어주세요</b>
-                            <br>
-                        </div>
-                        <div class="text-box-body">
-                            프로젝트의 핵심 내용을 담을 수 있는 간결한 제목을 적어주세요.
-                            <br><br>
+                            <b> 프로젝트의 스토리를 적어주세요</b><br>
+                            <div class="fundingProject content">
+                                <textarea id="summernote" name="description"></textarea>
+                                <script>
+                                    $('#summernote').summernote({
+                                        placeholder: '당신의 스토리를 보여줘~ ',
+                                        tabsize: 2,
+                                        height: 200
+                                    })
+
+                                    const readDescription = '[[${ description }]]'
+                                    $('#summernote').summernote('code', readDescription);
+                                </script>
+                            </div>
                         </div>
                     </div>
+                    <br>
                     <div class="text-box6">
                         <div class="text-box-header">
                             <b> 프로젝트 대표 이미지를 넣어주세요.</b>
                             <br>
                         </div>
                         <div class="text-box-body">
-                            <input type="file" class="img-thumbnail">
+                            <input type="file" class="img-thumbnail" name="mainImg">
                             <br><br>
                         </div>
                     </div>
-                    <button type="reset" class="btn btn-block btn-secondary">초기화</button>
-                    <a href="/project/makeProject">
-                        <button class="btn btn-block btn-secondary">다음단계</button>
-                    </a>
-                </div>
+                    <div class="col-xs-12">
+                        <div class="row row-mobile-n">
+                            <label class="col-xs-12 control-label">
+                                <div class="text-left">동영상 주소를 적어주세요</div>
+                            </label>
+                            <div class="vod-holder input-append">
+                                <div class="row row-mobile-n">
+                                    <div class="col-xs-10 col-sm-7">
+                                        <input type="text" placeholder="YouTube URL을 입력해 주세요." class="form-control" name="pj">
+                                        <br><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--        히든필드            -->
+                    <div style="display: none">
+                        <input name="refundRule" th:value="${ param.refundRule }">
+                        <input name="tel" th:value="${ param.tel }">
+                        <input name="pjEmail" th:value="${ param.pjEmail }">
+                    </div>
+                </form>
+
+                <button type="reset" class="btn btn-secondary">초기화</button>
+                <a href="javascript:void(0)">
+                    <button class="btn btn-secondary goPJ2">다음단계</button>
+                </a>
             </div>
         </div>
     </div>
-</form>
+</div>
+<script>
+</script>
 <br><br><br><br><br><br>
 <!-- 메인 바디 끝 -->
 
 <!-- 메인 푸터  -->
 <footer th:replace="fragments/footer :: footerFragment"></footer>
-
 </body>
 </html>
-                      

@@ -150,7 +150,7 @@ a {
 {
   display:inline-block;
   margin-bottom:4px;
-  
+
 }
 .social-icons li.title
 {
@@ -277,11 +277,11 @@ a {
 }
 .carousel-caption{
   color : white;
-  font-size: 30px; 
+  font-size: 30px;
 
 }
 .card-title{
-  
+
   color : gray;
   font-size: 12px;
 }
@@ -294,7 +294,7 @@ a {
   margin: 3%;
   display: flex;
   flex-direction:row-reverse
-  
+
 }
 .null-color{
   color : #1F4CA6;
@@ -327,7 +327,7 @@ letter-spacing: -0.9px;
 }
 .red { color:red; }
 
-                         
+
                          /*   성일님꺼 끝 */
 
                         /*   상목 시작 */
@@ -521,3 +521,5 @@ clear:both;
   font-size: 15px;
 
 }
+
+

@@ -24,8 +24,21 @@ import static org.junit.jupiter.api.Assertions.*;
         }
         @Test
         void findMemberById() {
-            MemberDTO member = memberMapper.findMemberById("test@naver.com");
+            MemberDTO member = memberMapper.findMemberById("t121212est@naver.com");
             assertNotNull(member);
             System.out.println("member = " + member);
         }
-}
+
+
+        @Test
+        void insertMember() {
+
+        }
+
+        @Test
+        void idDupCheck(){
+            int result = memberMapper.idDupCheck("test@n11aver.com");
+            assertNotNull(result);
+            System.out.println("result = " + result);
+        }
+    }

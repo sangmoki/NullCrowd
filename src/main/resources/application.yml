@@ -30,6 +30,17 @@ spring:
       static-locations: classpath:/upload/
   image:
     image-dir: src/main/resources
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bs11mailsender@gmail.com
+    password: ssvhtxnbjlhajjpp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 
 #mybatis mapping
