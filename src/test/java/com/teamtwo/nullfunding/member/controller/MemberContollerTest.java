@@ -82,4 +82,5 @@ public class MemberContollerTest {
                 .andExpect(MockMvcResultMatchers.forwardedUrl("content/member/signup"))
                 .andDo(print());
     }
+
 }

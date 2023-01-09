@@ -4,8 +4,9 @@ import com.teamtwo.nullfunding.common.Exception.member.MemberInsertException;
 import com.teamtwo.nullfunding.member.dao.MemberMapper;
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import com.teamtwo.nullfunding.member.dto.UserImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,12 +14,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 @Service
@@ -30,11 +28,14 @@ public class MemberServiceImpl implements MemberService {
 
     private MemberMapper mapper;
 
+    private JavaMailSender mailSender;
+
 
     @Autowired
-    public MemberServiceImpl(MemberMapper mapper) {
+    public MemberServiceImpl(MemberMapper mapper, JavaMailSender mailSender) {
 
         this.mapper = mapper;
+        this.mailSender = mailSender;
     }
 
     @Override
@@ -79,40 +80,6 @@ public class MemberServiceImpl implements MemberService {
     public int idDupCheck(String memEmail) {
 
         return 0;
-    }
-
-
-    @Autowired
-    private JavaMailSender mailSender;
-
-
-
-    public String getRandomCode(){
-        Random random = new Random();
-        StringBuffer sb = new StringBuffer();
-        for(int i=1; i<7; i++){                           // i에는 랜덤 생성하고 싶은 값의 '자리수+1'을 입력. 7입력 시 6자리 코드.
-            if(random.nextBoolean()) {
-                sb.append((char) (random.nextInt(26) + 65));
-            } else {
-                sb.append(random.nextInt(10));
-            }
-        }
-        return sb.toString();
-    }
-
-    @Autowired
-    public void sendEmail(String toEmail, String subject, String body, String footer) {
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("bs11mailsender@gmail.com");      // 보내는사람
-        message.setTo(toEmail);                           // 받는사람
-        message.setSubject(subject);                      // 제목
-        message.setText("\n"+ body + "\n" + footer);      // body=인증코드, footer=안내멘트
-
-        mailSender.send(message);
-
-        System.out.println("메일이 성공적으로 발송되었습니다!");
-
     }
 
 }

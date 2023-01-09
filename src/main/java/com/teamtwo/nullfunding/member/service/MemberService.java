@@ -12,7 +12,4 @@ public interface MemberService extends UserDetailsService {
 
     int idDupCheck(String memEmail);
 
-    void sendEmail(String toEmail, String subject, String body, String footer);
-
-    String getRandomCode();
 }
