@@ -53,4 +53,3 @@ $(function(){$('.goPJ3').click(function() {
     $("#PJform").attr("action", "/project/makeProject?page=3").submit();
     })
 });
-
