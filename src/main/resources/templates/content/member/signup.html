@@ -1,129 +1,293 @@
 <!doctype html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>회원가입</title>
-  </head>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>메인 페이지</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../css/cho.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
+
+  <!-- Custom styles for this template -->
+  <style>
+    .form-control {
+      margin-bottom: 5px;
+    }
+
+    .container1 {
+      display: inline-flex;
+    }
+
+    .pb15 {
+      padding-bottom: 15px;
+    }
+
+    .red {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 메인 헤더부분-->
+  <main <nav class="py-2 white">
+    <div class="container d-flex flex-wrap">
+      <ul class="nav me-auto">
+        <li class="nav-item"><a href="../index.html" class="nav-link link-dark px-2">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Hot</a></li>
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Anything</a></li>
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">FAQ</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle main_dropdown" data-bs-toggle="dropdown" href="#" role="button"
+            aria-expanded="false"><b>About</b></a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="information.html">Information</a></li>
+            <li><a class="dropdown-item" href="board.html">Question</a></li>
+            <li><a class="dropdown-item" href="#">Community</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav">
+        <li class="nav-item"><a href="login.html" class="nav-link link-dark px-2">Login</a></li>
+        <li class="nav-item"><a href="signup.html" class="nav-link link-dark px-2">Sign up</a></li>
+      </ul>
+    </div>
+    </nav>
+    <header class="py-3 mb-4">
+      <div class="container d-flex flex-wrap justify-content-center">
+        <a href="../index.html"
+          class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+          <span class="fs-4"><b>NULL</b></span>
+        </a>
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0">
+          <div class="input-text">
+            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+          </div>
+        </form>
+      </div>
+    </header>
+
+    <div class="b-example-divider"></div>
+  </main>
+
+  <!-- 메인 헤더 끝-->
+  <!-- 메인 바디 시작 -->
+
   <body class="site-body">
-    <!-- 메인 헤더 -->
-    <header th:replace="fragments/header :: headerFragment"></header>
-    <!-- 메인 바디 시작 -->
-        <div class="container">
-            <div style = "padding: 50px 75px 50px 75px;">
-                <h2>회원가입</h2>
-                <br>
-                <!-- 아이디~이름 그냥 지나가면 밑에 빨간 글씨로 필수정보입니다 띄우기 -->
-                <form class="   col-12 col-lg-auto mb-3 mb-lg-0">
-                      <div class="mb-3">
-                          <div style = "padding: 5px 1px 2px 3px;">
-                              <label class="form-label">아이디　</label>
-                              <div class="row">
-                                <div class="col-lg-3">
-                                  <input type="id" id="inputid5" class="form-control">
-                                </div>
-                                <div class="col-lg-3">
-                                  <span class="button-check">
-                                  <button type="button" class="btn btn-secondary btn-sm mt-3">중복 확인</button>
-                                  </span>
-                                </div>
-                              </div>
-                              <div id="idHelp" class="form-text">아이디는 8~20 자리의 문자나 숫자만 가능합니다. 공백 및 특수문자는 허용하지 않습니다.</div>
+    <div class="container">
+      <div style="padding: 50px 75px 50px 75px;">
+        <h2>회원가입</h2>
+        <br>
+        <!-- 아이디~이름 그냥 지나가면 밑에 빨간 글씨로 필수정보입니다 띄우기 -->
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0">
+          <div class="mb-3">
+            <div style="padding: 5px 1px 2px 3px;">
+              <label class="form-label">가입 이메일</label>
+              <div class="row">
+                <div class="col-lg-3">
+                  <input type="id" id="memEmail" class="form-control" title="이메일 주소를 입력해주세요." required/>
+                </div>
+                <td id="msg"></td>
+                <div class="col-lg-3">
+                  <span>
+                    <button type="button" class="btn btn-secondary btn-sm mt-3" id="certifyEmail">인증번호 발송</button>
+                  </span>
+                </div>
+              </div>
+              </br>
+              <div id="emailHelp" class="form-text">
+                이메일은 본인확인을 위한 용도로 사용됩니다. <br>
+                입력하신 주소로 수신한 인증메일에서 본인확인을 완료하여야 합니다.
+              </div>
+              <div class="col-lg-2" style="display:none" id="checkEmail">
+                <input type="id" class="form-control">
+              </div>
 
-                              <br>
-                              <div class="row">
-                                <div class=" col-lg-3">
-                                    <label class="form-label">비밀번호</label>
-                                    <input type="password" id="inputPassword" class="form-control" >
-                                </div>
-                                    <div id="passwordHelp" class="form-text pb15">비밀번호는 8~20 자리의 문자나 숫자만 가능합니다. 공백 및 특수문자는 허용하지 않습니다.</div>
-                              </div>
-                              <div class="row" >
-                                <div class=" col-lg-3">
-                                    <label class="form-label">비밀번호 확인</label>
-                                    <input type="password" id="checkPassword" class="form-control" >
-                                    <div class="form-text pb15">동일한 비밀번호를 한번 더 입력해주세요.</div>
-                                </div>
-                              </div>
-                              
-                              <div class="row">
-                                <div class=" col-lg-3">
-                                  <!-- 정규표현식 영문,한글만 넣어주기 -->
-                                    <label class="form-label"> 이름　</label>
-                                    <input type="email" class="form-control" id="InputEmail1" >
-                                </div>
-                              </div>
+              <script>
+                $(function () {
+                  $('#certifyEmail').click(function () {
+                    $('#emailHelp').hide();
+                    $(this).attr('disabled', true);
+                    $('#emailId').attr('disabled', true);
+                    $(this).html('발송되었습니다');
+                    $('#checkEmail').show();
+                  })
+                })
+                function dailyMissionTimer() {
 
-                              <br>
-                              <div class="row pb15">
-                                <label class="form-label" >생년월일　</label>
-                                <div class="col-lg-2">
-                                    <input  class="form-control" name="bYear"  placeholder="년(4자)"> 
-                                </div> 
-                                <div class="col-lg-1" >
-                                  <select name="birth" class="form-control">
-                                  <script>
+                  var timer = 180;
+                  var minutes, seconds;
 
-                                    document.write("<option value='월'>"+"월");
-                                  for(i=1; i<=12; i++) {
+                  var interval = setInterval(function () {
+                    minutes = parseInt(timer / 60 % 60, 10);
+                    seconds = parseInt(timer % 60, 10);
 
-                                    document.write("<option value='"+i+"'>"+i);
-                
-                                  }
-                                  </script> 
-                                  </select> 
-                                </div> 
-                                <div class="col-lg-1" >
-                                  <input type="birth" class="form-control" name="bDay" placeholder="일">
-                                </div> 
-                              </div>
-                              <div class="row pb15">
-                                <label class="form-label">성별</label>
-                                <div class="col-lg-2">
-                                  <select id="gender" name="gender" class="form-control dropdown-toggle" data-bs-toggle="dropdown" >
-                                      <option value="" selected>선택</option>
-                                      <option value="M">남자</option>
-                                      <option value="F">여자</option>
-                                      <option value="U">선택 안함</option>
-                                  </select>
-                                </div>
-                              </div>
-                              
-                              <div></div>
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-                              <div class="row pb15">
-                                <label for="phone">휴대 전화
-                                <div class="col-lg-3" >
-                                    <input type="Phone" class="form-control" id="phone" placeholder="전화번호 입력">
-                                </div>
-                                </label>
-                              </div>
+                    $('#time-min').text(minutes);
+                    $('#time-sec').text(seconds);
 
-                              
+                    if (--timer < 0) {
+                      timer = 0;
+                      clearInterval(interval);
+                    }
+                  }, 1000);
+                }
 
-                              <div class="row">
-                                <div class=" col-lg-3">
-                                      <label  class="form-label">본인 확인 이메일<span>(선택)</span>　</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" >
-                                </div>
-                              </div>
-                              <div id="emailHelp" class="form-text">
-                                이메일은 본인확인을 위한 용도로 사용됩니다. <br>
-                                입력하신 주소로 수신한 인증메일에서 본인확인을 완료하여야 합니다.
-                              </div>
-                          </div> 
-                      </div>
-                      <button type="submit" class="btn btn-primary">가입하기</button>
-                  </form>
+              </script>
+              <br>
+              <div class="row">
+                <div class=" col-lg-3">
+                  <label class="form-label">비밀번호</label>
+                  <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelp">
+                </div>
+                <div id="passwordHelp" class="form-text pb15">비밀번호는 8~20 자리의 문자나 숫자만 가능합니다. 공백 및 특수문자는 허용하지 않습니다.</div>
+              </div>
+              <div class="row">
+                <div class=" col-lg-3">
+                  <label class="form-label">비밀번호 확인</label>
+                  <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelp">
+                  <div id="passwordHelp" class="form-text pb15">동일한 비밀번호를 한번 더 입력해주세요.</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class=" col-lg-3">
+                  <!-- 정규표현식 영문,한글만 넣어주기 -->
+                  <label class="form-label"> 이름　</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+              </div>
+
+              <br>
+              <div class="row pb15">
+                <label class="form-label">생년월일　</label>
+                <div class="col-lg-2">
+                  <input class="form-control" name="bYear" placeholder="년(4자)">
+                </div>
+                <div class="col-lg-1">
+                  <select name="birth" class="form-control">
+                    <script>
+
+                      document.write("<option value='월'>" + "월");
+                      for (i = 1; i <= 12; i++) {
+
+                        document.write("<option value='" + i + "'>" + i);
+
+                      }
+                    </script>
+                  </select>
+                </div>
+                <div class="col-lg-1">
+                  <input type="birth" class="form-control" name="bDay" placeholder="일">
+                </div>
+              </div>
+              <div class="row pb15">
+                <label class="form-label">성별</label>
+                <div class="col-lg-2">
+                  <select id="gender" name="gender" class="form-control dropdown-toggle" data-bs-toggle="dropdown">
+                    <option value="" selected>선택</option>
+                    <option value="M">남자</option>
+                    <option value="F">여자</option>
+                    <option value="U">선택 안함</option>
+                  </select>
+                </div>
+              </div>
+
+              <div></div>
+
+              <div class="row pb15">
+                <label for="phoneLalabelble">휴대 전화</label>
+                <div class="col-lg-3">
+                  <input type="Phone" class="form-control" id="phoneNumber" placeholder="전화번호 입력">
+                </div>
+              </div>
             </div>
-        </div>
-                            <!-- 메인 바디 끝 -->
+          </div>
+          <button type="submit" class="btn btn-primary">가입하기</button>
+        </form>
+      </div>
+    </div>
+  </body>
 
-                            <!-- 메인 푸터  -->
-    <footer th:replace="fragments/footer :: footerFragment"></footer>
+
+  <br><br><br><br><br><br><br><br><br><br>
+
+  <!-- 메인 바디 끝 -->
+
+  <!-- 메인 푸터 시작  -->
+
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          </a>
+          <h6>About</h6>
+          <p class="">스타트업 투자는 원금 손실과 유동성 및 현금성에
+            대한 투자위험을 가지고 있습니다. <br>
+            투자 전에 투자위험고지를 꼭 확인해주세요. </p>
+          <a href="main_fund.html"><span class="red_text">투자위험고지 바로가기 ></span></a><br><br>
+          중개업(온라인소액투자중개 및 통신판매중개)을 영위하는 플랫폼 제공자로 <br> 자금을 모집하는
+          당사자가 아닙니다. <br>따라서 투자손실의 위험을 보전하거나 리워드 제공을 보장해 드리지 않으며<br>
+          이에 대한 법적인 책임을 지지 않습니다.</p>
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+          <h6>ABOUT NULL</h6>
+          <ul class="footer-links">
+            <li><a href="#">새 소식</a></li>
+            <li><a href="#">회사 소개</a></li>
+            <li><a href="#">머시기 등등</a></li>
+          </ul>
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+          <h6>Quick Links</h6>
+          <ul class="footer-links">
+            <li><a href="#">도움말</a></li>
+            <li><a href="#">개인정보 처리방침(투자)</a></li>
+            <li><a href="#">신용정보 활용체제</a></li>
+
+          </ul>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+          <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by
+            <a href="https://jongro.himedia.co.kr/">Hi Media</a>.
+          </p>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <ul class="social-icons">
+            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>
