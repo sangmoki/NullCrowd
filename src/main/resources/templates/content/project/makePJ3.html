@@ -10,91 +10,18 @@
     <title>메인 페이지</title>
 
     <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="/js/cho.js"></script>
 </head>
 <body>
 <!-- 메인 헤더-->
 <header th:replace="fragments/header :: headerFragment"></header>
 <!-- 메인 바디 시작 -->
 
+<th:block th:replace="fragments/makePJheader :: makePJheader"></th:block>
 
-<div id="list_wrap" class="common_support hidden-xs hidden-sm reward-make-main">
-    <div class="common_sub_vi bg_gray"><br><br><br>
-        <div class="container">
-            <div class="row not-space">
-                <div class="col-md-3">
-                    <div class="common_vi_title webfont2">
-                        <b>기본정보</b>
-                    </div>
-                </div>
-                <div class="col-md-4 text-right">
-                </div>
-                <div class="col-md-5">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <!-- <a class="btn btn-block btn-primary-outline"><span class="blue_border"><b>가이드북 다운로드</b></span></a> -->
-                            <!-- Button to Open the Modal -->
-                            <button type="button" class="btn btn-primary-outline" data-toggle="modal"
-                                    data-target="#myModal">
-                                <span class="blue_border"><b>가이드북 다운로드</b></span>
-                            </button>
-                            <!-- The Modal -->
-                            <div class="modal" id="myModal">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">준비중입니다.</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-                                            Modal body..
-                                        </div>
-
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" href="#" class="btn btn-block btn-danger-outline"><span
-                                    class="red_border"><b>승인 요청하기</b></span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <br><br><br><br><br>
-            <div class="list-group">
-                <div class="list-header">
-                    <b>프로젝트 만들기</b>
-                </div>
-                <div class="col-md-4"><a href="makePJ1.html" class="list-group-item list-group-item-action"
-                                         style="border:none;">
-                    1. 기본정보</a>
-                </div>
-                <div class="col-md-4"><a href="makePJ2.html" class="list-group-item list-group-item-action"
-                                         style="border:none;">
-                    2. 리워드</a>
-                </div>
-                <div class="col-md-4"><a href="makePJ3.html" class="list-group-item list-group-item-action"
-                                         style="border:none;">
-                    3. 안내사항</a>
-                </div>
-            </div>
-        </div>
+        <div th:replace="fragments/mkPJSidebar :: mkPJSidebar"></div>
         <div class="col-md-9">
             <div class="text-group">
                 <br><br><br><br>
@@ -107,31 +34,42 @@
                         <br><br>
                     </div>
                 </div>
-                <div class="text-box2">
-                    <div class="text-box-header">
-                        <b> 진행자의 환불 및 교환 정책</b>
-                        <br>
-                    </div>
-                    <div class="text-box-body">
+                <form th:action id="PJform" method="post">
+                    <div class="text-box2">
+                        <div class="text-box-header">
+                            <b> 진행자의 환불 및 교환 정책</b>
+                            <br>
+                        </div>
+                        <div class="text-box-body">
 
-                        NULL펀딩 환불 및 교환 정책 외에 추가사항이 있으시면 적어주세요.<br>
-                        <textarea class="col-lg-5"></textarea>
-                        <br><br>
+                            NULL펀딩 환불 및 교환 정책 외에 추가사항이 있으시면 적어주세요.<br>
+                            <textarea class="col-lg-5" name="refundRule" th:text="${ param.refundRule }"></textarea>
+                            <br><br>
+                        </div>
                     </div>
-                </div>
-                <div class="text-box3">
-                    <div class="text-box-header">
-                        <b> 문의 가능한 번호</b><br>
-                        <input class="col-lg-5" type="text" placeholder="ex) 010-1234-5678"
+                    <div class="text-box3">
+                        <div class="text-box-header">
+                            <b> 문의 가능한 번호</b><br>
+                            <input type="text" class="col-lg-5" placeholder="ex)010-1234-5678" name="tel"
+                                   th:value="${ #authentication.getPrincipal().fundRaiserDTO.getRaiPhone() }">
+                        </div>
                     </div>
-                </div>
-                <br>
-                <div class="text-box4">
-                    <div class="text-box-header">
-                        <b> 문의 가능한 이메일</b> <br>
-                        <input class="col-lg-5" type="text" placeholder="ex) abcde@naver.com">
+                    <br>
+                    <div class="text-box4">
+                        <div class="text-box-header">
+                            <b> 문의 가능한 이메일</b> <br>
+                            <input type="text" class="col-lg-5" placeholder="ex)abcde@naver.com" name="pjEmail"
+                                   th:value="${ #authentication.getPrincipal().fundRaiserDTO.getRaiEmail() }"><th:if
+                        </div>
                     </div>
-                </div>
+                    <div style="display: none">
+                        <input name="title" th:value="${ param.title }">
+                        <input name="fundGoal" th:value="${ param.fundGoal }">
+                        <input name="description" th:value="${ param.description }">
+                        <input name="startDate" th:value="${ param.startDate }">
+                        <input name="endDate" th:value="${ param.endDate }">
+                    </div>
+                </form>
                 <br>
                 <div class="text-box5">
                     <div class="text-box5-reward">
@@ -145,11 +83,11 @@
                     </div>
                 </div>
                 <br><br>
-                <a href="makePJ1.html">
-                    <button class="btn btn-block btn-primary">이전단계</button>
+                <a href="javascript:void(0)">
+                    <button class="btn btn-block btn-secondary goPJ2">이전단계</button>
                 </a>
-                <button type="button" class="btn btn-primary-outline" data-toggle="modal" data-target="#myModal">
-                    <span class="request-project">승인 요청하기</span>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+                    승인 요청하기
                 </button>
                 <!-- The Modal -->
                 <div class="modal" id="myModal">
@@ -179,7 +117,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <br><br><br><br><br><br>
 <!-- 메인 바디 끝 -->
 

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<meta charset="UTF-8">
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="outer outer-send-message">
+        <h4 style="text-align: left">메시지 보내기</h4>
+
+        <!-- 메시지 보내기 폼 -->
+        <form id="joinForm" th:action="@{/message/new}" method="post" enctype="multipart/form-data">
+            <table style="margin: auto">
+                <input
+                        type="hidden"
+                        id="writerMemberNo"
+                        name="witerMemberNickname"
+                <tr>
+                    <td style="width: 150px">받는사람(닉네임) </td>
+                    <td><input type="text" maxlength="13" name="memberNickname" id="memberNickname" required></td>
+                    <td style="width: 100px"><input type="button" value="닉네임 찾기" class="btn btn-bs" id="searchMemberByNickname"></td>
+                </tr>
+            </table>
+            <TEXTAREA NAME="MSG" ROWS="10" COLS="60"></TEXTAREA>
+            <table>
+                <tr>
+                    <td>첨부 사진</td>
+                    <td>
+                        <div class="content-img-area1" id="contentImgArea1">
+                            <img id="contentImg1" style="width: 120px; height: 100px">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="content-img-area2" id="contentImgArea2">
+                            <img id="contentImg2" style="width: 120px; height: 100px">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="content-img-area3" id="contentImgArea3">
+                            <img id="contentImg3" style="width: 120px; height: 100px">
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+            <br>
+            <div class="btns" style="align-items: center">
+                <button type="button" class="btn btn-pk" onclick="self.close()" style="float: right; margin-left: 10px">취소</button>
+                <input type="submit" value="보내기" class="btn btn-or" style="float: right">
+            </div>
+        </form>
+    </div>	<!-- outer end -->
+
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:inline="javascript">
+
+        const $searchZipCode = document.getElementById("searchZipCode");
+        const $goMain = document.getElementById("goMain");
+
+        $searchZipCode.onclick = function() {
+
+            /* 다음 우편번호 검색 창을 오픈하면서 동작할 콜백 메소드를 포함한 객체를 매개변수로 전달한다. */
+            new daum.Postcode({
+                oncomplete: function(data){
+                    /* 팝업에서 검색결과 항목을 클릭했을 시 실행할 코드를 작성하는 부분 */
+                    document.getElementById("zipCode").value = data.zonecode;
+                    document.getElementById("address1").value = data.address;
+                    document.getElementById("address2").focus();
+                }
+            }).open();
+        }
+
+        $goMain.onclick = function() {
+            location.href = "/";
+        }
+
+    </script>
+</th:block>
+
+
+
+
+
+</html>

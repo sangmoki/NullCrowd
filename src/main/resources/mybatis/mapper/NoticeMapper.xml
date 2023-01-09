@@ -13,43 +13,78 @@
         <result property="readCount" column="READ_COUNT"/>
     </resultMap>
 
-    <!-- 모든 공지사항 리스트 조회 -->    <!-- 완료 ! -->
-    <select id="selectAllNoticeList" resultMap="noticeResultMap">
+    <!-- 검색한 게시물 개수 -->
+    <select id="selectTotalCount" resultType="_int" parameterType="hashMap">
         SELECT
-               A.NOTICE_NO
-             , B.NICKNAME
-             , A.NOTICE_TITLE
-             , A.NOTICE_CONTENT
-             , A.UPLOAD_DATE
-             , A.READ_COUNT
-         FROM NOTICE A
-         JOIN MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
-        ORDER BY A.NOTICE_NO DESC
+        COUNT(*)
+        FROM NOTICE A
+        JOIN MEMBER B ON(A.MEMBER_CODE = B.MEM_CODE)
+        <where>
+            <if test="searchCondition == ' noticeTitle '">
+                A.NOTICE_TITLE LIKE '%' || #{ searchValue } || '%'
+            </if>
+
+            <if test="searchCondition == 'nickName'">
+                B.NICKNAME LIKE '%' || #{ searchValue } || '%'
+            </if>
+        </where>
     </select>
 
     <!-- 검색하여 공지사항 조회 -->
-    <select id="selectChoiceNotice" resultMap="noticeResultMap">
+    <!-- 검색하여 공지사항 조회 -->
+    <select id="selectAllNoticeList" resultMap="noticeResultMap">
+
         SELECT
-               A.NOTICE_NO
-             , B.NICKNAME
-             , A.NOTICE_TITLE
-             , A.NOTICE_CONTENT
-             , A.UPLOAD_DATE
-             , A.READ_COUNT
-        FROM  NOTICE A
-        JOIN  MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
-        WHERE A.NOTICE_TITLE LIKE '%' || #{ noticeTitle } || '%'
-        <if test="noticeTitle != null">
-           AND B.NICKNAME LIKE '%' || { nickName } || '%'
-        </if>
-        ORDER BY A.NOTICE_NO DESC
-</select>
+        A.RNUM
+        , A.NOTICE_NO
+        , A.NOTICE_TITLE
+        , A.NOTICE_CONTENT
+        , A.UPLOAD_DATE
+        , A.READ_COUNT
+        , A.MEMBER_CODE
+        , A.NICKNAME
+        FROM
+        (SELECT
+        ROWNUM RNUM
+        , B.NOTICE_NO
+        , B.NOTICE_TITLE
+        , B.NOTICE_CONTENT
+        , B.UPLOAD_DATE
+        , B.READ_COUNT
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM
+        (SELECT C.NOTICE_NO
+        , C.NOTICE_TITLE
+        , C.NOTICE_CONTENT
+        , C.UPLOAD_DATE
+        , C.READ_COUNT
+        , C.MEMBER_CODE
+        , E.NICKNAME
+        FROM NOTICE C
+        JOIN MEMBER E ON(C.MEMBER_CODE = E.MEM_CODE)
+        ORDER BY C.NOTICE_NO DESC) B
+        <![CDATA[
+                  WHERE ROWNUM <= #{ endRow }
+                  ]]>
+        ) A
+        <where>
+            A.RNUM >= #{ startRow }
+            <if test="searchCondition == 'noticeTitle'">
+                AND  A.NOTICE_TITLE LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'nickName'">
+                AND  A.NICKNAME LIKE '%' || #{searchValue} || '%'
+            </if>
+        </where>
+
+    </select>
 
 
     <!-- 공지사항 상세보기 조회 -->
     <select id="selectNoticeDetail" resultMap="noticeResultMap">
         SELECT
-            A.NOTICE_NO
+               A.NOTICE_NO
              , B.NICKNAME
              , A.NOTICE_TITLE
              , A.NOTICE_CONTENT
@@ -57,7 +92,7 @@
              , A.READ_COUNT
         FROM NOTICE A
                  JOIN MEMBER B ON (A.MEMBER_CODE = B.MEM_CODE)
-        ORDER BY A.NOTICE_NO DESC
+        WHERE A.NOTICE_NO = #{ no }
     </select>
 
     <!-- 공지사항 게시글 추가 -->

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamtwo.nullfunding.pm.dao.MessageMapper">
+
+    <resultMap id="MessageResultMap" type="MessageDTO">
+        <id property="messageNo" column="MESSAGE_CODE"/>
+        <id property="boxType" column="BOX_TYPE"/>
+        <id property="receiverMemberNo" column="MEM_CODE"/>
+        <id property="messageTitle" column="TITLE"/>
+        <id property="sendDate" column="RECEIVED_TIME"/>
+        <id property="senderNickname" column="SENTBY"/>
+        <id property="messageContent" column="CONTENT"/>
+        <id property="isRead" column="IS_READ"/>
+        <id property="isDeleted" column="IS_DELETED"/>
+    </resultMap>
+
+    <select id="checkObjectNickname" resultType="String" parameterType="hashmap">
+        SELECT
+           <if test="messageboxNo == 1">
+               A.NICKNAME
+           </if>
+           <if test="messageboxNo == 2">
+               B.RAI_NICKNAME
+           </if>
+          FROM MEMBER A
+           <if test="messageboxNo ==2">
+          JOIN FUNDRAISER B ON (A.MEM_CODE = B.RAISER_CODE)
+           </if>
+         WHERE A.MEM_CODE = #{ memberNo }
+    </select>
+
+
+    <select id="checkTotalMessages" resultType="_int" parameterType="hashmap">
+        SELECT
+               COUNT(*)
+          FROM MESSAGES
+         WHERE MEM_CODE = #{ memberNo }
+           AND BOX_TYPE = #{ messageboxNo }
+           AND IS_DELETED = 'N'
+    </select>
+
+    <select id="viewAllMessageList" resultMap="MessageResultMap" parameterType="hashmap">
+        SELECT
+              MESSAGE_CODE,
+              BOX_TYPE,
+              MEM_CODE,
+              TITLE,
+              RECEIVED_TIME,
+              SENTBY,
+              CONTENT,
+              IS_READ,
+              IS_DELETED
+         FROM (SELECT
+                     ROWNUM AS NO,
+                     MESSAGE_CODE,
+                     BOX_TYPE,
+                     MEM_CODE,
+                     TITLE,
+                     RECEIVED_TIME,
+                     SENTBY,
+                     CONTENT,
+                     IS_READ,
+                     IS_DELETED
+                FROM MESSAGES
+               WHERE IS_DELETED = 'N'
+                 AND MEM_CODE = #{ memberNo }
+                 AND BOX_TYPE = #{ messageboxNo })
+        WHERE NO >= #{ selectCriteria.startRow }
+<![CDATA[ AND NO <= #{ selectCriteria.endRow }      ]]>
+     ORDER BY MESSAGE_CODE DESC
+    </select>
+
+    <select id="viewDetailOfSelectedMessage" resultMap="MessageResultMap">
+        SELECT
+              MESSAGE_CODE,
+              BOX_TYPE,
+              MEM_CODE,
+              TITLE,
+              RECEIVED_TIME,
+              SENTBY,
+              CONTENT,
+              IS_READ,
+              IS_DELETED
+         FROM MESSAGES
+        WHERE MESSAGE_CODE = #{ messageNo }
+          AND IS_DELETED = 'N'
+    </select>
+
+    <update id="setRead" parameterType="Integer">
+        UPDATE MESSAGES
+           SET IS_READ = 'Y'
+         WHERE MESSAGE_CODE = #{ messageNo }
+    </update>
+
+
+
+
+
+
+    <update id="deleteMessage" parameterType="Integer">
+        UPDATE MESSAGES
+           SET IS_DELETED = 'Y'
+         WHERE MESSAGE_CODE = #{ messageNo }
+    </update>
+
+
+
+
+</mapper>
