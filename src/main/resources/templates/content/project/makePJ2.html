@@ -79,6 +79,7 @@
                         <input name="description" th:value="${ param.description }">
                         <input name="startDate" th:value="${ param.startDate }">
                         <input name="endDate" th:value="${ param.endDate }">
+                        <input name="videoURL" th:value="${ param.videoURL }">
 
                         <input name="refundRule" th:value="${ param.refundRule }">
                         <input name="tel" th:value="${ param.tel }">
@@ -106,6 +107,7 @@
                         <input name="description" th:value="${ param.description }">
                         <input name="startDate" th:value="${ param.startDate }">
                         <input name="endDate" th:value="${ param.endDate }">
+                        <input name="videoURL" th:value="${ param.videoURL }">
 
                         <input name="refundRule" th:value="${ param.refundRule }">
                         <input name="tel" th:value="${ param.tel }">
@@ -160,7 +162,6 @@
                 </div>
                 <script>
                     $(".btn_delete").click(function () {
-                        console.log("여기는오니..?")
                         $.ajax({
                             url: "/project/removeReward",
                             type: 'post',

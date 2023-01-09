@@ -242,7 +242,7 @@
                                                         </path>
                                                     </svg></span></a></div>
                                     <div class="NullMenu_menu__3b-H-"><a
-                                            href="/pm/checkMessage?box_type=1&currentPage=1"><span
+                                            href="javascript:void(0);" onclick="openMessageWindow('/pm/checkMessage?box_type=1&amp;currentPage=1')"><span
                                             class="NullMenu_icon__1sqne"><svg viewBox="0 0 39.98 39.98"
                                                                               focusable="false" role="presentation"
                                                                               class="withIcon_icon__FgeYa"
@@ -510,7 +510,7 @@
                                     </div>
                                     <ul>
                                         <div class="NullMenu_menu__3b-H-"><a
-                                                href="/pm/checkMessage?box_type=2&currentPage=1"><span
+                                                href="javascript:void(0);" onclick="openMessageWindow('/pm/checkMessage?amp;box_type=2&currentPage=1')"><span
                                                 class="NullMenu_icon__1sqne"><svg viewBox="0 0 39.98 39.98"
                                                                                   focusable="false" role="presentation"
                                                                                   class="withIcon_icon__FgeYa"
@@ -800,6 +800,15 @@
     </div>
 </div>
 <!-- 메인 바디 끝 -->
+
+<script>
+    function openMessageWindow(url){
+
+        window.open(url, "메시지", "width=900, height=650, left=100, top=50");
+
+    };
+</script>
+</script>
 
 <!-- 메인 푸터  -->
 <footer th:replace="fragments/footer :: footerFragment"></footer>

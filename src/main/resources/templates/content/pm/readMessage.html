@@ -17,10 +17,12 @@
 </head>
 <body>
     <div class="container-fluid">
+        <br>
         <div class="row" style="margin: 10px">
             <div class="col-sm">
                 <span>메시지 번호 : </span>
-                <span th:text="${ message.messageNo}"></span>
+                <span th:text="${ message.messageNo }"></span>
+                <input type="hidden" id="messageNo" name="messageNo" th:value="${ message.messageNo }">
             </div>
             <div class="col-sm-7"></div>
             <div class="col-sm">
@@ -42,7 +44,7 @@
         </div>
     </div>
     <div style="margin: 30px">
-        <textarea class="col-sm-12" rows="10" th:text="${ message.messageContent }" style="padding: 10px">
+        <textarea class="col-sm-12" rows="13" th:text="${ message.messageContent }" style="padding: 10px">
         </textarea>
     </div>
     <div class="row" style="margin: 15px">
@@ -54,7 +56,7 @@
 
         <div class="col-sm">
             <button type="button" class="btn btn-secondary" onclick="deleteMessage()">삭제하기</button>
-            <button type="button" class="btn btn-primary">답장하기</button>
+            <button type="button" class="btn btn-primary" onclick="replyMessage()">답장하기</button>
         </div>
     </div>
 
@@ -102,7 +104,19 @@
             window.history.back();
         }
 
-        <!-- 답장하기 이벤트 -->
+        <!-- 답장하기 이벤트 : 현재 html 주소를 가지고 다음 페이지로 -->
+        function replyMessage(){
+
+            var replyToMessage = document.getElementById('messageSubject').value;
+            var replyToNickname = document.getElementById('messageSender').value;
+
+            // url의 파라미터 가져오기
+            const url = new URLSearchParams(window.location.search);
+
+            window.location.href = '/pm/replyMessage'+'?'+'messageSubject='+replyToMessage+'&'+'messageSender='+replyToNickname;
+
+        }
+
 
 
     </script>

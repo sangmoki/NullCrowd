@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>메시지 보내기</title>
+    <title>메시지 답장하기</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -30,9 +30,9 @@
                th:value="${ #authentication.getPrincipal().getNickName()}">
 
         <div class="row" style="margin: 10px">
-            <label for="inputMessageReceiver" class="col-sm-2 col-form-label">받는 사람</label>
+            <label for="inputMessageReceiver" class="col-sm-2 col-form-label">답장 대상자</label>
             <div class="col-sm-10" style="padding: 3px">
-                <input type="text" class="form-control-plaintext" id="inputMessageReceiver" name="receiverNickname" placeholder="받는사람 닉네임을 입력하세요" oninput="checkMessageReceiver()">
+                <input type="text" readonly class="form-control-plaintext" id="inputMessageReceiver" name="receiverNickname" th:value="getReplyNickname()">
             </div>
         </div>
         <div class="row" style="margin: 10px; color: gray">
@@ -43,7 +43,7 @@
         <div class="row" style="margin: 10px">
             <label for="messageSubject" class="col-sm-2 col-form-label">제목</label>
             <div class="col-sm-10" style="padding: 3px">
-                <input type="text" class="form-control-plaintext" id="messageSubject" name="messageTitle" placeholder="제목을 입력하세요">
+                <input type="text" class="form-control-plaintext" id="messageSubject" name="messageTitle" th:value="'<re:> '+getReplyMessageTitle()">
             </div>
         </div>
         <div style="margin: 10px">
@@ -56,7 +56,7 @@
             <div class="col-sm-5"></div>
 
             <div class="col-sm">
-                <button type="button" class="btn btn-secondary" onclick="goBackToMessageList()">취소</button>
+                <button type="button" class="btn btn-secondary" onclick="goBackToMessage()">취소</button>
            <button type="submit" class="btn btn-primary" onclick="javascript:goBackToCheckMessageList()">보내기</button>
             </div>
         </div>
@@ -65,55 +65,11 @@
 <script>
 
 
-    //  닉네임 검색 이벤트
-    function checkMessageReceiver(){
-
-        // inputMessageReceiver에 입력된 값을 저장
-        const nickname = $('#inputMessageReceiver').val();
-        let typeOfNickname = null;
-        let regiDate = null;
-
-        // 입력된 값을 넘기고, 검색된 닉네임과 메시지박스 넘버를 받아옴
-        $.ajax({
-            url: '/pm/searchNickname',
-            type: 'post',
-            data:{nickname:nickname},
-            success:function(result){
-                console.log(result);
-                if(result[1]==null){
-                    $("#checkedNickname").text("확인된 회원 없음 : 닉네임을 다시 확인해주세요!");
-                    $("#checkedMessageboxNo").val(null);
-                }
-                else {
-                    if (result[1]==1){
-                        typeOfNickname = " 서포터 회원";
-                    } else if(result[1]==2){
-                        typeOfNickname = " 프로젝트 매니저 회원";
-                    }
-
-                    regiDate = result[2];
-
-                    $("#checkedNickname").text("확인된 회원 ("+ result[0] + ") : "+typeOfNickname+", "+ Date(regiDate)+" 에 가입함.");
-
-                    $("#checkedMessageboxNo").val(result[1]);
-
-                }
-            },
-
-        })
-
-
-
-
-    }
-
-
-    <!-- 취소 버튼 클릭 시 목록으로 돌아가기 이벤트 -->
-    function goBackToMessageList() {
+    // <!-- 취소 버튼 클릭 시 이전 메시지로 돌아가기 이벤트 -->
+    function goBackToMessage() {
 
         window.history.back();
     }
-
 
     <!-- 메시지 전송 이후 목록으로 돌아가기 이벤트 -->
     function goBackToCheckMessageList(){
@@ -128,9 +84,26 @@
 
         window.location.replace(url);
 
+    }
+
+
+    <!-- 답장 대상 리플 작성자 가져와 담는 이벤트 -->
+    function getReplyNickname(){
+
+        const messageSender = document.write(urlParams.get('messageSender')+'<br>');
 
     }
 
+    <!-- 답장 대상 리플 제목 가져와 담는 이벤트 -->
+    function getReplyMessageTitle(){
+
+        const messageSubject = document.write(urlParams.get('messageSubject')+'<br>');
+
+    }
+
+
+
+    <!-- 답장하기 이벤트 -->
 
 
 </script>
