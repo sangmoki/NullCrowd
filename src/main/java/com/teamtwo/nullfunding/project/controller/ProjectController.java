@@ -4,13 +4,12 @@ import com.teamtwo.nullfunding.project.model.dto.ProjectRewardDTO;
 import com.teamtwo.nullfunding.project.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +21,7 @@ public class ProjectController {
     private ProjectService projectService;
     private List<ProjectRewardDTO> rewardList;
 
+    @Autowired
     public ProjectController(ProjectService projectService, List<ProjectRewardDTO> rewardList) {
         this.projectService = projectService;
         this.rewardList = rewardList;
@@ -29,13 +29,13 @@ public class ProjectController {
 
     @RequestMapping("/addReward")
     @ResponseBody
-    public List<ProjectRewardDTO> addReward(HttpServletRequest request){
-        String name = request.getParameter("name");
-        int price = (Integer.parseInt(request.getParameter("price")));
-        String details = request.getParameter("details");
+    public void addReward(@ModelAttribute ProjectRewardDTO projectRewardDTO, HttpServletRequest request){
 
-        rewardList.add(new ProjectRewardDTO(name, price, details));
-        return rewardList;
+
+        rewardList.add(projectRewardDTO);
+        System.out.println("rewardList = " + rewardList);
+        request.setAttribute("rewardList", rewardList);
+
     }
 
     @RequestMapping("/makeProject")
@@ -45,15 +45,21 @@ public class ProjectController {
         String page = request.getParameter("page");
         String projectPage = "content/project/makePJ" + page;
         mv.setViewName(projectPage);
-
 //       rewardList.add("")
 
         /* 페이지 내에서 정보 저장해서 넘겨주기 */
+        // PJ1
         mv.addObject("title", request.getParameter("title"));
         mv.addObject("fundGoal", request.getParameter("fundGoal"));
         mv.addObject("description", request.getParameter("description"));
+        mv.addObject("startDate", request.getParameter("startDate"));
+        mv.addObject("endDate", request.getParameter("endDate"));
+        // PJ2
         mv.addObject("rewardList", rewardList);
-
+        // PJ3
+        mv.addObject("refundRule", request.getParameter("refundRule"));
+        mv.addObject("tel", request.getParameter("tel"));
+        mv.addObject("pjEmail", request.getParameter("pjEmail"));
         return mv;
     }
 
@@ -61,6 +67,12 @@ public class ProjectController {
     public String projectInfo(){
 
         return "content/project/project-info";
+    }
+
+    @RequestMapping("/removeReward")
+    @ResponseBody
+    public void modifyReward(@RequestParam int index){
+        rewardList.remove(index);
     }
 
 }

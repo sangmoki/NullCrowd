@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 public class SecurityConfig {
@@ -47,7 +48,13 @@ public class SecurityConfig {
 //                .loginProcessingUrl("/member/login")
 //                .defaultSuccessUrl("/")
                 .successForwardUrl("/")
-                .and().build();
+         .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+          .and()
+                .build();
     }
 
 

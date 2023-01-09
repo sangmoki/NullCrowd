@@ -26,7 +26,6 @@
 <div class="container">
 
   <div align="center">
-    <script>$('#bookmark-mouseover-ico').on('mouseover', function () { $('#bookmark-mouseover-popup').css('display', 'inline-block'); return false; }).on('mouseout', function () { $('#bookmark-mouseover-popup').hide(); return false; }); $('#bookmark-mouseover-popup').on('mouseover', function () { $('#bookmark-mouseover-popup').css('display', 'inline-block'); return false; }).on('mouseout', function () { $('#bookmark-mouseover-popup').hide(); return false; });</script>
     <style type="text/css">
       .ajaxtooltip {
         position: absolute;
@@ -77,19 +76,19 @@
                 <div class="sub-top-contents-box">
                   <div class="sub-top-text-box" style="width:620px;">
                     제목:
-                    <span th:text="${ notice?.noticeTitle }"></span>
+                    <span th:text="${ detail.noticeTitle }"></span>
                   </div>
                   <div class="sub-top-text-box" style="width:620px;">
                     닉네임:
-                    <span th:text="${ notice?.nickName }"></span>
+                    <span th:text="${ detail.nickName }"></span>
                   </div>
                   <div class="sub-top-text-box" style="width:620px;">
                     등록일:
-                    <span th:text="${ notice?.uploadDate }"></span>
+                    <span th:text="${ detail.uploadDate }"></span>
                   </div>
                   <div class="sub-top-text-box" style="width:620px;">
                     조회수:
-                    <span th:text="${ notice?.readCount }"></span>
+                    <span th:text="${ detail.readCount }"></span>
                   </div>
 
                   <div id="share-popup-new-pos"></div>
@@ -147,7 +146,7 @@
                   <tbody>
                   <tr>
                     <td class="board-contents" align="left" valign="top">
-                    <td th:text="${ notice?.noticeContent }"></td>
+                    <td th:text="${ detail.noticeContent }"></td>
                     </td>
                   </tr>
                   </tbody>
@@ -158,16 +157,15 @@
           </table>
         </td>
       </tr>
-
       </tbody>
     </table>
     <!-- 본문 글 끝 -->
     <br><br><br>
     <div class="float-right">
       <input type="button" class="btn btn-secondary" value="수정하기"
-             th:onclick="'location.href=\'/notice/update?no='+ @{${ notice.no }} + '\''"
+             th:onclick="'location.href=\'/notice/update?no='+ @{${ detail.noticeNo }} + '\''">
       <button class="btn btn-secondary"
-              th:onclick="'location.href=\'/notice/delete?no='+ @{${ notice.no }} + '\''"
+              th:onclick="'location.href=\'/notice/delete?no='+ @{${ detail.noticeNo }} + '\''">
         삭제하기</button>
     </div>
   </div>
