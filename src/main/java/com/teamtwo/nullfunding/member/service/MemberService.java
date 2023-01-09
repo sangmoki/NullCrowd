@@ -1,11 +1,18 @@
 package com.teamtwo.nullfunding.member.service;
 
+import com.teamtwo.nullfunding.common.Exception.member.MemberInsertException;
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.util.List;
-
 
 public interface MemberService extends UserDetailsService {
-    List<MemberDTO> getMemberList();
+
+
+    void insertMember(MemberDTO member) throws MemberInsertException;
+
+    int idDupCheck(String memEmail);
+
+    void sendEmail(String toEmail, String subject, String body, String footer);
+
+    String getRandomCode();
 }

@@ -73,5 +73,13 @@ public class MemberContollerTest {
                 .andExpect(MockMvcResultMatchers.forwardedUrl("content/member/login"))
                 .andDo(print());
     }
-    
+
+    @Test
+    public void 회원가입_컨트롤러_동작_테스트() throws Exception{
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/member/signup"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.forwardedUrl("content/member/signup"))
+                .andDo(print());
+    }
 }

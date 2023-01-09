@@ -37,14 +37,13 @@
     </resultMap>
 
 
-<!--    &lt;!&ndash; 아아디 중복 확인 &ndash;&gt;-->
-<!--    <select id="selectMemberById" resultType="string">-->
-<!--        SELECT-->
-<!--             MEM_EMAIL-->
-<!--        FROM MEMBER-->
-<!--        WHERE IS_ACTIVE = 'Y'-->
-<!--          AND MEM_EMAIL = #{ memEmail }-->
-<!--    </select>-->
+    <!-- 아아디 중복 확인 -->
+    <select id="idDupCheck" resultType="_int">
+        SELECT
+             COUNT(MEM_EMAIL)
+        FROM MEMBER
+        WHERE MEM_EMAIL = #{ memEmail }
+    </select>
 
     <!-- 회원 가입 -->
     <insert id="insertMember" parameterType="memberDTO">
