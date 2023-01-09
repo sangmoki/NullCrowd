@@ -1,6 +1,7 @@
 package com.teamtwo.nullfunding.pm.service;
 
 import com.teamtwo.nullfunding.common.Exception.message.MessageSendException;
+import com.teamtwo.nullfunding.member.dto.UserImpl;
 import com.teamtwo.nullfunding.pm.dto.MessageDTO;
 
 import java.util.Date;
@@ -39,8 +40,15 @@ public interface MessageService {
     // 닉네임 검색 및, 닉네임에 딸린 메시지 박스 가져가는 메소드
     public String[] searchNicknameAndMessageboxNo(String nickname);
 
+    // 닉네임에 딸린 멤버코드 찾는 메소드
+    int getMemberNoByNickname(String nickname);
+
     // 메시지 발신용 메소드
-    void sendMessage(MessageDTO message) throws MessageSendException;
+    void sendMessage(Map<String, Object> searchMap) throws MessageSendException;
+
+    // 메시지 답장용 메소드
+    void replyMessage(Map<String, Object> searchMap) throws MessageSendException;
+
 
     //메시지 삭제용 메소드
     int deleteMessage(Integer messageNo);

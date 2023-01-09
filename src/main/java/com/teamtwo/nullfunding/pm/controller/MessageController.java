@@ -138,15 +138,50 @@ public class MessageController {
         return "content/pm/sendMessage";
     }
 
+    /* 메시지 답장하기 */
+    @GetMapping("/replyMessage")
+    public String goReplyMessage() {
+        return "content/pm/sendMessage";
+    }
+
     @PostMapping("/sendMessage")
-    public String sendMessage(@ModelAttribute MessageDTO message, RedirectAttributes rttr) throws MessageSendException {
+    public String sendMessage(@ModelAttribute MessageDTO message, @RequestParam int boxType, @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes rttr) throws MessageSendException {
+
+        Map<String, Object> searchMap = new HashMap<>();
+        memberNo = ((UserImpl) userDetails).getMemCode();
+        log.info("[MessageController] 발신자 유저번호 : " + memberNo);
+        searchMap.put("memberNo", Integer.valueOf(memberNo));
+        message.setReceiverMemberNo(messageService.getMemberNoByNickname(message.getSenderNickname()));
+        log.info("[MessageController] 수신자 닉네임 : " + message.getReceiverNickname());
+        log.info("[MessageController] 수신자 유저번호 : " + message.getReceiverMemberNo());
+        message.setBoxType(boxType);
+        searchMap.put("message", message);
 
         log.info("[MessageController] 다음 메시지에 대한 발신 요청 확인 : " + message);
-        messageService.sendMessage(message);
-        rttr.addFlashAttribute("message", "메시지 보내기에 성공하셨습니다!");
+        messageService.sendMessage(searchMap);
 
-        return "redirect:/pm/checkMessage";
+        return "redirect:/content/pm/checkMessage";
     }
+
+    @PostMapping("/replyMessage")
+    public String replyMessage(@ModelAttribute MessageDTO message, @RequestParam int boxType, @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes rttr) throws MessageSendException {
+
+        Map<String, Object> searchMap = new HashMap<>();
+        memberNo = ((UserImpl) userDetails).getMemCode();
+        log.info("[MessageController] 발신자 유저번호 : " + memberNo);
+        searchMap.put("memberNo", Integer.valueOf(memberNo));
+        message.setReceiverMemberNo(messageService.getMemberNoByNickname(message.getSenderNickname()));
+        log.info("[MessageController] 수신자 닉네임 : " + message.getReceiverNickname());
+        log.info("[MessageController] 수신자 유저번호 : " + message.getReceiverMemberNo());
+        message.setBoxType(boxType);
+        searchMap.put("message", message);
+
+        log.info("[MessageController] 다음 메시지에 대한 발신 요청 확인 : " + message);
+        messageService.sendMessage(searchMap);
+
+        return "redirect:/content/pm/checkMessage";
+    }
+
 
     /* 닉네임 검색 = 닉네임 값을 검색해 해당하는 닉네임값을 넘겨줌 */
     @RequestMapping(value = "/searchNickname", method = {RequestMethod.POST}, produces = "application/json; charset=utf-8")
