@@ -84,9 +84,7 @@ public class NoticeController {
         int no = Integer.valueOf(request.getParameter("no"));
 
         NoticeDTO noticeDetail = noticeService.selectNoticeDetail(no);
-
         model.addAttribute("detail", noticeDetail);
-        System.out.println("noticeDetail = " + noticeDetail);
 
         return "content/notice/noticeDetail";
     }
@@ -114,14 +112,16 @@ public class NoticeController {
 
     // 공지사항 변경화면
     @GetMapping("/update")
-    public String updateNotice(HttpServletRequest request, Model model) {
+    public String goUpdate(HttpServletRequest request, Model model) {
 
         int no = Integer.valueOf(request.getParameter("no"));
-
+        
         NoticeDTO notice = noticeService.selectNoticeDetail(no);
-
+        
         model.addAttribute("notice", notice);
 
+        System.out.println("notice = " + notice);
+        
         return "content/notice/noticeUpdate";
     }
 
