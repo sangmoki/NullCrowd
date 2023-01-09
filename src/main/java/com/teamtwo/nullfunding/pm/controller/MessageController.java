@@ -134,14 +134,12 @@ public class MessageController {
 
     /* 메시지 보내기 */
     @GetMapping("/sendMessage")
-    public String goSendMessage() {
-        return "content/pm/sendMessage";
-    }
+    public String goSendMessage() { return "content/pm/sendMessage"; }
 
     /* 메시지 답장하기 */
     @GetMapping("/replyMessage")
     public String goReplyMessage() {
-        return "content/pm/sendMessage";
+        return "content/pm/replyMessage";
     }
 
     @PostMapping("/sendMessage")
@@ -164,16 +162,16 @@ public class MessageController {
     }
 
     @PostMapping("/replyMessage")
-    public String replyMessage(@ModelAttribute MessageDTO message, @RequestParam int boxType, @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes rttr) throws MessageSendException {
+    public String replyMessage(@ModelAttribute MessageDTO message, @RequestParam String messageSender, @RequestParam String messageTitle, @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes rttr) throws MessageSendException {
 
         Map<String, Object> searchMap = new HashMap<>();
         memberNo = ((UserImpl) userDetails).getMemCode();
         log.info("[MessageController] 발신자 유저번호 : " + memberNo);
         searchMap.put("memberNo", Integer.valueOf(memberNo));
-        message.setReceiverMemberNo(messageService.getMemberNoByNickname(message.getSenderNickname()));
+        message.setReceiverMemberNo(messageService.getMemberNoByNickname(messageSender));
+        message.setMessageTitle(messageTitle);
         log.info("[MessageController] 수신자 닉네임 : " + message.getReceiverNickname());
         log.info("[MessageController] 수신자 유저번호 : " + message.getReceiverMemberNo());
-        message.setBoxType(boxType);
         searchMap.put("message", message);
 
         log.info("[MessageController] 다음 메시지에 대한 발신 요청 확인 : " + message);
