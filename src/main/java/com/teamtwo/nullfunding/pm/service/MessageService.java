@@ -1,7 +1,9 @@
 package com.teamtwo.nullfunding.pm.service;
 
+import com.teamtwo.nullfunding.common.Exception.message.MessageSendException;
 import com.teamtwo.nullfunding.pm.dto.MessageDTO;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +27,20 @@ public interface MessageService {
     // 메시지 '읽었음' 표시용 메소드
     boolean setRead(int messageNo);
 
+    // 닉네임에 딸린 메시지 박스 찾는 메소드1
+    int getMessageboxNoByNicknameFromMember(String nickname);
+
+    // 닉네임에 딸린 메시지 박스 찾는 메소드2
+    int getMessageboxNoByNicknameFromFundrasier(String nickname);
+
+    // 닉네임에 딸린 가입일 찾는 메소드
+    Date getRegiDate(String nickname);
+
+    // 닉네임 검색 및, 닉네임에 딸린 메시지 박스 가져가는 메소드
+    public String[] searchNicknameAndMessageboxNo(String nickname);
+
     // 메시지 발신용 메소드
-    String sendMessage(MessageDTO message);
+    void sendMessage(MessageDTO message) throws MessageSendException;
 
     //메시지 삭제용 메소드
     int deleteMessage(Integer messageNo);

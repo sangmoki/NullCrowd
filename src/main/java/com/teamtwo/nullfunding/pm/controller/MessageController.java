@@ -3,6 +3,7 @@ package com.teamtwo.nullfunding.pm.controller;
 import com.teamtwo.nullfunding.common.paging.Pagenation;
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
 import com.teamtwo.nullfunding.common.Exception.message.MessageDeleteException;
+import com.teamtwo.nullfunding.common.Exception.message.MessageSendException;
 import com.teamtwo.nullfunding.member.dto.UserImpl;
 import com.teamtwo.nullfunding.pm.dto.MessageDTO;
 import com.teamtwo.nullfunding.pm.service.MessageService;
@@ -40,10 +41,10 @@ public class MessageController {
     }
 
 
-    @GetMapping ("/checkMessage")
+    @GetMapping("/checkMessage")
     public ModelAndView messageList(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails, @RequestParam int box_type,
-                                    @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
-                                    ModelAndView mv){
+                                    @RequestParam(value = "currentPage", defaultValue = "1") int pageNo,
+                                    ModelAndView mv) {
 
         System.out.println("box_type = " + box_type);
         /* 불러올 대상(닉네임)과, 해당되는 메시지 범위를 특정함 */
@@ -52,7 +53,7 @@ public class MessageController {
         Map<String, Integer> memberMap = new HashMap<>();
         Map<String, Integer> messageboxMap = new HashMap<>();
 
-        memberNo = ((UserImpl)userDetails).getMemCode();
+        memberNo = ((UserImpl) userDetails).getMemCode();
         log.info("[MessageController] 현재 특정된 유저번호 : " + memberNo);
         searchMap.put("memberNo", Integer.valueOf(memberNo));
 
@@ -105,7 +106,7 @@ public class MessageController {
     }
 
     /* 메시지 삭제 = DB의 'IS_DELETED' 컬럼을 N->Y로 바꿈으로써, 사용자에게만 노출되지 않게 하는 논리적 삭제 실행 */
-    @RequestMapping(value = "/delete.do", method={RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/delete.do", method = {RequestMethod.GET, RequestMethod.POST})
     public String processDeleteMessageList(HttpServletRequest request, ModelAndView mv, RedirectAttributes rttr, String[] delMess) {
 
         for (int i = 0; i < delMess.length; i++) {
@@ -120,7 +121,7 @@ public class MessageController {
 
     /* 메시지 보기 */
     @GetMapping("/readMessage")
-    public String readIndividualMessage(HttpServletRequest request, @RequestParam(value="currentMessage") int messageNo, Model model){
+    public String readIndividualMessage(HttpServletRequest request, @RequestParam(value = "currentMessage") int messageNo, Model model) {
 
         log.info("[MessageController] 읽기 요청된 메시지 번호 : " + messageNo);
         MessageDTO messageDetail = messageService.viewDetailOfSelectedMessage(messageNo);
@@ -131,43 +132,33 @@ public class MessageController {
 
     }
 
-
-//        mv.addObject()
-//
-//        for(int i=0; i<arrayParam.length; i++){
-//            log.info("[MessageController] 다음 번호의 메시지 삭제 요청됨 : " + arrayParam[i]);
-//            messageService.deleteMessage(Integer.valueOf(arrayParam[i]));
-//            rttr.addFlashAttribute("message", "메시지 삭제 성공!");
-//        }
-//
-//        return arrayParam;
-//    }
-
-
-
-//    @PostMapping ("/deleteMessage")
-//    public String deleteMessage(@RequestParam List<String> delMessageList) {
-//
-//        for(int i=0; i<delMessageList.size(); i++){
-//
-//            Integer messageNo = Integer.valueOf(delMessageList.get(i));
-//            messageService.deleteMessage(messageNo);
-//        }
-//        return "redirect:/";
-//    }
-
-
+    /* 메시지 보내기 */
     @GetMapping("/sendMessage")
-    public String sendMessage(){
+    public String goSendMessage() {
         return "content/pm/sendMessage";
     }
 
-//    @PostMapping("/sendMessage")
-//    public void sendMessage(@ModelAttribute MessageDTO message, RedirectAttributes rttr,
-//                              @AuthenticationPrincipal UserDetails userDetails) {
-//
-//        log.info("[MessageController] sendMessage : " + message);
-//        messageService.sendMessage(message);
-//        rttr.addFlashAttribute("message", "메시지 보내기에 성공하셨습니다.");
-//    }
+    @PostMapping("/sendMessage")
+    public String sendMessage(@ModelAttribute MessageDTO message, RedirectAttributes rttr) throws MessageSendException {
+
+        log.info("[MessageController] 다음 메시지에 대한 발신 요청 확인 : " + message);
+        messageService.sendMessage(message);
+        rttr.addFlashAttribute("message", "메시지 보내기에 성공하셨습니다!");
+
+        return "redirect:/pm/checkMessage";
+    }
+
+    /* 닉네임 검색 = 닉네임 값을 검색해 해당하는 닉네임값을 넘겨줌 */
+    @RequestMapping(value = "/searchNickname", method = {RequestMethod.POST}, produces = "application/json; charset=utf-8")
+    public @ResponseBody String[] searchNickname(@RequestParam("nickname") String nickname) {
+
+        String[] searchedNickname = new String[3];
+        log.info("[MessageController] 다음 닉네임에 대한 검색 요청 확인 : " + nickname);
+        searchedNickname = messageService.searchNicknameAndMessageboxNo(nickname);
+        System.out.println("searchedNickname = " + searchedNickname[0]);
+        System.out.println("searchedNickname = " + searchedNickname[1]);
+        System.out.println("searchedNickname = " + searchedNickname[2]);
+        return searchedNickname;
+    }
+
 }
