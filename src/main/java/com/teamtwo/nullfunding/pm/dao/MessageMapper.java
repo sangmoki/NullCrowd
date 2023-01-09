@@ -1,6 +1,7 @@
 package com.teamtwo.nullfunding.pm.dao;
 
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
+import com.teamtwo.nullfunding.member.dto.UserImpl;
 import com.teamtwo.nullfunding.pm.dto.MessageDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -44,8 +45,12 @@ public interface MessageMapper {
     // 닉네임에 딸린 메시지 박스 가져가는 메소드
     String searchMessageboxByNickname(String nickname);
 
+    // 닉네임에 딸린 멤버코드 찾는 메소드
+    int getMemberNoByNickname(String nickname);
+
+
     // 메시지 발신용 메소드
-    int sendMessage(MessageDTO message);
+    int sendMessage(Map<String, Object> message);
 
     //메시지 삭제용 메소드
     int deleteMessage(Integer messageNo);

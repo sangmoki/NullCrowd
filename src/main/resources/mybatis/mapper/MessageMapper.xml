@@ -112,6 +112,15 @@
             OR FUNDRAISER.RAI_NICKNAME = #{ nickname }
     </select>
 
+    <select id="getMemberNoByNickname" resultType="_int" parameterType="String">
+        SELECT
+               MEM_CODE
+          FROM MEMBER
+          JOIN FUNDRAISER ON (MEMBER.MEM_CODE = FUNDRAISER.RAISER_CODE)
+         WHERE MEMBER.NICKNAME = #{ nickname }
+            OR FUNDRAISER.RAI_NICKNAME = #{ nickname }
+    </select>
+
 
 
     <insert id="sendMessage">
@@ -128,12 +137,12 @@
                IS_DELETED )
         VALUES
             ( SEQ_MESSAGE_CODE.NEXTVAL,
-              #{ boxType },
-              #{ receiverMemberNo },
-              #{ messageTitle },
-              TO_DATE(SYSDATE),
-              #{ senderNickname },
-              #{ messageContent },
+              #{ message.boxType },
+              #{ message.receiverMemberNo},
+              #{ message.messageTitle },
+              SYSDATE,
+              #{ message.senderNickname },
+              #{ message.messageContent },
               'N',
               'N'
              )
