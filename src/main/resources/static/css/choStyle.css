@@ -149,3 +149,18 @@ dl {
 	background-image: url(../img/icon-delete.png);
 	background-size: 16px 20px;
 }
+.form-control {
+	margin-bottom: 5px;
+}
+
+.container1 {
+	display: inline-flex;
+}
+
+.pb15 {
+	padding-bottom: 15px;
+}
+
+.red {
+	color: red;
+}

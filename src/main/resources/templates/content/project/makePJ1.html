@@ -8,8 +8,6 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
     <title>메인 페이지</title>
-    <script src="/summernote/upload.js"></script>
-
 
 
     <!-- Bootstrap core CSS -->
@@ -17,6 +15,7 @@
     <script src="/js/cho.js"></script>
 </head>
 <body>
+
 <!-- 메인 헤더-->
 <header th:replace="fragments/header2 :: headerFragment2"></header>
 <!-- 메인 바디 시작 -->
@@ -58,12 +57,8 @@
                         </div>
                         <div class="text-box-body">
                             <span class="pink-text">최소 100,000원 이상</span>이어야 합니다.<br>
-<<<<<<< HEAD
                             <input tpye="text" class="col-lg-5" name="fundGoal" dir="rtl"
                                    th:value="${ param.fundGoal }">원 <br><br>
-=======
-                            <input tpye="text" class="col-lg-5" name="fundGoal"  dir="rtl" th:value="${ param.fundGoal }">원 <br><br>
->>>>>>> bdb3ea3 (Merge remote-tracking branch 'origin/master' into 성일)
 
                         </div>
                     </div>
@@ -74,8 +69,9 @@
                         </div>
                         <div class="text-box-body">
                             <span class="invisible-text">최소 7일부터 60일까지 가능합니다 </span><br>
-                            시작일&nbsp; : &nbsp;<input type="date" name="startDate" th:value="${ param.startDate }"> &nbsp; &nbsp; 종료일&nbsp; : &nbsp;
-                            <input type="date" name="endDate" th:value="${ param.endDate }" >
+                            시작일&nbsp; : &nbsp;<input type="date" name="startDate" th:value="${ param.startDate }">
+                            &nbsp; &nbsp; 종료일&nbsp; : &nbsp;
+                            <input type="date" name="endDate" th:value="${ param.endDate }">
                             <br><br>
                         </div>
                     </div>
@@ -107,6 +103,21 @@
                         <div class="text-box-body">
                             <input type="file" class="img-thumbnail" name="mainImg">
                             <br><br>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="row row-mobile-n">
+                            <label class="col-xs-12 control-label">
+                                <div class="text-left">동영상 주소를 적어주세요</div>
+                            </label>
+                            <div class="vod-holder input-append">
+                                <div class="row row-mobile-n">
+                                    <div class="col-xs-10 col-sm-7">
+                                        <input type="text" placeholder="YouTube URL을 입력해 주세요." class="form-control" name="pj">
+                                        <br><br>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!--        히든필드            -->

@@ -32,12 +32,6 @@ $(function(){
         $(this).parent().addClass('NullUserTypeSwitch_isMaker');
     });
 });
-$(function(){
-    $('#certifyEmail').click(function(){
-        $('#emailHelp').hide();
-        $(this).attr('disabled', true);
-    })
-});
 $(function() {
     $('.goPJ1').click(function () {
         $("#PJform").attr("action", "/project/makeProject?page=1").submit();
@@ -53,4 +47,3 @@ $(function(){$('.goPJ3').click(function() {
     $("#PJform").attr("action", "/project/makeProject?page=3").submit();
     })
 });
-
