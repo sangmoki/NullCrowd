@@ -1,6 +1,7 @@
 package com.teamtwo.nullfunding.pm.service;
 
 import com.teamtwo.nullfunding.common.Exception.message.MessageDeleteException;
+import com.teamtwo.nullfunding.common.Exception.message.MessageSendException;
 import com.teamtwo.nullfunding.pm.dao.MessageMapper;
 import com.teamtwo.nullfunding.pm.dto.MessageDTO;
 import org.springframework.stereotype.Service;
@@ -80,10 +81,54 @@ public class MessageServiceImpl implements MessageService {
         return result;
     }
 
+    // 닉네임에 딸린 메시지 박스 찾는 메소드1
+    @Override
+    public int getMessageboxNoByNicknameFromMember(String nickname){
+
+        int result = mapper.getMessageboxNoByNicknameFromMember(nickname);
+
+        return result;
+    };
+
+    @Override
+    // 닉네임에 딸린 메시지 박스 찾는 메소드2
+    public int getMessageboxNoByNicknameFromFundrasier(String nickname){
+
+        int result = mapper.getMessageboxNoByNicknameFromFundrasier(nickname);
+
+        return result;
+    }
+
+    // 닉네임 검색 및, 닉네임에 딸린 메시지 박스 가져가는 메소드
+    public String[] searchNicknameAndMessageboxNo(String nickname){
+
+        String[] result = new String[2];
+
+        if(mapper.getMessageboxNoByNicknameFromMember(nickname)==1) {
+
+            result[0] = nickname;
+            result[1] = 1+"";
+
+        } else if(mapper.getMessageboxNoByNicknameFromFundrasier(nickname)==1){
+
+            result[0] = nickname;
+            result[1] = 2+"";
+        }
+
+        return result;
+    }
+
     // 메시지 발신용 메소드
     @Override
-    public String sendMessage(MessageDTO message) {
-        return null;
+    @Transactional
+    public void sendMessage(MessageDTO message) throws MessageSendException {
+
+        int result = mapper.sendMessage(message);
+
+        if(!(result>0)){
+            throw new MessageSendException("메시지 보내기에 실패하였습니다..");
+        }
+
     }
 
     // 메시지 삭제용 메소드

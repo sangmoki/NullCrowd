@@ -89,16 +89,55 @@
           AND IS_DELETED = 'N'
     </select>
 
+    <select id="getMessageboxNoByNicknameFromMember" resultType="_int" parameterType="String">
+        SELECT
+               COUNT(*)
+          FROM MEMBER
+         WHERE MEMBER.NICKNAME = ${ nickname }
+    </select>
+
+    <select id="getMessageboxNoByNicknameFromFundrasier" resultType="_int" parameterType="String">
+        SELECT
+            COUNT(*)
+        FROM FUNDRAISER
+        WHERE FUNDRAISER.RAI_NICKNAME = ${ nickname }
+    </select>
+
+
+
+    <insert id="sendMessage">
+        INSERT
+          INTO MESSAGES
+             ( MESSAGE_CODE,
+               BOX_TYPE,
+               MEM_CODE,
+               TITLE,
+               RECEIVED_TIME,
+               SENTBY,
+               CONTENT,
+               IS_READ,
+               IS_DELETED )
+        VALUES
+            ( SEQ_MESSAGE_CODE.NEXTVAL,
+              #{ boxType },
+              #{ receiverMemberNo },
+              #{ messageTitle },
+              TO_DATE(SYSDATE),
+              #{ senderNickname },
+              #{ messageContent },
+              'N',
+              'N'
+             )
+    </insert>
+
+
+
+
     <update id="setRead" parameterType="Integer">
         UPDATE MESSAGES
            SET IS_READ = 'Y'
          WHERE MESSAGE_CODE = #{ messageNo }
     </update>
-
-
-
-
-
 
     <update id="deleteMessage" parameterType="Integer">
         UPDATE MESSAGES

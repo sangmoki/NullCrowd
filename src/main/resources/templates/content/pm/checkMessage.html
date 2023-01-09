@@ -20,15 +20,13 @@
     <div class="container-fluid">
 
         <div class="outer outer-message-list">
-
             <br>
             <div class="floatRight" align="right">
                 <span th:text="${ nickname }" style="font-weight: bold"></span>
                 <span> 님의 받은 메시지함 입니다.</span>
             </div>
-            <br>
             <div>
-                <button type="button" class="btn btn-primary" href="/pm/sendMessage">메시지 보내기</button>
+                <button type="button" class="btn btn-primary" onclick="location.href='/pm/sendMessage'">메시지 보내기</button>
                 <button type="button" class="btn btn-secondary" onclick="deleteMessage()">삭제</button>
             </div>
             <br>
@@ -72,6 +70,9 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div>
+            <hr style="height: 2px; background-color: black; border: black; opacity: 1">
         </div>
         <!-- 서포터 페이지 처리 -->
         <div th:if="${ boxNumber } == 1">
