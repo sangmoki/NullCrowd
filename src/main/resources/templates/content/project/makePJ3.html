@@ -59,7 +59,7 @@
                         <div class="text-box-header">
                             <b> 문의 가능한 이메일</b> <br>
                             <input type="text" class="col-lg-5" placeholder="ex)abcde@naver.com" name="pjEmail"
-                                   th:value="${ #authentication.getPrincipal().fundRaiserDTO.getRaiEmail() }"><th:if
+                                   th:value="${ #authentication.getPrincipal().fundRaiserDTO.getRaiEmail() }">
                         </div>
                     </div>
                     <div style="display: none">
@@ -125,4 +125,3 @@
 <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
 </html>
-                      
