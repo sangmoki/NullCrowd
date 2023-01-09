@@ -149,13 +149,15 @@ public class MessageController {
     }
 
     /* 닉네임 검색 = 닉네임 값을 검색해 해당하는 닉네임값을 넘겨줌 */
-    @RequestMapping(value = "/searchNickname.do", method = {RequestMethod.POST})
-    public String[] searchNickname(@RequestParam("nickname") String nickname) {
+    @RequestMapping(value = "/searchNickname", method = {RequestMethod.POST}, produces = "application/json; charset=utf-8")
+    public @ResponseBody String[] searchNickname(@RequestParam("nickname") String nickname) {
 
-        String[] searchedNickname = new String[2];
+        String[] searchedNickname = new String[3];
         log.info("[MessageController] 다음 닉네임에 대한 검색 요청 확인 : " + nickname);
         searchedNickname = messageService.searchNicknameAndMessageboxNo(nickname);
-
+        System.out.println("searchedNickname = " + searchedNickname[0]);
+        System.out.println("searchedNickname = " + searchedNickname[1]);
+        System.out.println("searchedNickname = " + searchedNickname[2]);
         return searchedNickname;
     }
 

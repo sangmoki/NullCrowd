@@ -26,19 +26,26 @@
     <hr>
     <div class="row" style="margin: 10px">
         <label for="inputMessageReceiver" class="col-sm-2 col-form-label">받는 사람</label>
-        <div class="col-sm-10">
+        <div class="col-sm-10" style="padding: 3px">
             <input type="text" class="form-control-plaintext" id="inputMessageReceiver" placeholder="받는사람 닉네임을 입력하세요" oninput="checkMessageReceiver()">
         </div>
-        <span class="checkedNickname"></span>
+    </div>
+    <div class="row" style="display:none;">
+        <input id="checkedMessageboxNo"/>
+    </div>
+    <div class="row" style="margin: 10px; color: gray">
+        <div class="col-sm">
+            <span id="checkedNickname"></span>
+        </div>
     </div>
     <div class="row" style="margin: 10px">
         <label for="messageSubject" class="col-sm-2 col-form-label">제목</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control-plaintext" id="messageSubject">
+        <div class="col-sm-10" style="padding: 3px">
+            <input type="text" class="form-control-plaintext" id="messageSubject" placeholder="제목을 입력하세요">
         </div>
     </div>
-    <div style="margin: 30px">
-        <textarea class="col-sm-12" rows="13" style="padding: 10px; resize: none;">
+    <div style="margin: 10px">
+        <textarea class="col-sm-12" rows="12" style="padding: 10px;" placeholder="내용을 입력하세요">
         </textarea>
     </div>
     <div class="row" style="margin: 15px">
@@ -59,24 +66,42 @@
     function checkMessageReceiver(){
 
         // inputMessageReceiver에 입력된 값을 저장
-        var nickname = $('#inputMessageReceiver').val();
+        const nickname = $('#inputMessageReceiver').val();
+        let typeOfNickname = null;
+        let regiDate = null;
 
         // 입력된 값을 넘기고, 검색된 닉네임과 메시지박스 넘버를 받아옴
         $.ajax({
-            url: './searchNickname.do'
+            url: '/pm/searchNickname',
             type: 'post',
             data:{nickname:nickname},
-            success:function(searchedNickname, messageboxNo){
-                if(searchedNickname==null){
-                    alert("닉네임을 다시 입력해주세요");
-                    $('#inputMessageReceiver').val('');
+            success:function(result){
+                console.log(result);
+                if(result[1]==null){
+                    $("#checkedNickname").text("확인된 회원 없음 : 닉네임을 다시 확인해주세요!");
+                    $("#checkedMessageboxNo").text(null);
                 }
                 else {
-                    return (searchedNickname, messageboxNo);
+                    if (result[1]==1){
+                        typeOfNickname = " 서포터 회원";
+                    } else if(result[1]==2){
+                        typeOfNickname = " 프로젝트 매니저 회원";
+                    }
+
+                    regiDate = result[2];
+
+                    $("#checkedNickname").text("확인된 회원 ("+ result[0] + ") : "+typeOfNickname+", "+ Date(regiDate)+" 에 가입함.");
+
+                    $("#checkedMessageboxNo").text(result[1]);
+
                 }
             },
+
         })
+
+
     }
+
 
     <!-- 목록으로 돌아가기 이벤트 -->
     function goBackToMessageList() {

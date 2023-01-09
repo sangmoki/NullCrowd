@@ -7,6 +7,7 @@ import com.teamtwo.nullfunding.pm.dto.MessageDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -99,20 +100,32 @@ public class MessageServiceImpl implements MessageService {
         return result;
     }
 
+    // 닉네임에 딸린 가입일 찾는 메소드
+    public Date getRegiDate(String nickname){
+
+         Date result = mapper.getRegiDate(nickname);
+
+         return result;
+    }
+
+
     // 닉네임 검색 및, 닉네임에 딸린 메시지 박스 가져가는 메소드
     public String[] searchNicknameAndMessageboxNo(String nickname){
 
-        String[] result = new String[2];
+        String[] result = new String[3];
 
         if(mapper.getMessageboxNoByNicknameFromMember(nickname)==1) {
 
             result[0] = nickname;
             result[1] = 1+"";
+            result[2] = getRegiDate(nickname)+"";
 
         } else if(mapper.getMessageboxNoByNicknameFromFundrasier(nickname)==1){
 
             result[0] = nickname;
             result[1] = 2+"";
+            result[2] = getRegiDate(nickname)+"";
+
         }
 
         return result;
