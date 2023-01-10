@@ -1,15 +1,18 @@
 package com.teamtwo.nullfunding.notice.controller;
 
+import com.google.gson.JsonObject;
 import com.teamtwo.nullfunding.common.paging.Pagenation;
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
 import com.teamtwo.nullfunding.member.dto.UserImpl;
 import com.teamtwo.nullfunding.notice.model.dto.NoticeDTO;
+import com.teamtwo.nullfunding.notice.model.dto.NoticeMediaDTO;
 import com.teamtwo.nullfunding.notice.service.NoticeService;
 import com.teamtwo.nullfunding.notice.service.NoticeServiceImpl;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -26,10 +29,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/notice")
@@ -37,6 +37,7 @@ public class NoticeController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private NoticeService noticeService;
+    private NoticeMediaDTO media;
 
     @Autowired
     public NoticeController(NoticeService noticeService) {
@@ -157,40 +158,44 @@ public class NoticeController {
 
     }
 
-//    @RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
-//    @ResponseBody
-//    public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
-//        JsonObject jsonObject = new JsonObject();
-//
-//        /*
-//         * String fileRoot = "C:\\summernote_image\\"; // 외부경로로 저장을 희망할때.
-//         */
-//
-//        // 내부경로로 저장
-//        String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-//        String fileRoot = contextRoot+"resources/fileupload/";
-//
-//        String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-//        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-//        String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-//
-//        File targetFile = new File(fileRoot + savedFileName);
-//        try {
-//            InputStream fileStream = multipartFile.getInputStream();
-//            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-//            jsonObject.addProperty("url", "/summernote/resources/fileupload/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-//            jsonObject.addProperty("responseCode", "success");
-//
-//        } catch (IOException e) {
-//            FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-//            jsonObject.addProperty("responseCode", "error");
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        String a = jsonObject.toString();
-//        return a;
-//    }
+    @Controller
+    public class FileManageController {
+
+        @PostMapping(value="/notice/addImage", produces = "application/json")
+        @ResponseBody
+        public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
+
+            JsonObject jsonObject = new JsonObject();
+
+            String fileRoot = "C:\\notice/addImage\\";	//저장될 파일 경로
+            String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+            String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+
+            // 랜덤 UUID+확장자로 저장될 savedFileName
+            String savedFileName = UUID.randomUUID() + extension;
+
+            File targetFile = new File(fileRoot + savedFileName);
+            System.out.println("targetFile = " + targetFile);
+
+            try {
+                InputStream fileStream = multipartFile.getInputStream();
+                FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+                jsonObject.addProperty("url", "/notice/addImage/"+savedFileName);
+                jsonObject.addProperty("responseCode", "success");
+
+            } catch (IOException e) {
+                FileUtils.deleteQuietly(targetFile);	// 실패시 저장된 파일 삭제
+                jsonObject.addProperty("responseCode", "error");
+                e.printStackTrace();
+            }
+            System.out.println("jsonObject = " + jsonObject);
+
+            return jsonObject;
+        }
+
+    }
+
+
 
 
 }
