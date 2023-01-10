@@ -1,8 +1,8 @@
 package com.teamtwo.nullfunding.pm.service;
 
 import com.teamtwo.nullfunding.common.Exception.message.MessageSendException;
-import com.teamtwo.nullfunding.member.dto.UserImpl;
 import com.teamtwo.nullfunding.pm.dto.MessageDTO;
+import com.teamtwo.nullfunding.pm.dto.MessageSelectCriteria;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +17,7 @@ public interface MessageService {
     int checkTotalMessages(Map<String, Object> searchMap);
 
     // 현재 로그인된 세션의 모든 메시지를 불러오는 메소드
-    List<MessageDTO> viewAllMessageList(Map<String, Object> selectCriteriaPlusAlpha);
+    List<MessageDTO> viewAllMessageList(MessageSelectCriteria messageSelectCriteria);
 
     // 현재 로그인된 세션에서, 조건에 맞는 메시지를 불러오는 메소드
     List<MessageDTO> selectMessageByCheckedList(MessageDTO messageList);

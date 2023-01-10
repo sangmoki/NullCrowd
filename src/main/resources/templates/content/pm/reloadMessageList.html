@@ -15,31 +15,27 @@
     <!-- Bootstrap core CSS -->
     <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
-<body onload="reloadMessageList(box_type, pageNo)">
-    <div>
-        <input type="hidden" id="box_type" name="box_type" th:value="${ box_type }">
-        <input type="hidden" id="pageNo" name="pageNo" th:value="${ pageNo }">
-    </div>
 
+<!-- 메시지 전송 이후 넘어오게 되는 페이지. -->
+<body onload="reloadMessageList()">
 
     <script>
-        function reloadMessageList(box_type, pageNo){
 
+        // 전송 완료 메시지를 띄우고 페이지 리로드.
+        function reloadMessageList(){
+
+            // 메시지 전송 성공 시 성공 success 값이 넘어옴
+            const message = '[[${ success }]]';
+
+            // 전송 성공 메시지
             alert("메시지 전송 완료!")
 
-            const url = new URLSearchParams(window.location.search);
-
-            window.location.href = '/pm/checkMessage'+'?'+url;
-
-
-            // console.log("박스타입 : " + box_type + "페이지 번호 : :" + pageNo);
-            //
-            // window.location.href = '/pm/checkMessage'+'?box_type='+box_type+"pageNo="+pageNo;
-            //
-            // console.log('/pm/checkMessage'+'?box_type='+box_type+"pageNo="+pageNo);
+            // 해당 유저의 메시지함 값(box_type)을 전달받아 해당 메시지박스를 파라미터로 넘겨 페이지 리로드
+            window.location.href = '/pm/checkMessage'+'?box_type='+ '[[${ box_Type }]]';
 
         }
 
+    </script>
 
 
 

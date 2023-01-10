@@ -35,10 +35,8 @@
                 <input type="text" class="form-control-plaintext" id="inputMessageReceiver" name="receiverNickname" placeholder="받는사람 닉네임을 입력하세요" oninput="checkMessageReceiver()">
             </div>
         </div>
-        <div class="row" style="margin: 10px; color: gray">
-            <div class="col-sm">
+        <div class="row" style="margin: 10px; color: gray; height: 20px">
                 <span id="checkedNickname"></span>
-            </div>
         </div>
         <div class="row" style="margin: 10px">
             <label for="messageSubject" class="col-sm-2 col-form-label">제목</label>
@@ -73,6 +71,7 @@
         const nickname = $('#inputMessageReceiver').val();
         let typeOfNickname = null;
         let regiDate = null;
+        $("#checkedNickname").val(null);
 
         // 입력된 값을 넘기고, 검색된 닉네임과 메시지박스 넘버를 받아옴
         $.ajax({
@@ -93,8 +92,15 @@
                     }
 
                     regiDate = result[2];
+                    // console.log(regiDate);
+                    // log.info(regiDate);
+                    // const dateRegiDate = Date(regiDate);
+                    // const yyyyMMDD = setYYYYMMDD(dateRegiDate);
+                    // console.log(yyyyMMDD);
+                    // log.info(yyyyMMDD);
 
-                    $("#checkedNickname").text("확인된 회원 ("+ result[0] + ") : "+typeOfNickname+", "+ Date(regiDate)+" 에 가입함.");
+                    $("#checkedNickname").text("확인된 회원 ("+ result[0] + ") : "+typeOfNickname+", "+Date(regiDate)+"에 가입함.");
+
 
                     $("#checkedMessageboxNo").val(result[1]);
 
@@ -102,6 +108,17 @@
             },
 
         })
+
+        // 날짜 포맷 설정 이벤트
+        function setYYYYMMDD(date){
+
+            const yyyy = date.getFullYear();
+            const mm = date.getMonth();
+            const dd = date.getDate();
+
+            return yyyy+"-"+mm+"-"+dd;
+
+        }
 
 
 
@@ -124,7 +141,9 @@
         console.log(qString);
         $('#prevPage').val(qString);
         console.log($('#prevPage').val());
+
         $('#sendMessage').submit();
+
 
 
 
