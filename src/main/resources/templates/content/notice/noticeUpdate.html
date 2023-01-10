@@ -116,10 +116,15 @@
                             fontSize: 30,
 
                         });
-                        let readContent = '[[${ notice.noticeContent }]]'
+                        let readContent = '[[${ notice.noticeContent }]]';
 
-                        $('#summernote').summernote('code', readContent);
-                        // $('#summernote').html(data.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g,'"').replace(/&#40;/g,'(').replace(/&#41;/g,')').replace(/&#35;/g,'#'));
+                        $("#summernote").summernote('code', readContent.replace(/&amp;/g, "&")
+                            .replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+                            .replace(/&quot;/g,'"').replace(/&#40;/g,'(')
+                            .replace(/&#41;/g,')').replace(/&#35;/g,'#'));
+
+                        //$('#summernote').summernote('code', readContent);
+                        // $('#content').html(data.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g,'"').replace(/&#40;/g,'(').replace(/&#41;/g,')').replace(/&#35;/g,'#'));
 
                     </script>
                 </div>
