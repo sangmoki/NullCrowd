@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>메시지 답장하기</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Bootstrap core CSS -->
+    <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <br>
+    <div class="row" style="margin: 10px">
+        <div class="col-sm">
+            <span>메시지 보내기 </span>
+        </div>
+    </div>
+    <hr>
+    <form th:action="@{/pm/sendMessage}" method="post">
+        <input type="hidden" id="checkedMessageboxNo" name="boxType">
+        <input type="hidden" id="senderNickname" name="senderNickname"
+               th:value="${ #authentication.getPrincipal().getNickName()}">
+
+        <div class="row" style="margin: 10px">
+            <label for="inputMessageReceiver" class="col-sm-2 col-form-label">답장 대상자</label>
+            <div class="col-sm-10" style="padding: 3px">
+                <input type="text" readonly class="form-control-plaintext" id="inputMessageReceiver" name="receiverNickname" th:value="getReplyNickname()">
+            </div>
+        </div>
+        <div class="row" style="margin: 10px; color: gray">
+            <div class="col-sm">
+                <span id="checkedNickname"></span>
+            </div>
+        </div>
+        <div class="row" style="margin: 10px">
+            <label for="messageSubject" class="col-sm-2 col-form-label">제목</label>
+            <div class="col-sm-10" style="padding: 3px">
+                <input type="text" class="form-control-plaintext" id="messageSubject" name="messageTitle" th:value="'<re:> '+getReplyMessageTitle()">
+            </div>
+        </div>
+        <div style="margin: 10px">
+            <textarea class="col-sm-12" rows="12" style="padding: 10px;" name="messageContent" placeholder="내용을 입력하세요">
+            </textarea>
+        </div>
+        <div class="row" style="margin: 15px">
+            <hr>
+            <div class="col-sm"></div>
+            <div class="col-sm-5"></div>
+
+            <div class="col-sm">
+                <button type="button" class="btn btn-secondary" onclick="goBackToMessage()">취소</button>
+           <button type="submit" class="btn btn-primary" onclick="javascript:goBackToCheckMessageList()">보내기</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+
+    // <!-- 취소 버튼 클릭 시 이전 메시지로 돌아가기 이벤트 -->
+    function goBackToMessage() {
+
+        window.history.back();
+    }
+
+    <!-- 메시지 전송 이후 목록으로 돌아가기 이벤트 -->
+    function goBackToCheckMessageList(){
+
+        // url의 파라미터 가져오기
+        let url = new URLSearchParams(window.location.search);
+
+        url = '/pm/checkMessage'+'?'+url;
+
+        // alert("메시지 전송 성공!")
+        alert(url);
+
+        window.location.replace(url);
+
+    }
+
+
+    <!-- 답장 대상 리플 작성자 가져와 담는 이벤트 -->
+    function getReplyNickname(){
+
+        const messageSender = document.write(urlParams.get('messageSender')+'<br>');
+
+    }
+
+    <!-- 답장 대상 리플 제목 가져와 담는 이벤트 -->
+    function getReplyMessageTitle(){
+
+        const messageSubject = document.write(urlParams.get('messageSubject')+'<br>');
+
+    }
+
+
+
+    <!-- 답장하기 이벤트 -->
+
+
+</script>
+</body>
+
+<!-- 메인 푸터 끝 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+
