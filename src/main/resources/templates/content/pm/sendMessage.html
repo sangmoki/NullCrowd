@@ -9,50 +9,6 @@
     <meta name="generator" content="Hugo 0.88.1">
     <title>메시지 보내기</title>
 
-    <!-- 메시지 보내기 폼 -->
-    <form id="joinForm" th:action="@{/message/new}" method="post" enctype="multipart/form-data">
-        <table style="margin: auto">
-            <input
-                    type="hidden"
-                    id="writerMemberNo"
-                    name="witerMemberNickname">
-            <tr>
-                <td style="width: 150px">받는사람(닉네임)</td>
-                <td><input type="text" maxlength="13" name="memberNickname" id="memberNickname" required></td>
-                <td style="width: 100px"><input type="button" value="닉네임 찾기" class="btn btn-bs"
-                                                id="searchMemberByNickname"></td>
-            </tr>
-        </table>
-        <TEXTAREA NAME="MSG" ROWS="10" COLS="60"></TEXTAREA>
-        <table>
-            <tr>
-                <td>첨부 사진</td>
-                <td>
-                    <div class="content-img-area1" id="contentImgArea1">
-                        <img id="contentImg1" style="width: 120px; height: 100px">
-                    </div>
-                </td>
-                <td>
-                    <div class="content-img-area2" id="contentImgArea2">
-                        <img id="contentImg2" style="width: 120px; height: 100px">
-                    </div>
-                </td>
-                <td>
-                    <div class="content-img-area3" id="contentImgArea3">
-                        <img id="contentImg3" style="width: 120px; height: 100px">
-                    </div>
-                </td>
-
-            </tr>
-        </table>
-        <br>
-        <div class="btns" style="align-items: center">
-            <button type="button" class="btn btn-pk" onclick="self.close()" style="float: right; margin-left: 10px">취소
-            </button>
-            <input type="submit" value="보내기" class="btn btn-or" style="float: right">
-        </div>
-    </form>
-    </div>    <!-- outer end -->
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -68,7 +24,7 @@
         </div>
     </div>
     <hr>
-    <form th:action="@{/pm/sendMessage}" method="post">
+    <form th:action="@{/pm/sendMessage}" method="post" id="sendMessage">
         <input type="hidden" id="checkedMessageboxNo" name="boxType">
         <input type="hidden" id="senderNickname" name="senderNickname"
                th:value="${ #authentication.getPrincipal().getNickName()}">
@@ -76,20 +32,16 @@
         <div class="row" style="margin: 10px">
             <label for="inputMessageReceiver" class="col-sm-2 col-form-label">받는 사람</label>
             <div class="col-sm-10" style="padding: 3px">
-                <input type="text" class="form-control-plaintext" id="inputMessageReceiver" name="receiverNickname"
-                       placeholder="받는사람 닉네임을 입력하세요" oninput="checkMessageReceiver()">
+                <input type="text" class="form-control-plaintext" id="inputMessageReceiver" name="receiverNickname" placeholder="받는사람 닉네임을 입력하세요" oninput="checkMessageReceiver()">
             </div>
         </div>
-        <div class="row" style="margin: 10px; color: gray">
-            <div class="col-sm">
+        <div class="row" style="margin: 10px; color: gray; height: 20px">
                 <span id="checkedNickname"></span>
-            </div>
         </div>
         <div class="row" style="margin: 10px">
             <label for="messageSubject" class="col-sm-2 col-form-label">제목</label>
             <div class="col-sm-10" style="padding: 3px">
-                <input type="text" class="form-control-plaintext" id="messageSubject" name="messageTitle"
-                       placeholder="제목을 입력하세요">
+                <input type="text" class="form-control-plaintext" id="messageSubject" name="messageTitle" placeholder="제목을 입력하세요">
             </div>
         </div>
         <div style="margin: 10px">
@@ -103,9 +55,9 @@
 
             <div class="col-sm">
                 <button type="button" class="btn btn-secondary" onclick="goBackToMessageList()">취소</button>
-                <button type="submit" class="btn btn-primary" onclick="javascript:goBackToCheckMessageList()">보내기
-                </button>
+                <button type="button" class="btn btn-primary" onclick="sendAndGoBackToMessageList()">보내기</button>
             </div>
+            <input style="display:none" name="prevPage" id="prevPage">
         </div>
     </form>
 </div>
@@ -113,33 +65,42 @@
 
 
     //  닉네임 검색 이벤트
-    function checkMessageReceiver() {
+    function checkMessageReceiver(){
 
         // inputMessageReceiver에 입력된 값을 저장
         const nickname = $('#inputMessageReceiver').val();
         let typeOfNickname = null;
         let regiDate = null;
+        $("#checkedNickname").val(null);
 
         // 입력된 값을 넘기고, 검색된 닉네임과 메시지박스 넘버를 받아옴
         $.ajax({
             url: '/pm/searchNickname',
             type: 'post',
-            data: {nickname: nickname},
-            success: function (result) {
+            data:{nickname:nickname},
+            success:function(result){
                 console.log(result);
-                if (result[1] == null) {
+                if(result[1]==null){
                     $("#checkedNickname").text("확인된 회원 없음 : 닉네임을 다시 확인해주세요!");
                     $("#checkedMessageboxNo").val(null);
-                } else {
-                    if (result[1] == 1) {
+                }
+                else {
+                    if (result[1]==1){
                         typeOfNickname = " 서포터 회원";
-                    } else if (result[1] == 2) {
+                    } else if(result[1]==2){
                         typeOfNickname = " 프로젝트 매니저 회원";
                     }
 
                     regiDate = result[2];
+                    // console.log(regiDate);
+                    // log.info(regiDate);
+                    // const dateRegiDate = Date(regiDate);
+                    // const yyyyMMDD = setYYYYMMDD(dateRegiDate);
+                    // console.log(yyyyMMDD);
+                    // log.info(yyyyMMDD);
 
-                    $("#checkedNickname").text("확인된 회원 (" + result[0] + ") : " + typeOfNickname + ", " + Date(regiDate) + " 에 가입함.");
+                    $("#checkedNickname").text("확인된 회원 ("+ result[0] + ") : "+typeOfNickname+", "+Date(regiDate)+"에 가입함.");
+
 
                     $("#checkedMessageboxNo").val(result[1]);
 
@@ -147,6 +108,19 @@
             },
 
         })
+
+        // 날짜 포맷 설정 이벤트
+        function setYYYYMMDD(date){
+
+            const yyyy = date.getFullYear();
+            const mm = date.getMonth();
+            const dd = date.getDate();
+
+            return yyyy+"-"+mm+"-"+dd;
+
+        }
+
+
 
 
     }
@@ -159,28 +133,33 @@
     }
 
 
-    <!-- 메시지 전송 이후 목록으로 돌아가기 이벤트 -->
-    function goBackToCheckMessageList() {
+    <!-- 메시지 전송, 후 목록으로 돌아가기 이벤트 -->
+    function sendAndGoBackToMessageList(){
 
         // url의 파라미터 가져오기
-        let url = new URLSearchParams(window.location.search);
+        let qString = document.referrer.substring(document.referrer.lastIndexOf('8') + 1);
+        console.log(qString);
+        $('#prevPage').val(qString);
+        console.log($('#prevPage').val());
 
-        url = '/pm/checkMessage' + '?' + url;
+        $('#sendMessage').submit();
 
-        // alert("메시지 전송 성공!")
-        alert(url);
 
-        window.location.replace(url);
 
 
     }
 
 
+
 </script>
-</th:block>
-
-
 </body>
 
-
+<!-- 메인 푸터 끝 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
 </html>
