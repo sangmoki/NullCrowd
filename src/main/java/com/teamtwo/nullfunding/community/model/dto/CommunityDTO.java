@@ -18,5 +18,6 @@ public class CommunityDTO {
     private String title; // 제목
     private String content; // 내용
     private Date uploadDate; // 작성일
+    private int readCount; // 조회수
     private MemberDTO writer;
 }

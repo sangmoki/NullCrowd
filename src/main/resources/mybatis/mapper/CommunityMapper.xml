@@ -10,13 +10,7 @@
         <result property="title" column="TITLE"/>
         <result property="content" column="CONTENT"/>
         <result property="uploadDate" column="UPLOAD_DATE"/>
+        <result property="readCount" column="READ_COUNT"/>
     </resultMap>
 
-    <select id="selectAllCommunityList" resultMap="communityResultMap">
-        SELECT *
-        FROM COMMUNITY
-        ORDER BY ARTICLE_NO
-    </select>
-
 </mapper>
-
