@@ -89,12 +89,12 @@
             <version>1.4</version>
         </dependency>
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.google.code.gson/gson &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.google.code.gson</groupId>-->
-<!--            <artifactId>gson</artifactId>-->
-<!--            <version>2.8.6</version>-->
-<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.6</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
         <dependency>
@@ -102,6 +102,8 @@
             <artifactId>thumbnailator</artifactId>
             <version>0.4.17</version>
         </dependency>
+
+
     </dependencies>
 
     <build>
