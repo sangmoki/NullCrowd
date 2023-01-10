@@ -48,7 +48,7 @@
                     </thead>
                     <tbody>
                     <tr th scope th:each="message : ${ messageList }">
-                        <td scope="row">
+                        <td class="th-width">
                             <label class="checkbox-inline">
                                 <input type="checkbox" id="checked" name="checked" class="check" onclick="checkClicked()" th:value="${ message.messageNo }">
                             </label>
