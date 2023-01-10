@@ -83,7 +83,7 @@
              , 0
              , #{ mainImg }
              , #{ tel }
-             , #{ pjEmail }
+             , #{ pjEmail } 
              , #{ refundRule }
              , #{ videoURL }
           )
