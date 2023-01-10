@@ -16,7 +16,7 @@
     <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body>
-<th:block layout:fragment="content">
+<th:block>
     <div class="container-fluid">
 
         <div class="outer outer-message-list">
@@ -160,139 +160,139 @@
     <script>
 
 
-            <!-- 체크박스 전체선택 클릭 이벤트 -->
-            function allCheckClicked(target) {
+        <!-- 체크박스 전체선택 클릭 이벤트 -->
+        function allCheckClicked(target) {
 
-                // 전체 체크박스 버튼
-                const checkbox = document.getElementById('allCheckBox');
+            // 전체 체크박스 버튼
+            const checkbox = document.getElementById('allCheckBox');
 
-                //전체 체크박스 버튼 체크 여부
-                const is_checked = checkbox.checked;
+            //전체 체크박스 버튼 체크 여부
+            const is_checked = checkbox.checked;
 
-                //전체 체크박스 제외한 모든 체크박스
-                if (is_checked) {
-                    //체크박스 전체 체크
-                    checkAllChecked()
+            //전체 체크박스 제외한 모든 체크박스
+            if (is_checked) {
+                //체크박스 전체 체크
+                checkAllChecked()
 
-                } else {
-                    //체크박스 전체 해제
-                    checkAllUnchecked()
+            } else {
+                //체크박스 전체 해제
+                checkAllUnchecked()
+            }
+        }
+
+        <!-- 개별 체크박스 클릭 이벤트 -->
+        function checkClicked() {
+
+            // 체크박스 전체 개수
+            const allCount = document.querySelectorAll(".check").length;
+
+            //체크된 체크박스 전체 개수
+            const query = 'input[name="checked"]:checked'
+            const selectedElements = document.querySelectorAll(query)
+            const selectedElementsCount = selectedElements.length;
+
+            //체크박스 전체 개수와 체크된 체크박스 전체 개수가 같으면 전체 체크
+            if (allCount == selectedElementsCount) {
+
+                document.getElementById('allCheckbox').checked = true;
+
+            } else {
+                // 같지 않으면, 전체 체크박스 해제
+                document.getElementById('allCheckBox').checked = false;
+            }
+        }
+
+        <!-- 체크박스 전체 체크 이벤트 -->
+        function checkAllChecked() {
+
+            document.querySelectorAll(".check").forEach(function (v, i) {
+
+                v.checked = true;
+
+            });
+        }
+
+        <!-- 체크박스 전체 체크 해제 이벤트 -->
+        function checkAllUnchecked() {
+
+            document.querySelectorAll(".check").forEach(function (v, i) {
+
+                v.checked = false;
+            });
+        }
+
+        <!-- 글 삭제 이벤트 -->
+        function deleteMessage() {
+
+            //체크박스 체크된 항목
+            const query = 'input[name="checked"]:checked'
+            const selectedElements = document.querySelectorAll(query)
+
+            // 체크박스 체크된 항목의 개수
+            const selectedElementsCount = selectedElements.length;
+
+            if (selectedElementsCount == 0) {
+
+                alert("삭제할 메시지를 선택해 주세요!")
+
+                return false;
+
+            } else {
+
+                if (confirm("선택한 메시지들을 삭제하시겠습니까?")) {
+
+                    // 배열 생성
+                    const arr = new Array(selectedElementsCount);
+
+                    document.querySelectorAll('input[name="checked"]:checked').forEach(function (v, i) {
+
+                        arr[i] = v.value;
+
+                    });
+
+                    // const form = document.createElement('form');
+                    //
+                    // form.setAttribute('method', 'post');
+                    // form.setAttribute('action', '/delete');
+                    //
+                    // var input1 = document.createElement('input');
+                    // input1.setAttribute("type", "hidden");
+                    // input1.setAttribute("name", "messageNo");
+                    // input1.setAttribute("value", arr);
+                    // form.appendChild(input1);
+                    // console.log(form);
+                    // document.body.appendChild(form);
+                    // form.submit();
+
+                    $.ajax({
+                        type: "post",
+                        url: "/pm/delete.do",
+                        traditional: true,
+                        dataType: "json",
+                        data: {
+                            'delMess': arr
+                        },
+                        success: function (data) {
+                            alert(data + "선택한 메시지 삭제 성공!");
+                        },
+                        error: function (request, status, error) {
+                            alert(error);
+                        }
+                    });
                 }
             }
+            window.location.reload();
+        }
 
-            <!-- 개별 체크박스 클릭 이벤트 -->
-            function checkClicked() {
+        <!-- 현재 html 주소를 가지고 다음 페이지 넘어가기 -->
+        function goSendMessage(){
 
-                // 체크박스 전체 개수
-                const allCount = document.querySelectorAll(".check").length;
+            // url의 파라미터 가져오기
+            const url = new URLSearchParams(window.location.search);
 
-                //체크된 체크박스 전체 개수
-                const query = 'input[name="checked"]:checked'
-                const selectedElements = document.querySelectorAll(query)
-                const selectedElementsCount = selectedElements.length;
+            window.location.href = '/pm/sendMessage'+'?'+url;
 
-                //체크박스 전체 개수와 체크된 체크박스 전체 개수가 같으면 전체 체크
-                if (allCount == selectedElementsCount) {
-
-                    document.getElementById('allCheckbox').checked = true;
-
-                } else {
-                    // 같지 않으면, 전체 체크박스 해제
-                    document.getElementById('allCheckBox').checked = false;
-                }
-            }
-
-            <!-- 체크박스 전체 체크 이벤트 -->
-            function checkAllChecked() {
-
-                document.querySelectorAll(".check").forEach(function (v, i) {
-
-                    v.checked = true;
-
-                });
-            }
-
-            <!-- 체크박스 전체 체크 해제 이벤트 -->
-            function checkAllUnchecked() {
-
-                document.querySelectorAll(".check").forEach(function (v, i) {
-
-                    v.checked = false;
-                });
-            }
-
-            <!-- 글 삭제 이벤트 -->
-            function deleteMessage() {
-
-                //체크박스 체크된 항목
-                const query = 'input[name="checked"]:checked'
-                const selectedElements = document.querySelectorAll(query)
-
-                // 체크박스 체크된 항목의 개수
-                const selectedElementsCount = selectedElements.length;
-
-                if (selectedElementsCount == 0) {
-
-                    alert("삭제할 메시지를 선택해 주세요!")
-
-                    return false;
-
-                } else {
-
-                    if (confirm("선택한 메시지들을 삭제하시겠습니까?")) {
-
-                        // 배열 생성
-                        const arr = new Array(selectedElementsCount);
-
-                        document.querySelectorAll('input[name="checked"]:checked').forEach(function (v, i) {
-
-                            arr[i] = v.value;
-
-                        });
-
-                        // const form = document.createElement('form');
-                        //
-                        // form.setAttribute('method', 'post');
-                        // form.setAttribute('action', '/delete');
-                        //
-                        // var input1 = document.createElement('input');
-                        // input1.setAttribute("type", "hidden");
-                        // input1.setAttribute("name", "messageNo");
-                        // input1.setAttribute("value", arr);
-                        // form.appendChild(input1);
-                        // console.log(form);
-                        // document.body.appendChild(form);
-                        // form.submit();
-
-                        $.ajax({
-                            type: "post",
-                            url: "/pm/delete.do",
-                            traditional: true,
-                            dataType: "json",
-                            data: {
-                                'delMess': arr
-                            },
-                            success: function (data) {
-                                alert(data + "선택한 메시지 삭제 성공!");
-                            },
-                            error: function (request, status, error) {
-                                alert(error);
-                            }
-                        });
-                    }
-                }
-                window.location.reload();
-            }
-
-            <!-- 현재 html 주소를 가지고 다음 페이지 넘어가기 -->
-            function goSendMessage(){
-
-                // url의 파라미터 가져오기
-                const url = new URLSearchParams(window.location.search);
-
-                    window.location.href = '/pm/sendMessage'+'?'+url;
-
-            }
+        }
 
 
     </script>
@@ -331,5 +331,3 @@
 </th:block>
 </body>
 </html>
-
-

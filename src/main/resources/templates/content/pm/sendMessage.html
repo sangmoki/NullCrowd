@@ -24,7 +24,7 @@
         </div>
     </div>
     <hr>
-    <form th:action="@{/pm/sendMessage}" method="post">
+    <form th:action="@{/pm/sendMessage}" method="post" id="sendMessage">
         <input type="hidden" id="checkedMessageboxNo" name="boxType">
         <input type="hidden" id="senderNickname" name="senderNickname"
                th:value="${ #authentication.getPrincipal().getNickName()}">
@@ -57,8 +57,9 @@
 
             <div class="col-sm">
                 <button type="button" class="btn btn-secondary" onclick="goBackToMessageList()">취소</button>
-           <button type="submit" class="btn btn-primary" onclick="javascript:goBackToCheckMessageList()">보내기</button>
+                <button type="button" class="btn btn-primary" onclick="sendAndGoBackToMessageList()">보내기</button>
             </div>
+            <input style="display:none" name="prevPage" id="prevPage">
         </div>
     </form>
 </div>
@@ -115,18 +116,16 @@
     }
 
 
-    <!-- 메시지 전송 이후 목록으로 돌아가기 이벤트 -->
-    function goBackToCheckMessageList(){
+    <!-- 메시지 전송, 후 목록으로 돌아가기 이벤트 -->
+    function sendAndGoBackToMessageList(){
 
         // url의 파라미터 가져오기
-        let url = new URLSearchParams(window.location.search);
+        let qString = document.referrer.substring(document.referrer.lastIndexOf('8') + 1);
+        console.log(qString);
+        $('#prevPage').val(qString);
+        console.log($('#prevPage').val());
+        $('#sendMessage').submit();
 
-        url = '/pm/checkMessage'+'?'+url;
-
-        // alert("메시지 전송 성공!")
-        alert(url);
-
-        window.location.replace(url);
 
 
     }
@@ -145,4 +144,3 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
-

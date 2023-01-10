@@ -9,7 +9,6 @@ import com.teamtwo.nullfunding.pm.dto.MessageDTO;
 import com.teamtwo.nullfunding.pm.service.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -41,18 +40,19 @@ public class MessageController {
     }
 
 
+    /* 메시지 리스트 불러온 후 뷰로 돌려주기 */
     @GetMapping("/checkMessage")
-    public ModelAndView messageList(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails, @RequestParam int box_type,
+    public ModelAndView messageList(@AuthenticationPrincipal UserDetails userDetails, @RequestParam int box_type,
                                     @RequestParam(value = "currentPage", defaultValue = "1") int pageNo,
                                     ModelAndView mv) {
 
         System.out.println("box_type = " + box_type);
-        /* 불러올 대상(닉네임)과, 해당되는 메시지 범위를 특정함 */
 
         Map<String, Object> searchMap = new HashMap<>();
         Map<String, Integer> memberMap = new HashMap<>();
         Map<String, Integer> messageboxMap = new HashMap<>();
 
+        /* 불러올 대상(닉네임)과, 해당되는 메시지 범위를 특정함 */
         memberNo = ((UserImpl) userDetails).getMemCode();
         log.info("[MessageController] 현재 특정된 유저번호 : " + memberNo);
         searchMap.put("memberNo", Integer.valueOf(memberNo));
@@ -132,18 +132,19 @@ public class MessageController {
 
     }
 
-    /* 메시지 보내기 */
+    /* 메시지 보내기 Get */
     @GetMapping("/sendMessage")
     public String goSendMessage() { return "content/pm/sendMessage"; }
 
-    /* 메시지 답장하기 */
+    /* 메시지 답장하기 Get */
     @GetMapping("/replyMessage")
     public String goReplyMessage() {
         return "content/pm/replyMessage";
     }
 
+    /* 메시지 보내기 Post */
     @PostMapping("/sendMessage")
-    public String sendMessage(@ModelAttribute MessageDTO message, @RequestParam int boxType, @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes rttr) throws MessageSendException {
+    public String sendMessage(@ModelAttribute MessageDTO message, @RequestParam int boxType, @RequestParam String prevPage, @AuthenticationPrincipal UserDetails userDetails, Model model) throws MessageSendException {
 
         Map<String, Object> searchMap = new HashMap<>();
         memberNo = ((UserImpl) userDetails).getMemCode();
@@ -154,13 +155,15 @@ public class MessageController {
         log.info("[MessageController] 수신자 유저번호 : " + message.getReceiverMemberNo());
         message.setBoxType(boxType);
         searchMap.put("message", message);
-
         log.info("[MessageController] 다음 메시지에 대한 발신 요청 확인 : " + message);
+        model.addAttribute("prevPage", prevPage);
+        log.info("[MessageController] 메시지 전송 후 돌아갈 페이지 확인 : " + prevPage);
         messageService.sendMessage(searchMap);
 
-        return "redirect:/content/pm/checkMessage";
+        return "content/pm/reloadMessageList";
     }
 
+    /* 메시지 답장하기 Post */
     @PostMapping("/replyMessage")
     public String replyMessage(@ModelAttribute MessageDTO message, @RequestParam String messageSender, @RequestParam String messageTitle, @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes rttr) throws MessageSendException {
 
@@ -194,4 +197,13 @@ public class MessageController {
         return searchedNickname;
     }
 
+    /* 메시지 보낸 후 페이지 리로딩 */
+    @GetMapping("/reloadMessageList")
+    public Model reloadMessageList(@RequestParam int box_type, @RequestParam(value = "currentPage", defaultValue = "1") int pageNo, Model model) {
+
+        model.addAttribute("box_type", box_type);
+        model.addAttribute("pageNo", pageNo);
+
+        return model;
+    }
 }
