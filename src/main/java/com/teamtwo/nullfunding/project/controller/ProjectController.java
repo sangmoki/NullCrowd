@@ -6,8 +6,8 @@ import com.teamtwo.nullfunding.project.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.net.http.HttpRequest;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,13 +36,9 @@ public class ProjectController {
 
     @RequestMapping("/addReward")
     @ResponseBody
-    public void addReward(@ModelAttribute ProjectRewardDTO projectRewardDTO, HttpServletRequest request) {
-
+    public void addReward(@ModelAttribute ProjectRewardDTO projectRewardDTO) {
 
         rewardList.add(projectRewardDTO);
-        System.out.println("rewardList = " + rewardList);
-        request.setAttribute("rewardList", rewardList);
-
     }
 
     @RequestMapping("/makeProject")
@@ -87,7 +81,7 @@ public class ProjectController {
 
     @PostMapping("addMaiImg")
     @ResponseBody
-    public void addMaiImg(@ModelAttribute ProjectMediaDTO  projectMediaDTO, @RequestParam("file") MultipartFile mainImg, HttpServletRequest request) {
+    public String addMaiImg(@ModelAttribute ProjectMediaDTO  projectMediaDTO, @RequestParam("file") MultipartFile mainImg, HttpServletRequest request) {
 
         String message = "";
         System.out.println("projectMediaDTO = " + projectMediaDTO);
@@ -138,6 +132,8 @@ public class ProjectController {
 
             throw new RuntimeException(e);
         }
+
+        return projectMediaDTO.getUrl();
     }
 
 }

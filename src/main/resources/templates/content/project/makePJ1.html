@@ -103,8 +103,8 @@
                             <input type="file" id="file" class="img-thumbnail" name="mainImg" accept="image/*">
                             <br><br>
                         </div>
-                        <div class="title-img-area" id="titleImgArea">
-                            <img id="titleImg" style="width: 250px; height: 150px">
+                        <div th:if="${ param.url }">
+                            <img id="titleImg" style="width: 250px; height: 150px;" th:src="${ param.url }">
                             <br><br>
                         </div>
                         <script>
@@ -119,8 +119,9 @@
                                     contentType : false,
                                     cache : false,
                                     data: formData,
-                                    success:function(){
+                                    success:function(url){
                                         alert("사진업로드에 성공하였습니다!");
+                                        $('#url').val(url);
                                     }
                                     ,error: function(){
                                         alert("실패하였습니다.");
@@ -146,11 +147,12 @@
                             </div>
                         </div>
                     </div>
-                    <!--        히든필드            -->
-                    <div style="display: none">
+<!--                            히든필드            -->
+                    <div>
                         <input name="refundRule" th:value="${ param.refundRule }">
                         <input name="tel" th:value="${ param.tel }">
                         <input name="pjEmail" th:value="${ param.pjEmail }">
+                        <input name="url" th:value="${ param.url }" id="url">
                     </div>
                 </form>
 

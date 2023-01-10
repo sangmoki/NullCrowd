@@ -70,7 +70,7 @@
                         </div>
 
                         <div>
-                            <button type="submit" class="btn btn-light" id="add-reward">등록하기</button>
+                            <button class="btn btn-light" id="add-reward">등록하기</button>
                         </div>
                     </div>
                     <div style="display: none">
@@ -90,11 +90,16 @@
                     $("#add-reward").click(function () {
                         $.ajax({
                             url: "/project/addReward",
-                            type: 'get',
+                            type: 'post',
                             data: {
                                 "name": $('#name').val()
                                 , "price": $('#price').val()
                                 , "details": $('#details').val()
+                            },
+                            success : function(){
+                                location.reload();
+                                alert('[[${ param.test1 }]]');
+                                ;
                             }
                         })
                     })
@@ -174,6 +179,7 @@
                         })
                     })
                 </script>
+                <th:block th:value="${ param.test1 }"> 나는아니오 </th:block>
             </div>
             <br>
             <a href="javascript:void(0)">

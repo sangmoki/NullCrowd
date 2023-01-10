@@ -20,7 +20,7 @@
     <br>
     <div class="row" style="margin: 10px">
         <div class="col-sm">
-            <span>메시지 보내기 </span>
+            <span>메시지 답장하기기 </span>
         </div>
     </div>
     <hr>
@@ -32,7 +32,7 @@
         <div class="row" style="margin: 10px">
             <label for="inputMessageReceiver" class="col-sm-2 col-form-label">답장 대상자</label>
             <div class="col-sm-10" style="padding: 3px">
-                <input type="text" readonly class="form-control-plaintext" id="inputMessageReceiver" name="receiverNickname" th:value="getReplyNickname()">
+                <input type="text" readonly class="form-control-plaintext" id="inputMessageReceiver" name="receiverNickname" th:value="searchParam('messageSender')">
             </div>
         </div>
         <div class="row" style="margin: 10px; color: gray">
@@ -43,7 +43,7 @@
         <div class="row" style="margin: 10px">
             <label for="messageSubject" class="col-sm-2 col-form-label">제목</label>
             <div class="col-sm-10" style="padding: 3px">
-                <input type="text" class="form-control-plaintext" id="messageSubject" name="messageTitle" th:value="'<re:> '+getReplyMessageTitle()">
+                <input type="text" class="form-control-plaintext" id="messageSubject" name="messageTitle" th:value="'re: '+searchParam('messageTitle')">
             </div>
         </div>
         <div style="margin: 10px">
@@ -87,17 +87,10 @@
     }
 
 
-    <!-- 답장 대상 리플 작성자 가져와 담는 이벤트 -->
-    function getReplyNickname(){
+    <!-- 답장 대상 리플  가져와 담는 이벤트 -->
+    function searchParam(key){
 
-        const messageSender = document.write(urlParams.get('messageSender')+'<br>');
-
-    }
-
-    <!-- 답장 대상 리플 제목 가져와 담는 이벤트 -->
-    function getReplyMessageTitle(){
-
-        const messageSubject = document.write(urlParams.get('messageSubject')+'<br>');
+        return new URLSearchParams(location.search).get(key);
 
     }
 
