@@ -1,10 +1,13 @@
 package com.teamtwo.nullfunding.project.controller;
 
+import com.teamtwo.nullfunding.member.dto.UserImpl;
+import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
 import com.teamtwo.nullfunding.project.model.dto.ProjectMediaDTO;
 import com.teamtwo.nullfunding.project.model.dto.ProjectRewardDTO;
 import com.teamtwo.nullfunding.project.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +25,7 @@ import java.util.UUID;
 @RequestMapping("/project")
 public class ProjectController {
 
-    @Value("src/main/resources/static/img/projectImg")
+    @Value("src/main/resources/static")
     private String IMAGE_DIR;
 
     private ProjectService projectService;
@@ -58,6 +61,8 @@ public class ProjectController {
         mv.addObject("startDate", request.getParameter("startDate"));
         mv.addObject("endDate", request.getParameter("endDate"));
         mv.addObject("videoURL", request.getParameter("videoURL"));
+        mv.addObject("mainImg", request.getParameter("mainImg"));
+
         // PJ2
         mv.addObject("rewardList", rewardList);
         // PJ3
@@ -79,16 +84,16 @@ public class ProjectController {
         rewardList.remove(index);
     }
 
-    @PostMapping("addMaiImg")
+    @PostMapping("/addMaiImg")
     @ResponseBody
-    public String addMaiImg(@ModelAttribute ProjectMediaDTO  projectMediaDTO, @RequestParam("file") MultipartFile mainImg, HttpServletRequest request) {
+    public String addMaiImg(@ModelAttribute ProjectMediaDTO  projectMediaDTO, @RequestParam("file") MultipartFile mainImg) {
 
         String message = "";
         System.out.println("projectMediaDTO = " + projectMediaDTO);
 
-        String rootLocation = IMAGE_DIR;
+        String relativeUrl = "/img/projectImg";
 
-        String fileUploadDirectory = rootLocation;
+        String fileUploadDirectory = IMAGE_DIR + relativeUrl;
 
 //        File directory = new File(fileUploadDirectory);
 //
@@ -114,11 +119,18 @@ public class ProjectController {
 
                 mainImg.transferTo((new File(fileUploadDirectory + "/" + savedFileName)));
 
-                String url = fileUploadDirectory + "/" + savedFileName;
+                String url = relativeUrl + "/" + savedFileName;
                 projectMediaDTO.setFileName(originFileName);
                 projectMediaDTO.setHashName(savedFileName);
                 projectMediaDTO.setMediaType("image");
                 projectMediaDTO.setUrl(url);
+                System.out.println("projectMediaDTO = " + projectMediaDTO);
+
+
+                while(true){
+                    File file1 = new File(fileUploadDirectory + "/" + savedFileName);
+                    if(file1.exists()) break;
+                }
             }
         } catch (IOException e) {
 
@@ -134,6 +146,19 @@ public class ProjectController {
         }
 
         return projectMediaDTO.getUrl();
+    }
+
+    @RequestMapping("/requestProject")
+    public String requestProject(@ModelAttribute ProjectDTO projectDTO, @AuthenticationPrincipal UserImpl userImpl){
+
+        projectDTO.setProjectRewardDTOList(rewardList);
+        System.out.println("projectDTO = " + projectDTO);
+
+        projectService.requestProject(projectDTO);
+
+
+        rewardList.clear();
+        return "";
     }
 
 }
