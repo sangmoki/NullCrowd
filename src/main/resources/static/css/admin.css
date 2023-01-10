@@ -951,11 +951,6 @@ video {
     }
 }
 
-@media screen and (min-width:769px) {
-    .CardNumberFormGroup_contents__1MoYv .CardNumberFormGroup_inputBox__1R0h_.CardNumberFormGroup_inModal__3stsv {
-        position: auto !important
-    }
-}
 
 .CardNumberFormGroup_contents__1MoYv .CardNumberFormGroup_inputBox__1R0h_ input {
     margin-top: 4px !important;
@@ -1048,12 +1043,6 @@ video {
     }
 }
 
-@media screen and (min-width:769px) {
-    .PasswordFormGroup_contents__1mA8c .PasswordFormGroup_inputBox__28zsV.PasswordFormGroup_inModal__NgVG2 {
-        position: auto !important
-    }
-}
-
 .PasswordFormGroup_contents__1mA8c .PasswordFormGroup_inputBox__28zsV input {
     margin-top: 4px !important;
     height: 36px !important
@@ -1071,12 +1060,6 @@ video {
 @media screen and (min-width:769px) {
     .BirthDayFormGroup_contents__pqtyV .BirthDayFormGroup_inputBox__2d0HM {
         position: relative !important
-    }
-}
-
-@media screen and (min-width:769px) {
-    .BirthDayFormGroup_contents__pqtyV .BirthDayFormGroup_inputBox__2d0HM.BirthDayFormGroup_inModal__UCeoQ {
-        position: auto !important
     }
 }
 
@@ -1200,12 +1183,6 @@ video {
 @media screen and (min-width:769px) {
     .InstallmentPlanGroup_contents__3LwiJ .InstallmentPlanGroup_inputBox__1Jo1c {
         position: relative !important
-    }
-}
-
-@media screen and (min-width:769px) {
-    .InstallmentPlanGroup_contents__3LwiJ .InstallmentPlanGroup_inputBox__1Jo1c.InstallmentPlanGroup_inModal__RqMdM {
-        position: auto !important
     }
 }
 
@@ -3185,7 +3162,6 @@ h3.SimplePayContainer_title__J-Z9Y {
     position: relative;
     flex-direction: column;
     outline: none;
-    border-radius: none;
     box-shadow: 0 32px 40px -2px rgba(10, 22, 70, .12), 0 0 5px 0 rgba(10, 22, 70, .06);
     background: #fff;
     width: 100%;
@@ -3915,7 +3891,6 @@ button[class*=Button_button] {
 
 .Promotions_buttonText__2c_-Y {
     display: flex;
-    flex-direction: "row"
 }
 
 .Promotions_title__2GaMv {
@@ -7467,7 +7442,6 @@ footer.inner-utils .FooterContainer_container__3B0Z_ {
 @media (-ms-high-contrast:active),
 (-ms-high-contrast:none) {
     .web-footer .menu-container {
-        position: -ms-page;
         left: auto
     }
 }
@@ -7574,7 +7548,6 @@ footer.inner-utils .FooterContainer_container__3B0Z_ {
     bottom: calc(16px + env(safe-area-inset-bottom));
     transition-property: opacity, transform;
     transition-duration: .25s;
-    transition-delay: 0;
     opacity: 0;
     z-index: 1200;
     margin: 0;
@@ -7627,7 +7600,6 @@ footer.inner-utils .FooterContainer_container__3B0Z_ {
 }
 
 .web-footer .question:before {
-    background: url(/assets/svgs/intercom.svg) no-repeat 100%/contain;
     content: ""
 }
 
@@ -7708,7 +7680,6 @@ footer.inner-utils .FooterContainer_container__3B0Z_ {
     transform: translateY(24px);
     transition-property: width, height, transform, border-color, font-size, border-radius, opacity, margin-bottom, background;
     transition-duration: .25s;
-    transition-delay: 0;
     opacity: 0;
     z-index: 1200;
     margin: 0;
@@ -7747,7 +7718,6 @@ footer.inner-utils .FooterContainer_container__3B0Z_ {
 .web-footer.visible button.page-top {
     position: absolute;
     bottom: calc(100% + 16px);
-    transition-delay: 0
 }
 
 @media screen and (min-width:769px) {
@@ -9642,12 +9612,6 @@ td {
     background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxwYXRoIGQ9Ik0yMS40OTYgNi4wMTFhOC4wMiA4LjAyIDAgMDEtMi4yNjcuNjM0IDMuOTc4IDMuOTc4IDAgMDAxLjc0NC0yLjE4OCA4LjAwNiA4LjAwNiAwIDAxLTIuNS45NzkgMy45NzggMy45NzggMCAwMC00LjM2Ny0uOTg0IDMuOTE0IDMuOTE0IDAgMDAtMi40ODkgMy42OWMuMDAyLjMxLjA0MS42MTkuMTE2LjkyQTExLjMwOCAxMS4zMDggMCAwMTMuNDgyIDQuODZhMy44OTIgMy44OTIgMCAwMDEuMjIgNS4yMzggMy45ODEgMy45ODEgMCAwMS0xLjgwMi0uNDZjLS4wMDcgMS44NzggMS4zMzUgMy40OTcgMy4xOTcgMy44NTZsLTEuMDQ2LjE3M2gtLjc1NmEzLjk0OCAzLjk0OCAwIDAwMy43MiAyLjcwNSA4LjAxIDguMDEgMCAwMS00Ljk0IDEuNjdoLS45ODhhMTEuMzUyIDExLjM1MiAwIDAwNi4xMDEgMS43ODRjNy4zMjIgMCAxMS4zMzItNS45ODcgMTEuMzMyLTExLjIyNHYtLjUxOGE4LjAzMyA4LjAzMyAwIDAwMS45NzYtMi4wNzN6IiBpZD0iYSIvPjwvZGVmcz48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxjaXJjbGUgZmlsbD0iIzAwQUNFRCIgY3g9IjMyIiBjeT0iMzIiIHI9IjMyIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjAgMjApIj48cGF0aCBkPSJNMCAwaDIzLjE2NXYyMy4wMjRIMHoiLz48dXNlIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0ibm9uemVybyIgeGxpbms6aHJlZj0iI2EiLz48L2c+PC9nPjwvc3ZnPg==)
 }
 
-@forward "strip-unit";
-@forward "color";
-@forward "em";
-@forward "max";
-@forward "min";
-
 [class=font-blind] {
     position: absolute;
     margin: -1px;
@@ -10794,7 +10758,6 @@ a.Button_button__2gYmQ.Button_block__2OxBh {
 
     .Button_button__2gYmQ.Button_hover__1uug6,
     .Button_button__2gYmQ:hover {
-        border-width: #adb5bd;
         background-color: #e9ecef
     }
 }
@@ -10802,7 +10765,6 @@ a.Button_button__2gYmQ.Button_block__2OxBh {
 .Button_button__2gYmQ.Button_active__2elLd,
 .Button_button__2gYmQ:active {
     text-decoration: none;
-    border-width: #adb5bd;
     background-color: #e9ecef
 }
 
@@ -11991,8 +11953,6 @@ a.Button_button__2gYmQ.Button_block__2OxBh {
     transform: translate(-50%, -50%);
     transition-property: opacity, width, fill;
     transition-duration: .15s;
-    width: em(18.7px, 24px);
-    height: em(18.7px, 24px);
     fill: #fff
 }
 
@@ -15650,7 +15610,6 @@ a.Button_button__mRXZC.Button_block__1LAUA {
 
     .Button_button__mRXZC.Button_hover__1ICB0,
     .Button_button__mRXZC:hover {
-        border-width: #adb5bd;
         background-color: #e9ecef
     }
 }
@@ -15658,7 +15617,6 @@ a.Button_button__mRXZC.Button_block__1LAUA {
 .Button_button__mRXZC.Button_active__52ieA,
 .Button_button__mRXZC:active {
     text-decoration: none;
-    border-width: #adb5bd;
     background-color: #e9ecef
 }
 
@@ -16584,8 +16542,6 @@ a.Button_button__mRXZC.Button_block__1LAUA {
     transform: translate(-50%, -50%);
     transition-property: opacity, width, fill;
     transition-duration: .15s;
-    width: em(18.7px, 24px);
-    height: em(18.7px, 24px);
     fill: #fff
 }
 
@@ -21230,7 +21186,6 @@ label.Radio_radio__2k70h.Radio_error__3vqWd>.Radio_icon__SObGY {
 
 .VisualSlider_storeContainer__1BYOo .slick-dots .visualSliderDots li button {
     display: block;
-    transition: .2 ease-in-out;
     padding: 0;
     width: 100%;
     height: 100%;
@@ -26234,7 +26189,6 @@ a.Button_button__3J1Nv.Button_block__37Jhr {
 
     .Button_button__3J1Nv.Button_hover__2wZ7G,
     .Button_button__3J1Nv:hover {
-        border-width: #adb5bd;
         background-color: #e9ecef
     }
 }
@@ -26242,7 +26196,6 @@ a.Button_button__3J1Nv.Button_block__37Jhr {
 .Button_button__3J1Nv.Button_active__2zjaQ,
 .Button_button__3J1Nv:active {
     text-decoration: none;
-    border-width: #adb5bd;
     background-color: #e9ecef
 }
 
@@ -27147,8 +27100,6 @@ a.Button_button__3J1Nv.Button_block__37Jhr {
     transform: translate(-50%, -50%);
     transition-property: opacity, width, fill;
     transition-duration: .15s;
-    width: em(18.7px, 24px);
-    height: em(18.7px, 24px);
     fill: #fff
 }
 
@@ -28476,7 +28427,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 300;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Light.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Light.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Light.otf) format("opentype");
-    unicode-range: u+0020-007e, u+1100-11f9, u+3131-318e, u+327f, u+ac00-d7a3, u+ff01-ff60
 }
 
 @font-face {
@@ -28484,7 +28434,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 400;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Regular.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Regular.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Regular.otf) format("opentype");
-    unicode-range: u+0020-007e, u+1100-11f9, u+3131-318e, u+327f, u+ac00-d7a3, u+ff01-ff60
 }
 
 @font-face {
@@ -28492,7 +28441,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 500;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Medium.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Medium.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Medium.otf) format("opentype");
-    unicode-range: u+0020-007e, u+1100-11f9, u+3131-318e, u+327f, u+ac00-d7a3, u+ff01-ff60
 }
 
 @font-face {
@@ -28500,7 +28448,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 700;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Bold.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Bold.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Bold.otf) format("opentype");
-    unicode-range: u+0020-007e, u+1100-11f9, u+3131-318e, u+327f, u+ac00-d7a3, u+ff01-ff60
 }
 
 @font-face {
@@ -28508,7 +28455,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 300;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Light.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Light.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Light.otf) format("opentype");
-    unicode-range: u+0020-007e, u+1100-11f9, u+3131-318e, u+327f, u+ac00-d7a3, u+ff01-ff60
 }
 
 @font-face {
@@ -28516,7 +28462,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 400;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Regular.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Regular.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Regular.otf) format("opentype");
-    unicode-range: u+0020-007e, u+1100-11f9, u+3131-318e, u+327f, u+ac00-d7a3, u+ff01-ff60
 }
 
 @font-face {
@@ -28524,7 +28469,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 500;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Medium.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Medium.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Medium.otf) format("opentype");
-    unicode-range: u+0020-007e, u+1100-11f9, u+3131-318e, u+327f, u+ac00-d7a3, u+ff01-ff60
 }
 
 @font-face {
@@ -28532,7 +28476,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 700;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Bold.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Bold.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Bold.otf) format("opentype");
-    unicode-range: u+0020-007e, u+1100-11f9, u+3131-318e, u+327f, u+ac00-d7a3, u+ff01-ff60
 }
 
 @font-face {
@@ -28540,7 +28483,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 300;
     font-style: normal;
     src: local("Roboto Light"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Light.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Light.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Light.ttf) format("truetype");
-    unicode-range: u+000-5ff
 }
 
 @font-face {
@@ -28548,7 +28490,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 400;
     font-style: normal;
     src: local("Roboto"), local("Roboto-Regular"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Regular.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Regular.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Regular.ttf) format("truetype");
-    unicode-range: u+000-5ff
 }
 
 @font-face {
@@ -28556,7 +28497,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 500;
     font-style: normal;
     src: local("Roboto Medium"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Medium.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Medium.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Medium.ttf) format("truetype");
-    unicode-range: u+000-5ff
 }
 
 @font-face {
@@ -28564,7 +28504,6 @@ button.Avatar_avatar__3xsDJ {
     font-weight: 700;
     font-style: normal;
     src: local("Roboto Bold"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Bold.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Bold.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Bold.ttf) format("truetype");
-    unicode-range: u+000-5ff
 }
 
 @keyframes ConfirmModal_slideUp__1Bie6 {
@@ -29939,7 +29878,6 @@ button.Avatar_avatar__3xsDJ {
 
 .NotificationList_container__NsGVu .NotificationList_buttonText__1DnDG {
     display: flex;
-    flex-direction: "row"
 }
 
 .NotificationList_container__NsGVu .NotificationList_loader__3oklQ {
@@ -31775,7 +31713,6 @@ button.Avatar_avatar__3xsDJ {
 @media screen and (min-width:1097px) {
     .PreOrderCard_preOrderCountContainer__2g0xz {
         flex-direction: column;
-        justify-content: baseline;
         top: auto;
         width: 100%
     }
@@ -31900,7 +31837,6 @@ button.Avatar_avatar__3xsDJ {
 
     .StoreCard_item__1V2Vz .StoreCard_thumbnailContainer__3bBBh {
         display: block;
-        flex-shrink: auto;
         margin-right: 0;
         margin-bottom: 10px;
         border-radius: 3px;
@@ -32914,12 +32850,6 @@ button.Avatar_avatar__3xsDJ {
     background-color: rgba(0, 0, 0, .25)
 }
 
-@forward "strip-unit";
-@forward "color";
-@forward "em";
-@forward "max";
-@forward "min";
-
 .GNBDesktop_container__3X3Cg {
     display: inline-block;
     position: static;
@@ -33070,7 +33000,6 @@ button.Avatar_avatar__3xsDJ {
     display: block;
     position: absolute;
     left: -9999px;
-    visibility: none;
     height: 1px
 }
 
@@ -33567,7 +33496,6 @@ table {
     font-weight: 300;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Light.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Light.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Light.otf) format("opentype");
-    unicode-range: u+0020-u+007e, u+1100-u+11f9, u+3131-u+318e, u+327f-u+327f, u+ac00-u+d7a3, u+ff01-u+ff60
 }
 
 @font-face {
@@ -33575,7 +33503,6 @@ table {
     font-weight: 400;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Regular.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Regular.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Regular.otf) format("opentype");
-    unicode-range: u+0020-u+007e, u+1100-u+11f9, u+3131-u+318e, u+327f-u+327f, u+ac00-u+d7a3, u+ff01-u+ff60
 }
 
 @font-face {
@@ -33583,7 +33510,6 @@ table {
     font-weight: 500;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Medium.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Medium.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Medium.otf) format("opentype");
-    unicode-range: u+0020-u+007e, u+1100-u+11f9, u+3131-u+318e, u+327f-u+327f, u+ac00-u+d7a3, u+ff01-u+ff60
 }
 
 @font-face {
@@ -33591,7 +33517,6 @@ table {
     font-weight: 700;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Bold.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Bold.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notosans/NotoSansKR-Bold.otf) format("opentype");
-    unicode-range: u+0020-u+007e, u+1100-u+11f9, u+3131-u+318e, u+327f-u+327f, u+ac00-u+d7a3, u+ff01-u+ff60
 }
 
 @font-face {
@@ -33599,7 +33524,6 @@ table {
     font-weight: 300;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Light.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Light.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Light.otf) format("opentype");
-    unicode-range: u+0020-u+007e, u+1100-u+11f9, u+3131-u+318e, u+327f-u+327f, u+ac00-u+d7a3, u+ff01-u+ff60
 }
 
 @font-face {
@@ -33607,7 +33531,6 @@ table {
     font-weight: 400;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Regular.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Regular.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Regular.otf) format("opentype");
-    unicode-range: u+0020-u+007e, u+1100-u+11f9, u+3131-u+318e, u+327f-u+327f, u+ac00-u+d7a3, u+ff01-u+ff60
 }
 
 @font-face {
@@ -33615,7 +33538,6 @@ table {
     font-weight: 500;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Medium.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Medium.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Medium.otf) format("opentype");
-    unicode-range: u+0020-u+007e, u+1100-u+11f9, u+3131-u+318e, u+327f-u+327f, u+ac00-u+d7a3, u+ff01-u+ff60
 }
 
 @font-face {
@@ -33623,7 +33545,6 @@ table {
     font-weight: 700;
     font-style: normal;
     src: url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Bold.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Bold.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/notoserif/NotoSerifKR-Bold.otf) format("opentype");
-    unicode-range: u+0020-u+007e, u+1100-u+11f9, u+3131-u+318e, u+327f-u+327f, u+ac00-u+d7a3, u+ff01-u+ff60
 }
 
 @font-face {
@@ -33631,7 +33552,6 @@ table {
     font-weight: 300;
     font-style: normal;
     src: local("Roboto Light"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Light.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Light.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Light.ttf) format("truetype");
-    unicode-range: u+000-5ff
 }
 
 @font-face {
@@ -33639,7 +33559,6 @@ table {
     font-weight: 400;
     font-style: normal;
     src: local("Roboto"), local("Roboto-Regular"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Regular.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Regular.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Regular.ttf) format("truetype");
-    unicode-range: u+000-5ff
 }
 
 @font-face {
@@ -33647,7 +33566,6 @@ table {
     font-weight: 500;
     font-style: normal;
     src: local("Roboto Medium"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Medium.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Medium.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Medium.ttf) format("truetype");
-    unicode-range: u+000-5ff
 }
 
 @font-face {
@@ -33655,7 +33573,6 @@ table {
     font-weight: 700;
     font-style: normal;
     src: local("Roboto Bold"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Bold.woff2) format("woff2"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Bold.woff) format("woff"), url(https://static.wadiz.kr/assets/fonts/roboto/Roboto-Bold.ttf) format("truetype");
-    unicode-range: u+000-5ff
 }
 
 @font-face {
@@ -38928,3 +38845,110 @@ label.wz.radio.navy input:checked+span:after {
 }
 
 /*# sourceMappingURL=wui.css?cb9a5d5c.map */
+
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+.b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+}
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+#board-search .search-window {
+    padding: 5px 0;
+}
+
+#board-search .search-window .search-wrap {
+    position: relative;
+    /*   padding-right: 124px; */
+    margin: 0 auto;
+    width: 80%;
+    max-width: 564px;
+}
+
+#board-search .search-window .search-wrap input {
+    height: 40px;
+    width: 100%;
+    font-size: 14px;
+    padding: 7px 14px;
+    border: 1px solid #ccc;
+}
+
+#board-search .search-window .search-wrap input:focus {
+    border-color: #333;
+    outline: 0;
+    border-width: 1px;
+}
+
+#board-search .search-window .search-wrap .btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 108px;
+    padding: 0;
+    font-size: 16px;
+}
+
+h6 {
+    display: block;
+    font-size: 0.75em;
+    font-weight: bold;
+}
+
+.memTitle {
+    font-size: 1.5em;
+}
+.mem_email {
+    text-decoration: none;
+}
+.admin_a_email{
+    color:black;
+}
+.th-width{
+    width:50px;
+}
