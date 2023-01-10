@@ -12,7 +12,7 @@ import java.util.Date;
 public class ApproveProject {
 
     private int projectNo;
-    private Date processedDate; //처리날짜
+    private String processedDate; //처리날짜
     private int isApproved; // 1:승인 2:반려 3:처리대기(default)
     private String deniedReason; // 반려사유
 }

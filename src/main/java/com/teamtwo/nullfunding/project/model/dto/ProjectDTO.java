@@ -27,7 +27,7 @@ public class ProjectDTO {
     private String pjEmail;  // 문의가능 이메일
     private String refundRule; // 환불정책
     private String videoURL; // 메인 동영상 url
-    private ApproveProject approveProject; // 처리날짜 / 처리상태 / 반려사유 등
+    private ApproveProject approveProjectDTO; // 처리날짜 / 처리상태 / 반려사유 등
 
     private List<ProjectRewardDTO> projectRewardDTOList; // 리워드 별 이름,가격,내용
     private List<ProjectMediaDTO> projectMediaList;

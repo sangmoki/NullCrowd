@@ -153,6 +153,7 @@ public class ProjectController {
 
         projectDTO.setProjectRewardDTOList(rewardList);
         System.out.println("projectDTO = " + projectDTO);
+        projectDTO.setRaiserCode(userImpl.getFundRaiserDTO().getRaiserCode());
 
         projectService.requestProject(projectDTO);
 
