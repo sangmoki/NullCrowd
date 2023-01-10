@@ -5,13 +5,14 @@ import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import com.teamtwo.nullfunding.member.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -20,11 +21,12 @@ public class MemberController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final PasswordEncoder passwordEncoder;
     private MemberService memberService;
+    private EmailController emailController;
 
-    @Autowired
-    public MemberController(PasswordEncoder passwordEncoder, MemberService memberService) {
+    public MemberController(PasswordEncoder passwordEncoder, MemberService memberService, EmailController emailController) {
         this.passwordEncoder = passwordEncoder;
         this.memberService = memberService;
+        this.emailController = emailController;
     }
 
     @GetMapping("/signup")
@@ -68,11 +70,27 @@ public class MemberController {
 
     @PostMapping("/idDupCheck")
     @ResponseBody
-    public int idDupCheck(@RequestParam("memEmail") String memEmail) {
+    public Map idDupCheck(@RequestParam("memEmail") String memEmail) {
 
         int result = memberService.idDupCheck(memEmail);
+        Map<String, Object> resultMap = new HashMap();
+        resultMap.put("result", result);
+        if(result == 0){
 
-        return result;
+         String randomCode =  emailController.sendEmail(memEmail);
+         resultMap.put("randomCode", randomCode);
+        }
+
+        return resultMap;
+    }
+
+    @PostMapping("/nickDupCheck")
+    @ResponseBody
+    public int nickDupCheck(@RequestParam("nickName") String nickName){
+
+        int nickResult = memberService.nickDupCheck(nickName);
+
+        return nickResult;
     }
 }
 

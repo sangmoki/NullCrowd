@@ -58,11 +58,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-//    public int insertMember(MemberDTO member) {
-//        int result = mapper.insertMember(member);
-//        return result;
-//    }
-
     @Transactional
     public void insertMember(MemberDTO member) throws MemberInsertException{
 
@@ -84,4 +79,11 @@ public class MemberServiceImpl implements MemberService {
         return result;
     }
 
+    @Override
+    public int nickDupCheck(String nickName) {
+
+        int result = mapper.nickDupCheck(nickName);
+
+        return result;
+    }
 }

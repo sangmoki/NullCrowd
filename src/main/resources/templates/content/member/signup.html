@@ -47,16 +47,16 @@
                 이메일은 본인확인을 위한 용도로 사용됩니다. <br>
                 입력하신 주소로 수신한 인증메일에서 본인확인을 완료하여야 합니다.
               </div>
+
               <div class="col-lg-2" style="display:none" id="checkEmail">
-                <input type="id" class="form-control">
+                <input type="text" class="form-control" id="confirmCode" style="display: inline-block">
+                <button type="button" class="btn btn-secondary btn-sm mt-3" id="certifyEmail2">인증하기</button>
+<!--                <span class="point successEmailChk">이메일에 발송된 인증번호를 입력해주세요.</span>-->
+
+<!--                <input type="hidden" id="emailDoubleChk"/>-->
               </div>
 
               <script>
-                // $(function () {
-                //   $('#certifyEmail').click(function () {
-                //
-                //   })
-                // })
                 function dailyMissionTimer() {
 
                   var timer = 180;
@@ -92,7 +92,9 @@
                 <div class=" col-lg-3">
                   <label class="form-label">비밀번호 확인</label>
                   <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelp">
-                  <div id="passwordHelp" class="form-text pb15">동일한 비밀번호를 한번 더 입력해주세요.</div>
+<!--                  <span class="point successPwChk"></span>-->
+<!--                  <input type="hidden" id="pwDoubleChk"/>-->
+<!--                  <div id="passwordHelp" class="form-text pb15">동일한 비밀번호를 한번 더 입력해주세요.</div>-->
                 </div>
               </div>
 
@@ -100,9 +102,17 @@
                 <div class=" col-lg-3">
                   <!-- 정규표현식 영문,한글만 넣어주기 -->
                   <label class="form-label"> 이름　</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <input type="text" class="form-control" id="memName">
                 </div>
               </div>
+              <br>
+                <div class="row">
+                    <div class=" col-lg-3" style="float:left;">
+                        <label class="form-label"> 닉네임　</label>
+                        <input type="text" class="form-control" id="nickName">
+                        <button type="button" class="btn btn-secondary btn-sm mt-3" id="nickCheck">중복 확인</button>
+                    </div>
+                </div>
 
               <br>
               <div class="row pb15">

@@ -12,4 +12,5 @@ public interface MemberService extends UserDetailsService {
 
     int idDupCheck(String memEmail);
 
+    int nickDupCheck(String nickName);
 }

@@ -10,5 +10,7 @@ public interface MemberMapper {
     public int insertMember(MemberDTO member);
 
     public int idDupCheck(String memEmail);
+
+    public int nickDupCheck(String nickName);
 }
 
