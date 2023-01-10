@@ -1,12 +1,12 @@
 let nickCheck = false;
 let idCheck = false;
-
+var code;
 
 // 아이디 중복 체크
 $(function(){
     $('#certifyEmail').on('click', function () {
 
-        var code;
+
         let memEmail = $('#memEmail').val();
 
         $.ajax({
@@ -27,14 +27,16 @@ $(function(){
                     idCheck = false;
                 }
             }
-        });
-        isCertification=ture;
+        })
+        // isCertification=true;
     })
 })
 
 //이메일 인증번호 대조
 $(function(){
     $("#certifyEmail2").on('click', function(){
+
+
 
         if($("#confirmCode").val() == code){
             // $(".successEmailChk").text("인증번호가 일치합니다.");
@@ -49,10 +51,10 @@ $(function(){
             alert('인증번호가 일치하지 않습니다. 확인해주시기 바랍니다.')
             $("#emailDoubleChk").val("false");
             // $("#confirmCode").attr("autofocus",true);
-            isCertification = flase;
+            isCertification = false;
         }
 
-    })
+    });
 })
 
 // 닉네임 중복 체크
@@ -79,16 +81,16 @@ $(function () {
     })
 })
 
-// $(function (){
-//     $("#userpasschk").blur(function(){
-//         if($("#inputPassword6").val() == $("#inputPassword4").val()){
-//             $(".successPwChk").text("비밀번호가 일치합니다.");
-//             $(".successPwChk").css("color", "green");
-//             $("#pwDoubleChk").val("true");
-//         }else{
-//             $(".successPwChk").text("비밀번호가 일치하지 않습니다.");
-//             $(".successPwChk").css("color", "red");
-//             $("#pwDoubleChk").val("false");
-//         }
-//     });
-// })
+$(function (){
+    $("#userpasschk").blur(function(){
+        if($("#inputPassword6").val() == $("#inputPassword4").val()){
+            $(".successPwChk").text("비밀번호가 일치합니다.");
+            $(".successPwChk").css("color", "green");
+            $("#pwDoubleChk").val("true");
+        }else{
+            $(".successPwChk").text("비밀번호가 일치하지 않습니다.");
+            $(".successPwChk").css("color", "red");
+            $("#pwDoubleChk").val("false");
+        }
+    });
+})
