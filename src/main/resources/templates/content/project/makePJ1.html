@@ -87,7 +87,6 @@
                                         tabsize: 2,
                                         height: 200
                                     })
-
                                     const readDescription = '[[${ description }]]'
                                     $('#summernote').summernote('code', readDescription);
                                 </script>
@@ -101,9 +100,36 @@
                             <br>
                         </div>
                         <div class="text-box-body">
-                            <input type="file" class="img-thumbnail" name="mainImg">
+                            <input type="file" id="file" class="img-thumbnail" name="mainImg" accept="image/*">
                             <br><br>
                         </div>
+                        <div th:if="${ param.url }">
+                            <img id="titleImg" style="width: 250px; height: 150px;" th:src="${ param.url }">
+                            <br><br>
+                        </div>
+                        <script>
+                            $('input[type=file]').on("change", (function(){
+                                let formData = new FormData();
+                                formData.append("file", $("#file")[0].files[0]);
+
+                                $.ajax({
+                                    url: "/project/addMaiImg",
+                                    type: 'post',
+                                    processData : false,
+                                    contentType : false,
+                                    cache : false,
+                                    data: formData,
+                                    success:function(url){
+                                        alert("사진업로드에 성공하였습니다!");
+                                        $('#url').val(url);
+                                    }
+                                    ,error: function(){
+                                        alert("실패하였습니다.");
+                                    }
+                                })
+                            }));
+                        </script>
+
                     </div>
                     <div class="col-xs-12">
                         <div class="row row-mobile-n">
@@ -113,18 +139,20 @@
                             <div class="vod-holder input-append">
                                 <div class="row row-mobile-n">
                                     <div class="col-xs-10 col-sm-7">
-                                        <input type="text" placeholder="YouTube URL을 입력해 주세요." class="form-control" name="pj">
+                                        <input type="text" placeholder="YouTube URL을 입력해 주세요." class="form-control" name="videoURL"
+                                        th:value=" ${param.videoURL} ">
                                         <br><br>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--        히든필드            -->
-                    <div style="display: none">
+<!--                            히든필드            -->
+                    <div>
                         <input name="refundRule" th:value="${ param.refundRule }">
                         <input name="tel" th:value="${ param.tel }">
                         <input name="pjEmail" th:value="${ param.pjEmail }">
+                        <input name="url" th:value="${ param.url }" id="url">
                     </div>
                 </form>
 

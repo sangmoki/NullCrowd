@@ -1,11 +1,14 @@
 package com.teamtwo.nullfunding.pm.service;
 
 import com.teamtwo.nullfunding.common.Exception.message.MessageDeleteException;
+import com.teamtwo.nullfunding.common.Exception.message.MessageSendException;
+import com.teamtwo.nullfunding.member.dto.UserImpl;
 import com.teamtwo.nullfunding.pm.dao.MessageMapper;
 import com.teamtwo.nullfunding.pm.dto.MessageDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -80,11 +83,94 @@ public class MessageServiceImpl implements MessageService {
         return result;
     }
 
+    // 닉네임에 딸린 메시지 박스 찾는 메소드1
+    @Override
+    public int getMessageboxNoByNicknameFromMember(String nickname){
+
+        int result = mapper.getMessageboxNoByNicknameFromMember(nickname);
+
+        return result;
+    };
+
+    @Override
+    // 닉네임에 딸린 메시지 박스 찾는 메소드2
+    public int getMessageboxNoByNicknameFromFundrasier(String nickname){
+
+        int result = mapper.getMessageboxNoByNicknameFromFundrasier(nickname);
+
+        return result;
+    }
+
+    // 닉네임에 딸린 가입일 찾는 메소드
+    @Override
+    public Date getRegiDate(String nickname){
+
+         Date result = mapper.getRegiDate(nickname);
+
+         return result;
+    }
+
+
+    // 닉네임 검색 및, 닉네임에 딸린 메시지 박스 가져가는 메소드
+    @Override
+    public String[] searchNicknameAndMessageboxNo(String nickname){
+
+        String[] result = new String[3];
+
+        if(mapper.getMessageboxNoByNicknameFromMember(nickname)==1) {
+
+            result[0] = nickname;
+            result[1] = 1+"";
+            result[2] = getRegiDate(nickname)+"";
+
+        } else if(mapper.getMessageboxNoByNicknameFromFundrasier(nickname)==1){
+
+            result[0] = nickname;
+            result[1] = 2+"";
+            result[2] = getRegiDate(nickname)+"";
+
+        }
+
+        return result;
+    }
+
+    // 닉네임에 딸린 멤버코드 찾는 메소드
+    @Override
+    public int getMemberNoByNickname(String nickname){
+
+        int result = mapper.getMemberNoByNickname(nickname);
+
+        return result;
+
+    }
+
+
     // 메시지 발신용 메소드
     @Override
-    public String sendMessage(MessageDTO message) {
-        return null;
+    @Transactional
+    public void sendMessage(Map<String, Object> message) throws MessageSendException {
+
+        int result = mapper.sendMessage(message);
+
+        if(!(result>0)){
+            throw new MessageSendException("메시지 보내기에 실패하였습니다..");
+        }
+
     }
+
+    // 메시지 답장용 메소드
+    @Override
+    @Transactional
+    public void replyMessage(Map<String, Object> message) throws MessageSendException {
+
+        int result = mapper.sendMessage(message);
+
+        if (!(result > 0)) {
+            throw new MessageSendException("메시지 보내기에 실패하였습니다..");
+
+        }
+    }
+
 
     // 메시지 삭제용 메소드
     @Transactional
