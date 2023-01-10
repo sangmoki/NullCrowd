@@ -1,8 +1,7 @@
 package com.teamtwo.nullfunding.pm.dao;
 
-import com.teamtwo.nullfunding.common.paging.SelectCriteria;
-import com.teamtwo.nullfunding.member.dto.UserImpl;
 import com.teamtwo.nullfunding.pm.dto.MessageDTO;
+import com.teamtwo.nullfunding.pm.dto.MessageSelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Date;
@@ -19,7 +18,7 @@ public interface MessageMapper {
     int checkTotalMessages(Map<String, Object> searchMap);
 
     // 현재 로그인된 세션의 모든 메시지를 불러오는 메소드
-    List<MessageDTO> viewAllMessageList(Map<String, Object> selectCriteriaPlusAlpha);
+    List<MessageDTO> viewAllMessageList(MessageSelectCriteria selectCriteria);
 
     // 현재 로그인된 세션에서, 조건에 맞는 메시지를 불러오는 메소드
     List<MessageDTO> selectMessageByCheckedList(MessageDTO messageList);
