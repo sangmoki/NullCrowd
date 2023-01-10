@@ -32,7 +32,7 @@
         <div class="row" style="margin: 10px">
             <label for="inputMessageReceiver" class="col-sm-2 col-form-label">답장 대상자</label>
             <div class="col-sm-10" style="padding: 3px">
-                <input type="text" readonly class="form-control-plaintext" id="inputMessageReceiver" name="receiverNickname" th:value="searchParam('messageSender')">
+                <input type="text" readonly class="form-control-plaintext" id="inputMessageReceiver" name="receiverNickname" th:value="${ messageSender }">
             </div>
         </div>
         <div class="row" style="margin: 10px; color: gray">
@@ -43,7 +43,7 @@
         <div class="row" style="margin: 10px">
             <label for="messageSubject" class="col-sm-2 col-form-label">제목</label>
             <div class="col-sm-10" style="padding: 3px">
-                <input type="text" class="form-control-plaintext" id="messageSubject" name="messageTitle" th:value="'re: '+searchParam('messageTitle')">
+                <input type="text" class="form-control-plaintext" id="messageSubject" name="messageTitle" th:value="'<re: '+${ messageTitle }+'>'">
             </div>
         </div>
         <div style="margin: 10px">
@@ -64,7 +64,7 @@
 </div>
 <script>
 
-    <!-- 취소 버튼 클릭 시 목록으로 돌아가기 이벤트 -->
+    <!-- 취소 버튼 클릭 시 메시지로 돌아가기 이벤트 -->
     function goBackToMessage() {
 
         window.history.back();
@@ -82,9 +82,6 @@
 
         $('#replyMessage').submit();
 
-
-
-
     }
 
 
@@ -98,7 +95,52 @@
 
 
 
-    <!-- 답장하기 이벤트 -->
+    //  페이지 로딩 시 수행 : 닉네임과 박스타입 검색해 값 넣기 이벤트
+    function initPage() {
+
+        // 수신자는 inputMessageReceiver에 입력된 값을 담고
+        const nickname = $('#inputMessageReceiver').val();
+        let typeOfNickname = null;
+        let regiDate = null;
+        $("#checkedNickname").val(null);
+
+        // 입력된 값을 넘기고, 검색된 닉네임과 메시지박스 넘버를 받아옴
+        $.ajax({
+            url: '/pm/searchNickname',
+            type: 'post',
+            data: {nickname: nickname},
+            success: function (result) {
+                console.log(result);
+                if (result[1] == null) {
+                    $("#checkedNickname").text("확인된 회원 없음 : 닉네임을 다시 확인해주세요!");
+                    $("#checkedMessageboxNo").val(null);
+                } else {
+                    if (result[1] == 1) {
+                        typeOfNickname = " 서포터 회원";
+                    } else if (result[1] == 2) {
+                        typeOfNickname = " 프로젝트 매니저 회원";
+                    }
+
+                    regiDate = result[2];
+                    // console.log(regiDate);
+                    // log.info(regiDate);
+                    // const dateRegiDate = Date(regiDate);
+                    // const yyyyMMDD = setYYYYMMDD(dateRegiDate);
+                    // console.log(yyyyMMDD);
+                    // log.info(yyyyMMDD);
+
+                    $("#checkedNickname").text("확인된 회원 (" + result[0] + ") : " + typeOfNickname + ", " + Date(regiDate) + "에 가입함.");
+
+
+                    $("#checkedMessageboxNo").val(result[1]);
+
+                }
+            },
+
+        });
+    }
+
+    window.onload = initPage;
 
 
 </script>

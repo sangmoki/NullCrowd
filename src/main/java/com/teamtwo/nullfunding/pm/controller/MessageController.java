@@ -141,9 +141,11 @@ public class MessageController {
 
     /* 개별 메시지를 확인하는 메소드 */
     @GetMapping("/readMessage")
-    public String readIndividualMessage(HttpServletRequest request, @RequestParam(value = "currentMessage") int messageNo, Model model) {
+    public String readIndividualMessage(HttpServletRequest request, Model model) {
 
         // 1. 어떤 메시지를 보여줄지 확인
+        int messageNo = Integer.valueOf(request.getParameter("currentMessage"));
+
         log.info("[MessageController] 읽기 요청된 메시지 번호 : " + messageNo);
 
         // 2. 해당 메시지를 보여줄 메소드(viewDetailOfSelectedMessage)를 호출해, 결과를 Model 객체에 담고
@@ -162,7 +164,16 @@ public class MessageController {
 
     /* 메시지 답장하기 Get 메소드 */
     @GetMapping("/replyMessage")
-    public String goReplyMessage() {
+    public String goReplyMessage(Model model, @RequestParam("messageTitle") String messageTitle,
+                                              @RequestParam("messageSender") String messageSender) {
+
+        log.info("[MessageController] '"+messageSender+"'가 보낸 '"+messageTitle+"' 메시지에 대한 답장 요청 확인.");
+
+        // 파라미터에서 값 2개를 취해서 가지고 html로 감
+        model.addAttribute("messageTitle", messageTitle);
+        model.addAttribute("messageSender", messageSender);
+        model.addAttribute("content/pm/replyMessage");
+
         return "content/pm/replyMessage";
     }
 
@@ -180,17 +191,12 @@ public class MessageController {
         log.info("[MessageController] 발신자 유저번호 : " + memberNo);
         searchMap.put("memberNo", Integer.valueOf(memberNo));
 
-        // 3. 수신자 관련 정보를 MessageDTO에서 가져와 searchMap 객체에 담음
-
         // 3-1. 먼저 수신자 닉네임을 MessageDTO에서 가져와, 해당 닉네임으로 수신자의 부모 속성인 회원번호를 검색하고, 검색된 수신자 회원번호를 MessageDTO 객체의 '받는 회원'에 set
         log.info("[MessageController] 수신자 닉네임 : " + message.getReceiverNickname());
         message.setReceiverMemberNo(messageService.getMemberNoByNickname(message.getSenderNickname()));
         log.info("[MessageController] 수신자 유저번호 : " + message.getReceiverMemberNo());
 
-//        // 3-2. 메시지함 번호도 담아서, 이후 메시지함을 열 때 ('회원번호'+'메시지함번호') 복합키 형태로 활용
-//        message.setBoxType(boxType);
-
-        // 3-3. 수신자 정보가 set된 MessageDTO객체 message를, DB INSERT할 조건이 담길 searchMap객체에 저장
+        // 3-2. 수신자 정보가 set된 MessageDTO객체 message를, DB INSERT할 조건이 담길 searchMap객체에 저장
         searchMap.put("message", message);
         log.info("[MessageController] 다음 메시지에 대한 발신 요청 확인 : " + message);
 
@@ -206,7 +212,8 @@ public class MessageController {
 
     /* 메시지 답장하기 Post 메소드 */
     @PostMapping("/replyMessage")
-    public String replyMessage(@ModelAttribute MessageDTO message, @RequestParam int boxType, @RequestParam String messageSender, @RequestParam String messageTitle, @AuthenticationPrincipal UserDetails userDetails, Model model) throws MessageSendException {
+    public String replyMessage(@ModelAttribute MessageDTO message, @RequestParam int box_type, @RequestParam("messageSender") String messageSender,
+                               @AuthenticationPrincipal UserDetails userDetails, Model model) throws MessageSendException {
 
         /* 사용자가 메시지를 전송하면, 해당 내용을 DB에 담기 위해 저장될 조건들을 특정 */
 
@@ -218,16 +225,11 @@ public class MessageController {
         log.info("[MessageController] 발신자 유저번호 : " + memberNo);
         searchMap.put("memberNo", Integer.valueOf(memberNo));
 
-        // 3. 수신자 관련 정보를 MessageDTO에서 가져와 searchMap 객체에 담음
-        message.setReceiverMemberNo(messageService.getMemberNoByNickname(messageSender));
-        message.setMessageTitle(messageTitle);
 
         // 3-1. 먼저 수신자 닉네임을 MessageDTO에서 가져와, 해당 닉네임으로 수신자의 부모 속성인 회원번호를 검색하고, 검색된 수신자 회원번호를 MessageDTO 객체의 '받는 회원'에 set
+        message.setReceiverMemberNo(messageService.getMemberNoByNickname(messageSender));
         log.info("[MessageController] 수신자 닉네임 : " + message.getReceiverNickname());
         log.info("[MessageController] 수신자 유저번호 : " + message.getReceiverMemberNo());
-
-//        // 3-2. 메시지함 번호도 담아서, 이후 메시지함을 열 때 ('회원번호'+'메시지함번호') 복합키 형태로 활용
-//        message.setBoxType(boxType);
 
         // 3-3. 수신자 정보가 set된 MessageDTO객체 message를, DB INSERT할 조건이 담길 searchMap객체에 저장
         searchMap.put("message", message);
@@ -237,7 +239,7 @@ public class MessageController {
         messageService.sendMessage(searchMap);
 
         // 5. 페이지 새로고침을 위해, 되돌아갈 변수들을 model에 담고, 새로고침 페이지 (/reloadMessageList) 호출
-        model.addAttribute("box_Type", boxType);
+        model.addAttribute("box_Type", box_type);
         model.addAttribute("success","success");
 
         return "content/pm/reloadMessageList";
