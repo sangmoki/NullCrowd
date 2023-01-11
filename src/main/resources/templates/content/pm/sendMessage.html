@@ -19,22 +19,20 @@
 <div class="container-fluid">
     <br>
     <div class="row" style="margin: 10px">
-        <div class="col-sm-7">
-            <span>메시지 보내기 </span>
+        <div class="col-sm-5">
+            <span style="font-weight: bold">메시지 보내기 </span>
         </div>
-        <div class="col-sm">
+        <div class="col-sm" align="right">
             <span>발신 닉네임 : </span>
             <span th:text="${ nickname }" style="font-weight: bold"></span>
-            <input type="hidden" id="nicknamesBoxtype" name="nicknamesBoxtype" th:value="${ box_type }">
             <span th:if="${ box_type } == 1">(서포터 닉네임)</span>
             <span th:if="${ box_type } == 2">(프로젝트매니저 닉네임)</span>
         </div>
     </div>
     <hr>
     <form th:action="@{/pm/sendMessage}" method="post" id="sendMessage">
-        <input type="hidden" id="checkedMessageboxNo" name="boxType">
-        <input type="hidden" id="senderNickname" name="senderNickname"
-               th:value="${ nickname }">
+        <input type="hidden" id="nickname" name="nickname" th:value="${ nickname }">
+        <input type="hidden" id="nicknamesBoxType" name="nicknamesBoxType" th:value="${ box_type }">
 
         <div class="row" style="margin: 10px">
             <label for="inputMessageReceiver" class="col-sm-2 col-form-label">받는 사람</label>
@@ -143,14 +141,13 @@
     <!-- 메시지 전송, 후 목록으로 돌아가기 이벤트 -->
     function sendAndGoBackToMessageList(){
 
-        // url의 파라미터 가져오기
-        let qString = document.referrer.substring(document.referrer.lastIndexOf('8') + 1);
-        console.log(qString);
-        $('#prevPage').val(qString);
-        console.log($('#prevPage').val());
+        // url의 파라미터 가져와 담기
+        const urlParams = new URL(location.href).searchParams;
+        const box_type = urlParams.get('box_type');
+        const nickname = urlParams.get('nickname');
+
 
         $('#sendMessage').submit();
-
 
     }
 

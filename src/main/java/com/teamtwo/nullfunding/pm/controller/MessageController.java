@@ -165,6 +165,7 @@ public class MessageController {
     public String goSendMessage(Model model, @RequestParam("nickname") String nickname, @RequestParam("box_type") int box_type){
 
         log.info("[MessageController] Sender 는 : '"+nickname+"' (=현재 메시지함 이용자 닉네임)");
+        log.info("[MessageController] box_type 은 : '"+box_type+"' (=현재 메시지함 이용자 닉네임의 메시지함)");
 
         model.addAttribute("nickname", nickname);
         model.addAttribute("box_type", box_type);
@@ -193,8 +194,8 @@ public class MessageController {
 
     /* 메시지 보내기 Post 메소드 */
     @PostMapping("/sendMessage")
-    public String sendMessage(@ModelAttribute MessageDTO message, @RequestParam int boxType, @RequestParam String nickname,
-                              @AuthenticationPrincipal UserDetails userDetails, Model model) throws MessageSendException {
+    public String sendMessage(HttpServletRequest request, @ModelAttribute MessageDTO message,
+                              Model model) throws MessageSendException {
 
         /* 사용자가 메시지를 전송하면, 해당 내용을 DB에 담기 위해 저장될 조건들을 특정 */
 
@@ -202,7 +203,8 @@ public class MessageController {
         Map<String, Object> searchMap = new HashMap<>();
 
         // 2. 발신자 닉네임은 해당 메시지박스를 연 유저 닉네임으로 넣음
-        objectNickname = nickname;
+        objectNickname = request.getParameter("nickname");
+        messageboxNo = Integer.valueOf(request.getParameter("nicknamesBoxType"));
         log.info("[MessageController] 발신자 닉네임 : " + objectNickname);
         message.setSenderNickname(objectNickname);
 
@@ -210,6 +212,14 @@ public class MessageController {
         log.info("[MessageController] 수신자 닉네임 : " + message.getReceiverNickname());
         message.setReceiverMemberNo(messageService.getMemberNoByNickname(message.getSenderNickname()));
         log.info("[MessageController] 수신자 유저번호 : " + message.getReceiverMemberNo());
+        // 3-1-1. 수신자 닉네임에 연결된 메시지박스 번호를 구해서, 저장될 메시지함 번호로 지정함 -> 그러기 위해 우선 메시지박스를 담을 변수를 선언
+        int receiverMessageboxNo = 0;
+        // 3-1-1-1. 'Member' 테이블에서 수신자 닉네임이 있는지 확인, 'Member'테이블의 서포터 닉네임이 디폴트 닉네임이기 때문에, 이때 메시지함이 메시지함 번호는 1(서포터 메시지함)
+        if(messageService.getMessageboxNoByNicknameFromMember(message.getReceiverNickname())==1){receiverMessageboxNo=1;}
+        // 3-1-1-2. 'Member' 테이블에서 수신자 닉네임이 없다면, 'Fundraiser' 테이블에서 닉네임을 찾는다. 이때 Fundraiser는 프로젝트 매니저 역할의 닉네임이므로 메시지함 번호는 2(프로젝트 매니저 메시지함)
+        if(messageService.getMessageboxNoByNicknameFromFundrasier(message.getReceiverNickname())==1){receiverMessageboxNo=2;}
+        // 3-1-2. 위에서 구한 receiverMessageboxNo를 MessageDTO객체 message에 담음
+        message.setBoxType(receiverMessageboxNo);
 
         // 3-2. 수신자 정보가 set된 MessageDTO객체 message를, DB INSERT할 조건이 담길 searchMap객체에 저장
         searchMap.put("message", message);
@@ -219,7 +229,7 @@ public class MessageController {
         messageService.sendMessage(searchMap);
 
         // 5. 페이지 새로고침을 위해, 되돌아갈 변수들을 model에 담고, 새로고침 페이지 (/reloadMessageList) 호출
-        model.addAttribute("box_Type", boxType);
+        model.addAttribute("box_Type", messageboxNo);
         model.addAttribute("success","success");
 
         return "content/pm/reloadMessageList";
@@ -227,8 +237,8 @@ public class MessageController {
 
     /* 메시지 답장하기 Post 메소드 */
     @PostMapping("/replyMessage")
-    public String replyMessage(@ModelAttribute MessageDTO message, @RequestParam("boxType") int box_type, @RequestParam("senderNickname") String messageReceiver, @RequestParam String nickname,
-                               @AuthenticationPrincipal UserDetails userDetails, Model model) throws MessageSendException {
+    public String replyMessage(HttpServletRequest request, @ModelAttribute MessageDTO message,
+                               Model model) throws MessageSendException {
 
         /* 사용자가 메시지를 전송하면, 해당 내용을 DB에 담기 위해 저장될 조건들을 특정 */
 
@@ -236,16 +246,24 @@ public class MessageController {
         Map<String, Object> searchMap = new HashMap<>();
 
         // 2. 발신자 닉네임은 해당 메시지박스를 연 유저 닉네임으로 넣음
-        objectNickname = nickname;
-        log.info("[MessageController] 발신자 닉네임 : " + objectNickname);
+        objectNickname = request.getParameter("nickname");
+        messageboxNo = Integer.valueOf(request.getParameter("nicknamesBoxType"));
         message.setSenderNickname(objectNickname);
 
         // 3-1. 먼저 수신자 닉네임을 MessageDTO에서 가져오고, 해당 닉네임으로 수신자의 부모 속성인 회원번호를 검색하고, 검색된 수신자 회원번호를 MessageDTO 객체의 '받는 회원'에 set
         log.info("[MessageController] 수신자 닉네임 : " + message.getReceiverNickname());
-        message.setReceiverMemberNo(messageService.getMemberNoByNickname(messageReceiver));
+        message.setReceiverMemberNo(messageService.getMemberNoByNickname(message.getSenderNickname()));
         log.info("[MessageController] 수신자 유저번호 : " + message.getReceiverMemberNo());
+        // 3-1-1. 수신자 닉네임에 연결된 메시지박스 번호를 구해서, 저장될 메시지함 번호로 지정함 -> 그러기 위해 우선 메시지박스를 담을 변수를 선언
+        int receiverMessageboxNo = 0;
+        // 3-1-1-1. 'Member' 테이블에서 수신자 닉네임이 있는지 확인, 'Member'테이블의 서포터 닉네임이 디폴트 닉네임이기 때문에, 이때 메시지함이 메시지함 번호는 1(서포터 메시지함)
+        if(messageService.getMessageboxNoByNicknameFromMember(message.getReceiverNickname())==1){receiverMessageboxNo=1;}
+        // 3-1-1-2. 'Member' 테이블에서 수신자 닉네임이 없다면, 'Fundraiser' 테이블에서 닉네임을 찾는다. 이때 Fundraiser는 프로젝트 매니저 역할의 닉네임이므로 메시지함 번호는 2(프로젝트 매니저 메시지함)
+        if(messageService.getMessageboxNoByNicknameFromFundrasier(message.getReceiverNickname())==1){receiverMessageboxNo=2;}
+        // 3-1-2. 위에서 구한 receiverMessageboxNo를 MessageDTO객체 message에 담음
+        message.setBoxType(receiverMessageboxNo);
 
-        // 3-3. 수신자 정보가 set된 MessageDTO객체 message를, DB INSERT할 조건이 담길 searchMap객체에 저장
+        // 3-2. 수신자 정보가 set된 MessageDTO객체 message를, DB INSERT할 조건이 담길 searchMap객체에 저장
         searchMap.put("message", message);
         log.info("[MessageController] 다음 메시지에 대한 발신 요청 확인 : " + message);
 
@@ -253,10 +271,8 @@ public class MessageController {
         messageService.sendMessage(searchMap);
 
         // 5. 페이지 새로고침을 위해, 되돌아갈 변수들을 model에 담고, 새로고침 페이지 (/reloadMessageList) 호출
-        model.addAttribute("box_Type", box_type);
+        model.addAttribute("box_Type", messageboxNo);
         model.addAttribute("success","success");
-
-        log.info("searchMap = " + box_type);
 
         return "content/pm/reloadMessageList";
 
@@ -270,9 +286,10 @@ public class MessageController {
         String[] searchedNickname = new String[3];
         log.info("[MessageController] 다음 닉네임에 대한 검색 요청 확인 : " + nickname);
         searchedNickname = messageService.searchNicknameAndMessageboxNo(nickname);
-        System.out.println("searchedNickname = " + searchedNickname[0]);
-        System.out.println("searchedNickname = " + searchedNickname[1]);
-        System.out.println("searchedNickname = " + searchedNickname[2]);
+        System.out.println("[MessageController] searchedNickname = " + searchedNickname[0]);
+        System.out.println("[MessageController] searchedNickname = " + searchedNickname[1]);
+        System.out.println("[MessageController] searchedNickname = " + searchedNickname[2]);
+
         return searchedNickname;
     }
 

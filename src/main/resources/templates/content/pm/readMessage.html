@@ -19,14 +19,15 @@
     <div class="container-fluid">
         <br>
         <div class="row" style="margin: 10px">
-            <div class="col-sm">
+            <div class="col-sm-5">
                 <input type="hidden" id="nickname" th:value="${ nickname }"></input>
-                <span>메시지 번호 : </span>
+                <span style="font-weight: bold">메시지 읽기 </span>
+                <span> :  No. </span>
                 <span th:text="${ message.messageNo }"></span>
                 <input type="hidden" id="messageNo" name="messageNo" th:value="${ message.messageNo }">
             </div>
-            <div class="col-sm-7"></div>
-            <div class="col-sm">
+            <div class="col-sm" align="right">
+                <span>수신 시간 : </span>
                 <span th:text="${ #dates.format(message.sendDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
             </div>
         </div>
