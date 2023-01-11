@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,6 +66,7 @@ public class ProjectController {
 
         // PJ2
         mv.addObject("rewardList", rewardList);
+        System.out.println("rewardList = " + rewardList);
         // PJ3
         mv.addObject("refundRule", request.getParameter("refundRule"));
         mv.addObject("tel", request.getParameter("tel"));
@@ -149,18 +151,23 @@ public class ProjectController {
     }
 
     @RequestMapping("/requestProject")
-    public String requestProject(@ModelAttribute ProjectDTO projectDTO, @AuthenticationPrincipal UserImpl userImpl){
+    public String requestProject(@ModelAttribute ProjectDTO projectDTO, @AuthenticationPrincipal UserImpl userImpl , RedirectAttributes rttr){
 
         projectDTO.setProjectRewardDTOList(rewardList);
-        System.out.println("projectDTO = " + projectDTO);
         projectDTO.setRaiserCode(userImpl.getFundRaiserDTO().getRaiserCode());
+        System.out.println("projectDTO = " + projectDTO);
 
-        projectService.requestProject(projectDTO);
+        boolean result = projectService.requestProject(projectDTO);
+
+        if(result == true){
+            rewardList.clear();
+            rttr.addFlashAttribute("pjMessage", "등록 신청되었습니다.");
+        } else rttr.addFlashAttribute("pjMessage", "등록에 실패했습니다.");
 
 
-        rewardList.clear();
-        return "";
+        return "redirect:/";
     }
+
 
 }
 

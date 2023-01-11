@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<div th:fragment="adminHeaderFragment" class="adminHeader">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="generator" content="Hugo 0.104.2">
+        <title>매출관리</title>
+
+        <link rel="canonical" href="https://getbootstrap.kr/docs/5.2/examples/sidebars/">
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
+
+        <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+        <meta name="theme-color" content="#712cf9">
+        <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
+
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="/css/choStyle.css">
+        <link rel="stylesheet" href="/css/admin.css">
+    </head>
+
+
+    <body>
+    <!-- 메인 헤더 -->
+    <header th:replace="fragments/adminHeader :: adminHeaderFragment"></header>
+    <div class="col-10" style="display: flex; flex-direction: column;" id="adminContain">
+
+        <!-- 메인 바디 시작 -->
+        <!-- 여기부터 바디 시작하시면 됩니다.  -->
+        <br><br>
+        <main>
+            <section>
+                <div class="today">
+  				<span>
+  					<span>오늘 매출</span>
+  					<span id="today"></span>
+  				</span>
+
+                    <button>상세보기</button>
+
+                </div>
+
+            </section>
+
+            <section class="detail today_detail">
+                <div>
+                    <h3 class="sales_today_detail_title">
+                        <span>매출 상세</span>
+                        <span>
+						<button class="sort_name reverse">이름순</button>
+						<button class="sort_price reverse">가격순</button>
+					</span>
+                    </h3>
+
+                    <div class="sales_today_detail">
+                        <div>프로젝트 명</div>
+                        <div>총 펀딩 금액</div>
+                        <div>수수료</div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="graph_section" onselectstart="return false;">
+                <div class="box">
+                    <button class="year_btn">연 매출</button>
+                    <button class="month_btn">이번 달 매출</button>
+                    <button class="week_btn">이번 주 매출</button>
+                    <input type="month" name="date" id="date">
+                    <button class="other_month_search">검색</button>
+
+                    <h1>1월 총 합계</h1>
+
+                    <div>(단위 : 만원)</div>
+                    <div class="graph_box">
+                        <ul>
+                            <!--
+                                <li>
+                                    <span class="sales"></span>
+                                    <div class="graph"></div>
+                                    <span class="graph_date"></span>
+                                </li>
+                                 -->
+                        </ul>
+
+                        <div class="graph_background">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="detail other_detail">
+                <div>
+                    <h3 class="sales_today_detail_title">
+                        <span id="other_detail_date"></span>
+                        <span>
+						<button class="sort_name reverse">이름순</button>
+						<button class="sort_price reverse">가격순</button>
+					</span>
+                    </h3>
+                    <div class="sales_today_detail">
+                        <!-- <div>메뉴</div>
+                        <div>수량</div>
+                        <div>가격</div> -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/js/util/util.js"></script>
+    <script src="/js/admin/sales.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    </body>
+</div>
+</html>

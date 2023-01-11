@@ -4,6 +4,8 @@ var code;
 var isCertification;
 var pwCheck;
 
+
+
 // 아이디 중복 체크
 $(function(){
     $('#certifyEmail').on('click', function () {
