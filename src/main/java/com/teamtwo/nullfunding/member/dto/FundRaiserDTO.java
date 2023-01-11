@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 @Getter
 @Setter
 public class FundRaiserDTO {
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     private int raiserCode; // = memCode
     private String raiNickname;

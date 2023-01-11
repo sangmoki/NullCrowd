@@ -24,10 +24,11 @@ public class MainController {
     @GetMapping(value = {"/", "/main"})
     public ModelAndView defaultLocation(ModelAndView mv){
 
-       List<PJDetail> allProject = projectService.selectAllProject();  // 얘는 fundable 'Y'인 애를 가져오자
-        mv.addObject("allProject", allProject);
+       List<PJDetail> ProjectList = projectService.selectAllProject();  // 얘는 fundable 'Y'인 애를 가져오자
+        mv.addObject("ProjectList", ProjectList);
 
-        List<PJDetail> preProject = projectService.selectPreProject();
+        List<PJDetail> preProjectList = projectService.selectPreProject();
+        mv.addObject("preProjectList", preProjectList);
 
 
 

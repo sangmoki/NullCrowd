@@ -4,8 +4,14 @@ import com.teamtwo.nullfunding.project.model.dao.ProjectMapper;
 import com.teamtwo.nullfunding.project.model.dto.PJDetail;
 import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -13,12 +19,24 @@ public class ProjectServiceImpl implements ProjectService {
 
     private ProjectMapper projectMapper;
 
+
     @Autowired
     public ProjectServiceImpl(ProjectMapper projectMapper) {
         this.projectMapper = projectMapper;
     }
 
+    public int CalculateDday(Date date){
+
+        LocalDate now = LocalDate.now();
+        LocalDate standardDate =  date.toLocalDate();
+//        (now > standardDate)
+
+
+        return 1;
+    }
+
     @Override
+    @Transactional
     public boolean requestProject(ProjectDTO projectDTO) {
 
 
@@ -34,18 +52,26 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Transactional
     public List<PJDetail> selectAllProject() {
 
-        List<PJDetail> allProject = projectMapper.selectAllProject();
+        List<PJDetail> ProjectList = projectMapper.selectAllProject();
+        for(int i = 0; i < ProjectList.size(); i++){
 
-        return allProject;
+//            ProjectList.get(i).setRemainDate();
+//            ProjectList.get(i).setAchievePercent();
+
+        }
+
+        return ProjectList;
     }
 
     @Override
+    @Transactional
     public List<PJDetail> selectPreProject() {
 
-        List<PJDetail> preProject = projectMapper.selectPreProject();
+        List<PJDetail> preProjectList = projectMapper.selectPreProject();
 
-        return null;
+        return preProjectList;
     }
 }
