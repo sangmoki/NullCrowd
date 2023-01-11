@@ -25,9 +25,10 @@ public class MemberDTO {
     private String phone;
     private String typeName;
     private Date inquiryDate;
+
     private PersonalInfoDTO personalInfoDTO;
-    private InquiryTypeDTO inquiryTypeDTO;
-    private InquiryDTO inquiryDTO;
+    private InquiryTypeDTO inquiryType;
+    private InquiryDTO inquiry;
     private FundRaiserDTO fundRaiserDTO;
 
 
