@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.lang.model.SourceVersion;
 import java.security.Principal;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/inquiry")
@@ -48,20 +49,13 @@ public class InquiryController {
 
     /* 문의 정보 담아서 관리자에게 보내기 */
     @PostMapping("/request")
-    public String inquiryRequest(@ModelAttribute InquiryDTO inquiry) {
+    public String inquiryRequest(@ModelAttribute InquiryDTO inquiry
+                                ,@AuthenticationPrincipal UserDetails userDetails) {
 
-        String inquiryType = inquiry.getInquiryType();
+        int memCode = ((UserImpl) userDetails).getMemCode();
+        inquiry.setMemCode(memCode);
 
-        if(inquiryType == "1"){
-            inquiryType = "펀딩 서비스 문의하기";
-        } else if(inquiryType == "2"){
-            inquiryType = "스토어 서비스 문의하기";
-        } else if(inquiryType == "3"){
-            inquiryType = "기타 서비스 문의하기";
-        } else {
-        }
-
-        inquiry.setInquiryType(inquiryType);
+        System.out.println("inquiry = " + inquiry);
         inquiryService.insertInquiry(inquiry);
 
         return "redirect:/inquiry/list";

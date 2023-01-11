@@ -56,25 +56,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="text-center" th:each="memeber: ${memberList}">
-                  <td>
+                <tr class="text-center" th:each="memberList: ${memberList}">
+                  <td class="text-center">
                     <div class="user-info">
                       <div class="user-info__basic">
-                        <h5 class="mb-0" th:text="${member.name}"></h5>
+                        <h5 class="mb-0" th:text="${memberList.name}"></h5>
                       </div>
                     </div>
                   </td>
                   <td width="180px" class="text-center">
-                    <h6 class="mb-0" th:text="${member.phone}"></h6>
+                    <h6 class="mb-0" th:text="${memberList.phone}"></h6>
                   </td>
                   <td calss="text-center">
-                    <h6 class="mb-0" th:text="${member.email}"></h6>
+                    <h6 class="mb-0" th:text="${memberList.memEmail}"></h6>
                   </td>
                   <td width="200px" class="text-center">
-                    <h6 class="mb-0" th:text="${member.inqueryType}"></h6>
+                    <h6 class="mb-0" th:text="${memberList.typeName}"></h6>
                   </td>
                   <td class="text-center">
-                    <h6 class="mb-0" th:text="${#dates.format(member.inqueryDate, 'yyyy-MM-dd')}"></h6>
+                    <h6 class="mb-0" th:text="${#dates.format(memberList.inquiryDate, 'yyyy-MM-dd')}"></h6>
                   <td>
                   </td>
                   <td>

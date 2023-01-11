@@ -118,6 +118,7 @@ public class NoticeController {
         int memberCode = ((UserImpl)userDetails).getMemCode();
 
         notice.setMemberCode(memberCode);
+        System.out.println("notice =================== " + notice);
         noticeService.insertNotice(notice);
 
         return "redirect:/notice/list";

@@ -14,6 +14,32 @@
         <result property="isActive" column="IS_ACTIVE"/>
     </resultMap>
 
+    <resultMap type="PersonalInfoDTO" id="persnalResultMap">
+        <id property="personalNo" column="PERSONAL_NO"/>
+        <result property="memCode" column="MEM_CODE"/>
+        <result property="phone" column="PHONE"/>
+        <result property="birthDate" column="BIRTHDATE"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="gender" column="GENDER"/>
+        <result property="name" column="NAME"/>
+    </resultMap>
+
+    <resultMap id="inquiryResultMap" type="InquiryDTO">
+        <id property="inquiryNo" column="INQUIRY_NO"></id>
+        <result property="memEmail" column="MEM_EMAIL"></result>
+        <result property="inquiryType" column="INQUIRY_TYPE"></result>
+        <result property="inquiryContent" column="INQUIRY_CONTENT"></result>
+        <result property="inquiryDate" column="INQUIRY_DATE"></result>
+        <result property="memCode" column="MEM_CODE"></result>
+    </resultMap>
+
+    <resultMap id="inquiryTypeResultMap" type="InquiryTypeDTO">
+        <id property="typeNo" column="TYPE_NO"></id>
+        <result property="typeName" column="TYPE_NAME"></result>
+    </resultMap>
+
+
+
     <!-- 회원 관리 -->
     <!-- 검색한 멤버 개수 -->
     <select id="selectTotalCount" resultType="_int" parameterType="hashMap">
@@ -80,6 +106,19 @@
     <!-- 회원 관리 끝 -->
 
     <!-- 문의 관리 -->
+    <select id="selectAllPersonal" resultMap="memberResultMap">
+    SELECT A.MEM_CODE
+         , A.MEM_EMAIL
+         , B.NAME
+         , B.PHONE
+         , C.INQUIRY_DATE
+         , D.TYPE_NAME
+      FROM MEMBER A
+      JOIN PERSONALINFO B ON (A.MEM_CODE = B.MEM_CODE)
+      JOIN INQUIRY C ON (A.MEM_CODE = C.MEM_CODE)
+      JOIN INQUIRY_TYPE D ON(C.INQUIRY_TYPE = D.TYPE_NO)
+     ORDER BY A.MEM_CODE ASC
+    </select>
 
 
 </mapper>
