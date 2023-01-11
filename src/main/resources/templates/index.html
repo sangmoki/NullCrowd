@@ -24,6 +24,11 @@
 <header th:replace="fragments/header :: headerFragment"></header>
 <!-- 메인 바디 시작 -->
 <br>
+<script>
+    if('[[${ pjMessage }]]'){
+        window.alert('[[${ pjMessage }]]');
+    }
+</script>
 <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"

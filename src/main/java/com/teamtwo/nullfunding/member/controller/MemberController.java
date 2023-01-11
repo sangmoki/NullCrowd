@@ -1,17 +1,19 @@
 package com.teamtwo.nullfunding.member.controller;
 
-import com.teamtwo.nullfunding.common.Exception.member.MemberInsertException;
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
+import com.teamtwo.nullfunding.member.dto.PersonalInfoDTO;
 import com.teamtwo.nullfunding.member.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -20,11 +22,12 @@ public class MemberController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final PasswordEncoder passwordEncoder;
     private MemberService memberService;
+    private EmailController emailController;
 
-    @Autowired
-    public MemberController(PasswordEncoder passwordEncoder, MemberService memberService) {
+    public MemberController(PasswordEncoder passwordEncoder, MemberService memberService, EmailController emailController) {
         this.passwordEncoder = passwordEncoder;
         this.memberService = memberService;
+        this.emailController = emailController;
     }
 
     @GetMapping("/signup")
@@ -34,25 +37,23 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String insertMember(@ModelAttribute MemberDTO member, HttpServletRequest request,
-                               RedirectAttributes rttr) throws MemberInsertException {
+    public String signup(@ModelAttribute MemberDTO member, @ModelAttribute PersonalInfoDTO personalInfoDTO
+                        , RedirectAttributes rttr) throws ParseException {
+//        String rawPassword = member.getMemPwd();
+//        String encPassword = BCryptPasswordEncoder.encode(rawPassword);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        member.setPersonalInfoDTO(personalInfoDTO);
 
-        log.info("");
-        log.info("");
-        log.info("[MemberController] registMember ================================================================");
+        int result = memberService.insertMember(member);
+        if(result == 1){
+            rttr.addFlashAttribute("message", "등록에 성공하셨습니다!");
+        } else{
+            rttr.addFlashAttribute("message", "등록에 실패했습니다.");
+        }
 
-        member.setMemPwd(passwordEncoder.encode(member.getMemPwd()));
-
-        log.info("[MemberController] insertMember request Member : " + member);
-
-        memberService.insertMember(member);
-
-        rttr.addFlashAttribute("message", "회원 가입에 성공하였습니다.");
-
-        log.info("[MemberController] insertMember ==========================================================");
-
-        return "redirect:/";
+        return "redirect:/member/login";
     }
+
 
 
     @GetMapping("/login")
@@ -66,13 +67,32 @@ public class MemberController {
         return "content/member/myPage";
     }
 
+
     @PostMapping("/idDupCheck")
     @ResponseBody
-    public int idDupCheck(@RequestParam("memEmail") String memEmail) {
+    public Map idDupCheck(@RequestParam("memEmail") String memEmail) {
 
         int result = memberService.idDupCheck(memEmail);
+        Map<String, Object> resultMap = new HashMap();
+        resultMap.put("result", result);
+        if(result == 0){
 
-        return result;
+         String randomCode =  emailController.sendEmail(memEmail);
+         resultMap.put("randomCode", randomCode);
+        }
+
+        return resultMap;
     }
+
+    @PostMapping("/nickDupCheck")
+    @ResponseBody
+    public int nickDupCheck(@RequestParam("nickName") String nickName){
+
+        int nickResult = memberService.nickDupCheck(nickName);
+
+        return nickResult;
+    }
+
+
 }
 
