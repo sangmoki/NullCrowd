@@ -1,10 +1,9 @@
 package com.teamtwo.nullfunding.pm.service;
 
-import com.teamtwo.nullfunding.common.Exception.message.MessageDeleteException;
 import com.teamtwo.nullfunding.common.Exception.message.MessageSendException;
-import com.teamtwo.nullfunding.member.dto.UserImpl;
 import com.teamtwo.nullfunding.pm.dao.MessageMapper;
 import com.teamtwo.nullfunding.pm.dto.MessageDTO;
+import com.teamtwo.nullfunding.pm.dto.MessageSelectCriteria;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,9 +42,9 @@ public class MessageServiceImpl implements MessageService {
 
     // 현재 확인된 닉네임의 모든 메시지를 불러하는 메소드
     @Override
-    public List<MessageDTO> viewAllMessageList(Map<String, Object> selectCriteriaPlusAlpha) {
+    public List<MessageDTO> viewAllMessageList(MessageSelectCriteria messageSelectCriteria) {
 
-        List<MessageDTO> messageList = mapper.viewAllMessageList(selectCriteriaPlusAlpha);
+        List<MessageDTO> messageList = mapper.viewAllMessageList(messageSelectCriteria);
 
         return messageList;
     }

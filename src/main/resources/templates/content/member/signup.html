@@ -2,166 +2,169 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.88.1">
-  <title>메인 페이지</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>메인 페이지</title>
 
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
-  <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
-  <script src="/js/member.js"></script>
-  <!-- Bootstrap core CSS -->
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
+    <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="/js/member.js"></script>
+    <!-- Bootstrap core CSS -->
 </head>
 
 <body>
 
-  <!-- 메인 헤더부분-->
-  <header th:replace="fragments/header :: headerFragment"></header>
-  <!-- 메인 바디 시작 -->
+<!-- 메인 헤더부분-->
+<header th:replace="fragments/header :: headerFragment"></header>
+<!-- 메인 바디 시작 -->
 
-  <body class="site-body">
-    <div class="container">
-      <div style="padding: 50px 75px 50px 75px;">
+<body class="site-body">
+<div class="container">
+    <div style="padding: 50px 75px 50px 75px;">
         <h2>회원가입</h2>
         <br>
         <!-- 아이디~이름 그냥 지나가면 밑에 빨간 글씨로 필수정보입니다 띄우기 -->
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0">
-          <div class="mb-3">
-            <div style="padding: 5px 1px 2px 3px;">
-              <label class="form-label">가입 이메일</label>
-              <div class="row">
-                <div class="col-lg-3">
-                  <input type="id" id="memEmail" class="form-control" title="이메일 주소를 입력해주세요." required/>
-                </div>
-                <td id="msg"></td>
-                <div class="col-lg-3">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0" action="/signup" method="post" id="signup">
+            <div class="mb-3">
+                <div style="padding: 5px 1px 2px 3px;">
+                    <label class="form-label">가입 이메일</label>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <input type="id" name="memEmail" id="memEmail" class="form-control" title="이메일 주소를 입력해주세요."
+                                   required/>
+                        </div>
+                        <td id="msg"></td>
+                        <div class="col-lg-3">
                   <span>
                     <button type="button" class="btn btn-secondary btn-sm mt-3" id="certifyEmail">인증번호 발송</button>
                   </span>
-                </div>
-              </div>
-              </br>
-              <div id="emailHelp" class="form-text">
-                이메일은 본인확인을 위한 용도로 사용됩니다. <br>
-                입력하신 주소로 수신한 인증메일에서 본인확인을 완료하여야 합니다.
-              </div>
-              <div class="col-lg-2" style="display:none" id="checkEmail">
-                <input type="id" class="form-control">
-              </div>
+                        </div>
+                    </div>
+                    </br>
+                    <div id="emailHelp" class="form-text">
+                        이메일은 본인확인을 위한 용도로 사용됩니다. <br>
+                        입력하신 주소로 수신한 인증메일에서 본인확인을 완료하여야 합니다.
+                    </div>
 
-              <script>
-                // $(function () {
-                //   $('#certifyEmail').click(function () {
-                //
-                //   })
-                // })
-                function dailyMissionTimer() {
+                    <div class="col-lg-2" style="display:none" id="checkEmail">
+                        <input type="text" class="form-control" id="confirmCode" style="display: inline-block">
+                        <button type="button" class="btn btn-secondary btn-sm mt-3" id="certifyEmail2">인증하기</button>
+                        <!--                <span class="point successEmailChk">이메일에 발송된 인증번호를 입력해주세요.</span>-->
 
-                  var timer = 180;
-                  var minutes, seconds;
+                        <!--                <input type="hidden" id="emailDoubleChk"/>-->
+                    </div>
 
-                  var interval = setInterval(function () {
-                    minutes = parseInt(timer / 60 % 60, 10);
-                    seconds = parseInt(timer % 60, 10);
-
-                    minutes = minutes < 10 ? "0" + minutes : minutes;
-                    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                    $('#time-min').text(minutes);
-                    $('#time-sec').text(seconds);
-
-                    if (--timer < 0) {
-                      timer = 0;
-                      clearInterval(interval);
-                    }
-                  }, 1000);
-                }
-
-              </script>
-              <br>
-              <div class="row">
-                <div class=" col-lg-3">
-                  <label class="form-label">비밀번호</label>
-                  <input type="password" id="inputPassword4" class="form-control" aria-describedby="passwordHelp">
-                </div>
-                <div id="passwordHelp1" class="form-text pb15">비밀번호는 8~20 자리의 문자나 숫자만 가능합니다. 공백 및 특수문자는 허용하지 않습니다.</div>
-              </div>
-              <div class="row">
-                <div class=" col-lg-3">
-                  <label class="form-label">비밀번호 확인</label>
-                  <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelp">
-                  <div id="passwordHelp" class="form-text pb15">동일한 비밀번호를 한번 더 입력해주세요.</div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class=" col-lg-3">
-                  <!-- 정규표현식 영문,한글만 넣어주기 -->
-                  <label class="form-label"> 이름　</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-              </div>
-
-              <br>
-              <div class="row pb15">
-                <label class="form-label">생년월일　</label>
-                <div class="col-lg-2">
-                  <input class="form-control" name="bYear" placeholder="년(4자)">
-                </div>
-                <div class="col-lg-1">
-                  <select name="birth" class="form-control">
                     <script>
+                        function dailyMissionTimer() {
 
-                      document.write("<option value='월'>" + "월");
-                      for (i = 1; i <= 12; i++) {
+                            var timer = 180;
+                            var minutes, seconds;
 
-                        document.write("<option value='" + i + "'>" + i);
+                            var interval = setInterval(function () {
+                                minutes = parseInt(timer / 60 % 60, 10);
+                                seconds = parseInt(timer % 60, 10);
 
-                      }
+                                minutes = minutes < 10 ? "0" + minutes : minutes;
+                                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                                $('#time-min').text(minutes);
+                                $('#time-sec').text(seconds);
+
+                                if (--timer < 0) {
+                                    timer = 0;
+                                    clearInterval(interval);
+                                }
+                            }, 1000);
+                        }
+
                     </script>
-                  </select>
-                </div>
-                <div class="col-lg-1">
-                  <input type="birth" class="form-control" name="bDay" placeholder="일">
-                </div>
-              </div>
-              <div class="row pb15">
-                <label class="form-label">성별</label>
-                <div class="col-lg-2">
-                  <select id="gender" name="gender" class="form-control dropdown-toggle" data-bs-toggle="dropdown">
-                    <option value="" selected>선택</option>
-                    <option value="M">남자</option>
-                    <option value="F">여자</option>
-                    <option value="U">선택 안함</option>
-                  </select>
-                </div>
-              </div>
+                    <br>
+                    <div class="row">
+                        <div class=" col-lg-3">
+                            <label class="form-label">비밀번호</label>
+                            <input type="password" name="memPwd" id="inputPassword4" class="form-control"
+                                   aria-describedby="passwordHelp" required/>
+                        </div>
+                        <div id="passwordHelp1" class="form-text pb15">비밀번호는 8~20 자리의 문자나 숫자만 가능합니다. 공백 및 특수문자는 허용하지
+                            않습니다.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col-lg-3">
+                            <label class="form-label">비밀번호 확인</label>
+                            <input type="password" id="inputPassword6" class="form-control"
+                                   aria-describedby="passwordHelp">
+                            <span class="point successPwChk"></span>
 
-              <div></div>
+                            <div id="passwordHelp" class="form-text pb15">동일한 비밀번호를 한번 더 입력해주세요.</div>
+                        </div>
+                    </div>
 
-              <div class="row pb15">
-                <label>휴대 전화</label>
-                <div class="col-lg-3">
-                  <input type="Phone" class="form-control" id="phoneNumber" placeholder="전화번호 입력">
+                    <div class="row">
+                        <div class=" col-lg-3">
+                            <!-- 정규표현식 영문,한글만 넣어주기 -->
+                            <label class="form-label"> 이름　</label>
+                            <input type="text" class="form-control" id="memName" name="name" minlength="2"
+                                   maxlength="10"
+                                   placeholder="2자 이상 10자 이하" required/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class=" col-lg-3" style="float:left;">
+                            <label class="form-label"> 닉네임　</label>
+                            <input type="text" class="form-control" id="nickName" name="nickName">
+                            <button type="button" class="btn btn-secondary btn-sm mt-3" id="nickCheck">중복 확인</button>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row pb15">
+                        <label class="form-label">생년월일　</label>
+                        <div class="col-lg-3">
+                            <input type="date" class="form-control" id="bYear" name="birthDate">
+                        </div>
+                        <div class="row pb15">
+                            <label class="form-label">성별</label>
+                            <div class="col-lg-3">
+                                <select id="gender" name="gender" class="form-control dropdown-toggle"
+                                        data-bs-toggle="dropdown">
+                                    <option value="" selected>선택</option>
+                                    <option value="M">남자</option>
+                                    <option value="F">여자</option>
+                                    <option value="U">선택 안함</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div></div>
+
+                        <div class="row pb15">
+                            <label>휴대 전화</label>
+                            <div class="col-lg-3">
+                                <input type="text" name="phone" class="form-control" id="phoneNumber"
+                                       placeholder="전화번호 입력" required/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                <button type="submit" id="joinBtn" class="btn btn-primary">가입하기</button>
             </div>
-          </div>
-          <button type="submit" class="btn btn-primary">가입하기</button>
         </form>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 
 
-  <br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
 
-  <!-- 메인 바디 끝 -->
+<!-- 메인 바디 끝 -->
 
-  <!-- 메인 푸터 시작  -->
-  <footer th:replace="fragments/footer :: footerFragment"></footer>
+<!-- 메인 푸터 시작  -->
+<footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
 
 </html>

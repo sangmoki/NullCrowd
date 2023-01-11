@@ -34,7 +34,7 @@
                         <br><br>
                     </div>
                 </div>
-                <form th:action id="PJform" method="post">
+                <form action="/project/requestProject" id="PJform" method="post">
                     <div class="text-box2">
                         <div class="text-box-header">
                             <b> 진행자의 환불 및 교환 정책</b>
@@ -68,9 +68,9 @@
                         <input name="description" th:value="${ param.description }">
                         <input name="startDate" th:value="${ param.startDate }">
                         <input name="endDate" th:value="${ param.endDate }">
+                        <input name="mainImg" th:value="${ param.mainImg }">
                         <input name="videoURL" th:value="${ param.videoURL }">
                     </div>
-                </form>
                 <br>
                 <div class="text-box5">
                     <div class="text-box5-reward">
@@ -87,9 +87,10 @@
                 <a href="javascript:void(0)">
                     <button class="btn btn-block btn-secondary goPJ2">이전단계</button>
                 </a>
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+                <button type="submit" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
                     승인 요청하기
                 </button>
+                </form>
                 <!-- The Modal -->
                 <div class="modal" id="myModal">
                     <div class="modal-dialog">

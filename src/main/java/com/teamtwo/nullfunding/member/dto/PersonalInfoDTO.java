@@ -2,7 +2,7 @@ package com.teamtwo.nullfunding.member.dto;
 
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor

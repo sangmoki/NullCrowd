@@ -79,6 +79,7 @@
                         <input name="description" th:value="${ param.description }">
                         <input name="startDate" th:value="${ param.startDate }">
                         <input name="endDate" th:value="${ param.endDate }">
+                        <input name="titleImg" th:value="${ param.titleImg }">
                         <input name="videoURL" th:value="${ param.videoURL }">
 
                         <input name="refundRule" th:value="${ param.refundRule }">
@@ -97,8 +98,8 @@
                                 , "details": $('#details').val()
                             },
                             success : function(){
+                                alert('등록되었습니다.');
                                 location.reload();
-                                alert('[[${ param.test1 }]]');
                                 ;
                             }
                         })
@@ -112,6 +113,7 @@
                         <input name="description" th:value="${ param.description }">
                         <input name="startDate" th:value="${ param.startDate }">
                         <input name="endDate" th:value="${ param.endDate }">
+                        <input name="mainImg" th:value="${ param.mainImg }">
                         <input name="videoURL" th:value="${ param.videoURL }">
 
                         <input name="refundRule" th:value="${ param.refundRule }">
@@ -179,7 +181,6 @@
                         })
                     })
                 </script>
-                <th:block th:value="${ param.test1 }"> 나는아니오 </th:block>
             </div>
             <br>
             <a href="javascript:void(0)">

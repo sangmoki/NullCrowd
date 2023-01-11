@@ -1,5 +1,6 @@
 package com.teamtwo.nullfunding.member.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,11 @@ import java.util.Random;
 public class EmailSenderService {
 
     private JavaMailSender mailSender;
+
+    @Autowired
+    public EmailSenderService(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     public String getRandomCode(){
         Random random = new Random();
@@ -31,6 +37,7 @@ public class EmailSenderService {
         message.setTo(toEmail);                           // 받는사람
         message.setSubject(subject);                      // 제목
         message.setText("\n"+ body + "\n" + footer);      // body=인증코드, footer=안내멘트
+        System.out.println("message = " + message);
 
         mailSender.send(message);
 

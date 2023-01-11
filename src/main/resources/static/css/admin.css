@@ -38949,3 +38949,10 @@ h6 {
 .admin_a_email{
     color:black;
 }
+.th-width{
+    width:50px;
+}
+.pageNation button{
+    font-size:15px;
+    padding: 10px;
+}
