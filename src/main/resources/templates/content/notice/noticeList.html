@@ -54,7 +54,7 @@
                 <option value="nickName">작성자</option>
             </select>
             <input type="search" id="searchValue" name="searchValue" placeholder="검색할 내용을 입력하세요.">
-            <input type="submit" id=searchList class="btn btn-secondary" value="검색하기"></input>
+            <input type="submit" class="btn btn-secondary" value="검색하기">
         </form>
         <th:block sec:authorize="hasRole('ADMIN')">
             <button class="btn btn-secondary" id="writeNotice" style="float:right;">
