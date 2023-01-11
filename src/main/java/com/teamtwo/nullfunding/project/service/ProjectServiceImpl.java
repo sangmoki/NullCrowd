@@ -11,7 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -25,14 +29,16 @@ public class ProjectServiceImpl implements ProjectService {
         this.projectMapper = projectMapper;
     }
 
+    @Override
     public int CalculateDday(Date date){
 
         LocalDate now = LocalDate.now();
-        LocalDate standardDate =  date.toLocalDate();
-//        (now > standardDate)
+        LocalDate standardDate = date.toLocalDate();
+        System.out.println("standardDate = " + standardDate);
 
+        int dDay =  (int)ChronoUnit.DAYS.between(standardDate, now);
 
-        return 1;
+        return Math.abs(dDay);
     }
 
     @Override
