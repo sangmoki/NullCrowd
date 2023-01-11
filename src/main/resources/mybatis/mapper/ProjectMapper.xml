@@ -3,7 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.teamtwo.nullfunding.project.model.dao.ProjectMapper">
-    
+
+
     <resultMap id="approveProject" type="ApproveProject">
         <id property="projectNo" column=""/>
         <result property="processedDate" column="PROCESSED_DATE"/>
@@ -76,11 +77,12 @@
              , #{ raiserCode }
              , #{ description }
              , #{ fundGoal }
-             , SYSDATE
-             , #{startDate}
-             , #{ endDate }
+             , DEFAULT
+             , #{ startDate }
+             , #{ endDate}
              , 'N'
              , 0
+             , #{ title }
              , #{ mainImg }
              , #{ tel }
              , #{ pjEmail } 
@@ -89,5 +91,31 @@
           )
 
     </insert>
+
+    <update id="insertRewards" parameterType="java.util.List">
+        <selectKey keyColumn="PROJECT_NO" keyProperty="projectNo" resultType="_int" order="BEFORE">
+            SELECT SEQ_PROJECT_NO.CURRVAL FROM DUAL
+        </selectKey>
+        <foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+          INTO PROJECT_REWARD
+            (
+               PROJECT_NO
+             , NO
+             , NAME
+             , PRICE
+             , DETAILS
+            )
+        VALUES
+
+            (
+               #{ projectNo }
+             , #{ index } + 1
+             , #{ item.name }
+             , #{ item.price }
+             , #{ item.details }
+            )
+        </foreach>
+    </update>
+
 </mapper>
 

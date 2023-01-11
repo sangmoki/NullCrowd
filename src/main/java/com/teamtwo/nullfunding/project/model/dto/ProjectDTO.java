@@ -2,7 +2,7 @@ package com.teamtwo.nullfunding.project.model.dto;
 
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Getter
@@ -18,8 +18,8 @@ public class ProjectDTO {
     private String description;  //프로젝트 content 부분
     private int fundGoal; // 목표금액
     private Date regiDate; // 등록 날짜, sysdate
-    private String startDate; //시작 날짜
-    private String endDate; //종료 날짜
+    private Date startDate; //시작 날짜
+    private Date endDate; //종료 날짜
     private char isFundable; //후원가능여부 (시작날짜, 종료날짜 사이 =Y, 그 외 N)
     private int funderNum; // 참여자수
     private String mainImg; // 메인이미지주소값(대표이미지)
