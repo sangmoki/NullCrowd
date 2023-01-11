@@ -1,7 +1,7 @@
 package com.teamtwo.nullfunding.member.controller;
 
-import com.teamtwo.nullfunding.common.Exception.member.MemberInsertException;
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
+import com.teamtwo.nullfunding.member.dto.PersonalInfoDTO;
 import com.teamtwo.nullfunding.member.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,25 +37,24 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String insertMember(@ModelAttribute MemberDTO member, HttpServletRequest request,
-                               RedirectAttributes rttr) throws MemberInsertException {
+    public String signup(@ModelAttribute MemberDTO member, @ModelAttribute PersonalInfoDTO personalInfoDTO
+                        , RedirectAttributes rttr) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        Date birthDate = format.parse(birthDate1);
+        System.out.println("member = " + member);
+        System.out.println("personalInfoDTO = " + personalInfoDTO);
+        member.setPersonalInfoDTO(personalInfoDTO);
 
-        log.info("");
-        log.info("");
-        log.info("[MemberController] registMember ================================================================");
+        int result = memberService.insertMember(member);
+        if(result == 1){
+            rttr.addFlashAttribute("message", "등록에 성공하셨습니다!");
+        } else{
+            rttr.addFlashAttribute("message", "등록에 실패했습니다.");
+        }
 
-        member.setMemPwd(passwordEncoder.encode(member.getMemPwd()));
-
-        log.info("[MemberController] insertMember request Member : " + member);
-
-        memberService.insertMember(member);
-
-        rttr.addFlashAttribute("message", "회원 가입에 성공하였습니다.");
-
-        log.info("[MemberController] insertMember ==========================================================");
-
-        return "redirect:/";
+        return "redirect:/member/login";
     }
+
 
 
     @GetMapping("/login")
@@ -67,6 +67,7 @@ public class MemberController {
 
         return "content/member/myPage";
     }
+
 
     @PostMapping("/idDupCheck")
     @ResponseBody
@@ -92,5 +93,7 @@ public class MemberController {
 
         return nickResult;
     }
+
+
 }
 

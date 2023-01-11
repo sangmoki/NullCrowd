@@ -2,7 +2,7 @@ package com.teamtwo.nullfunding.member.dto;
 
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,5 +21,6 @@ public class MemberDTO {
     private Date recentLogin;
     private PersonalInfoDTO personalInfoDTO;
     private FundRaiserDTO fundRaiserDTO;
+
 
 }

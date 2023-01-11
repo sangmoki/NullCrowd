@@ -1,6 +1,5 @@
 package com.teamtwo.nullfunding.member.service;
 
-import com.teamtwo.nullfunding.common.Exception.member.MemberInsertException;
 import com.teamtwo.nullfunding.member.dao.MemberMapper;
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import com.teamtwo.nullfunding.member.dto.UserImpl;
@@ -58,17 +57,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-    @Transactional
-    public void insertMember(MemberDTO member) throws MemberInsertException{
+    @Override
+    public int insertMember(MemberDTO member) {
+        int resultMember = mapper.insertMember(member);
+        int resultPersonal = mapper.insertPersonalInfo(member.getPersonalInfoDTO());
+        int result = 0;
 
-        log.info("[MemberService] Insert Member : " + member);
-        int result = mapper.insertMember(member);
-
-        log.info("[MemberService] Insert result : " + ((result > 0)? "회원가입 성공" : "회원가입 실패"));
-
-        if(!(result > 0)){
-            throw new MemberInsertException("회원 가입에 실패하였습니다.");
+        if(resultMember >= 1 || resultPersonal >= 1){
+            result = 1;
+        } else{
+            result = 0;
         }
+        return result;
     }
 
     @Override
@@ -86,4 +86,6 @@ public class MemberServiceImpl implements MemberService {
 
         return result;
     }
+
+
 }

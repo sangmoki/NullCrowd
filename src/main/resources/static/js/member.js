@@ -1,6 +1,8 @@
-let nickCheck = false;
-let idCheck = false;
+var nickCheck = false;
+var idCheck = false;
 var code;
+var isCertification;
+var pwCheck;
 
 // 아이디 중복 체크
 $(function(){
@@ -28,7 +30,7 @@ $(function(){
                 }
             }
         })
-        // isCertification=true;
+
     })
 })
 
@@ -81,16 +83,41 @@ $(function () {
     })
 })
 
+// 비밀번호 확인
 $(function (){
-    $("#userpasschk").blur(function(){
+    $("#inputPassword6").blur(function(){
         if($("#inputPassword6").val() == $("#inputPassword4").val()){
             $(".successPwChk").text("비밀번호가 일치합니다.");
             $(".successPwChk").css("color", "green");
-            $("#pwDoubleChk").val("true");
+            pwCheck = true;
         }else{
             $(".successPwChk").text("비밀번호가 일치하지 않습니다.");
             $(".successPwChk").css("color", "red");
-            $("#pwDoubleChk").val("false");
+            pwCheck = false;
         }
     });
+})
+
+
+
+// 회원가입 유효성 검사
+$(function (){
+    $("#joinBtn").click(function (){
+        if (
+            idCheck == true && isCertification == true
+            && $("#inputPassword4").val() != ''
+            && pwCheck == true
+            && $("#memName").val() != ''
+            && nickCheck == true
+            && $("#bYear").val() != ''
+            && $("#gender").val() != ''
+            && $("#phoneNumber").val() != ''){
+            $("#signup").attr("action", "/member/signup");
+            $("#signup").submit();
+            alert("환영합니다");
+        }else{
+            alert("회원가입에 실패하였습니다 다시한번 확인해 주시기 바랍니다.")
+        }
+        return false
+    })
 })
