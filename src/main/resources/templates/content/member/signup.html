@@ -141,12 +141,19 @@
                         </div>
 
                         <div></div>
+                        <script>
+                            const hypenTel = (target) => {
+                                target.value = target.value
+                                    .replace(/[^0-9]/g, '')
+                                    .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+                            }
 
+                        </script>
                         <div class="row pb15">
                             <label>휴대 전화</label>
                             <div class="col-lg-3">
-                                <input type="text" name="phone" class="form-control" id="phoneNumber"
-                                       placeholder="전화번호 입력" required/>
+                                <input type="text" name="phone" class="form-control" oninput="hypenTel(this)" id="phoneNumber"
+                                       placeholder="숫자만 입력" maxlength="13" required/>
                             </div>
                         </div>
                     </div>

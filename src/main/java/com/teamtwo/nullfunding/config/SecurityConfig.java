@@ -91,7 +91,7 @@ public class SecurityConfig {
     /* 사용자 인증을 위해서 사용할 service bean 등록 , 사용할 비밀번호 인코딩 방식 설정 */
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        System.out.println("test" + "test");
+        System.out.println("authManager");
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(memberService)   // 사용자정보 가져오고
                 .passwordEncoder(passwordEncoder())

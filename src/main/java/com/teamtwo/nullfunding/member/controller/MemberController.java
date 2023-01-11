@@ -30,6 +30,7 @@ public class MemberController {
         this.emailController = emailController;
     }
 
+
     @GetMapping("/signup")
     public String goSignup(){
 
@@ -39,10 +40,8 @@ public class MemberController {
     @PostMapping("/signup")
     public String signup(@ModelAttribute MemberDTO member, @ModelAttribute PersonalInfoDTO personalInfoDTO
                         , RedirectAttributes rttr) throws ParseException {
+        member.setMemPwd(passwordEncoder.encode(member.getMemPwd()));
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        Date birthDate = format.parse(birthDate1);
-        System.out.println("member = " + member);
-        System.out.println("personalInfoDTO = " + personalInfoDTO);
         member.setPersonalInfoDTO(personalInfoDTO);
 
         int result = memberService.insertMember(member);
@@ -54,7 +53,6 @@ public class MemberController {
 
         return "redirect:/member/login";
     }
-
 
 
     @GetMapping("/login")
