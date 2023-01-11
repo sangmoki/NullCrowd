@@ -25,8 +25,9 @@
 <!-- 메인 바디 시작 -->
 <br>
 <script>
-    if('[[${ pjMessage }]]'){
-        window.alert('[[${ pjMessage }]]');
+    let pjMessage = '[[${ pjMessage }]]'
+    if(pjMessage){
+        window.alert(pjMessage);
     }
 </script>
 <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">

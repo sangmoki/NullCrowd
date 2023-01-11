@@ -3,6 +3,7 @@ package com.teamtwo.nullfunding.project.dao;
 import com.teamtwo.nullfunding.NullfundingApplication;
 import com.teamtwo.nullfunding.config.MybatisConfig;
 import com.teamtwo.nullfunding.project.model.dao.ProjectMapper;
+import com.teamtwo.nullfunding.project.model.dto.PJDetail;
 import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
 import com.teamtwo.nullfunding.project.model.dto.ProjectRewardDTO;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,23 @@ public class ProjectMapperTests {
         System.out.println("projectMapper = " + projectMapper);
     }
 
+    @Test
+    void 프로젝트_들고오는_메소드_테스트(){
+
+        List<PJDetail> AllProject =  projectMapper.selectAllProject();
+        assertNotNull(AllProject);
+        System.out.println("AllProject = " + AllProject);
+
+    }
+
+    @Test
+    void Pre프로젝트_들고오는_메소드_테스트(){
+
+        List<PJDetail> preProject =  projectMapper.selectPreProject();
+        assertNotNull(preProject);
+        System.out.println("preProject = " + preProject);
+
+    }
     @Test
     void 프로젝트_등록_메소드_테스트(){
 

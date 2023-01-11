@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamtwo.nullfunding.payment.dao.PaymentMapper">
+
+<!--    <resultMap id="MessageResultMap" type="MessageDTO">-->
+<!--        <id property="messageNo" column="MESSAGE_CODE"/>-->
+<!--        <id property="boxType" column="BOX_TYPE"/>-->
+<!--        <id property="receiverMemberNo" column="MEM_CODE"/>-->
+<!--        <id property="messageTitle" column="TITLE"/>-->
+<!--        <id property="sendDate" column="RECEIVED_TIME"/>-->
+<!--        <id property="senderNickname" column="SENTBY"/>-->
+<!--        <id property="messageContent" column="CONTENT"/>-->
+<!--        <id property="isRead" column="IS_READ"/>-->
+<!--        <id property="isDeleted" column="IS_DELETED"/>-->
+<!--    </resultMap>-->
+
+<!--&lt;!&ndash; 이용권 결제내역 추가 &ndash;&gt;-->
+<!--<insert id ="insert_pay" parameterType="Payed_listVO">-->
+<!--    insert into payed_list-->
+<!--    values(#{imp_uid},#{merchant_uid}, #{biz_email}, #{pay_date}, #{amount}, #{card_no}, #{refund})-->
+<!--</insert>-->
+
+<!--        &lt;!&ndash; 이용권 결제내역 조회 &ndash;&gt;-->
+<!--<select id="recentlyPay" parameterType="String" resultType="Payed_listVO">-->
+<!--select imp_uid, merchant_uid, biz_email, pay_date, amount, card_no, refund from-->
+<!--(select rownum, imp_uid, merchant_uid, biz_email, pay_date, amount, card_no, refund from-->
+<!--(select * from payed_list where biz_email = #{biz_email})where refund ='payed' order by pay_date)-->
+<!--where rownum = 1-->
+<!--</select>-->
+
+<!--        &lt;!&ndash; 이용권 결제 사업자에 반영 &ndash;&gt;-->
+<!--<update id="updateBiz_pay" parameterType="Biz_MemberVO">-->
+<!--update biz_member set pay_coupon = #{pay_coupon} where biz_email = #{biz_email}-->
+<!--</update>-->
+
+<!--        &lt;!&ndash; 이용권 환불 사업자에 반영 &ndash;&gt;-->
+<!--<update id="updateBiz_refund" parameterType="Biz_MemberVO">-->
+<!--update biz_member set pay_coupon = #{pay_coupon} where biz_email = #{biz_email}-->
+<!--</update>-->
+
+<!--        &lt;!&ndash; 이용권 결제내역 환불 &ndash;&gt;-->
+<!--<update id="refund_pay" parameterType="String">-->
+<!--update payed_list set refund = 'refund' where merchant_uid = #{merchant_uid}-->
+<!--</update>-->
+
+</mapper>

@@ -3,7 +3,7 @@ var idCheck = false;
 var code;
 var isCertification;
 var pwCheck;
-
+var phoneNumber = /^[0-9]{10,11}$/
 
 
 // 아이디 중복 체크
@@ -39,8 +39,6 @@ $(function(){
 //이메일 인증번호 대조
 $(function(){
     $("#certifyEmail2").on('click', function(){
-
-
 
         if($("#confirmCode").val() == code){
             // $(".successEmailChk").text("인증번호가 일치합니다.");
@@ -100,7 +98,9 @@ $(function (){
     });
 })
 
+$(function (){
 
+})
 
 // 회원가입 유효성 검사
 $(function (){

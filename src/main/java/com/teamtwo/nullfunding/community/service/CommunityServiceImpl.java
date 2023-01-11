@@ -1,70 +1,102 @@
 package com.teamtwo.nullfunding.community.service;
 
+import com.teamtwo.nullfunding.common.paging.SelectCriteria;
 import com.teamtwo.nullfunding.community.model.dao.CommunityMapper;
 import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
-public class CommunityServiceImpl {
+public class CommunityServiceImpl implements CommunityService {
 
-    private  CommunityMapper mapper;
+    private CommunityMapper communityMapper;
 
-    @Autowired
-    public CommunityServiceImpl(CommunityMapper mapper) {
-        this.mapper = mapper;
+    public CommunityServiceImpl(CommunityMapper communityMapper) {
+        this.communityMapper = communityMapper;
     }
 
-    /* 공지사항 전체 목록 조회용 메소드 */
-    public List<CommunityDTO> selectAllNoticeList() {
-        List<CommunityDTO> noticeList = mapper.selectAllNoticeList();
+    @Override
+    public int selectTotalCount(Map<String, String> searchMap) {
 
-        return noticeList;
+        int result = communityMapper.selectTotalCount(searchMap);
+
+        return result;
     }
 
-//    /* 공지사항 등록용 메소드 */
-//    @Transactional
-//    public void registNotice(NoticeDTO notice) throws NoticeRegistException {
-//
-//        int result = mapper.insertNotice(notice);
-//
-//        if(!(result > 0)) {
-//            throw new NoticeRegistException("공지사항 등록에 실패하셨습니다.");
-//        }
-//    }
-//
-//    /* 공지사항 상세 페이지 조회용 메소드 */
-//    public NoticeDTO selectNoticeDetail(Long no) {
-//        NoticeDTO noticeDetail = null;
-//
-//        int result = mapper.incrementNoticeCount(no);
-//
-//        if(result > 0) {
-//            noticeDetail = mapper.selectNoticeDetail(no);
-//        }
-//
-//        return noticeDetail;
-//    }
-//
-//    /* 공지사항 수정용 메소드 */
-//    @Transactional
-//    public void modifyNotice(NoticeDTO notice) throws NoticeModifyException {
-//        int result = mapper.updateNotice(notice);
-//
-//        if(!(result > 0)) {
-//            throw new NoticeModifyException("공지사항 수정에 실패하셨습니다.");
-//        }
-//    }
-//
-//    /* 공지사항 삭제용 메소드 */
-//    @Transactional
-//    public void removeNotice(Long no) throws NoticeRemoveException {
-//        int result = mapper.deleteNotice(no);
-//
-//        if(!(result > 0)) {
-//            throw new NoticeRemoveException("공지사항 삭제에 실패하셨습니다.");
-//        }
-//    }
+    // 모든 게시판 게시글 조회하는 용도의 메서드
+    @Override
+    public List<CommunityDTO> selectAllCommunityList(SelectCriteria selectCriteria) { // 완료
+
+        Date nowDate = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+
+        // 원하는 데이터 포맷 지정
+        simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
+
+        List<CommunityDTO> communityList = communityMapper.selectAllCommunityList(selectCriteria);
+
+        return communityList;
+    }
+
+    // 게시판 상세보기 용도의 메서드
+    @Transactional
+    @Override
+    public CommunityDTO selectCommunityDetail(int no) {
+        CommunityDTO communityDetail = null;
+
+        int result = communityMapper.incrementCommunityCount(no);
+
+        if (result > 0) {
+            communityDetail = communityMapper.selectCommunityDetail(no);
+            System.out.println("communityDetail ===============================> " + communityDetail);
+        }
+
+        return communityDetail;
+    }
+
+    // 게시판 추가하는 용도의 메서드
+    @Override
+    @Transactional
+    public int insertCommunity(CommunityDTO community) {
+
+        int result = 0;
+
+        if (community != null) {
+
+            result = communityMapper.insertCommunity(community);
+        }
+
+        return result;
+    }
+
+    // 게시판 변경하는 용도의 메서드
+    @Override
+    @Transactional
+    public int updateCommunity(CommunityDTO community) {
+        int result = 0;
+
+        if (community != null) {
+
+            result = communityMapper.updateCommunity(community);
+        }
+
+        return result;
+    }
+
+    // 게시판 삭제하는 용도의 메서드
+    @Override
+    @Transactional
+    public int deleteCommunity(int no) {
+
+        int result = communityMapper.deleteCommunity(no);
+
+        return result;
+
+    }
 }
