@@ -1,6 +1,7 @@
 package com.teamtwo.nullfunding.member.service;
 
 import com.teamtwo.nullfunding.member.dao.MemberMapper;
+import com.teamtwo.nullfunding.member.dto.FundRaiserDTO;
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import com.teamtwo.nullfunding.member.dto.UserImpl;
 import org.slf4j.Logger;
@@ -61,9 +62,14 @@ public class MemberServiceImpl implements MemberService {
     public int insertMember(MemberDTO member) {
         int resultMember = mapper.insertMember(member);
         int resultPersonal = mapper.insertPersonalInfo(member.getPersonalInfoDTO());
+        FundRaiserDTO fundRaiserDTO = new FundRaiserDTO();
+        fundRaiserDTO.setRaiEmail(member.getMemEmail());
+        fundRaiserDTO.setRaiPhone(member.getPersonalInfoDTO().getPhone());
+        int resultFundRaiser = mapper.insertFundRaiser(fundRaiserDTO);
+
         int result = 0;
 
-        if(resultMember >= 1 || resultPersonal >= 1){
+        if(resultMember >= 1 || resultPersonal >= 1 || resultFundRaiser >= 1){
             result = 1;
         } else{
             result = 0;

@@ -93,7 +93,7 @@ public class ProjectController {
         String message = "";
         System.out.println("projectMediaDTO = " + projectMediaDTO);
 
-        String relativeUrl = "/img/projectImg";
+        String relativeUrl = "/img/thumbnail";
 
         String fileUploadDirectory = IMAGE_DIR + relativeUrl;
 

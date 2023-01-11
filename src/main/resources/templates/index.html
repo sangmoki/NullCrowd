@@ -25,8 +25,9 @@
 <!-- 메인 바디 시작 -->
 <br>
 <script>
-    if('[[${ pjMessage }]]'){
-        window.alert('[[${ pjMessage }]]');
+    let pjMessage = '[[${ pjMessage }]]'
+    if(pjMessage){
+        window.alert(pjMessage);
     }
 </script>
 <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -95,40 +96,17 @@
         </a>NULL에서 핫한 프로젝트들을 만나보세요.
         </div>
         <br><br>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard">
-            <!-- 프로젝트1 -->
-            <div class="col">
-                <a href="/project/projectInfo">
-                    <div class="card" style="width: 22rem;">
-                        <div class="card-reward-img">
-                            <img src="img/mainImg/1newyear.jpg" class="card-img-top" alt="...">
-                        </div>
-                        <div class="container">
-                            <div class="row card-body">
-                                <p class="card-title">(주)도원기획</p>
-                                <p class="card-text">Hello 2023! 즐거운 신년 파티</p>
-                            </div>
-                            <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 프로젝트2 -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard" th:each=" project : ${ ProjectList }">
             <div class="col">
                 <a href="#">
                     <div class="card" style="width: 22rem;">
                         <div class="card-reward-img">
-                            <img src="/img/mainImg/2ski.jpg" class="card-img-top" alt="...">
+                            <img th:src="${ project.projectDTO.getMainImg() }" class="card-img-top" alt="...">
                         </div>
                         <div class="container">
                             <div class="row card-body">
-                                <p class="card-title">성일스포츠센터</p>
-                                <p class="card-text">스키캠프로 자신감, 도전정신 길러요!</p>
+                                <p class="card-title" th:text="${ project.raiNickname }"></p>
+                                <p class="card-text" th:text=" ${ project.getRaiNickname() } "></p>
                             </div>
                             <div class="row card-reward-row">
                                 <div class="card-reward-date col-2">D-999</div>
@@ -139,6 +117,19 @@
                     </div>
                 </a>
             </div>
+        <tr th:each="notice : ${noticeList}">
+            <td th:text="${notice.noticeNo}"></td>
+            <td th:text="${notice.noticeTitle}"></td>
+            <td th:text="${notice.nickName}"></td>
+            <td th:text="${#dates.format(notice.uploadDate, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${notice.readCount}"></td>
+        </tr>
+
+            <!-- 프로젝트1 -->
+
+
+            <!-- 프로젝트2 -->
+
 
             <!-- 프로젝트3 -->
             <div class="col">

@@ -91,30 +91,30 @@ public class AdminMemberController {
                                      @RequestParam(value="currentPage", defaultValue = "1") int pageNo, ModelAndView mv) {
 
         Map<String, String> searchMap = new HashMap<>();
-        searchMap.put("searchCondition", searchCondition);
-        searchMap.put("searchValue", searchValue);
-
-        int totalCount = adminMemberService.selectTotalCount(searchMap);
-        /* 한 페이지에 보여 줄 게시물 수 */
-        int limit = 10;		//얘도 파라미터로 전달받아도 된다.
-
-        /* 한 번에 보여질 페이징 버튼의 갯수 */
-        int buttonAmount = 5;
-
-        /* 페이징 처리를 위한 로직 호출 후 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환받는다. */
-        SelectCriteria selectCriteria = null;
-
-        if(searchCondition != null && !"".equals(searchCondition)) { // 검색조건이 null이 아니고 검색조건과 동일하면 검색조건으로 처리한 select 쿼리문을 들고와 담아준다.
-            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue);
-        } else {  // 만약 둘중 하나라도 아니면 아래 로직을 담는다.
-            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
-        }
-
-        List<MemberDTO> memberList = adminMemberService.selectAllMemberList(selectCriteria);
+//        searchMap.put("searchCondition", searchCondition);
+//        searchMap.put("searchValue", searchValue);
+//
+//        int totalCount = adminMemberService.selectTotalCount(searchMap);
+//        /* 한 페이지에 보여 줄 게시물 수 */
+//        int limit = 10;		//얘도 파라미터로 전달받아도 된다.
+//
+//        /* 한 번에 보여질 페이징 버튼의 갯수 */
+//        int buttonAmount = 5;
+//
+//        /* 페이징 처리를 위한 로직 호출 후 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환받는다. */
+//        SelectCriteria selectCriteria = null;
+//
+//        if(searchCondition != null && !"".equals(searchCondition)) { // 검색조건이 null이 아니고 검색조건과 동일하면 검색조건으로 처리한 select 쿼리문을 들고와 담아준다.
+//            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue);
+//        } else {  // 만약 둘중 하나라도 아니면 아래 로직을 담는다.
+//            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+//        }
+//
+        List<MemberDTO> memberList = adminMemberService.selectAllPersonal();
         mv.addObject("memberList", memberList);
-        mv.addObject("selectCriteria", selectCriteria);
+//        mv.addObject("selectCriteria", selectCriteria);
 
-        mv.setViewName("content/admin/member");
+        mv.setViewName("content/admin/inquiry");
 
         return mv;
     }

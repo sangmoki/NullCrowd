@@ -11,6 +11,7 @@ import java.sql.Date;
 @Setter
 public class PersonalInfoDTO {
 
+    private int personalNo;
     private int memCode;
     private String phone;
     private Date birthDate;

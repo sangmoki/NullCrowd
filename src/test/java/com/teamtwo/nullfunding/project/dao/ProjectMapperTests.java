@@ -3,6 +3,7 @@ package com.teamtwo.nullfunding.project.dao;
 import com.teamtwo.nullfunding.NullfundingApplication;
 import com.teamtwo.nullfunding.config.MybatisConfig;
 import com.teamtwo.nullfunding.project.model.dao.ProjectMapper;
+import com.teamtwo.nullfunding.project.model.dto.PJDetail;
 import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
 import com.teamtwo.nullfunding.project.model.dto.ProjectRewardDTO;
 import org.junit.jupiter.api.Test;
@@ -31,17 +32,34 @@ public class ProjectMapperTests {
     }
 
     @Test
+    void 프로젝트_들고오는_메소드_테스트(){
+
+        List<PJDetail> AllProject =  projectMapper.selectAllProject();
+        assertNotNull(AllProject);
+        System.out.println("AllProject = " + AllProject);
+
+    }
+
+    @Test
+    void Pre프로젝트_들고오는_메소드_테스트(){
+
+        List<PJDetail> preProject =  projectMapper.selectPreProject();
+        assertNotNull(preProject);
+        System.out.println("preProject = " + preProject);
+
+    }
+    @Test
     void 프로젝트_등록_메소드_테스트(){
 
          //given
         ProjectDTO projectDTO = new ProjectDTO();
         projectDTO.setRaiserCode(10);
-        projectDTO.setTitle("프젝이름1");
+        projectDTO.setTitle("Hell 2023! 즐거운 신년 파티");
         projectDTO.setDescription("프젝설명");
-        projectDTO.setFundGoal(1000000);
+        projectDTO.setFundGoal(3000000);
         projectDTO.setStartDate(new Date(2023-01-26));
         projectDTO.setEndDate(new Date((2023-02-03)));
-        projectDTO.setMainImg("/img/projectImg/07e61069cd37409dafd8d7b6b6a0870c.png");
+        projectDTO.setMainImg("/img/thumbnail/07e61069cd37409dafd8d7b6b6a0870c.png");
         projectDTO.setTel("010-1234-5432");
         projectDTO.setPjEmail("creba@naver.com");
         projectDTO.setRefundRule("환불정책입니다.");

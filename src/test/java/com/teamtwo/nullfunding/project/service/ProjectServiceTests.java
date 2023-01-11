@@ -2,6 +2,7 @@ package com.teamtwo.nullfunding.project.service;
 
 import com.teamtwo.nullfunding.NullfundingApplication;
 import com.teamtwo.nullfunding.config.MybatisConfig;
+import com.teamtwo.nullfunding.project.model.dto.PJDetail;
 import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
 import com.teamtwo.nullfunding.project.model.dto.ProjectRewardDTO;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,5 +52,23 @@ public class ProjectServiceTests {
         // when
         boolean result = projectService.requestProject(projectDTO);
         assertEquals(0, result);
+    }
+
+    @Test
+    void 날짜_테스트(){
+
+        List<PJDetail> ProjectList = projectService.selectAllProject();
+        System.out.println("ProjectList = " + ProjectList);
+        LocalDate now = LocalDate.now();
+        System.out.println("now = " + now);
+        Date endDate = ProjectList.get(0).getProjectDTO().getEndDate();
+        System.out.println("endDate = " + endDate);
+//        Date dDay = endDate - now;
+//        for(int i = 0; i < ProjectList.size(); i++){
+//
+//            ProjectList.get(i).setRemainDate();
+//            ProjectList.get(i).setAchievePercent();
+
+//        }
     }
 }
