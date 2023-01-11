@@ -21,11 +21,12 @@ public class ProjectServiceImpl implements ProjectService {
 
 
         int result2 = projectMapper.requestProject(projectDTO);
+        int result3 = 0;
 
         // 프로젝트가 성공적으로 등록되면 Rewards리스트도 삽입
-        if(result2 == 1){int result3 = projectMapper.insertRewards(projectDTO.getProjectRewardDTOList());}
+        if(result2 == 1){result3 = projectMapper.insertRewards(projectDTO.getProjectRewardDTOList());}
 
-        boolean result = (result2 == projectDTO.getProjectRewardDTOList().size()) ? true : false;
+        boolean result = (result3 == projectDTO.getProjectRewardDTOList().size()) ? true : false;
 
         return result;
     }
