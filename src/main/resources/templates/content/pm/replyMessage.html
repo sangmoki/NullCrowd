@@ -19,15 +19,21 @@
 <div class="container-fluid">
     <br>
     <div class="row" style="margin: 10px">
-        <div class="col-sm">
+        <div class="col-sm-7">
             <span>메시지 답장하기 </span>
         </div>
-    </div>
-    <hr>
+        <div class="col-sm">
+            <span>발신 닉네임 : </span>
+            <span th:text="${ nickname }" style="font-weight: bold"></span>
+            <input type="hidden" id="nicknamesBoxtype" name="nicknamesBoxtype" th:value="${ box_type }">
+            <span th:if="${ box_type } == 1">(서포터 닉네임)</span>
+            <span th:if="${ box_type } == 2">(프로젝트매니저 닉네임)</span>
+        </div>
+        <hr>
     <form th:action="@{/pm/replyMessage}" method="post" id="replyMessage">
         <input type="hidden" id="checkedMessageboxNo" name="boxType">
         <input type="hidden" id="senderNickname" name="senderNickname"
-               th:value="${ #authentication.getPrincipal().getNickName()}">
+               th:value="${ nickname }">
 
         <div class="row" style="margin: 10px">
             <label for="inputMessageReceiver" class="col-sm-2 col-form-label">답장 대상자</label>
@@ -130,6 +136,9 @@
                     // log.info(yyyyMMDD);
 
                     $("#checkedNickname").text("확인된 회원 (" + result[0] + ") : " + typeOfNickname + ", " + Date(regiDate) + "에 가입함.");
+                    console.log("매개변수 result[0]의 값 : "+result[0]);
+                    console.log("매개변수 result[1]의 값 : "+result[1]);
+                    console.log("매개변수 result[2]의 값 : "+result[2]);
 
 
                     $("#checkedMessageboxNo").val(result[1]);
