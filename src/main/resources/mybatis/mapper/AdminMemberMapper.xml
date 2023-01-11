@@ -12,6 +12,10 @@
         <result property="regiDate" column="REGI_DATE"/>
         <result property="recentLogin" column="RECENTLOGIN"/>
         <result property="isActive" column="IS_ACTIVE"/>
+
+       <!-- <association property="personalInfoDTO" resultMap="persnalResultMap"/>
+        <association property="inquiry" resultMap="inquiryResultMap"/>
+        <association property="inquiryType" resultMap="inquiryTypeResultMap"/>-->
     </resultMap>
 
     <resultMap type="PersonalInfoDTO" id="persnalResultMap">
