@@ -39,10 +39,9 @@ public class MemberController {
     @PostMapping("/signup")
     public String signup(@ModelAttribute MemberDTO member, @ModelAttribute PersonalInfoDTO personalInfoDTO
                         , RedirectAttributes rttr) throws ParseException {
+//        String rawPassword = member.getMemPwd();
+//        String encPassword = BCryptPasswordEncoder.encode(rawPassword);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        Date birthDate = format.parse(birthDate1);
-        System.out.println("member = " + member);
-        System.out.println("personalInfoDTO = " + personalInfoDTO);
         member.setPersonalInfoDTO(personalInfoDTO);
 
         int result = memberService.insertMember(member);
