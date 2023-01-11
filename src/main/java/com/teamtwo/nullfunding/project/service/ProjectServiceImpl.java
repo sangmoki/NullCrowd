@@ -1,10 +1,12 @@
 package com.teamtwo.nullfunding.project.service;
 
 import com.teamtwo.nullfunding.project.model.dao.ProjectMapper;
+import com.teamtwo.nullfunding.project.model.dto.PJDetail;
 import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
-import com.teamtwo.nullfunding.project.model.dto.ProjectRewardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -29,5 +31,21 @@ public class ProjectServiceImpl implements ProjectService {
         boolean result = (result3 == projectDTO.getProjectRewardDTOList().size()) ? true : false;
 
         return result;
+    }
+
+    @Override
+    public List<PJDetail> selectAllProject() {
+
+        List<PJDetail> allProject = projectMapper.selectAllProject();
+
+        return allProject;
+    }
+
+    @Override
+    public List<PJDetail> selectPreProject() {
+
+        List<PJDetail> preProject = projectMapper.selectPreProject();
+
+        return null;
     }
 }
