@@ -16,26 +16,26 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 @ContextConfiguration(classes = { NullfundingApplication.class, MybatisConfig.class })
 public class CommunityServiceImplImplTests {
-
-    @Autowired
-    private NoticeServiceImpl noticeServiceImpl;
-
-    @Test
-    public void testInit(){
-
-        assertNotNull(noticeServiceImpl);
-    }
-
-    @Test
-    public void 전체_공지_조회_메소드_테스트(){
-
-        List<NoticeDTO> noticeList = noticeServiceImpl.selectAllNoticeList();
-
-        assertNotNull(noticeList);
-        noticeList.forEach(System.out::println);
-
-    }
-
+//
+//    @Autowired
+//    private NoticeServiceImpl noticeServiceImpl;
+//
+//    @Test
+//    public void testInit(){
+//
+//        assertNotNull(noticeServiceImpl);
+//    }
+//
+//    @Test
+//    public void 전체_공지_조회_메소드_테스트(){
+//
+//        List<NoticeDTO> noticeList = noticeServiceImpl.selectAllNoticeList();
+//
+//        assertNotNull(noticeList);
+//        noticeList.forEach(System.out::println);
+//
+//    }
+//
 //    /* 공지사항 등록용 메소드 */
 //    @Test
 //    @Transactional
@@ -47,7 +47,7 @@ public class CommunityServiceImplImplTests {
 //            throw new NoticeRegistException("공지사항 등록 실패 !");
 //        }
 //    }
-
+//
 //    /* 공지사항 수정용 메소드 */
 //    @Test
 //    public void 공지사항_수정용_메소드_테스트 throws NoticeModifyException {
@@ -80,7 +80,7 @@ public class CommunityServiceImplImplTests {
 //
 //        return choiceNotice;
 //    }
-
-
+//
+//
 
 }

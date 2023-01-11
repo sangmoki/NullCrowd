@@ -14,7 +14,7 @@
     </resultMap>
 
     <!-- 검색한 게시물 개수 -->
-    <select id="selectTotalCount" resultType="int" parameterType="hashMap">
+    <select id="selectTotalCount" resultType="_int" parameterType="hashMap">
         SELECT
         COUNT(*)
         FROM COMMUNITY A
