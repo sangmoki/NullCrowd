@@ -18,6 +18,7 @@ public class EmailController {
 
 
 
+
 //    @PostMapping("/sendEmail")
 //    @ResponseBody
 //    public String sendEmail(HttpSession session, @RequestParam(value = "memEmail") String memEmail){

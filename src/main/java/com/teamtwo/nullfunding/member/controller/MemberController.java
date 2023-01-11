@@ -39,8 +39,7 @@ public class MemberController {
     @PostMapping("/signup")
     public String signup(@ModelAttribute MemberDTO member, @ModelAttribute PersonalInfoDTO personalInfoDTO
                         , RedirectAttributes rttr) throws ParseException {
-//        String rawPassword = member.getMemPwd();
-//        String encPassword = BCryptPasswordEncoder.encode(rawPassword);
+        member.setMemPwd(passwordEncoder.encode(member.getMemPwd()));
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         member.setPersonalInfoDTO(personalInfoDTO);
 
@@ -53,7 +52,6 @@ public class MemberController {
 
         return "redirect:/member/login";
     }
-
 
 
     @GetMapping("/login")

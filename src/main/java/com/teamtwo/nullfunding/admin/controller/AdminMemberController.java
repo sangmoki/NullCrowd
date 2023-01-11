@@ -30,14 +30,14 @@ public class AdminMemberController {
         this.adminMemberService = adminMemberService;
     }
 
-    /* 대시보드 부분 */
-    @GetMapping("/preview")
-    public ModelAndView adminPreview(ModelAndView mv){
+    @GetMapping("/dashBoard")
+    public ModelAndView adminDashBoard(ModelAndView mv){
 
-        mv.setViewName("content/admin/preview");
+        mv.setViewName("/content/admin/dashBoard");
 
         return mv;
     }
+
 
     /* 회원 관리 부분 */
     @GetMapping("/member")
@@ -93,10 +93,10 @@ public class AdminMemberController {
     }
 
     /* 매출 관리 부분 */
-    @GetMapping("/money")
-    public ModelAndView adminMoney(ModelAndView mv){
+    @GetMapping("/sales")
+    public ModelAndView adminSales(ModelAndView mv){
 
-        mv.setViewName("content/admin/money");
+        mv.setViewName("content/admin/sales");
 
         return mv;
     }
