@@ -45,38 +45,46 @@
         WHERE MEM_EMAIL = #{ memEmail }
     </select>
 
+    <!-- 닉네임 중복 확인 -->
+    <select id="nickDupCheck" resultType="_int">
+        SELECT
+            COUNT(NICKNAME)
+        FROM MEMBER
+        WHERE NICKNAME = #{ nickname }
+    </select>
+
     <!-- 회원 가입 -->
     <insert id="insertMember" parameterType="memberDTO">
         INSERT
         INTO MEMBER
         (
           MEM_CODE
-        , AUTH_CODE
         , MEM_EMAIL
         , MEM_PWD
         , IS_ACTIVE
         , REGI_DATE
         , NICKNAME
         , RECENTLOGIN
+        , AUTH_NAME
         )
         VALUES
         (
-          SEQ_MEMBER_NO.NEXTVAL
-        , default
+          SEQ_MEM_CODE.NEXTVAL
         , #{ memEmail }
         , #{ memPwd }
         , default
         , sysdate
         , #{ nickName }
         , sysdate
+        , default
         )
-        <selectKey keyColumn="MEM_CODE" keyProperty="MemCode" resultType="_int" order="AFTER">
-            SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL;
-        </selectKey>
-    </insert>
 
+    </insert>
     <!-- 회원 가입 personalInfo  -->
     <insert id="insertPersonalInfo" parameterType="personalInfoDTO">
+        <selectKey keyColumn="MEM_CODE" keyProperty="memCode" resultType="_int" order="BEFORE">
+            SELECT SEQ_MEM_CODE.CURRVAL FROM DUAL
+        </selectKey>
     INSERT
     INTO PERSONALINFO
     (
@@ -89,13 +97,13 @@
     )
     VALUES
     (
-      MemCode
+      #{ memCode }
     , #{ name }
+    , #{ gender }
     , #{ phone }
-    , #{ address }
+    , null
     , #{ birthDate }
     )
-
 
 </insert>
 

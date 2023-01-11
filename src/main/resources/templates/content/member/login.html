@@ -16,6 +16,12 @@
                               <!-- 헤더 -->
 <header th:replace="fragments/header :: headerFragment"></header>
                             <!-- 메인 바디 시작 -->
+<script>
+  if('[[${message}]]'){
+    alert('[[${message}]]')
+  }
+</script>
+
 
 <main class="form-signin text-center">
   <form action="/member/login" method="post" id="loginForm">
@@ -36,7 +42,6 @@
           <input type="checkbox" value="remember-me"> Remember me
         </label>
       </div>
-
 
   <!-- Button trigger modal -->
         <div style="float: right;">
