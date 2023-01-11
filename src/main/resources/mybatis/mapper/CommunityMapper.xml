@@ -13,4 +13,134 @@
         <result property="readCount" column="READ_COUNT"/>
     </resultMap>
 
+    <!-- 검색한 게시물 개수 -->
+    <select id="selectTotalCount" resultType="int" parameterType="hashMap">
+        SELECT
+        COUNT(*)
+        FROM COMMUNITY A
+        JOIN MEMBER B ON(A.MEM_CODE = B.MEM_CODE)
+        <where>
+            <if test="searchCondition == 'communityTitle'">
+                A.TITLE LIKE '%' || #{ searchValue } || '%'
+            </if>
+
+            <if test="searchCondition == 'nickName'">
+                B.NICKNAME LIKE '%' || #{ searchValue } || '%'
+            </if>
+        </where>
+    </select>
+
+    <!-- 검색하여 게시판 조회 -->
+    <select id="selectAllCommunityList" resultMap="communityResultMap">
+
+        SELECT
+        A.RNUM
+        , A.ARTICLE_NO
+        , A.TITLE
+        , A.CONTENT
+        , A.UPLOAD_DATE
+        , A.READ_COUNT
+        , A.MEM_CODE
+        , A.NICKNAME
+        FROM
+        (SELECT
+        ROWNUM RNUM
+        , B.ARTICLE_NO
+        , B.TITLE
+        , B.CONTENT
+        , B.UPLOAD_DATE
+        , B.READ_COUNT
+        , B.MEM_CODE
+        , B.NICKNAME
+        FROM
+        (SELECT C.ARTICLE_NO
+        , C.TITLE
+        , C.CONTENT
+        , C.UPLOAD_DATE
+        , C.READ_COUNT
+        , C.MEM_CODE
+        , E.NICKNAME
+        FROM COMMUNITY C
+        JOIN MEMBER E ON(C.MEM_CODE = E.MEM_CODE)
+        ORDER BY C.ARTICLE_NO DESC) B
+        <![CDATA[
+                  WHERE ROWNUM <= #{ endRow }
+                  ]]>
+        ) A
+        <where>
+            A.RNUM >= #{ startRow }
+            <if test="searchCondition == 'communityTitle'">
+                AND  A.TITLE LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'nickName'">
+                AND  A.NICKNAME LIKE '%' || #{searchValue} || '%'
+            </if>
+        </where>
+
+    </select>
+
+
+    <!-- 게시판 상세보기 조회 -->
+    <select id="selectCommunityDetail" resultMap="communityResultMap">
+        SELECT
+            A.ARTICLE_NO
+             , A.MEM_CODE
+             , B.NICKNAME
+             , A.TITLE
+             , A.CONTENT
+             , A.UPLOAD_DATE
+             , A.READ_COUNT
+        FROM COMMUNITY A
+                 JOIN MEMBER B ON (A.MEM_CODE = B.MEM_CODE)
+        WHERE A.ARTICLE_NO = #{ no }
+    </select>
+
+    <!-- 게시판 게시글 추가 -->
+    <insert id="insertCommunity" parameterType="CommunityDTO">
+        INSERT
+        INTO COMMUNITY A
+            (
+             A.ARTICLE_NO
+           , A.MEM_CODE
+           , A.TITLE
+           , A.CONTENT
+           , A.UPLOAD_DATE
+           , A.READ_COUNT
+        )
+        VALUES
+            (
+            SEQ_ARTICLE_NO.NEXTVAL
+                , #{ memberCode }
+                , #{ communityTitle }
+                , #{ communityContent }
+                , SYSDATE
+                , 0
+            )
+    </insert>
+
+    <!-- 게시판 게시글 수정 -->
+    <update id="updateCommunity" parameterType="CommunityDTO">
+        UPDATE
+            COMMUNITY A
+        SET   A.TITLE = #{ communityTitle }
+          , A.CONTENT = #{ communityContent }
+        WHERE A.ARTICLE_NO = #{ communityNo }
+    </update>
+
+    <!-- 게시판 게시글 삭제 -->
+    <delete id="deleteCommunity" parameterType="int">
+        DELETE
+        FROM   COMMUNITY A
+        WHERE  A.ARTICLE_NO = #{ no }
+    </delete>
+
+
+    <!-- 조회 시 조회 수 증가 -->
+    <update id="incrementCommunityCount" parameterType="int">
+        UPDATE
+            COMMUNITY A
+        SET A.READ_COUNT = A.READ_COUNT + 1
+        WHERE A.ARTICLE_NO = #{ no }
+    </update>
+
 </mapper>

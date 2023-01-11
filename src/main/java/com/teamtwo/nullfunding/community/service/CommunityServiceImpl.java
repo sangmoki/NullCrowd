@@ -29,7 +29,7 @@ public class CommunityServiceImpl implements CommunityService {
         return result;
     }
 
-    // 모든 공지사항 게시글 조회하는 용도의 메서드
+    // 모든 게시판 게시글 조회하는 용도의 메서드
     @Override
     public List<CommunityDTO> selectAllCommunityList(SelectCriteria selectCriteria) { // 완료
 
@@ -44,7 +44,7 @@ public class CommunityServiceImpl implements CommunityService {
         return communityList;
     }
 
-    // 공지사항 상세보기 용도의 메서드
+    // 게시판 상세보기 용도의 메서드
     @Transactional
     @Override
     public CommunityDTO selectCommunityDetail(int no) {
@@ -60,7 +60,7 @@ public class CommunityServiceImpl implements CommunityService {
         return communityDetail;
     }
 
-    // 공지사항 추가하는 용도의 메서드
+    // 게시판 추가하는 용도의 메서드
     @Override
     @Transactional
     public int insertCommunity(CommunityDTO community) {
@@ -75,7 +75,7 @@ public class CommunityServiceImpl implements CommunityService {
         return result;
     }
 
-    // 공지사항 변경하는 용도의 메서드
+    // 게시판 변경하는 용도의 메서드
     @Override
     @Transactional
     public int updateCommunity(CommunityDTO community) {
@@ -89,7 +89,7 @@ public class CommunityServiceImpl implements CommunityService {
         return result;
     }
 
-    // 공지사항 삭제하는 용도의 메서드
+    // 게시판 삭제하는 용도의 메서드
     @Override
     @Transactional
     public int deleteCommunity(int no) {

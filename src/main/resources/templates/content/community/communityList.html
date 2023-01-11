@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,15 +49,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="community : ${communityList}">ARTICLE_NO
-            MEM_CODE
-            TITLE
-            CONTENT
-            UPLOAD_DATE
+        <tr th:each="community : ${communityList}">
             <td th:text="${community.articleNo}"></td>
             <td th:text="${community.title}"></td>
             <td th:text="${community.nickName}"></td>
-            <td th:text="${#dates.format(community.uploadDate, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${#dates.format(community.u  ploadDate, 'yyyy-MM-dd HH:mm')}"></td>
             <td th:text="${community.readCount}"></td>
         </tr>
         </tbody>
@@ -157,8 +154,5 @@
 <footer th:replace="fragments/footer :: footerFragment"></footer>
 <!-- 메인 푸터 끝 -->
 
-
-</body>
-</html>
 </body>
 </html>
