@@ -34,4 +34,12 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 
         return memberList;
     }
+
+    @Override
+    public List<MemberDTO> selectAllPersonal() {
+
+        List<MemberDTO> personalList = mapper.selectAllPersonal();
+
+        return personalList;
+    }
 }

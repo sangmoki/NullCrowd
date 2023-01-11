@@ -14,4 +14,6 @@ public interface AdminMemberService {
     // 모든 회원 정보 조회
     List<MemberDTO> selectAllMemberList(SelectCriteria selectCriteria);
 
+    List<MemberDTO> selectAllPersonal();
+
 }

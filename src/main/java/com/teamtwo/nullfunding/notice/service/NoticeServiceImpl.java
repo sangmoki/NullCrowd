@@ -71,6 +71,7 @@ public class NoticeServiceImpl implements NoticeService {
             result = noticeMapper.insertNotice(notice);
         }
 
+        System.out.println("result =============== " + result);
         return result;
     }
 
