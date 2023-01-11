@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtwo.nullfunding.admin.model.dao.AdminMemberMapper">
+
+
+    <resultMap type="MemberDTO" id="memberResultMap">
+        <id property="memCode" column="MEM_CODE"/>
+        <result property="memEmail" column="MEM_EMAIL"/>
+        <result property="nickName" column="NICKNAME"/>
+        <result property="regiDate" column="REGI_DATE"/>
+        <result property="recentLogin" column="RECENTLOGIN"/>
+        <result property="isActive" column="IS_ACTIVE"/>
+    </resultMap>
+
+    <!-- 검색한 멤버 개수 -->
+    <select id="selectTotalCount" resultType="_int" parameterType="hashMap">
+        SELECT
+        COUNT(*)
+        FROM MEMBER A
+        <where>
+            <if test="searchCondition == 'memCode'">
+                A.MEM_CODE LIKE '%' || #{ searchValue } || '%'
+            </if>
+            <if test="searchCondition == 'memEmail'">
+                A.MEM_EMAIL LIKE '%' || #{ searchValue } || '%'
+            </if>
+            <if test="searchCondition == 'nickName'">
+                A.NICKNAME LIKE '%' || #{ searchValue } || '%'
+            </if>
+        </where>
+    </select>
+
+    <!-- 검색하여 회원 정보 조회 -->
+    <select id="selectAllMemberList" resultMap="memberResultMap">
+        SELECT
+        A.RNUM
+        , A.MEM_CODE
+        , A.MEM_EMAIL
+        , A.NICKNAME
+        , A.REGI_DATE
+        , A.RECENTLOGIN
+        , A.IS_ACTIVE
+        FROM
+        (SELECT ROWNUM RNUM
+        , B.MEM_CODE
+        , B.MEM_EMAIL
+        , B.NICKNAME
+        , B.REGI_DATE
+        , B.RECENTLOGIN
+        , B.IS_ACTIVE
+        FROM
+        (SELECT C.MEM_CODE
+        , C.MEM_EMAIL
+        , C.NICKNAME
+        , C.REGI_DATE
+        , C.RECENTLOGIN
+        , C.IS_ACTIVE
+        FROM MEMBER C
+        ORDER BY C.MEM_CODE ASC) B
+        <![CDATA[
+                WHERE ROWNUM <= #{ endRow }
+                ]]>
+        ) A
+        <where>
+            A.RNUM >= #{ startRow }
+            <if test="searchCondition == 'memCode'">
+                A.MEM_CODE LIKE '%' || #{ searchValue } || '%'
+            </if>
+            <if test="searchCondition == 'memEmail'">
+                A.MEM_EMAIL LIKE '%' || #{ searchValue } || '%'
+            </if>
+            <if test="searchCondition == 'nickName'">
+                A.NICKNAME LIKE '%' || #{ searchValue } || '%'
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

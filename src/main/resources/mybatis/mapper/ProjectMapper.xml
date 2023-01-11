@@ -3,6 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.teamtwo.nullfunding.project.model.dao.ProjectMapper">
+    
+    <resultMap id="approveProject" type="ApproveProject">
+        <id property="projectNo" column=""/>
+        <result property="processedDate" column="PROCESSED_DATE"/>
+        <result property="isApproved" column="IS_APPROVED"/>
+        <result property="deniedReason" column="DENIED_REASAON"/>
+    </resultMap>
+
+    <resultMap id="projectRewardDTO" type="ProjectRewardDTO">
+        <id property="projectNo" column="PROJECT_NO" />
+        <result property="name" column="NAME" />
+        <result property="price" column="PRICE" />
+        <result property="details" column="DETAILS" />
+    </resultMap>
+    
     <resultMap id="projectMediaDTO" type="ProjectMediaDTO">
         <id property="mediaNo" column="MEDIA_NO"/>
         <id property="projectNo" column="PROJECT_NO"/>
@@ -16,6 +31,7 @@
     <resultMap id="projectDTO" type="ProjectDTO">
         <id property="projectNo" column="PROJECT_NO"/>
         <result property="raiserCode" column="RAISER_CODE"/>
+        <result property="title" column="PJ_TITLE"/>
         <result property="description" column="DESCRIPTION"/>
         <result property="fundGoal" column="FUNDGOAL"/>
         <result property="regiDate" column="REGI_DATE"/>
@@ -23,8 +39,55 @@
         <result property="endDate" column="END_DATE"/>
         <result property="isFundable" column="IS_FUNDABLE"/>
         <result property="funderNum" column="FUNDERNUM"/>
+        <result property="mainImg" column="MAINIMG"/>
+        <result property="tel" column="TEL"/>
+        <result property="pjEmail" column="PJ_EMAIL"/>
+        <result property="refundRule" column="REFUNDRULE"/>
+        <result property="videoURL" column="VIDEO_URL"/>
 
+        <association property="approveProjectDTO" resultMap="approveProject"/>
+        <collection property="projectRewardDTOList" resultMap="projectRewardDTO"/>
         <collection property="projectMediaList" resultMap="projectMediaDTO"/>
     </resultMap>
+
+    <insert id="requestProject" parameterType="ProjectDTO">
+        INSERT
+          INTO FUNDINGPROJECT A
+          (
+               A.PROJECT_NO
+             , A.RAISER_CODE
+             , A.DESCRIPTION
+             , A.FUNDGOAL
+             , A.REGI_DATE
+             , A.START_DATE
+             , A.END_DATE
+             , A.IS_FUNDABLE
+             , A.FUNDERNUM
+             , A.PJ_TITLE
+             , A.MAINIMG
+             , A.TEL
+             , A.PJ_EMAIL
+             , A.REFUNDRULE
+             , A.VIDEO_URL
+          )
+          VALUES
+          (
+               SEQ_PROJECT_NO.NEXTVAL
+             , #{ raiserCode }
+             , #{ description }
+             , #{ fundGoal }
+             , SYSDATE
+             , #{startDate}
+             , #{ endDate }
+             , 'N'
+             , 0
+             , #{ mainImg }
+             , #{ tel }
+             , #{ pjEmail } 
+             , #{ refundRule }
+             , #{ videoURL }
+          )
+
+    </insert>
 </mapper>
 
