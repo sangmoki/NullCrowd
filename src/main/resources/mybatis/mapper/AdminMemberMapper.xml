@@ -14,6 +14,7 @@
         <result property="isActive" column="IS_ACTIVE"/>
     </resultMap>
 
+    <!-- 회원 관리 -->
     <!-- 검색한 멤버 개수 -->
     <select id="selectTotalCount" resultType="_int" parameterType="hashMap">
         SELECT
@@ -76,6 +77,9 @@
             </if>
         </where>
     </select>
+    <!-- 회원 관리 끝 -->
+
+    <!-- 문의 관리 -->
 
 
 </mapper>

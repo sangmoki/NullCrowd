@@ -1,7 +1,7 @@
 package com.teamtwo.nullfunding.admin.model.dao;
 
-import com.teamtwo.nullfunding.admin.model.dto.AdminMemberDTO;
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
+import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,5 +14,5 @@ public interface AdminMemberMapper {
     int selectTotalCount(Map<String, String> searchMap);
 
     // 모든 회원 정보 조회
-    List<AdminMemberDTO> selectAllMemberList(SelectCriteria selectCriteria);
+    List<MemberDTO> selectAllMemberList(SelectCriteria selectCriteria);
 }

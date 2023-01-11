@@ -1,4 +1,4 @@
-package com.teamtwo.nullfunding.admin.model.dto;
+package com.teamtwo.nullfunding.inquiry.model.dto;
 
 import com.teamtwo.nullfunding.member.dto.FundRaiserDTO;
 import com.teamtwo.nullfunding.member.dto.PersonalInfoDTO;
@@ -11,7 +11,7 @@ import java.util.Date;
 @ToString
 @Getter
 @Setter
-public class AdminMemberDTO {
+public class InquiryMemberDTO {
 
     private int memCode;
     private String authName;
