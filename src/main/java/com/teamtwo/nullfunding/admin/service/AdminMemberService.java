@@ -1,7 +1,7 @@
 package com.teamtwo.nullfunding.admin.service;
 
-import com.teamtwo.nullfunding.admin.model.dto.AdminMemberDTO;
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
+import com.teamtwo.nullfunding.member.dto.MemberDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +12,6 @@ public interface AdminMemberService {
     int selectTotalCount(Map<String, String> searchMap);
 
     // 모든 회원 정보 조회
-    List<AdminMemberDTO> selectAllMemberList(SelectCriteria selectCriteria);
+    List<MemberDTO> selectAllMemberList(SelectCriteria selectCriteria);
 
 }

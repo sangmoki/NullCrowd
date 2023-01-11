@@ -1,13 +1,11 @@
 package com.teamtwo.nullfunding.admin.service;
 
 import com.teamtwo.nullfunding.admin.model.dao.AdminMemberMapper;
-import com.teamtwo.nullfunding.admin.model.dto.AdminMemberDTO;
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
+import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -30,9 +28,9 @@ public class AdminMemberServiceImpl implements AdminMemberService {
     }
 
     @Override
-    public List<AdminMemberDTO> selectAllMemberList(SelectCriteria selectCriteria) {
+    public List<MemberDTO> selectAllMemberList(SelectCriteria selectCriteria) {
 
-        List<AdminMemberDTO> memberList = mapper.selectAllMemberList(selectCriteria);
+        List<MemberDTO> memberList = mapper.selectAllMemberList(selectCriteria);
 
         return memberList;
     }
