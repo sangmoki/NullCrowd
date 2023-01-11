@@ -30,6 +30,7 @@ public class MemberController {
         this.emailController = emailController;
     }
 
+
     @GetMapping("/signup")
     public String goSignup(){
 
