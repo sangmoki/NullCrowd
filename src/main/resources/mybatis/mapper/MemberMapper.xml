@@ -63,14 +63,16 @@
         , NICKNAME
         , RECENTLOGIN
         , AUTH_NAME)
-        VALUES ( SEQ_MEM_CODE.NEXTVAL
-               , #{ memEmail }
-               , #{ memPwd }
-               , default
-               , sysdate
-               , #{ nickName }
-               , sysdate
-               , default)
+        VALUES
+        ( SEQ_MEM_CODE.NEXTVAL
+        , #{ memEmail }
+        , #{ memPwd }
+        , default
+        , sysdate
+        , #{ nickName }
+        , sysdate
+        , default
+        )
 
     </insert>
     <!-- 회원 가입 personalInfo  -->

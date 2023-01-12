@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="generator" content="Hugo 0.104.2">
-    <title>회원관리</title>
+    <title>프로젝트 관리</title>
 
     <link rel="canonical" href="https://getbootstrap.kr/docs/5.2/examples/sidebars/">
 
@@ -22,6 +22,7 @@
 
     <meta name="theme-color" content="#712cf9">
     <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="/js/adminProject.js"></script>
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="/css/choStyle.css">
@@ -51,7 +52,8 @@
                   <th scope="col">프로젝트명</th>
                   <th scope="col"><a href="#">상세내용</a></th>
                   <th scope="col">신청일</th>
-                  <th scope="col">승인여부</th>
+                  <th scope="col">상태</th>
+                  <th scope="col">승인 여부</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -60,9 +62,10 @@
                   <td></td>
                   <td></td>
                   <td></td>
+                  <td></td>
                   <td>
-                    <button class="btn btn-primary">승인</button>
-                    <button class="btn btn-danger">거절</button>
+                    <button class="btn btn-primary" id="confirmBtn" name="isApproved">승인</button>
+                    <button class="btn btn-secondary" id="diniedBtn" name="isApproved">거절</button>
                   </td>
                 </tr>
 
