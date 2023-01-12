@@ -57,8 +57,8 @@ public class ProjectMapperTests {
         projectDTO.setTitle("Hell 2023! 즐거운 신년 파티");
         projectDTO.setDescription("프젝설명");
         projectDTO.setFundGoal(3000000);
-        projectDTO.setStartDate(new Date(2023-01-26));
-        projectDTO.setEndDate(new Date((2023-02-03)));
+        projectDTO.setStartDate(new Date(122,11,30));
+        projectDTO.setEndDate(new Date( 123,1,15));
         projectDTO.setMainImg("/img/thumbnail/07e61069cd37409dafd8d7b6b6a0870c.png");
         projectDTO.setTel("010-1234-5432");
         projectDTO.setPjEmail("creba@naver.com");

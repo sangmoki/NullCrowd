@@ -2,14 +2,20 @@ package com.teamtwo.nullfunding.member.controller;
 
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import com.teamtwo.nullfunding.member.dto.PersonalInfoDTO;
+import com.teamtwo.nullfunding.member.dto.UserImpl;
 import com.teamtwo.nullfunding.member.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -92,6 +98,26 @@ public class MemberController {
         return nickResult;
     }
 
+
+
+    /* 시작 :: 멤버십 - 결제 관련 부분입니다 */
+    @GetMapping("/membership")
+    public ModelAndView goMembership(@AuthenticationPrincipal UserDetails userDetails, ModelAndView mv) {
+
+        // 대상 회원정보(회원번호)는 현재 로그인 세션에서 뽑아와서 담는다.
+        int memberNo = ((UserImpl) userDetails).getMemCode();
+        mv.addObject("memberNo", memberNo);
+
+        // 담아서 어디로 보낼지 정하고, 보낸다.
+        mv.setViewName("content/member/membership");
+
+        return mv;
+
+    }
+
+
+
+    /* 끝 :: 멤버십 - 결제 관련 부분입니다 */
 
 }
 

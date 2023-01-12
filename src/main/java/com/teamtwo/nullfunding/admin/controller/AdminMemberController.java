@@ -111,7 +111,7 @@ public class AdminMemberController {
 //        }
 //
         List<MemberDTO> memberList = adminMemberService.selectAllPersonal();
-        mv.addObject("memberList", memberList);
+        mv.addObject("member", memberList);
 //        mv.addObject("selectCriteria", selectCriteria);
 
         mv.setViewName("content/admin/inquiry");
