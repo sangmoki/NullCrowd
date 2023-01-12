@@ -11,14 +11,10 @@ import java.util.Date;
 @ToString
 public class MembershipDTO {
 
-    private int membershipNo;
-
     private int memberNo;
-
+    private int membershipNo;
     private String startDate;
-
     private String endDate;
-
     private boolean isValid;
 
 }
