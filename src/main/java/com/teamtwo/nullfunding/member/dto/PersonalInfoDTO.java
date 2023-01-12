@@ -19,3 +19,4 @@ public class PersonalInfoDTO {
     private String gender;
     private String name;
 }
+

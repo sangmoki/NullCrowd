@@ -29,6 +29,7 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
     private MemberService memberService;
     private EmailController emailController;
+    private int nickResult;
 
     public MemberController(PasswordEncoder passwordEncoder, MemberService memberService, EmailController emailController) {
         this.passwordEncoder = passwordEncoder;

@@ -98,9 +98,6 @@ $(function (){
     });
 })
 
-$(function (){
-
-})
 
 // 회원가입 유효성 검사
 $(function (){
