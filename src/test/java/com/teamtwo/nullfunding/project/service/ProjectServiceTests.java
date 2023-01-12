@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ContextConfiguration(classes = { NullfundingApplication.class, MybatisConfig.class })
@@ -61,16 +62,32 @@ public class ProjectServiceTests {
 
         List<PJDetail> ProjectList = projectService.selectAllProject();
         System.out.println("ProjectList = " + ProjectList);
-        Date endDate = ProjectList.get(0).getProjectDTO().getEndDate();
-        Date startDate = ProjectList.get(0).getProjectDTO().getStartDate();
 
-        int dDay = projectService.CalculateDday(endDate);
-        System.out.println("dDay = " + dDay);
-//        for(int i = 0; i < ProjectList.size(); i++){
-//
-//            ProjectList.get(i).setRemainDate();
-//            ProjectList.get(i).setAchievePercent();
+        for(PJDetail pj : ProjectList){
 
-//        }
+            System.out.println("Dday = " + pj.getRemainDate());
+        }
+    }
+
+    @Test
+    void Pre프로젝트_들고오는_메소드_테스트(){
+
+        List<PJDetail> preProject =  projectService.selectPreProject();
+        assertNotNull(preProject);
+        System.out.println("preProject = " + preProject);
+
+    }
+
+    @Test
+    void 모집금액_테스트(){
+
+        List<PJDetail> ProjectList = projectService.selectAllProject();
+        System.out.println("ProjectList = " + ProjectList);
+
+
+        for(PJDetail pj : ProjectList){
+
+            System.out.println("Percent = " + pj.getAchievePercent());
+        }
     }
 }
