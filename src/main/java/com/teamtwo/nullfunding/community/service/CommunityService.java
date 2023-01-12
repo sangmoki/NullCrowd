@@ -2,7 +2,6 @@ package com.teamtwo.nullfunding.community.service;
 
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
 import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
-import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -25,4 +24,5 @@ public interface CommunityService {
 
     // 게시판 게시글 삭제하는 용도의 메서드
     int deleteCommunity(int no);
+
 }

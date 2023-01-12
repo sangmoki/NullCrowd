@@ -96,7 +96,8 @@
         </div>
         <br><br>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard">
-            <div class="col" th:each=" project : ${ ProjectList }">
+            <div class="col mainProject" th:each=" project : ${ ProjectList }">
+                <div class="PJno" style="display: none" th:text="${project.projectDTO.getProjectNo()}"></div>
                 <a href="#">
                     <div class="card" style="width: 22rem;">
                         <div class="card-reward-img">
@@ -108,8 +109,10 @@
                                 <p class="card-text" th:text=" ${ project.getProjectDTO().getTitle() } "></p>
                             </div>
                             <div class="row card-reward-row">
-                                <div class="card-reward-day col-2" th:text="'D-' + ${ project.getRemainDate() }"></div>
-                                <div class="card-reward-percent col-3 " style="padding-left: 0px; padding-right: 0px;"
+                                <div class="card-reward-day col-2"
+                                     th:text="'D-' + ${ project.getRemainDate() }"></div>
+                                <div class="card-reward-percent col-3 "
+                                     style="padding-left: 0px; padding-right: 0px;"
                                      th:text="${ project.getAchievePercent() } + '% 달성'"></div>
                                 <div class="card-reward-price null-color col-6"
                                      th:text="${ #numbers.formatInteger(project.getRaisedFund(), 3, 'COMMA') } + '원 펀딩'"></div>
@@ -120,6 +123,17 @@
             </div>
         </div>
     </div>
+<script>
+    const $mainPJs = $('.mainProject');
+    for (let i = 0; i < $mainPJs.length; i++) {
+
+        $mainPJs[i].onclick = function () {
+            let no = $(this).children('.PJno').html();
+            location.href = "/project/projectInfo?no=" + no;
+        }
+    }
+</script>
+</div>
 </div>
 </div>
 <!-- 더보기버튼 -->
@@ -136,6 +150,17 @@
         <div class="col">
         </div>
     </div>
+    <script>
+        $(function () {
+            $('#moreproject').click(function () {
+                $('#parentCard .col:hidden').slice(0, 3).show();
+                if ($('#datalist li').length == $('#datalist li:visible').length) {
+                    $('#moreproject').hide();
+                }
+            });
+        });
+    </script>
+
 </div>
 <div class="album py-5">
     <div class="container">
@@ -152,7 +177,7 @@
         </div>
         <br><br>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard2">
-            <div class="col" th:each=" preProject : ${ preProjectList }" id="cal">
+            <div class="col" th:each=" preProject : ${ preProjectList }">
                 <a href="#">
                     <div class="card" style="width: 22rem;">
                         <div class="card-reward-img">
@@ -164,7 +189,8 @@
                                 <p class="card-text" th:text=" ${ preProject.getProjectDTO().getTitle() } "></p>
                             </div>
                             <div class="row card-reward-row">
-                                <div class="card-reward-day col-2" th:text="'D-' + ${ preProject.getRemainDate() }"></div>
+                                <div class="card-reward-day col-2"
+                                     th:text="'D-' + ${ preProject.getRemainDate() }"></div>
                                 <div class="card-reward-price null-color col-6"
                                      th:text="${ preProject.getProjectDTO().getStartDate() } + ' 오픈!'"></div>
                             </div>
@@ -190,6 +216,16 @@
         <div class="col">
         </div>
     </div>
+    <script>
+        $(function () {
+            $('#morepre').click(function () {
+                $('#parentCard2 .col:hidden').slice(0, 3).show();
+                if ($('#parentCard2 .col').length == $('#parentCard2 .col:visible').length) {
+                    $('#morepre').hide();
+                }
+            });
+        });
+    </script>
 </div>
 
 <!-- ========================================preProject ========================================= -->
@@ -299,7 +335,27 @@
             </a>자유롭게 소통하세요!
             </div>
             <div></div>
-            <div>==================게시판정보 뿌려주는란===============================</div>
+            <div></div>
+            <table class="table table-hover" id="indexCommunity">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>날짜</th>
+                    <th>조회수</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="indexCommunityList : ${indexCommunityList}">
+                    <td th:text="${indexCommunityList.}"></td>
+                    <td th:text="${indexCommunity.title}"></td>
+                    <td th:text="${indexCommunity.nickName}"></td>
+                    <td th:text="${#dates.format(indexCommunity.uploadDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${indexCommunity.readCount}"></td>
+                </tr>
+                </tbody>
+            </table>
             <br><br>
         </div>
     </div>

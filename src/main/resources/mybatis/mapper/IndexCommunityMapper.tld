@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtwo.nullfunding.community.model.dao.CommunityMapper">
+
+    <resultMap type="IndexCommunityDTO" id="indexCommunityResultMap">
+        <id property="articleNo" column="ARTICLE_NO"/>
+        <result property="nickName" column="NICKNAME"/>
+        <result property="title" column="TITLE"/>
+        <result property="content" column="CONTENT"/>
+        <result property="uploadDate" column="UPLOAD_DATE"/>
+        <result property="readCount" column="READ_COUNT"/>
+    </resultMap>
+
+<!--    <select id="indexCommunity" resultMap="communityResultMap">-->
+
+<!--        SELECT-->
+<!--        A.RNUM-->
+<!--        , A.ARTICLE_NO-->
+<!--        , A.TITLE-->
+<!--        , A.CONTENT-->
+<!--        , A.UPLOAD_DATE-->
+<!--        , A.READ_COUNT-->
+<!--        , A.MEM_CODE-->
+<!--        , A.NICKNAME-->
+<!--        FROM-->
+<!--        (SELECT-->
+<!--        ROWNUM RNUM-->
+<!--        , B.ARTICLE_NO-->
+<!--        , B.TITLE-->
+<!--        , B.CONTENT-->
+<!--        , B.UPLOAD_DATE-->
+<!--        , B.READ_COUNT-->
+<!--        , B.MEM_CODE-->
+<!--        , B.NICKNAME-->
+<!--        FROM-->
+<!--        (SELECT C.ARTICLE_NO-->
+<!--        , C.TITLE-->
+<!--        , C.CONTENT-->
+<!--        , C.UPLOAD_DATE-->
+<!--        , C.READ_COUNT-->
+<!--        , C.MEM_CODE-->
+<!--        , E.NICKNAME-->
+<!--        FROM COMMUNITY C-->
+<!--        JOIN MEMBER E ON(C.MEM_CODE = E.MEM_CODE)-->
+<!--        ORDER BY C.ARTICLE_NO DESC) B-->
+<!--        <![CDATA[-->
+<!--                  WHERE ROWNUM <= #{ endRow }-->
+<!--                  ]]>-->
+<!--        ) A-->
+<!--        <where>-->
+<!--            A.RNUM >= #{ startRow }-->
+<!--            <if test="searchCondition == 'communityTitle'">-->
+<!--                AND  A.TITLE LIKE '%' || #{searchValue} || '%'-->
+<!--            </if>-->
+<!--            <if test="searchCondition == 'nickName'">-->
+<!--                AND  A.NICKNAME LIKE '%' || #{searchValue} || '%'-->
+<!--            </if>-->
+<!--        </where>-->
+
+<!--    </select>-->
+
+    <select id="indexCommunity" resultMap="indexCommunityResultMap">
+        SELECT A.ARTICLE_NO
+             , A.TITLE
+             , A.UPLOAD_DATE
+             , A.READ_COUNT
+             , B.NICKNAME
+        FROM COMMUNITY A
+        JOIN MEMBER B ON(A.MEM_CODE = B.MEM_CODE)
+       WHERE ROWNUM 5
+       ORDER BY A.ARTICLE_NO DESC
+    </select>
+</mapper>
