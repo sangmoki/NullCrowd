@@ -21,13 +21,9 @@ public class MemberDTO {
     private Date regiDate;
     private String nickName;
     private Date recentLogin;
-    private String name;
-    private String phone;
-    private String typeName;
-    private Date inquiryDate;
+
     private PersonalInfoDTO personalInfoDTO;
-    private InquiryTypeDTO inquiryTypeDTO;
-    private InquiryDTO inquiryDTO;
+
     private FundRaiserDTO fundRaiserDTO;
 
 

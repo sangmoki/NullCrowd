@@ -11,7 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.sql.Date;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +53,7 @@ public class ProjectServiceTests {
 
         // when
         boolean result = projectService.requestProject(projectDTO);
-        assertEquals(0, result);
+        assertEquals(true, result);
     }
 
     @Test
@@ -59,11 +61,11 @@ public class ProjectServiceTests {
 
         List<PJDetail> ProjectList = projectService.selectAllProject();
         System.out.println("ProjectList = " + ProjectList);
-        LocalDate now = LocalDate.now();
-        System.out.println("now = " + now);
         Date endDate = ProjectList.get(0).getProjectDTO().getEndDate();
-        System.out.println("endDate = " + endDate);
-//        Date dDay = endDate - now;
+        Date startDate = ProjectList.get(0).getProjectDTO().getStartDate();
+
+        int dDay = projectService.CalculateDday(endDate);
+        System.out.println("dDay = " + dDay);
 //        for(int i = 0; i < ProjectList.size(); i++){
 //
 //            ProjectList.get(i).setRemainDate();

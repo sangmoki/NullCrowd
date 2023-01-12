@@ -111,6 +111,7 @@ public class AdminMemberController {
 //        }
 //
         List<MemberDTO> memberList = adminMemberService.selectAllPersonal();
+        System.out.println("memberList = " + memberList);
         mv.addObject("memberList", memberList);
 //        mv.addObject("selectCriteria", selectCriteria);
 

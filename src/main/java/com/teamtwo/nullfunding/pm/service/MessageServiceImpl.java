@@ -102,9 +102,9 @@ public class MessageServiceImpl implements MessageService {
 
     // 닉네임에 딸린 가입일 찾는 메소드
     @Override
-    public Date getRegiDate(String nickname){
+    public String getRegiDate(String nickname){
 
-         Date result = mapper.getRegiDate(nickname);
+         String result = mapper.getRegiDate(nickname);
 
          return result;
     }

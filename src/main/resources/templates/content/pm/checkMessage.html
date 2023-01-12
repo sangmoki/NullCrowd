@@ -29,24 +29,23 @@
                 <button type="button" class="btn btn-primary" onclick="goSendMessage()">메시지 보내기</button>
                 <button type="button" class="btn btn-secondary" onclick="deleteMessage()">삭제</button>
             </div>
-            <br>
             <table class="table" id="listArea">
                 <thead>
                 <tr>
-                    <th scope="col-sm-1">
+                    <th class="col-sm">
                         <label class="checkbox-inline">
                             <input type="checkbox" id="allCheckBox" name="allCheckBox" onclick="allCheckClicked()">
                         </label>
                     </th>
-                    <th scope="col-sm-1">No.</th>
-                    <th scope="col-sm-7">메시지 제목</th>
-                    <th scope="col-sm-1">보낸 사람</th>
-                    <th scope="col-sm-1">보낸 시각</th>
-                    <th scope="col-sm-1">읽음여부</th>
+                    <th class="col-sm-1">No.</th>
+                    <th class="col-sm-5">메시지 제목</th>
+                    <th class="col-sm-2">보낸 사람</th>
+                    <th class="col-sm-2">보낸 시각</th>
+                    <th class="col-sm">읽음여부</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th scope th:each="message : ${ messageList }">
+                <tr th scope th:each="message : ${ messageList }"  style="white-space: nowrap; height: 40px; vertical-align: middle;">
                     <td scope="row" onclick="event.stopPropagation()">
                         <label class="checkbox-inline">
                             <input type="checkbox" id="checked" name="checked" class="check" onclick="checkClicked()"
@@ -56,16 +55,16 @@
                     <td scope="row">
                         <input style="display: none" th:text="${ message.messageNo }"/>
                     </td>
-                    <td scope="row" th:text="${ message.messageTitle }"></td>
-                    <td scope="row" th:text="${ message.senderNickname }"></td>
-                    <td scope="row" th:text="${ #dates.format(message.sendDate, 'MM-dd HH:mm:ss')}"></td>
-                    <td scope="row" th:if="${ message.isRead() } == true">
+                    <td scope="row" th:text="${ message.messageTitle }" style="alignment: center"></td>
+                    <td scope="row" th:text="${ message.senderNickname }" style="alignment: center"></td>
+                    <td scope="row" th:text="${ #dates.format(message.sendDate, 'MM-dd HH:mm:ss')}" style="alignment: center"></td>
+                    <td scope="row" th:if="${ message.isRead() } == true" style="alignment: center">　
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
                              class="bi bi-envelope-open" viewBox="0 0 16 16">
                             <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882l-6-3.2ZM15 7.383l-4.778 2.867L15 13.117V7.383Zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765l6-3.2Z"/>
                         </svg>
                     </td>
-                    <td th:if="${ message.isRead() } == false">
+                    <td th:if="${ message.isRead() } == false" style="alignment: center">　
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue"
                              class="bi bi-envelope" viewBox="0 0 16 16">
                             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
@@ -76,9 +75,10 @@
             </table>
         </div>
     </div>
-    <div class="row" style="margin: 15px">
+    <div class="row" style="margin: 12px">
         <hr style="height: 2px; background-color: black; border: black; opacity: 1">
     </div>
+
     <!-- 서포터 페이지 처리 -->
     <div th:if="${ boxNumber } == 1">
         <div class="pagingArea" align="center">
@@ -163,6 +163,24 @@
     </div>
     </div>
     <script>
+
+
+        // window.onload = startByNicknameCheck;
+
+        // 페이지 로드 시 실행 : 확인된 닉네임이 없을 시 얼럿창 호출 및 창 닫기
+        window.onload = function(){
+
+            let nickname = null
+            nickname = document.getElementById('nickname').textContent;
+
+            if(nickname==""){
+
+                alert("가져올 메시지박스 없음 : 해당 역할의 닉네임이 없습니다!")
+                window.close();
+            };
+            console.log(nickname);
+        }
+
 
 
        // 체크박스 전체선택 클릭

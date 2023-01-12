@@ -99,6 +99,24 @@
         WHERE A.IS_FUNDABLE = 'Y'
     </select>
 
+    <insert id="insertApproveProject">
+        INSERT
+          INTO APPROVEPROJECT A
+            (
+              PROJECT_NO
+            , PROCESSED_DATE
+            , IS_APPROVED
+            , DENIED_RESAON
+            )
+       VALUES
+            (
+              SEQ_PROJECT_NO.CURRVAL
+            , NULL
+            , DEFAULT
+            , NULL
+            )
+    </insert>
+
     <insert id="requestProject" parameterType="ProjectDTO">
         INSERT
         INTO FUNDINGPROJECT A (
