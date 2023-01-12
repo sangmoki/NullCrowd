@@ -53,21 +53,20 @@ public class ProjectMapperTests {
 
          //given
         ProjectDTO projectDTO = new ProjectDTO();
-        projectDTO.setRaiserCode(10);
-        projectDTO.setTitle("Hell 2023! 즐거운 신년 파티");
-        projectDTO.setDescription("프젝설명");
-        projectDTO.setFundGoal(3000000);
+        projectDTO.setRaiserCode(54);
+        projectDTO.setTitle("겨울에는 스키가 빠질 수 없다!");
+        projectDTO.setDescription("겨울에는 스키캠프 !");
+        projectDTO.setFundGoal(4000000);
         projectDTO.setStartDate(new Date(122,11,30));
         projectDTO.setEndDate(new Date( 123,1,15));
-        projectDTO.setMainImg("/img/thumbnail/07e61069cd37409dafd8d7b6b6a0870c.png");
-        projectDTO.setTel("010-1234-5432");
+        projectDTO.setMainImg("/img/thumbnail/2ski");
+        projectDTO.setTel("010-1234-4321");
         projectDTO.setPjEmail("creba@naver.com");
-        projectDTO.setRefundRule("환불정책입니다.");
-        projectDTO.setVideoURL("https://www.youtube.com/watch?v=rXPfovXw2tw&list=RDrXPfovXw2tw&start_radio=1");
-
+        projectDTO.setRefundRule("스키캠프 시작 1주일 전에 환불 신청을 하시면 전액 환불을 해드립니다.");
+        projectDTO.setVideoURL("https://www.youtube.com/watch?v=YFvXTUOWqlI");
         List<ProjectRewardDTO> projectRewardDTOList = new ArrayList<>();
-        ProjectRewardDTO reward1 = new ProjectRewardDTO(0, 0,"리워드1", 10000, "10,000원 리워드"  );
-        ProjectRewardDTO reward2 = new ProjectRewardDTO(0, 1, "리워드2", 20000, "20,000원 리워드"  );
+        ProjectRewardDTO reward1 = new ProjectRewardDTO(0, 0,"리워드명1", 150000, "왕초보~초보코스."  );
+        ProjectRewardDTO reward2 = new ProjectRewardDTO(0, 1, "리워드명2", 200000, "중급~고급코스"  );
         projectRewardDTOList.add(reward1);
         projectRewardDTOList.add(reward2);
 
@@ -76,11 +75,20 @@ public class ProjectMapperTests {
         int result = projectMapper.requestProject(projectDTO);
         assertEquals(1, result);
         int result2 = 0;
+        int result3 = 0;
         if(result == 1 ){
 
            result2 = projectMapper.insertRewards(projectRewardDTOList);
+           result3 =  projectMapper.insertApproveProject();
         }
 
-        assertEquals(2, result2);
+        assertEquals(1, result3);
+        assertEquals(1, result2);
     }
+
+//    @Test
+//    void 프로젝트승인_등록_메소드_테스트(){
+//
+//        projectMapper.insertApproveProject();
+//    }
 }

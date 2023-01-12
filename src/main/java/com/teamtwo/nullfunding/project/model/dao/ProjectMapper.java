@@ -18,4 +18,6 @@ public interface ProjectMapper {
     List<PJDetail> selectAllProject();
 
     List<PJDetail> selectPreProject();
+
+    int insertApproveProject();
 }
