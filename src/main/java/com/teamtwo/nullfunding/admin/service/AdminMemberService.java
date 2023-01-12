@@ -2,6 +2,7 @@ package com.teamtwo.nullfunding.admin.service;
 
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
+import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -16,4 +17,7 @@ public interface AdminMemberService {
 
     List<MemberDTO> selectAllPersonal();
 
+    List<ProjectDTO> selectAllProject();
+
+    int confirmProject(int projectNo, int decision);
 }

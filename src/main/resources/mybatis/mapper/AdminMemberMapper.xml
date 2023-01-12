@@ -44,7 +44,7 @@
 
 
     <resultMap id="approveProject" type="ApproveProject">
-        <id property="projectNo" column=""/>
+        <id property="projectNo" column="PROJECT_NO"/>
         <result property="processedDate" column="PROCESSED_DATE"/>
         <result property="isApproved" column="IS_APPROVED"/>
         <result property="deniedReason" column="DENIED_REASAON"/>
@@ -151,19 +151,22 @@
     </select>
 
     <!-- 프로젝트 조회 -->
-<!--    <select id="selectAllProject" resultMap="projectDTO">-->
-<!--        SELECT A.PROJECT_NO-->
-<!--             , A.PJ_TITLE-->
-<!--             , A.DESCRIPTION-->
-<!--             , A.REGI_DATE-->
-<!--             , B.IS_APPROVED-->
-<!--    </select>-->
+    <select id="selectAllProject" resultMap="projectDTO">
+        SELECT A.PROJECT_NO
+             , A.PJ_TITLE
+             , A.DESCRIPTION
+             , A.REGI_DATE
+             , B.IS_APPROVED
+        FROM FUNDINGPROJECT A
+        LEFT JOIN APPROVEPROJECT B ON (A.PROJECT_NO = B.PROJECT_NO)
+       WHERE B.IS_APPROVED = 3
+    </select>
 
     <!-- 프로젝트 관리 -->
-    <update id="confirmProject" parameterType="approveProject">
+    <update id="confirmProject" parameterType="_int">
     UPDATE APPROVEPROJECT
     SET
-        IS_APPROVED = #{ }
+        IS_APPROVED = #{ decision }
     WHERE
         PROJECT_NO = #{ projectNo }
     </update>

@@ -86,9 +86,4 @@ public class ProjectMapperTests {
         assertEquals(1, result2);
     }
 
-//    @Test
-//    void 프로젝트승인_등록_메소드_테스트(){
-//
-//        projectMapper.insertApproveProject();
-//    }
 }

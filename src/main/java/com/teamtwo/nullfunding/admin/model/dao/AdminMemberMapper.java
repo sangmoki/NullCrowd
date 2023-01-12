@@ -2,6 +2,7 @@ package com.teamtwo.nullfunding.admin.model.dao;
 
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
+import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,4 +18,9 @@ public interface AdminMemberMapper {
     List<MemberDTO> selectAllMemberList(SelectCriteria selectCriteria);
 
     List<MemberDTO> selectAllPersonal();
+
+    List<ProjectDTO> selectAllProject();
+
+
+    int confirmProject(int projectNo, int decision);
 }
