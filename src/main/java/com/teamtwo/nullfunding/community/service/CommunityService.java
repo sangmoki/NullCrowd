@@ -25,5 +25,5 @@ public interface CommunityService {
     // 게시판 게시글 삭제하는 용도의 메서드
     int deleteCommunity(int no);
 
-    List<CommunityDTO> indexCommunity();
+
 }

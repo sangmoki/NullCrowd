@@ -99,6 +99,10 @@ public class CommunityServiceImpl implements CommunityService {
 
     }
 
+//    @Override
+//    public List<CommunityDTO> indexCommunity() {
+//        return null;
+//    }
 
 
 }
