@@ -42,6 +42,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public PJDetail selectThisProject(int no) {
+
+        return projectMapper.selectThisProject(no);
+    }
+
+    @Override
     @Transactional
     public boolean requestProject(ProjectDTO projectDTO) {
 

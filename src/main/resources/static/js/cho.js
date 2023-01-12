@@ -1,21 +1,4 @@
 // 메인 프로젝트 더보기 기능
-$(function () {
-    $('#moreproject').click(function () {
-        $('#parentCard .col:hidden').slice(0, 2).show();
-        if ($('#datalist li').length == $('#datalist li:visible').length) {
-            $('#moreproject').hide();
-        }
-    });
-});
-
-$(function () {
-    $('#morepre').click(function (){
-        $('#parentCard2 .col:hidden').slice(0, 2).show();
-        if ($('#parentCard2 .col').length == $('#parentCard2 .col:visible').length) {
-            $('#morepre').hide();
-        }
-    });
-});
 
 // 회원정보보기
 $(function(){

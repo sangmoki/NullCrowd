@@ -20,4 +20,6 @@ public interface ProjectMapper {
     List<PJDetail> selectPreProject();
 
     int insertApproveProject();
+
+    PJDetail selectThisProject(int no);
 }
