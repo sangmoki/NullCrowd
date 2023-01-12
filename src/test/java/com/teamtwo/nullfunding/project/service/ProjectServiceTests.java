@@ -53,7 +53,7 @@ public class ProjectServiceTests {
 
         // when
         boolean result = projectService.requestProject(projectDTO);
-        assertEquals(0, result);
+        assertEquals(true, result);
     }
 
     @Test
@@ -63,8 +63,9 @@ public class ProjectServiceTests {
         System.out.println("ProjectList = " + ProjectList);
         Date endDate = ProjectList.get(0).getProjectDTO().getEndDate();
         Date startDate = ProjectList.get(0).getProjectDTO().getStartDate();
-//        System.out.println("dDay = " + dDay);
-//        Date dDay = endDate - now;
+
+        int dDay = projectService.CalculateDday(endDate);
+        System.out.println("dDay = " + dDay);
 //        for(int i = 0; i < ProjectList.size(); i++){
 //
 //            ProjectList.get(i).setRemainDate();

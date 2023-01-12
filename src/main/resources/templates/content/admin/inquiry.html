@@ -56,16 +56,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="text-center" th:each="member: ${memberList}">
+                <tr class="text-center" th:each="member : ${ memberList }">
                   <td class="text-center">
                     <div class="user-info">
                       <div class="user-info__basic">
-                        <h5 class="mb-0" th:text="${member.personalInfoDTO.getName()}"></h5>
+                        <h5 class="mb-0" th:text="${member.getPersonalInfoDTO().getName() }"></h5>
                       </div>
                     </div>
                   </td>
                   <td width="180px" class="text-center">
-                    <h6 class="mb-0" th:text="${member.personalInfoDTO.getPhone()}"></h6>
+                    <h6 class="mb-0" th:text="${member.getPersonalInfoDTO.getPhone()}"></h6>
                   </td>
                   <td calss="text-center">
                     <h6 class="mb-0" th:text="${member.getMemEmail()}"></h6>

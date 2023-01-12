@@ -37,6 +37,7 @@ public class ProjectServiceImpl implements ProjectService {
         System.out.println("standardDate = " + standardDate);
 
         int dDay =  (int)ChronoUnit.DAYS.between(standardDate, now);
+        //standardDate를 기준으로 now까지 얼마나 가야하는지.
 
         return Math.abs(dDay);
     }
@@ -53,6 +54,14 @@ public class ProjectServiceImpl implements ProjectService {
         if(result2 == 1){result3 = projectMapper.insertRewards(projectDTO.getProjectRewardDTOList());}
 
         boolean result = (result3 == projectDTO.getProjectRewardDTOList().size()) ? true : false;
+
+        if(result == true){
+
+            int result4 = projectMapper.insertApproveProject();
+
+            result = (result4 == 1) ? true : false;
+
+        }
 
         return result;
     }
