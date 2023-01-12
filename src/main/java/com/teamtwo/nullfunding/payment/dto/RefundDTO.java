@@ -3,7 +3,6 @@ package com.teamtwo.nullfunding.payment.dto;
 import lombok.*;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
