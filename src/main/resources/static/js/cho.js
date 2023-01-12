@@ -9,9 +9,9 @@ $(function () {
 });
 
 $(function () {
-    $('#morepre').click(function () {
-        $('#parentCard2 .col:hidden').slice(0, 3).show();
-        if ($('#datalist li').length == $('#datalist li:visible').length) {
+    $('#morepre').click(function (){
+        $('#parentCard2 #cal:hidden').slice(0, 2).show();
+        if ($('#parentCard2>#cal').length == $('#parentCard2>#cal:visible').length) {
             $('#morepre').hide();
         }
     });

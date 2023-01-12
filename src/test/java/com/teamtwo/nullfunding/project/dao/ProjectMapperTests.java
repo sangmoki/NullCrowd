@@ -86,9 +86,17 @@ public class ProjectMapperTests {
         assertEquals(1, result2);
     }
 
-//    @Test
-//    void 프로젝트승인_등록_메소드_테스트(){
-//
-//        projectMapper.insertApproveProject();
-//    }
+    @Test
+    void 퍼센트_시험_메소드(){
+
+        List<PJDetail> projectList = projectMapper.selectAllProject();
+
+        int fundGoal = projectList.get(0).getProjectDTO().getFundGoal();
+        System.out.println("fundGoal = " + fundGoal);
+        int raisedFund = projectList.get(0).getRaisedFund();
+        System.out.println("raisedFund = " + raisedFund);
+
+
+//        System.out.println("achievePercent = " + achievePercent);
+    }
 }
