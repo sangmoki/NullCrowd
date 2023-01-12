@@ -66,8 +66,8 @@ public class ProjectMapperTests {
         projectDTO.setVideoURL("https://www.youtube.com/watch?v=rXPfovXw2tw&list=RDrXPfovXw2tw&start_radio=1");
 
         List<ProjectRewardDTO> projectRewardDTOList = new ArrayList<>();
-        ProjectRewardDTO reward1 = new ProjectRewardDTO(0, 0,"리워드명1", 10000, "만원짜리리워드입니다."  );
-        ProjectRewardDTO reward2 = new ProjectRewardDTO(0, 1, "리워드명2", 20000, "이만원짜리요"  );
+        ProjectRewardDTO reward1 = new ProjectRewardDTO(0, 0,"리워드1", 10000, "10,000원 리워드"  );
+        ProjectRewardDTO reward2 = new ProjectRewardDTO(0, 1, "리워드2", 20000, "20,000원 리워드"  );
         projectRewardDTOList.add(reward1);
         projectRewardDTOList.add(reward2);
 
