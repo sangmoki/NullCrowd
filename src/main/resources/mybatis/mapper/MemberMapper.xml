@@ -36,6 +36,14 @@
         <result property="name" column="NAME"/>
     </resultMap>
 
+    <resultMap id="membershipDTO" type="MembershipDTO">
+        <id property="memberNo" column="MEM_CODE"/>
+        <result property="membershipNo" column="MEMBERSHIP_CODE"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="isValid" column="IS_VALID"/>
+    </resultMap>
+
 
     <!-- 아아디 중복 확인 -->
     <select id="idDupCheck" resultType="_int">
@@ -148,4 +156,48 @@
                  LEFT JOIN FUNDRAISER C ON (A.MEM_CODE = C.RAISER_CODE)
         WHERE A.MEM_EMAIL = #{ memEmail }
     </select>
+
+    <!-- 일단 해당 회원꺼 다 뽑아가서 서비스단에서의 로직으로 처리 -->
+    <select id="getMembershipData" resultMap="membershipDTO">
+       SELECT
+              MEM_CODE,
+              MEMBERSHIP_CODE,
+              TO_CHAR(START_DATE, 'YYYY-MM-DD HH24:MI:SS'),
+              TO_CHAR(END_DATE, 'YYYY-MM-DD HH24:MI:SS'),
+              END_DATE,
+              IS_VALID
+         FROM MEMBERSHIP
+        WHERE MEM_CODE = #{ memberNo }
+    </select>
+
+    <!-- 신규 멤버십 구매 완료 시 DB에 INSERT -->
+    <insert id="newMembershipData" parameterType="membershipDTO">
+        INSERT
+        INTO MEMBERSHIP
+        (
+         MEM_CODE,
+         MEMBERSHIP_CODE,
+         START_DATE,
+         END_DATE,
+         IS_VALID
+        )
+        VALUES
+        (
+         #{ memberNo },
+         SEQ_MEMBERSHIP_CODE.NEXTVAL,
+         SYSDATE,
+         SYSDATE +30,
+         'Y'
+         )
+    </insert>
+
+    <!-- 기존 멤버십 환불 처리 완료 시
+    (* 이용 기간 만료는 IS_VALID를 무효화 처리하지 않음 : 환불과 자연만료를 구분하기 위함)
+    (* -> 멤버십 기간이 끝나서 만료되는 거는, 멤버십 기간과 현재날짜와의 비교로 무효여부를 파악할 수 있음) -->
+    <update id="setMembershipData" parameterType="membershipDTO">
+       UPDATE MEMBERSHIP
+          SET IS_VALID = 'N'
+        WHERE MEMBERSHIP_CODE = #{ membershipNo }
+    </update>
+
 </mapper>
