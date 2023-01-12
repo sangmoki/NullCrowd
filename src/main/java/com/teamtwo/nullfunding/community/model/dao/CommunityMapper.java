@@ -15,19 +15,19 @@ public interface CommunityMapper {
     int selectTotalCount(Map<String, String> searchMap);
 
     /* 게시글 전체 조회 */
-    List<CommunityDTO> selectAllCommunityList(SelectCriteria selectCriteria);
+    List<CommunityDTO> selectCommunityList(SelectCriteria selectCriteria);
 
     /* 게시글 상세 페이지 조회 */
-    CommunityDTO selectCommunityDetail(Long no);
+    CommunityDTO selectCommunityDetail(int no);
 
     /* 해당 게시글의 전체 댓글 조회 */
-    List<ComCommentDTO> selectReplyList(Long boardNo);
+    List<ComCommentDTO> selectComCommentList(int articleNo);
 
     /* 댓글 등록 */
-    int insertComComment(ComCommentDTO registReply);
+    int insertComComment(ComCommentDTO insertComComment);
 
     /* 댓글 삭제 */
-    int deleteComComment(Long no);
+    int deleteComComment(int no);
 
     /* 게시글 등록 */
     int insertCommunity(CommunityDTO community);
@@ -40,4 +40,5 @@ public interface CommunityMapper {
 
     // 조회 수 증가?
     int incrementCommunityCount(int no);
+
 }

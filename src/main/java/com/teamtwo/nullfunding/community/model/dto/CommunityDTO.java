@@ -8,8 +8,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Getter
-@Setter
+@Data
 public class CommunityDTO {
 
     private int articleNo; // 게시글 번호

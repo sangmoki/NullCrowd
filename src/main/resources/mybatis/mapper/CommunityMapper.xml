@@ -13,7 +13,7 @@
         <result property="readCount" column="READ_COUNT"/>
 
         <association property="writer" resultMap="memberResultMap"/>
-    </resultMap><!-- 완료 -->
+    </resultMap>
 
     <resultMap type="MemberDTO" id="memberResultMap">
         <id property="memCode" column="MEM_CODE"/>
@@ -24,7 +24,7 @@
         <result property="nickName" column="NICKNAME"/>
         <result property="recentLogin" column="RECENTLOGIN"/>
         <result property="authName" column="AUTH_NAME"/>
-    </resultMap><!-- 완료 -->
+    </resultMap>
 
     <resultMap type="ComCommentDTO" id="comCommentResultMap">
         <id property="no" column="COMMENT_NO"/>
@@ -34,7 +34,7 @@
         <result property="uploadDate" column="UPLOAD_DATE"/>
 
         <association property="writer" resultMap="memberResultMap"/>
-    </resultMap><!-- 완료 -->
+    </resultMap>
 
     <!-- 해당 게시글 전체 갯수 조회 -->
     <select id="selectTotalCount" resultType="_int" parameterType="hashMap">
@@ -54,7 +54,7 @@
     </select>
 
     <!-- 게시글 전체 조회 -->
-    <select id="selectAllCommunityList" resultMap="communityResultMap">
+    <select id="selectCommunityList" resultMap="communityResultMap">
 
         SELECT
         A.RNUM
@@ -93,10 +93,10 @@
         <where>
             A.RNUM >= #{ startRow }
             <if test="searchCondition == 'title'">
-                AND  A.TITLE LIKE '%' || #{searchValue} || '%'
+                AND  A.TITLE LIKE '%' || #{ searchValu } || '%'
             </if>
             <if test="searchCondition == 'nickName'">
-                AND  A.NICKNAME LIKE '%' || #{searchValue} || '%'
+                AND  A.NICKNAME LIKE '%' || #{ searchValue } || '%'
             </if>
         </where>
 
@@ -153,10 +153,10 @@
     </insert>
 
     <!-- 댓글 삭제 -->
-    <delete id="deleteComComment" parameterType="long">
+    <delete id="deleteComComment" parameterType="int">
         DELETE
         FROM COM_COMMENT A
-        WHERE A.COMMENT_NO = #{ commentNo }
+        WHERE A.COMMENT_NO = #{no}
     </delete>
 
     <!-- 게시글 등록 -->
@@ -188,7 +188,7 @@
     </update>
 
     <!-- 게시글 삭제 -->
-    <delete id="deleteCommunity" parameterType="long">
+    <delete id="deleteCommunity" parameterType="int">
         DELETE
         FROM COMMUNITY A
         WHERE A.ARTICLE_NO = #{ no }
