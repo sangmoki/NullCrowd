@@ -53,20 +53,20 @@ public class ProjectMapperTests {
 
          //given
         ProjectDTO projectDTO = new ProjectDTO();
-        projectDTO.setRaiserCode(54);
-        projectDTO.setTitle("겨울에는 스키가 빠질 수 없다!");
-        projectDTO.setDescription("겨울에는 스키캠프 !");
-        projectDTO.setFundGoal(4000000);
-        projectDTO.setStartDate(new Date(122,11,30));
-        projectDTO.setEndDate(new Date( 123,1,15));
-        projectDTO.setMainImg("/img/thumbnail/2ski");
-        projectDTO.setTel("010-1234-4321");
-        projectDTO.setPjEmail("creba@naver.com");
-        projectDTO.setRefundRule("스키캠프 시작 1주일 전에 환불 신청을 하시면 전액 환불을 해드립니다.");
-        projectDTO.setVideoURL("https://www.youtube.com/watch?v=YFvXTUOWqlI");
+        projectDTO.setRaiserCode(59);
+        projectDTO.setTitle("여수 짚코스터");
+        projectDTO.setDescription("상공 50M의 높이에서 스릴을 만끽하세요!");
+        projectDTO.setFundGoal(1700000);
+        projectDTO.setStartDate(new Date(123,2,5));
+        projectDTO.setEndDate(new Date(123,3,5));
+        projectDTO.setMainImg("/img/thumbnail/17zip.jpg");
+        projectDTO.setTel("010-5555-5555");
+        projectDTO.setPjEmail("nullmember5@naver.com");
+        projectDTO.setRefundRule("5일 전까지 100% 환불가능합니다.");
+        projectDTO.setVideoURL("https://youtu.be/Wfcdycqn3w8");
         List<ProjectRewardDTO> projectRewardDTOList = new ArrayList<>();
-        ProjectRewardDTO reward1 = new ProjectRewardDTO(0, 0,"리워드명1", 150000, "왕초보~초보코스."  );
-        ProjectRewardDTO reward2 = new ProjectRewardDTO(0, 1, "리워드명2", 200000, "중급~고급코스"  );
+        ProjectRewardDTO reward1 = new ProjectRewardDTO(0, 0,"리워드1", 20000, "짚코스터 기본 패키지");
+        ProjectRewardDTO reward2 = new ProjectRewardDTO(0, 1, "리워드2", 30000, "짚코스터 고급 패키지(기념품 포함)");
         projectRewardDTOList.add(reward1);
         projectRewardDTOList.add(reward2);
 
@@ -83,7 +83,7 @@ public class ProjectMapperTests {
         }
 
         assertEquals(1, result3);
-        assertEquals(1, result2);
+        assertEquals(2, result2);
     }
 
 //    @Test
