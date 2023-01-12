@@ -1,7 +1,9 @@
 package com.teamtwo.nullfunding.home.controller;
 
 import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
+import com.teamtwo.nullfunding.home.dto.IndexCommunityDTO;
 import com.teamtwo.nullfunding.home.service.IndexCommunityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +15,18 @@ import java.util.List;
 @RequestMapping("/indexCommunity")
 public class IndexCommunityController {
 
+    IndexCommunityService indexCommunityService;
+
+    @Autowired
+    public IndexCommunityController(IndexCommunityService indexCommunityService) {
+        this.indexCommunityService = indexCommunityService;
+    }
+
     @GetMapping("/list")
     public ModelAndView indexCommunity(ModelAndView mv) {
 
 
-        List<CommunityDTO> indexCommunityList = IndexCommunityService();
+        List<IndexCommunityDTO> indexCommunityList = indexCommunityService.indexCommunity();
         mv.addObject("indexCommunityList", indexCommunityList);
 
 

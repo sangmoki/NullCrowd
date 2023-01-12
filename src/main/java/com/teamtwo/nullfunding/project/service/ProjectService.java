@@ -16,4 +16,6 @@ public interface ProjectService {
     List<PJDetail> selectPreProject();
 
     int CalculateDday(Date date);
+
+    PJDetail selectThisProject(int no);
 }

@@ -1,6 +1,7 @@
 package com.teamtwo.nullfunding.project.controller;
 
 import com.teamtwo.nullfunding.member.dto.UserImpl;
+import com.teamtwo.nullfunding.project.model.dto.PJDetail;
 import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
 import com.teamtwo.nullfunding.project.model.dto.ProjectMediaDTO;
 import com.teamtwo.nullfunding.project.model.dto.ProjectRewardDTO;
@@ -73,9 +74,15 @@ public class ProjectController {
     }
 
     @RequestMapping("/projectInfo")
-    public String projectInfo() {
+    public ModelAndView projectInfo(@RequestParam int no, ModelAndView mv) {
 
-        return "content/project/project-info";
+        PJDetail pjDetail = projectService.selectThisProject(no);
+        System.out.println("no = " + no);
+
+        mv.setViewName("content/project/project-info");
+        mv.addObject("pjDetail", pjDetail);
+
+        return mv;
     }
 
     @RequestMapping("/removeReward")

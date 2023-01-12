@@ -42,6 +42,25 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public PJDetail selectThisProject(int no) {
+
+        PJDetail pjDetail = projectMapper.selectThisProject(no);
+
+        /* D-Day 넣어주기 */
+        Date endDate = pjDetail.getProjectDTO().getEndDate();
+        int Dday = CalculateDday(endDate);
+        pjDetail.setRemainDate(Dday);
+        /* 달성률 만들어서 넣어주기 */
+        int fundGoal = pjDetail.getProjectDTO().getFundGoal();
+        int raisedFund = pjDetail.getRaisedFund();
+        int achievePercent = (int)(((double)raisedFund/(double)fundGoal)*100);
+
+        pjDetail.setAchievePercent(achievePercent);
+
+        return pjDetail;
+    }
+
+    @Override
     @Transactional
     public boolean requestProject(ProjectDTO projectDTO) {
 

@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -165,7 +164,7 @@ public class MemberController {
         mv.addObject("amount", amount);
 
         // 구매 쪽으로 넘겨야 하니까, 구매로 보낸다.
-        mv.setViewName("content/payment/payment");
+        mv.setViewName("content/payment/confirmAndPay");
 
         return mv;
     }
