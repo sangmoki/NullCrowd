@@ -49,7 +49,6 @@ public interface MessageService {
     // 메시지 답장용 메소드
     void replyMessage(Map<String, Object> searchMap) throws MessageSendException;
 
-
     //메시지 삭제용 메소드
     int deleteMessage(Integer messageNo);
 }
