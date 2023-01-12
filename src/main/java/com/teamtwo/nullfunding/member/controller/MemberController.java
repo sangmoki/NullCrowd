@@ -122,6 +122,7 @@ public class MemberController {
 
         // 2. 가져온 멤버십으로 멤버십 적용기간을 뽑는다.
         Map<String, String> membershipPeriod = memberService.getMembershipPeriod(membershipList);
+        System.out.println("리턴받은 membershipPeriod (결과값) ============> " + membershipPeriod);
 
         // 2-1. 가져온 멤버십 적용기간 시작날짜, 종료날짜 모두 null이 아니면, 유효한 날짜를 보내고 아니면 모두 null로 세팅해 보낸다.
         if(membershipPeriod.get("startDate")!=null && membershipPeriod.get("endDate")!=null){

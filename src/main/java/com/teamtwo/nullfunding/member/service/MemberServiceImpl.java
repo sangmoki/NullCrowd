@@ -123,18 +123,18 @@ public class MemberServiceImpl implements MemberService {
         // 1. 리스트에 몇개의 멤버십이 들었는지 아직 모르니 for문을 돌릴 준비
         for(MembershipDTO data : membershipList){
 
-            // 1-1. 날짜 형식을 변환할 SimpleDateFormat 객체 생성 후 처리해 담기 (String -> Date)
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분 ss초");
+            // 1. 유효성 검사 대상 날짜 변수 지정(startDate, endDate) 및 매개변수로 리스트에서 값을 꺼내 담음
             log.info("[MemberService] "+ data + "에 대한 유효성 검사 시작");
-            Date startDate = simpleDateFormat.parse(data.getStartDate());
-            log.info("[MemberService]  검사 대상 멤버십 시작날짜 : " + startDate);
-            Date endDate = simpleDateFormat.parse(data.getEndDate());
-            log.info("[MemberService]  검사 대상 멤버십 종료 날짜 : " + endDate);
+            Date startDate = data.getStartDate();
+            log.info("[MemberService] 검사 대상 멤버십 시작일 : " + startDate);
+            Date endDate = data.getEndDate();
+            log.info("[MemberService] 검사 대상 멤버십 종료일 : " + endDate);
 
             // 2. 오늘 날짜와 멤버십의 startDate 비교
             boolean startDateIsValid = false;
             // 시작날짜.compareTo(오늘날짜) 비교해서 시작날짜가 작으면 startDateIsValid는 true
             if(startDate.compareTo(new Date())<=0){
+                log.info("[MemberService] 시작일과 오늘 비교결과 : "+(startDate.compareTo(new Date())<=0));
                 startDateIsValid = true;
             } else { startDateIsValid = false; }
 
@@ -142,20 +142,27 @@ public class MemberServiceImpl implements MemberService {
             boolean endDateIsValid = false;
             // 끝날짜.compareTo(오늘날짜) 비교해서 끝날짜가 크면 endDateIsValid는 true
             if(endDate.compareTo(new Date())>=0){
-                startDateIsValid = true;
+                log.info("[MemberService] 종료일과 오늘 비교결과 : "+(endDate.compareTo(new Date())>=0));
+                endDateIsValid = true;
             } else { endDateIsValid = false; }
 
             // 4. 위의 두 날짜가 true인지 + 해당 멤버십이 환불신청된 건 아닌지까지 if문에 넣고
+            log.info("[MemberService] 검사 대상 멤버십 유효 여부 : " + data.isValid());
             if(startDateIsValid && endDateIsValid && data.isValid()){
-                log.info("[MemberService]  검사 대상 멤버십 환불 여부 : " + data.isValid());
-                // 5. 모두 참일 경우, 해당하는 startDate와 endDate를 생성해둔 맵 객체에 넣고 반환
+                // 5. 셋 모두 참일 경우, 해당하는 startDate와 endDate를 생성해둔 맵 객체에 넣고 반환
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분 ss초");
                 membershipPeriod.put("startDate", simpleDateFormat.format(startDate));
                 membershipPeriod.put("endDate", simpleDateFormat.format(endDate));
+                log.info("[MemberService] 현재 적용 중인 멤버십 시작일 : "+ simpleDateFormat.format(startDate));
+                log.info("[MemberService] 현재 적용 중인 멤버십 종료일 : "+simpleDateFormat.format(endDate));
 
+                // 하나라도 true&true&true로 걸리면, 해당 startDate, endDate 값들을 해시맵에 담고 리턴
+                return membershipPeriod;
             }
 
         }
-        // 리스트에 반복문을 다 돌린 후 맵 객체를 돌려줌
+
+        // 리스트에 반복문을 다 돌려도 없으면 null, null 객체를 돌려줌
         return membershipPeriod;
     }
 

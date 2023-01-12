@@ -13,8 +13,8 @@ public class MembershipDTO {
 
     private int memberNo;
     private int membershipNo;
-    private String startDate;
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
     private boolean isValid;
 
 }

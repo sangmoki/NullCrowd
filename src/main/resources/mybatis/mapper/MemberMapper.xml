@@ -162,8 +162,7 @@
        SELECT
               MEM_CODE,
               MEMBERSHIP_CODE,
-              TO_CHAR(START_DATE, 'YYYY-MM-DD HH24:MI:SS'),
-              TO_CHAR(END_DATE, 'YYYY-MM-DD HH24:MI:SS'),
+              START_DATE,
               END_DATE,
               IS_VALID
          FROM MEMBERSHIP
