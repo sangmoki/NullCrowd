@@ -1,5 +1,7 @@
 package com.teamtwo.nullfunding.community.controller;
 
+import com.teamtwo.nullfunding.common.Exception.community.CommunityRegistException;
+import com.teamtwo.nullfunding.common.Exception.community.CommunityUpdateException;
 import com.teamtwo.nullfunding.common.paging.Pagenation;
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
 import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
@@ -99,7 +101,7 @@ public class CommunityController {
     // 게시판 작성하여 전송하기
     @PostMapping("insert")
     public String insertCommunity(@ModelAttribute CommunityDTO community
-            , @AuthenticationPrincipal UserDetails userDetails) {
+            , @AuthenticationPrincipal UserDetails userDetails) throws CommunityRegistException {
 
         int memCode = ((UserImpl) userDetails).getMemCode();
 
@@ -125,7 +127,7 @@ public class CommunityController {
 
     // 게시판 작성하여 변경하기
     @PostMapping("/update")
-    public String updateCommunity(@ModelAttribute CommunityDTO community) {
+    public String updateCommunity(@ModelAttribute CommunityDTO community) throws CommunityUpdateException {
 
         communityService.updateCommunity(community);
 
