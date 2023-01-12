@@ -96,7 +96,7 @@
         </div>
         <br><br>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard">
-            <div class="col" th:each=" project : ${ ProjectList }">
+            <div class="col mainProject" th:each=" project : ${ ProjectList }">
                 <a href="#">
                     <div class="card" style="width: 22rem;">
                         <div class="card-reward-img">
@@ -119,6 +119,19 @@
                 </a>
             </div>
         </div>
+        <script>
+            const $mainPJs = $('.mainProject');
+            for (let i = 0; i < $mainPJs.length; i++) {
+
+                $mainPJs[i].onclick = function () {
+                    // const no = this.;
+                    location.href = "/notice/detail?no=" + no;
+                }
+
+            // }
+
+            }
+        </script>
     </div>
 </div>
 </div>
@@ -152,7 +165,7 @@
         </div>
         <br><br>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard2">
-            <div class="col" th:each=" preProject : ${ preProjectList }" id="cal">
+            <div class="col" th:each=" preProject : ${ preProjectList }">
                 <a href="#">
                     <div class="card" style="width: 22rem;">
                         <div class="card-reward-img">
@@ -164,7 +177,8 @@
                                 <p class="card-text" th:text=" ${ preProject.getProjectDTO().getTitle() } "></p>
                             </div>
                             <div class="row card-reward-row">
-                                <div class="card-reward-day col-2" th:text="'D-' + ${ preProject.getRemainDate() }"></div>
+                                <div class="card-reward-day col-2"
+                                     th:text="'D-' + ${ preProject.getRemainDate() }"></div>
                                 <div class="card-reward-price null-color col-6"
                                      th:text="${ preProject.getProjectDTO().getStartDate() } + ' 오픈!'"></div>
                             </div>
