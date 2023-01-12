@@ -2,12 +2,22 @@ package com.teamtwo.nullfunding.home.service;
 
 import com.teamtwo.nullfunding.home.dao.IndexMapper;
 import com.teamtwo.nullfunding.home.dto.IndexCommunityDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class IndexCommunityServiceImpl {
+@Service
+public class IndexCommunityServiceImpl implements IndexCommunityService {
+
+    IndexMapper indexMapper;
+
+    @Autowired
+    public IndexCommunityServiceImpl(IndexMapper indexMapper) {
+        this.indexMapper = indexMapper;
+    }
 
     public List<IndexCommunityDTO> indexCommunity() { // 완료
 
@@ -17,7 +27,7 @@ public class IndexCommunityServiceImpl {
         // 원하는 데이터 포맷 지정
         simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
 
-        List<IndexCommunityDTO> indexCommunityList = IndexMapper.indexCommunity();
+        List<IndexCommunityDTO> indexCommunityList = indexMapper.indexCommunity();
 
         return indexCommunityList;
     }
