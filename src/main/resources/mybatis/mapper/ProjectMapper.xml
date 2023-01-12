@@ -73,7 +73,7 @@
              , B.RAI_NICKNAME
         FROM FUNDINGPROJECT A
                  LEFT JOIN FUNDRAISER B ON (A.RAISER_CODE = B.RAISER_CODE)
-        WHERE A.IS_FUNDABLE = 'Y'
+        WHERE A.IS_FUNDABLE = 'N'
           AND A.START_DATE <![CDATA[ > ]]> SYSDATE
     </select>
 
