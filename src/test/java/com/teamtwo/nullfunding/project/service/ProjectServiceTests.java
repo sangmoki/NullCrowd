@@ -75,7 +75,14 @@ public class ProjectServiceTests {
         List<PJDetail> preProject =  projectService.selectPreProject();
         assertNotNull(preProject);
         System.out.println("preProject = " + preProject);
+    }
 
+    @Test
+    void 프로젝트_디테일_들고오는_메소드_테스트(){
+
+        PJDetail preProject =  projectService.selectThisProject(49);
+        assertNotNull(preProject);
+        System.out.println("preProject = " + preProject);
     }
 
     @Test
