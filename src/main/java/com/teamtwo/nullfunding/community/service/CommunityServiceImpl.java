@@ -29,7 +29,7 @@ public class CommunityServiceImpl implements CommunityService {
         return result;
     }
 
-    // 모든 게시판 게시글 조회하는 용도의 메서드
+    // 모든 게시글 조회하는 용도의 메서드
     @Override
     public List<CommunityDTO> selectAllCommunityList(SelectCriteria selectCriteria) { // 완료
 
@@ -53,7 +53,7 @@ public class CommunityServiceImpl implements CommunityService {
         int result = communityMapper.incrementCommunityCount(no);
 
         if (result > 0) {
-            communityDetail = communityMapper.selectCommunityDetail(no);
+            communityDetail = communityMapper.selectCommunityDetail((long) no);
             System.out.println("communityDetail ===============================> " + communityDetail);
         }
 
