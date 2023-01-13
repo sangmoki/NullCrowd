@@ -5,7 +5,7 @@
 <mapper namespace="com.teamtwo.nullfunding.community.model.dao.CommunityMapper">
 
     <resultMap type="CommunityDTO" id="communityResultMap">
-        <id property="no" column="ARTICLE_NO"/>
+        <id property="articleNo" column="ARTICLE_NO"/>
         <result property="memCode" column="MEM_CODE"/>
         <result property="title" column="TITLE"/>
         <result property="content" column="CONTENT"/>
@@ -27,7 +27,7 @@
     </resultMap>
 
     <resultMap type="ComCommentDTO" id="comCommentResultMap">
-        <id property="no" column="COMMENT_NO"/>
+        <id property="commentNo" column="COMMENT_NO"/>
         <result property="articleNo" column="ARTICLE_NO"/>
         <result property="memCode" column="MEM_CODE"/>
         <result property="content" column="CONTENT"/>
