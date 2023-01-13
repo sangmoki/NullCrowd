@@ -24,10 +24,6 @@
         <result property="isActive" column="IS_ACTIVE"/>
         <result property="inqueryDate" column="INQUIRY_TYPE"/>
 
-        <association property="personalInfoDTO" resultMap="persnalResultMap"/>
-        <association property="inquiry" resultMap="inquiryResultMap"/>
-        <association property="inquiryType" resultMap="inquiryTypeResultMap"/>
-
     </resultMap>
 
     <resultMap type="PersonalInfoDTO" id="persnalResultMap">
@@ -54,6 +50,25 @@
         <result property="typeName" column="TYPE_NAME"></result>
     </resultMap>
 
+    <resultMap id="projectDTO" type="ProjectDTO">
+        <id property="projectNo" column="PROJECT_NO"/>
+        <result property="raiserCode" column="RAISER_CODE"/>
+        <result property="title" column="PJ_TITLE"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="fundGoal" column="FUNDGOAL"/>
+        <result property="regiDate" column="REGI_DATE"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="isFundable" column="IS_FUNDABLE"/>
+        <result property="funderNum" column="FUNDERNUM"/>
+        <result property="mainImg" column="MAINIMG"/>
+        <result property="tel" column="TEL"/>
+        <result property="pjEmail" column="PJ_EMAIL"/>
+        <result property="refundRule" column="REFUNDRULE"/>
+        <result property="videoURL" column="VIDEO_URL"/>
+
+        <association property="approveProjectDTO" resultMap="approveProject"/>
+    </resultMap>
 
 
     <!-- 회원 관리 -->

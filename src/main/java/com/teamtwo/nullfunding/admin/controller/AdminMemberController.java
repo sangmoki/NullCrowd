@@ -122,15 +122,6 @@ public class AdminMemberController {
     }
 
 
-    /* 프로젝트 관리 부분 */
-    @GetMapping("/project")
-    public ModelAndView adminProject(ModelAndView mv){
-
-        mv.setViewName("content/admin/project");
-
-        return mv;
-    }
-
     /* 매출 관리 부분 */
     @GetMapping("/sales")
     public ModelAndView adminSales(ModelAndView mv){
