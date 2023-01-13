@@ -1,6 +1,5 @@
 package com.teamtwo.nullfunding.home.controller;
 
-import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
 import com.teamtwo.nullfunding.home.dto.IndexCommunityDTO;
 import com.teamtwo.nullfunding.home.service.IndexCommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class IndexCommunityController {
         mv.addObject("indexCommunityList", indexCommunityList);
 
 
-        mv.setViewName("/content/index");
+        mv.setViewName("/content/index/");
 
         return mv;
     }

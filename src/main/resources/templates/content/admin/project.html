@@ -48,24 +48,27 @@
                 <tbody>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard">
                   <div class="col mainProject" th:each=" project : ${ ProjectList }">
-                    <div class="PJno" style="display: none" :text="${project.projectDTO.getProjectNo()}"></div>
+                    <td class="projectNo" th:text="${project.projectNo}"></td>
+                    <td th:text="${project.title}"></td>
+                    <td th:text="${project.description}"></td>
+                    <td th:text="${#dates.format(project.regiDate, 'yyyy-MM-dd')}"></td>
+                    <td>
+                      <button class="btn btn-primary approveBtn"  name="isApproved">승인</button>
+                      <button class="btn btn-secondary deniedBtn"  name="isApproved">거절</button>
+                    </td>
+                    <div class="projectNo" style="display: none" :text="${project.projectDTO.getProjectNo()}"></div>
                     <a href="#"></a>
-                  <td>
-                    <button class="btn btn-primary approveBtn"  name="isApproved">승인</button>
-                    <button class="btn btn-secondary deniedBtn"  name="isApproved">거절</button>
-                  </td>
                   </div>
+                  <script>
+                    const $mainProject = $('.mainProject');
+                    for (let i = 0; i < $mainProject.length; i++) {
 
-                <script>
-                  const $mainPJs = $('.mainProject');
-                  for (let i = 0; i < $mainPJs.length; i++) {
-
-                    $mainPJs[i].onclick = function () {
-                      let no = $(this).children('.PJno').html();
-                      location.href = "/project/projectInfo?no=" + no;
+                      $mainProject[i].onclick = function () {
+                        let no = $(this).children('.projectNo').html();
+                        location.href = "/admin/confirmProject" + no;
+                      }
                     }
-                  }
-                </script>
+                  </script>
                 </div>
                 </tbody>
               </table>
