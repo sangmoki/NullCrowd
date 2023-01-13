@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.teamtwo.nullfunding.inquiry.dao.InquiryMapper">
+<mapper namespace="com.teamtwo.nullfunding.inquiry.model.dao.InquiryMapper">
 
     <resultMap type="InquiryDTO" id="inquiryResultMap">
         <id property="inquiryNo" column="INQUIRY_NO"/>
         <result property="memEmail" column="MEM_EMAIL"/>
-        <result property="inquiryType" column="INQUIRY_TYPE"/>
+        <result property="type" column="INQUIRY_TYPE"/>
         <result property="inquiryContent" column="INQUIRY_CONTENT"/>
         <result property="inquiryDate" column="INQUIRY_DATE"/>
+        <result property="memCode" column="MEM_CODE"/>
     </resultMap>
 
     <!-- 문의 접수하기 -->
@@ -23,15 +24,17 @@
       , A.INQUIRY_TYPE
       , A.INQUIRY_CONTENT
       , A.INQUIRY_DATE
+      , A.MEM_CODE
     )
     VALUES
     (
         SEQ_INQUIRY_NO.NEXTVAL
-      , #{ memEmail }
-      , #{ inquiryType }
-      , #{ inquiryContent }
+      , #{memEmail}
+      , #{type}
+      , #{inquiryContent}
       , SYSDATE
-    )
+      , #{memCode}
+        )
     </insert>
 
 

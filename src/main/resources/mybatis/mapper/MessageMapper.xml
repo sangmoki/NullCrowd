@@ -113,9 +113,9 @@
         WHERE FUNDRAISER.RAI_NICKNAME = #{ nickname }
     </select>
 
-    <select id="getRegiDate" resultType="date" parameterType="String">
+    <select id="getRegiDate" resultType="String" parameterType="String">
         SELECT
-               REGI_DATE
+               TO_CHAR(REGI_DATE, 'YYYY-MM-DD')
           FROM MEMBER
           JOIN FUNDRAISER ON (MEMBER.MEM_CODE = FUNDRAISER.RAISER_CODE)
          WHERE MEMBER.NICKNAME = #{ nickname }

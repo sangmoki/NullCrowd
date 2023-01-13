@@ -1,5 +1,7 @@
 package com.teamtwo.nullfunding.member.dto;
 
+import com.teamtwo.nullfunding.inquiry.model.dto.InquiryDTO;
+import com.teamtwo.nullfunding.inquiry.model.dto.InquiryTypeDTO;
 import lombok.*;
 
 import java.sql.Date;
@@ -19,8 +21,11 @@ public class MemberDTO {
     private Date regiDate;
     private String nickName;
     private Date recentLogin;
+
     private PersonalInfoDTO personalInfoDTO;
+
     private FundRaiserDTO fundRaiserDTO;
+
 
 
 }

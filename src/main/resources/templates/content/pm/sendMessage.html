@@ -86,19 +86,22 @@
             success:function(result){
                 console.log(result);
                 if(result[1]==null){
-                    $("#checkedNickname").text("확인된 회원 없음 : 닉네임을 다시 확인해주세요!");
+                    $("#checkedNickname").text("확인된 닉네임 없음 : 닉네임을 다시 확인 후 입력해주세요!");
                     $("#checkedMessageboxNo").val(null);
                 }
                 else {
                     if (result[1]==1){
-                        typeOfNickname = " 서포터 회원";
+                        typeOfNickname = " 서포터";
                     } else if(result[1]==2){
-                        typeOfNickname = " 프로젝트 매니저 회원";
+                        typeOfNickname = " 프로젝트 매니저";
                     }
 
                     regiDate = result[2];
 
-                    $("#checkedNickname").text("확인된 회원 ("+ result[0] + ") : "+typeOfNickname+", "+Date(regiDate)+"에 가입함.");
+                    $("#checkedNickname").text("닉네임 확인됨! (" + result[0] + ") : " + regiDate + "에 가입한 '"+ typeOfNickname + "' 역할 닉네임.");
+                    console.log("매개변수 result[0]의 값 : "+result[0]);
+                    console.log("매개변수 result[1]의 값 : "+result[1]);
+                    console.log("매개변수 result[2]의 값 : "+result[2]);
 
 
                     $("#checkedMessageboxNo").val(result[1]);

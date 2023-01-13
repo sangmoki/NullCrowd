@@ -24,39 +24,60 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
-            <div class="reward_title mb30 xs-mb15">150세트 한정! 세계축제협회 수상 패키지 '신선 담금주키트'</div> <!---->
+            <div class="reward_title mb30 xs-mb15" th:text="${ pjDetail.projectDTO.getTitle() }"></div> <!---->
         </div>
         <div>
             <div class="col-sm-8 xs-pl0 xs-pr0" style="margin: 0px -9px;">
-                <div id="slider-for" class="slick-initialized slick-slider">
-                    <div aria-live="polite" class="slick-list draggable">
-                        <div class="slick-track" style="opacity: 1; width: 690px;" role="listbox">
-                            <figure class="slick-slide slick-current slick-active" data-slick-index="0"
-                                    aria-hidden="false"
-                                    style="width: 670px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;"
-                                    tabindex="-1" role="option" aria-describedby="slick-slide00"><!---->
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <img src="../img/mainImg/3santa.jpg" class="img-responsive"></div>
-                            </figure>
+                <figure class="slick-slide slick-current slick-active" data-slick-index="0"
+                        aria-hidden="false"
+                        style="width: 670px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;"
+                        tabindex="-1" role="option" aria-describedby="slick-slide00"><!---->
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner">
+                            <div class="carousel-item embed-responsive embed-responsive-16by9 active">
+                                <img th:src="${ pjDetail.getProjectDTO().getMainImg() }" class="img-responsive">
+                            </div>
+                            <div class="carousel-item ">
+                                <video src="/video/videoplayback.mp4" class="d-block w-100" alt="..." autoplay
+                                       controls></video>
+                            </div>
                         </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                </div>
+                </figure>
             </div>
             <div class="col-sm-4 mb30 xs-mt25 xs-mb20 pl45 pr15 xs-pl15 xs-pr15">
                 <div class="reward-info-box">
                     <div class="reward-info-name">리워드</div>
-                    <div class="reward-info-amount">774,000원
+                    <div class="reward-info-amount" th:text="${ #numbers.formatInteger(pjDetail.getRaisedFund() , 3, 'COMMA') + '원' }">
+
                         <!----> <span class="reward-info-status">펀딩 중</span> <!---->
                     </div>
-                    <div class="mt20"><span class="reward-info-text">달성률</span> <span class="reward-info-now">774%
-                                &nbsp;</span> <span class="reward-info-goal">목표금액 &nbsp;100,000원</span></div>
-                    <div class="mt5"><span class="reward-info-text">남은기간</span> <span class="reward-info-now mr5">
-                                1일</span> <span class="reward-info-goal">2022.12.27 종료</span></div>
-                    <div class="mt5"><span class="reward-info-text">참여자</span> <span
-                            class="reward-info-now">12명</span>
+                    <div class="mt20"><span class="reward-info-text">달성률</span>
+                        <span class="reward-info-now" th:text="${ pjDetail.getAchievePercent() } + '%'">
+                                &nbsp;</span> <span class="reward-info-goal"
+                                                    th:text="'목표금액 ' + ${ #numbers.formatInteger(pjDetail.projectDTO.getFundGoal() , 3, 'COMMA')}"></span>
                     </div>
-                    <div class="reward-info-share mt10 xs-mt15"><span class="reward-share-icon"></span> <span>프로젝트
-                                공유하기</span></div>
+                    <div class="mt5"><span class="reward-info-text">남은기간</span>
+                        <span class="reward-info-now mr5" th:text="${ pjDetail.remainDate }"></span>
+                        <span class="reward-info-goal" th:text="${ pjDetail.projectDTO.getEndDate() } + ' 종료'"></span>
+                    </div>
+                    <div class="mt5"><span class="reward-info-text">참여자</span>
+                        <span class="reward-info-now" th:text="${ pjDetail.projectDTO.getFunderNum() } + '명'"></span>
+                    </div>
+                    <div class="reward-info-share mt10 xs-mt15">
+                        <span class="reward-share-icon"></span>
+                        <span>프로젝트 공유하기</span>
+                    </div>
                     <div class="detail_order_info mt25 xs-mt15 reward-order1-0"><a href="#">
                         <div class="detail_order_info_head">
                             <div class="mr8 m-auto">
@@ -64,7 +85,7 @@
                             </div>
                             <div class="ivs-info-profile">
                                 <div>
-                                    <div class="ivs-info-pjName">농업회사법인 주식회사 신선</div>
+                                    <div class="ivs-info-pjName" th:text="${ pjDetail.raiNickname }"></div>
                                     <div class="ivs-info-pjlink">진행자에게 문의하기</div>
                                 </div>
                                 <div class="mt10"><span class="ivs-info-arrow arrow-left ml10"></span></div>
@@ -125,11 +146,18 @@
             <blockquote class="blockquote_center">Null 펀딩 <strong>연말 한정 이벤트!</strong><br>펀딩 참여시 8개 추가 증정<br>10개 + 8개 =
                 <span class="txt_color">총 18개 구성</span>
             </blockquote>
-            <h6><img src="../img/mainImg/4temple.jpg" alt="" width="796" height="537" class="al_center"></h6>
-            <h6 class="al_center">ICION(아이숑)은 유기농 <span class="bg_color">수제 과일바</span>에요. 일체의 화학비료나 농약에 의존하지 않고 스스로
-                자라나는 <span class="bg_color">국내산 과일</span>을 주 원료로 사용해요.</h6>
-            <h6>&nbsp;</h6>
+            <h6><img th:src="${ pjDetail.projectDTO.getMainImg() }" alt="" width="796" height="537" class="al_center"></h6>
+            <h4 class="al_center" th:text="${ pjDetail.projectDTO.getDescription() }"></h4>
+            <br><br>
             <blockquote class="blockquote_left">리워드 구성</blockquote>
+            <strong>
+                <th:block th:each=" reward : ${ pjDetail.projectDTO.getProjectRewardDTOList() }">
+                    <div th:text="${ reward.getName() }"></div>
+                    <div th:text="${ #numbers.formatInteger(reward.getPrice() , 3, 'COMMA') } + '원'"></div>
+                    <div th:text="'   :  ' + ${ reward.getDetails() }"}></div>
+                    <br><br>
+                </th:block>
+            </strong>
         </div>
         <strong>프로젝트 신고하기</strong>
         <p class="report-description" style="word-break: keep-all;">

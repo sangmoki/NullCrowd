@@ -4,6 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.teamtwo.nullfunding.project.model.dao.ProjectMapper">
 
+    <resultMap id="pjDetail" type="PJDetail">
+        <id property="raiNickname" column="RAI_NICKNAME"/>
+        <result property="raisedFund" column="RAISED_FUND"/>
+        <collection property="projectDTO" resultMap="projectDTO"/>
+    </resultMap>
 
     <resultMap id="approveProject" type="ApproveProject">
         <id property="projectNo" column=""/>
@@ -13,20 +18,20 @@
     </resultMap>
 
     <resultMap id="projectRewardDTO" type="ProjectRewardDTO">
-        <id property="projectNo" column="PROJECT_NO" />
-        <result property="name" column="NAME" />
-        <result property="price" column="PRICE" />
-        <result property="details" column="DETAILS" />
+        <id property="projectNo" column="PROJECT_NO"/>
+        <result property="name" column="NAME"/>
+        <result property="price" column="PRICE"/>
+        <result property="details" column="DETAILS"/>
     </resultMap>
-    
+
     <resultMap id="projectMediaDTO" type="ProjectMediaDTO">
         <id property="mediaNo" column="MEDIA_NO"/>
         <id property="projectNo" column="PROJECT_NO"/>
-        <result property="fileName"  column="FILENAME"/>
-        <result property="hashName"  column="HASHNAME"/>
-        <result property="mediaType"  column="MEDIA_TYPE"/>
-        <result property="url"  column="URL"/>
-        <result property="isDeleted"  column="IS_DELETED"/>
+        <result property="fileName" column="FILENAME"/>
+        <result property="hashName" column="HASHNAME"/>
+        <result property="mediaType" column="MEDIA_TYPE"/>
+        <result property="url" column="URL"/>
+        <result property="isDeleted" column="IS_DELETED"/>
     </resultMap>
 
     <resultMap id="projectDTO" type="ProjectDTO">
@@ -51,10 +56,112 @@
         <collection property="projectMediaList" resultMap="projectMediaDTO"/>
     </resultMap>
 
+    <select id="selectRewards" resultMap="projectRewardDTO">
+       SELECT
+              PROJECT_NO
+            , NO
+            , NAME
+            , PRICE
+            , DETAILS
+         FROM PROJECT_REWARD
+        WHERE PROJECT_NO = #{ no }
+    </select>
+
+    <select id="selectThisProject" resultMap="pjDetail">
+        SELECT A.PROJECT_NO
+             , A.PJ_TITLE
+             , A.DESCRIPTION
+             , A.FUNDGOAL
+             , A.START_DATE
+             , A.END_DATE
+             , A.FUNDERNUM
+             , A.IS_FUNDABLE
+             , A.MAINIMG
+             , A.TEL
+             , A.PJ_EMAIL
+             , A.REFUNDRULE
+             , A.VIDEO_URL
+             , B.RAI_NICKNAME
+             , C.RAISED_FUND
+             , D.PROJECT_NO
+             , D.NO
+             , D.NAME
+             , D.PRICE
+             , D.DETAILS
+        FROM FUNDINGPROJECT A
+                 LEFT JOIN FUNDRAISER B ON (A.RAISER_CODE = B.RAISER_CODE)
+                 LEFT JOIN PROJECTFUND C ON (A.PROJECT_NO = C.PROJECT_NO)
+                 LEFT JOIN PROJECT_REWARD D ON (A.PROJECT_NO = D.PROJECT_NO)
+        WHERE A.PROJECT_NO = #{ no }
+    </select>
+
+        <select id="selectPreProject" resultMap="pjDetail">
+            SELECT A.PROJECT_NO
+                 , A.PJ_TITLE
+                 , A.DESCRIPTION
+                 , A.FUNDGOAL
+                 , A.START_DATE
+                 , A.END_DATE
+                 , A.FUNDERNUM
+                 , A.IS_FUNDABLE
+                 , A.MAINIMG
+                 , A.TEL
+                 , A.PJ_EMAIL
+                 , A.REFUNDRULE
+                 , A.VIDEO_URL
+                 , B.RAI_NICKNAME
+            FROM FUNDINGPROJECT A
+                     LEFT JOIN FUNDRAISER B ON (A.RAISER_CODE = B.RAISER_CODE)
+                     LEFT JOIN APPROVEPROJECT C ON (A.PROJECT_NO = C.PROJECT_NO)
+            WHERE A.IS_FUNDABLE = 'N'
+              AND A.START_DATE <![CDATA[ > ]]> SYSDATE
+              AND C.IS_APPROVED = 1
+            ORDER BY A.START_DATE
+    </select>
+
+    <select id="selectAllProject" resultMap="pjDetail">
+        SELECT A.PROJECT_NO
+             , A.PJ_TITLE
+             , A.DESCRIPTION
+             , A.FUNDGOAL
+             , A.START_DATE
+             , A.END_DATE
+             , A.FUNDERNUM
+             , A.IS_FUNDABLE
+             , A.MAINIMG
+             , A.TEL
+             , A.PJ_EMAIL
+             , A.REFUNDRULE
+             , A.VIDEO_URL
+             , B.RAI_NICKNAME
+             , C.RAISED_FUND
+        FROM FUNDINGPROJECT A
+                 LEFT JOIN FUNDRAISER B ON (A.RAISER_CODE = B.RAISER_CODE)
+                 LEFT JOIN PROJECTFUND C ON (A.PROJECT_NO = C.PROJECT_NO)
+        WHERE A.IS_FUNDABLE = 'Y'
+    </select>
+
+    <insert id="insertApproveProject">
+        INSERT
+          INTO APPROVEPROJECT A
+            (
+              PROJECT_NO
+            , PROCESSED_DATE
+            , IS_APPROVED
+            , DENIED_RESAON
+            )
+       VALUES
+            (
+              SEQ_PROJECT_NO.CURRVAL
+            , NULL
+            , DEFAULT
+            , NULL
+            )
+    </insert>
+
     <insert id="requestProject" parameterType="ProjectDTO">
         INSERT
-          INTO FUNDINGPROJECT A
-          (
+        INTO FUNDINGPROJECT A (
                A.PROJECT_NO
              , A.RAISER_CODE
              , A.DESCRIPTION
@@ -71,24 +178,24 @@
              , A.REFUNDRULE
              , A.VIDEO_URL
           )
-          VALUES
-          (
-               SEQ_PROJECT_NO.NEXTVAL
-             , #{ raiserCode }
-             , #{ description }
-             , #{ fundGoal }
-             , DEFAULT
-             , #{ startDate }
-             , #{ endDate}
-             , 'N'
-             , 0
-             , #{ title }
-             , #{ mainImg }
-             , #{ tel }
-             , #{ pjEmail } 
-             , #{ refundRule }
-             , #{ videoURL }
-          )
+        VALUES
+            (
+            SEQ_PROJECT_NO.NEXTVAL
+                , #{ raiserCode }
+                , #{ description }
+                , #{ fundGoal }
+                , DEFAULT
+                , #{ startDate }
+                , #{ endDate}
+                , 'N'
+                , 0
+                , #{ title }
+                , #{ mainImg }
+                , #{ tel }
+                , #{ pjEmail }
+                , #{ refundRule }
+                , #{ videoURL }
+            )
 
     </insert>
 
@@ -97,22 +204,22 @@
             SELECT SEQ_PROJECT_NO.CURRVAL FROM DUAL
         </selectKey>
         <foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-          INTO PROJECT_REWARD
+            INTO PROJECT_REWARD
             (
-               PROJECT_NO
-             , NO
-             , NAME
-             , PRICE
-             , DETAILS
+              PROJECT_NO
+            , NO
+            , NAME
+            , PRICE
+            , DETAILS
             )
-        VALUES
+            VALUES
 
             (
-               #{ projectNo }
-             , #{ index } + 1
-             , #{ item.name }
-             , #{ item.price }
-             , #{ item.details }
+              #{ projectNo }
+            , #{ index } + 1
+            , #{ item.name }
+            , #{ item.price }
+            , #{ item.details }
             )
         </foreach>
     </update>

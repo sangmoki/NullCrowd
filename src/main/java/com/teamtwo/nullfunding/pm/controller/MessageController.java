@@ -17,10 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 @Controller
 @RequestMapping("/pm")
 public class MessageController {
@@ -281,14 +281,20 @@ public class MessageController {
 
     /* 닉네임 검색 = 닉네임 값을 검색해 해당하는 닉네임값을 넘겨줌 */
     @RequestMapping(value = "/searchNickname", method = {RequestMethod.POST}, produces = "application/json; charset=utf-8")
-    public @ResponseBody String[] searchNickname(@RequestParam("nickname") String nickname) {
+    public @ResponseBody String[] searchNickname(@RequestParam("nickname") String nickname) throws ParseException {
 
         String[] searchedNickname = new String[3];
+        searchedNickname[0] = null;
+        searchedNickname[1] = null;
+        searchedNickname[2] = null;
+
         log.info("[MessageController] 다음 닉네임에 대한 검색 요청 확인 : " + nickname);
-        searchedNickname = messageService.searchNicknameAndMessageboxNo(nickname);
-        System.out.println("[MessageController] searchedNickname = " + searchedNickname[0]);
-        System.out.println("[MessageController] searchedNickname = " + searchedNickname[1]);
-        System.out.println("[MessageController] searchedNickname = " + searchedNickname[2]);
+        if(nickname!=null){
+            searchedNickname = messageService.searchNicknameAndMessageboxNo(nickname);
+            System.out.println("[MessageController] searchedNickname[0] = " + searchedNickname[0]);
+            System.out.println("[MessageController] searchedNickname[1] = " + searchedNickname[1]);
+            System.out.println("[MessageController] searchedNickname[2] = " + searchedNickname[2]);
+        }
 
         return searchedNickname;
     }

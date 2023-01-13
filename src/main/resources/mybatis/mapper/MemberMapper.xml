@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamtwo.nullfunding.member.dao.MemberMapper">
-    
+
     <resultMap id="loginMemberResultMap" type="MemberDTO">
         <id property="memCode" column="MEM_CODE"/>
         <result property="memEmail" column="MEM_EMAIL"/>
@@ -36,19 +36,25 @@
         <result property="name" column="NAME"/>
     </resultMap>
 
+    <resultMap id="membershipDTO" type="MembershipDTO">
+        <id property="memberNo" column="MEM_CODE"/>
+        <result property="membershipNo" column="MEMBERSHIP_CODE"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="isValid" column="IS_VALID"/>
+    </resultMap>
+
 
     <!-- 아아디 중복 확인 -->
     <select id="idDupCheck" resultType="_int">
-        SELECT
-             COUNT(MEM_EMAIL)
+        SELECT COUNT(MEM_EMAIL)
         FROM MEMBER
         WHERE MEM_EMAIL = #{ memEmail }
     </select>
 
     <!-- 닉네임 중복 확인 -->
     <select id="nickDupCheck" resultType="_int">
-        SELECT
-            COUNT(NICKNAME)
+        SELECT COUNT(NICKNAME)
         FROM MEMBER
         WHERE NICKNAME = #{ nickname }
     </select>
@@ -57,19 +63,16 @@
     <insert id="insertMember" parameterType="memberDTO">
         INSERT
         INTO MEMBER
-        (
-          MEM_CODE
+        ( MEM_CODE
         , MEM_EMAIL
         , MEM_PWD
         , IS_ACTIVE
         , REGI_DATE
         , NICKNAME
         , RECENTLOGIN
-        , AUTH_NAME
-        )
+        , AUTH_NAME)
         VALUES
-        (
-          SEQ_MEM_CODE.NEXTVAL
+        ( SEQ_MEM_CODE.NEXTVAL
         , #{ memEmail }
         , #{ memPwd }
         , default
@@ -85,55 +88,117 @@
         <selectKey keyColumn="MEM_CODE" keyProperty="memCode" resultType="_int" order="BEFORE">
             SELECT SEQ_MEM_CODE.CURRVAL FROM DUAL
         </selectKey>
-    INSERT
-    INTO PERSONALINFO
-    (
-      MEM_CODE
-    , NAME
-    , GENDER
-    , PHONE
-    , ADDRESS
-    , BIRTHDATE
-    )
-    VALUES
-    (
-      #{ memCode }
-    , #{ name }
-    , #{ gender }
-    , #{ phone }
-    , null
-    , #{ birthDate }
-    )
+        INSERT
+        INTO PERSONALINFO
+        (
+        MEM_CODE
+        , NAME
+        , GENDER
+        , PHONE
+        , ADDRESS
+        , BIRTHDATE
+        )
+        VALUES
+        (
+        #{ memCode }
+        , #{ name }
+        , #{ gender }
+        , #{ phone }
+        , null
+        , #{ birthDate }
+        )
+    </insert>
 
-</insert>
+    <insert id="insertFundRaiser" parameterType="FundRaiserDTO">
+        INSERT
+        <selectKey keyColumn="RAISER_CODE" keyProperty="raiserCode" resultType="_int" order="BEFORE">
+            SELECT SEQ_MEM_CODE.CURRVAL FROM DUAL
+        </selectKey>
+          INTO FUNDRAISER
+             (
+               RAISER_CODE
+             , RAI_NICKNAME
+             , RAI_ADDRESS
+             , RAI_EMAIL
+             , RAI_PHONE
+             )
+        VALUES
+             (
+                #{ raiserCode }
+             ,  NULL
+             ,  NULL
+             ,  #{ raiEmail }
+             ,  #{ raiPhone }
+             )
+    </insert>
 
-
-
-<!--    로그인-->
+    <!--    로그인-->
     <select id="findMemberById" resultMap="loginMemberResultMap">
-        SELECT
-                A.MEM_CODE
-              , A.AUTH_NAME
-              , A.MEM_EMAIL
-              , A.MEM_PWD
-              , A.IS_ACTIVE
-              , A.REGI_DATE
-              , A.NICKNAME
-              , A.RECENTLOGIN
-              , B.MEM_CODE
-              , B.PHONE
-              , B.BIRTHDATE
-              , B.ADDRESS
-              , B.GENDER
-              , B.NAME
-              , C.RAISER_CODE
-              , C.RAI_NICKNAME
-              , C.RAI_ADDRESS
-              , C.RAI_EMAIL
-              , C.RAI_PHONE
+        SELECT A.MEM_CODE
+             , A.AUTH_NAME
+             , A.MEM_EMAIL
+             , A.MEM_PWD
+             , A.IS_ACTIVE
+             , A.REGI_DATE
+             , A.NICKNAME
+             , A.RECENTLOGIN
+             , B.MEM_CODE
+             , B.PHONE
+             , B.BIRTHDATE
+             , B.ADDRESS
+             , B.GENDER
+             , B.NAME
+             , C.RAISER_CODE
+             , C.RAI_NICKNAME
+             , C.RAI_ADDRESS
+             , C.RAI_EMAIL
+             , C.RAI_PHONE
         FROM MEMBER A
-        LEFT JOIN PERSONALINFO B ON (A.MEM_CODE = B.MEM_CODE)
-        LEFT JOIN FUNDRAISER C ON (A.MEM_CODE = C.RAISER_CODE)
-       WHERE A.MEM_EMAIL = #{ memEmail }
+                 LEFT JOIN PERSONALINFO B ON (A.MEM_CODE = B.MEM_CODE)
+                 LEFT JOIN FUNDRAISER C ON (A.MEM_CODE = C.RAISER_CODE)
+        WHERE A.MEM_EMAIL = #{ memEmail }
     </select>
+
+    <!-- 일단 해당 회원꺼 다 뽑아가서 서비스단에서의 로직으로 처리 -->
+    <select id="getMembershipData" resultMap="membershipDTO">
+       SELECT
+              MEM_CODE,
+              MEMBERSHIP_CODE,
+              START_DATE,
+              END_DATE,
+              IS_VALID
+         FROM MEMBERSHIP
+        WHERE MEM_CODE = #{ memberNo }
+    </select>
+
+    <!-- 신규 멤버십 구매 완료 시 DB에 INSERT -->
+    <insert id="newMembershipData" parameterType="membershipDTO">
+        INSERT
+        INTO MEMBERSHIP
+        (
+         MEM_CODE,
+         MEMBERSHIP_CODE,
+         START_DATE,
+         END_DATE,
+         IS_VALID
+        )
+        VALUES
+        (
+         #{ memberNo },
+         SEQ_MEMBERSHIP_CODE.NEXTVAL,
+         SYSDATE,
+         SYSDATE +30,
+         'Y'
+         )
+    </insert>
+
+    <!-- 기존 멤버십 환불 처리 완료 시
+    (* 이용 기간 만료는 IS_VALID를 무효화 처리하지 않음 : 환불과 자연만료를 구분하기 위함)
+    (* -> 멤버십 기간이 끝나서 만료되는 거는, 멤버십 기간과 현재날짜와의 비교로 무효여부를 파악할 수 있음) -->
+    <update id="setMembershipData" parameterType="membershipDTO">
+       UPDATE MEMBERSHIP
+          SET IS_VALID = 'N'
+        WHERE MEMBERSHIP_CODE = #{ membershipNo }
+    </update>
+
 </mapper>

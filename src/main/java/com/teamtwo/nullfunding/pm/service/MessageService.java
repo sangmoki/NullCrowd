@@ -35,7 +35,7 @@ public interface MessageService {
     int getMessageboxNoByNicknameFromFundrasier(String nickname);
 
     // 닉네임에 딸린 가입일 찾는 메소드
-    Date getRegiDate(String nickname);
+    String getRegiDate(String nickname);
 
     // 닉네임 검색 및, 닉네임에 딸린 메시지 박스 가져가는 메소드
     public String[] searchNicknameAndMessageboxNo(String nickname);
@@ -48,7 +48,6 @@ public interface MessageService {
 
     // 메시지 답장용 메소드
     void replyMessage(Map<String, Object> searchMap) throws MessageSendException;
-
 
     //메시지 삭제용 메소드
     int deleteMessage(Integer messageNo);

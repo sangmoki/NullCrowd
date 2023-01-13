@@ -2,6 +2,7 @@ package com.teamtwo.nullfunding.project.service;
 
 import com.teamtwo.nullfunding.NullfundingApplication;
 import com.teamtwo.nullfunding.config.MybatisConfig;
+import com.teamtwo.nullfunding.project.model.dto.PJDetail;
 import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
 import com.teamtwo.nullfunding.project.model.dto.ProjectRewardDTO;
 import org.junit.jupiter.api.Test;
@@ -10,10 +11,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.sql.Date;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ContextConfiguration(classes = { NullfundingApplication.class, MybatisConfig.class })
@@ -49,6 +54,47 @@ public class ProjectServiceTests {
 
         // when
         boolean result = projectService.requestProject(projectDTO);
-        assertEquals(0, result);
+        assertEquals(true, result);
+    }
+
+    @Test
+    void 날짜_테스트(){
+
+        List<PJDetail> ProjectList = projectService.selectAllProject();
+        System.out.println("ProjectList = " + ProjectList);
+
+        for(PJDetail pj : ProjectList){
+
+            System.out.println("Dday = " + pj.getRemainDate());
+        }
+    }
+
+    @Test
+    void Pre프로젝트_들고오는_메소드_테스트(){
+
+        List<PJDetail> preProject =  projectService.selectPreProject();
+        assertNotNull(preProject);
+        System.out.println("preProject = " + preProject);
+    }
+
+    @Test
+    void 프로젝트_디테일_들고오는_메소드_테스트(){
+
+        PJDetail preProject =  projectService.selectThisProject(49);
+        assertNotNull(preProject);
+        System.out.println("preProject = " + preProject);
+    }
+
+    @Test
+    void 모집금액_테스트(){
+
+        List<PJDetail> ProjectList = projectService.selectAllProject();
+        System.out.println("ProjectList = " + ProjectList);
+
+
+        for(PJDetail pj : ProjectList){
+
+            System.out.println("Percent = " + pj.getAchievePercent());
+        }
     }
 }

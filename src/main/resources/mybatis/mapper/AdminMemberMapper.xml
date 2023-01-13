@@ -5,14 +5,77 @@
 <mapper namespace="com.teamtwo.nullfunding.admin.model.dao.AdminMemberMapper">
 
 
-    <resultMap type="MemberDTO" id="memberResultMap">
+    <resultMap id="adminInquiry" type="adminInquiry">
+        <id property="memCode" column="MEM_CODE"/>
+        <result property="memEmail" column="MEM_EMAIL"/>
+        <result property="name" column="NAME"/>
+        <result property="phone" column="PHONE"/>
+        <result property="inquiryDate" column="INQUIRY_DATE"/>
+        <result property="typeName" column="TYPE_NAME"/>
+        <result property="readYn" column="READ_YN"/>
+    </resultMap>
+
+    <resultMap type="InquiryDTO" id="memberResultMap">
         <id property="memCode" column="MEM_CODE"/>
         <result property="memEmail" column="MEM_EMAIL"/>
         <result property="nickName" column="NICKNAME"/>
         <result property="regiDate" column="REGI_DATE"/>
         <result property="recentLogin" column="RECENTLOGIN"/>
         <result property="isActive" column="IS_ACTIVE"/>
+        <result property="inquiryDate" column="INQUIRY_TYPE"/>
     </resultMap>
+
+    <resultMap type="PersonalInfoDTO" id="personalResultMap">
+        <id property="personalNo" column="PERSONAL_NO"/>
+        <result property="memCode" column="MEM_CODE"/>
+        <result property="phone" column="PHONE"/>
+        <result property="birthDate" column="BIRTHDATE"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="gender" column="GENDER"/>
+        <result property="name" column="NAME"/>
+    </resultMap>
+
+    <resultMap id="inquiryResultMap" type="InquiryDTO">
+        <id property="inquiryNo" column="INQUIRY_NO"></id>
+        <result property="memEmail" column="MEM_EMAIL"></result>
+        <result property="inquiryType" column="INQUIRY_TYPE"></result>
+        <result property="inquiryContent" column="INQUIRY_CONTENT"></result>
+        <result property="inquiryDate" column="INQUIRY_DATE"></result>
+        <result property="memCode" column="MEM_CODE"></result>
+    </resultMap>
+
+    <resultMap id="inquiryTypeResultMap" type="InquiryTypeDTO">
+        <id property="typeNo" column="TYPE_NO"></id>
+        <result property="typeName" column="TYPE_NAME"></result>
+    </resultMap>
+
+    <resultMap id="projectDTO" type="ProjectDTO">
+        <id property="projectNo" column="PROJECT_NO"/>
+        <result property="raiserCode" column="RAISER_CODE"/>
+        <result property="title" column="PJ_TITLE"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="fundGoal" column="FUNDGOAL"/>
+        <result property="regiDate" column="REGI_DATE"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="isFundable" column="IS_FUNDABLE"/>
+        <result property="funderNum" column="FUNDERNUM"/>
+        <result property="mainImg" column="MAINIMG"/>
+        <result property="tel" column="TEL"/>
+        <result property="pjEmail" column="PJ_EMAIL"/>
+        <result property="refundRule" column="REFUNDRULE"/>
+        <result property="videoURL" column="VIDEO_URL"/>
+
+        <association property="approveProjectDTO" resultMap="approveProject"/>
+    </resultMap>
+
+    <resultMap id="approveProject" type="ApproveProject">
+        <id property="projectNo" column=""/>
+        <result property="processedDate" column="PROCESSED_DATE"/>
+        <result property="isApproved" column="IS_APPROVED"/>
+        <result property="deniedReason" column="DENIED_REASAON"/>
+    </resultMap>
+
 
     <!-- 회원 관리 -->
     <!-- 검색한 멤버 개수 -->
@@ -80,6 +143,91 @@
     <!-- 회원 관리 끝 -->
 
     <!-- 문의 관리 -->
+    <select id="selectInquiryCount" resultType="_int">
+        SELECT
+        COUNT(*)
+        FROM INQUIRY A
+        <where>
+            <if test='readYn == "Y"'>
+                A.READ_YN = 'Y'
+            </if>
+            <if test='readYn == "N"'>
+                A.READ_YN = 'N'
+            </if>
+        </where>
+    </select>
 
+    <select id="unreadInquiry" resultMap="adminInquiry">
+    SELECT F.RNUM
+        , F.MEM_CODE
+        , F.MEM_EMAIL
+        , F.NAME
+        , F.PHONE
+        , F.INQUIRY_DATE
+        , F.READ_YN
+        , F.TYPE_NAME
+    FROM
+    (SELECT ROWNUM RNUM
+        , E.MEM_CODE
+        , E.MEM_EMAIL
+        , E.NAME
+        , E.PHONE
+        , E.INQUIRY_DATE
+        , E.READ_YN
+        , E.TYPE_NAME
+    FROM
+    (SELECT A.MEM_CODE
+         , A.MEM_EMAIL
+         , B.NAME
+         , B.PHONE
+         , C.INQUIRY_DATE
+         , C.READ_YN
+         , D.TYPE_NAME
+    FROM MEMBER A
+    JOIN PERSONALINFO B ON (A.MEM_CODE = B.MEM_CODE)
+    JOIN INQUIRY C ON (A.MEM_CODE = C.MEM_CODE)
+    JOIN INQUIRY_TYPE D ON(C.INQUIRY_TYPE = D.TYPE_NO)
+    ORDER BY A.MEM_CODE ASC) E
+    <![CDATA[
+            WHERE ROWNUM <= #{ selectCriteria.endRow }
+            ]]>
+    ) F
+    <where>
+        <if test='readYn == "Y"'>
+            F.READ_YN = 'Y'
+        </if>
+        <if test='readYn == "N"'>
+            F.READ_YN = 'N'
+        </if>
+        AND F.RNUM >= #{ selectCriteria.startRow }
+    </where>
+    </select>
+
+    <update id="updateRead">
+    UPDATE INQUIRY A
+       SET A.READ_YN = 'Y'
+     WHERE A.INQUIRY_NO = #{ inquiryNo }
+    </update>
+
+    <!-- 프로젝트 조회 -->
+    <select id="selectAllProject" resultMap="projectDTO">
+        SELECT A.PROJECT_NO
+             , A.PJ_TITLE
+             , A.DESCRIPTION
+             , A.REGI_DATE
+             , B.IS_APPROVED
+        FROM FUNDINGPROJECT A
+        LEFT JOIN APPROVEPROJECT B ON (A.PROJECT_NO = B.PROJECT_NO)
+       WHERE B.IS_APPROVED = 3
+    </select>
+
+    <!-- 프로젝트 관리 -->
+    <update id="confirmProject" parameterType="_int">
+    UPDATE APPROVEPROJECT
+    SET
+        IS_APPROVED = #{ decision }
+    WHERE
+        PROJECT_NO = #{ projectNo }
+    </update>
 
 </mapper>
