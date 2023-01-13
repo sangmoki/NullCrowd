@@ -8,23 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="generator" content="Hugo 0.104.2">
-    <title>회원관리</title>
+    <title>프로젝트 관리</title>
 
-    <link rel="canonical" href="https://getbootstrap.kr/docs/5.2/examples/sidebars/">
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
-
-    <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="/js/adminProject.js"></script>
     <meta name="theme-color" content="#712cf9">
-    <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
+
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="/css/choStyle.css">
     <link rel="stylesheet" href="/css/admin.css">
   </head>
 
@@ -51,21 +42,34 @@
                   <th scope="col">프로젝트명</th>
                   <th scope="col"><a href="#">상세내용</a></th>
                   <th scope="col">신청일</th>
-                  <th scope="col">승인여부</th>
+                  <th scope="col">승인 여부</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="text-center">
-                  <th class="th-width"></th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <button class="btn btn-primary">승인</button>
-                    <button class="btn btn-danger">거절</button>
-                  </td>
-                </tr>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard">
+                  <div class="col mainProject" th:each=" project : ${ ProjectList }">
+                    <td class="projectNo" th:text="${project.projectNo}"></td>
+                    <td th:text="${project.title}"></td>
+                    <td th:text="${project.description}"></td>
+                    <td th:text="${#dates.format(project.regiDate, 'yyyy-MM-dd')}"></td>
+                    <td>
+                      <button class="btn btn-primary approveBtn"  name="isApproved">승인</button>
+                      <button class="btn btn-secondary deniedBtn"  name="isApproved">거절</button>
+                    </td>
+                    <div class="projectNo" style="display: none" :text="${project.projectDTO.getProjectNo()}"></div>
+                    <a href="#"></a>
+                  </div>
+                  <script>
+                    const $mainProject = $('.mainProject');
+                    for (let i = 0; i < $mainProject.length; i++) {
 
+                      $mainProject[i].onclick = function () {
+                        let no = $(this).children('.projectNo').html();
+                        location.href = "/admin/confirmProject" + no;
+                      }
+                    }
+                  </script>
+                </div>
                 </tbody>
               </table>
             </div>
@@ -80,4 +84,5 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
   </body>
+</div>
 </html>

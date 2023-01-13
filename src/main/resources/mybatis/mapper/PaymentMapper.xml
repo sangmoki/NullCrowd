@@ -5,17 +5,17 @@
 
 <mapper namespace="com.teamtwo.nullfunding.payment.dao.PaymentMapper">
 
-<!--    <resultMap id="MessageResultMap" type="MessageDTO">-->
-<!--        <id property="messageNo" column="MESSAGE_CODE"/>-->
-<!--        <id property="boxType" column="BOX_TYPE"/>-->
-<!--        <id property="receiverMemberNo" column="MEM_CODE"/>-->
-<!--        <id property="messageTitle" column="TITLE"/>-->
-<!--        <id property="sendDate" column="RECEIVED_TIME"/>-->
-<!--        <id property="senderNickname" column="SENTBY"/>-->
-<!--        <id property="messageContent" column="CONTENT"/>-->
-<!--        <id property="isRead" column="IS_READ"/>-->
-<!--        <id property="isDeleted" column="IS_DELETED"/>-->
-<!--    </resultMap>-->
+    <resultMap id="PaymentResultMap" type="PaymentDTO">
+        <id property="messageNo" column="MESSAGE_CODE"/>
+        <id property="boxType" column="BOX_TYPE"/>
+        <id property="receiverMemberNo" column="MEM_CODE"/>
+        <id property="messageTitle" column="TITLE"/>
+        <id property="sendDate" column="RECEIVED_TIME"/>
+        <id property="senderNickname" column="SENTBY"/>
+        <id property="messageContent" column="CONTENT"/>
+        <id property="isRead" column="IS_READ"/>
+        <id property="isDeleted" column="IS_DELETED"/>
+    </resultMap>
 
 <!--&lt;!&ndash; 이용권 결제내역 추가 &ndash;&gt;-->
 <!--<insert id ="insert_pay" parameterType="Payed_listVO">-->

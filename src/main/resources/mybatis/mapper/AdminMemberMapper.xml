@@ -22,10 +22,12 @@
         <result property="regiDate" column="REGI_DATE"/>
         <result property="recentLogin" column="RECENTLOGIN"/>
         <result property="isActive" column="IS_ACTIVE"/>
+        <result property="inqueryDate" column="INQUIRY_TYPE"/>
 
         <association property="personalInfoDTO" resultMap="persnalResultMap"/>
         <association property="inquiry" resultMap="inquiryResultMap"/>
         <association property="inquiryType" resultMap="inquiryTypeResultMap"/>
+
     </resultMap>
 
     <resultMap type="PersonalInfoDTO" id="persnalResultMap">
@@ -186,5 +188,25 @@
      WHERE A.INQUIRY_NO = #{ inquiryNo }
     </update>
 
+    <!-- 프로젝트 조회 -->
+    <select id="selectAllProject" resultMap="projectDTO">
+        SELECT A.PROJECT_NO
+             , A.PJ_TITLE
+             , A.DESCRIPTION
+             , A.REGI_DATE
+             , B.IS_APPROVED
+        FROM FUNDINGPROJECT A
+        LEFT JOIN APPROVEPROJECT B ON (A.PROJECT_NO = B.PROJECT_NO)
+       WHERE B.IS_APPROVED = 3
+    </select>
+
+    <!-- 프로젝트 관리 -->
+    <update id="confirmProject" parameterType="_int">
+    UPDATE APPROVEPROJECT
+    SET
+        IS_APPROVED = #{ decision }
+    WHERE
+        PROJECT_NO = #{ projectNo }
+    </update>
 
 </mapper>

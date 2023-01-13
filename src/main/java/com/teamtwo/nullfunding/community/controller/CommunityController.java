@@ -143,4 +143,7 @@ public class CommunityController {
         return "redirect:/community/list";
 
     }
+
+
+
 }

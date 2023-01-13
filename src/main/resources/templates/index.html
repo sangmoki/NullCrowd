@@ -14,10 +14,9 @@
     <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="/js/cho.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
-
 
 
 <!-- 메인 헤더부분-->
@@ -26,7 +25,7 @@
 <br>
 <script>
     let pjMessage = '[[${ pjMessage }]]'
-    if(pjMessage){
+    if (pjMessage) {
         window.alert(pjMessage);
     }
 </script>
@@ -96,8 +95,9 @@
         </a>NULL에서 핫한 프로젝트들을 만나보세요.
         </div>
         <br><br>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard" th:each=" project : ${ ProjectList }">
-            <div class="col">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard">
+            <div class="col mainProject" th:each=" project : ${ ProjectList }">
+                <div class="PJno" style="display: none" th:text="${project.projectDTO.getProjectNo()}"></div>
                 <a href="#">
                     <div class="card" style="width: 22rem;">
                         <div class="card-reward-img">
@@ -106,127 +106,34 @@
                         <div class="container">
                             <div class="row card-body">
                                 <p class="card-title" th:text="${ project.raiNickname }"></p>
-                                <p class="card-text" th:text=" ${ project.getRaiNickname() } "></p>
+                                <p class="card-text" th:text=" ${ project.getProjectDTO().getTitle() } "></p>
                             </div>
                             <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
+                                <div class="card-reward-day col-2"
+                                     th:text="'D-' + ${ project.getRemainDate() }"></div>
+                                <div class="card-reward-percent col-3 "
+                                     style="padding-left: 0px; padding-right: 0px;"
+                                     th:text="${ project.getAchievePercent() } + '% 달성'"></div>
+                                <div class="card-reward-price null-color col-6"
+                                     th:text="${ #numbers.formatInteger(project.getRaisedFund(), 3, 'COMMA') } + '원 펀딩'"></div>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
-        <tr th:each="notice : ${noticeList}">
-            <td th:text="${notice.noticeNo}"></td>
-            <td th:text="${notice.noticeTitle}"></td>
-            <td th:text="${notice.nickName}"></td>
-            <td th:text="${#dates.format(notice.uploadDate, 'yyyy-MM-dd HH:mm')}"></td>
-            <td th:text="${notice.readCount}"></td>
-        </tr>
-
-            <!-- 프로젝트1 -->
-
-
-            <!-- 프로젝트2 -->
-
-
-            <!-- 프로젝트3 -->
-            <div class="col">
-                <a href="#">
-                    <div class="card" style="width: 22rem;">
-                        <div class="card-reward-img">
-                            <img src="/img/mainImg/3santa.jpg" class="card-img-top" alt="...">
-                        </div>
-                        <div class="container">
-                            <div class="row card-body">
-                                <p class="card-title">(주)현구투어</p>
-                                <p class="card-text">산타의 나라에서 크리스마스를 즐겨보세요!</p>
-                            </div>
-                            <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 프로젝트4 -->
-            <div class="col">
-                <a href="#">
-                    <div class="card" style="width: 22rem;">
-                        <div class="card-reward-img">
-                            <img src="/img/mainImg/4temple.jpg" class="card-img-top" alt="...">
-                        </div>
-
-                        <div class="container">
-                            <div class="row card-body">
-                                <p class="card-title">하이템플러</p>
-                                <p class="card-text">참된 나를 찾아 떠나는 템플스테이</p>
-                            </div>
-                            <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </a>
-            </div>
-
-            <!-- 프로젝트5 -->
-            <div class="col">
-                <a href="#">
-                    <div class="card" style="width: 22rem;">
-                        <div class="card-reward-img">
-                            <img src="/img/mainImg/5light.jpg" class="card-img-top" alt="...">
-                        </div>
-
-                        <div class="container">
-                            <div class="row card-body">
-                                <p class="card-title">(주)보성조명</p>
-                                <p class="card-text">겨울 밤을 화려하게 수놓은 빛의 향연</p>
-                            </div>
-                            <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </a>
-            </div>
-
-            <!-- 프로젝트6 -->
-            <div class="col">
-                <a href="#">
-                    <div class="card" style="width: 22rem;">
-                        <div class="card-reward-img">
-                            <img src="/img/mainImg/6mandarin.jpg" class="card-img-top" alt="...">
-                        </div>
-                        <div class="container">
-                            <div class="row card-body">
-                                <p class="card-title">상목영농조합</p>
-                                <p class="card-text">탐스러운 감귤로 물든 '탐라'로 가볼까?</p>
-                            </div>
-                            <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
         </div>
     </div>
+    <script>
+        const $mainPJs = $('.mainProject');
+        for (let i = 0; i < $mainPJs.length; i++) {
+
+            $mainPJs[i].onclick = function () {
+                let no = $(this).children('.PJno').html();
+                location.href = "/project/projectInfo?no=" + no;
+            }
+        }
+    </script>
+</div>
 </div>
 </div>
 <!-- 더보기버튼 -->
@@ -243,6 +150,17 @@
         <div class="col">
         </div>
     </div>
+    <script>
+        $(function () {
+            $('#moreproject').click(function () {
+                $('#parentCard .col:hidden').slice(0, 3).show();
+                if ($('#datalist li').length == $('#datalist li:visible').length) {
+                    $('#moreproject').hide();
+                }
+            });
+        });
+    </script>
+
 </div>
 <div class="album py-5">
     <div class="container">
@@ -259,146 +177,41 @@
         </div>
         <br><br>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard2">
-            <!-- 프로젝트1 -->
-            <div class="col">
+            <div class="col preProject" th:each=" preProject : ${ preProjectList }">
+                <div class="PJno" style="display: none" th:text="${preProject.projectDTO.getProjectNo()}"></div>
                 <a href="#">
                     <div class="card" style="width: 22rem;">
                         <div class="card-reward-img">
-                            <img src="/img/mainImg/7icefish.jpg" class="card-img-top" alt="...">
+                            <img th:src="${ preProject.projectDTO.getMainImg() }" class="card-img-top" alt="...">
                         </div>
-
-
                         <div class="container">
                             <div class="row card-body">
-                                <p class="card-title">Boys피싱</p>
-                                <p class="card-text">팔딱 팔딱~ 살아 있는 겨울 만끽 빙어축제</p>
+                                <p class="card-title" th:text="${ preProject.raiNickname }"></p>
+                                <p class="card-text" th:text=" ${ preProject.getProjectDTO().getTitle() } "></p>
                             </div>
                             <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
+                                <div class="card-reward-day col-2"
+                                     th:text="'D-' + ${ preProject.getRemainDate() }"></div>
+                                <div class="card-reward-price null-color col-6"
+                                     th:text="${ preProject.getProjectDTO().getStartDate() } + ' 오픈!'"></div>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
-
-            <!-- 프로젝트2 -->
-            <div class="col">
-                <a href="#">
-                    <div class="card" style="width: 22rem;">
-                        <div class="card-reward-img">
-                            <img src="/img/mainImg/8spring.jpg" class="card-img-top " alt="...">
-                        </div>
-
-                        <div class="container">
-                            <div class="row card-body">
-                                <p class="card-title">(주)오십견투어</p>
-                                <p class="card-text">겨울 힐링 온천 여행 패키지</p>
-                            </div>
-                            <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 프로젝트3 -->
-            <div class="col">
-                <a href="#">
-                    <div class="card" style="width: 22rem;">
-                        <div class="card-reward-img">
-                            <img src="/img/mainImg/9star.jpg" class="card-img-top " alt="...">
-                        </div>
-
-                        <div class="container">
-                            <div class="row card-body">
-                                <p class="card-title">거북목천문대</p>
-                                <p class="card-text">밤하늘 별자리 여행을 떠나보아요!</p>
-                            </div>
-                            <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 프로젝트4 -->
-            <div class="col">
-                <a href="#">
-                    <div class="card" style="width: 22rem;">
-                        <div class="card-reward-img">
-                            <img src="/img/mainImg/10steelbird.jpg" class="card-img-top" alt="...">
-                        </div>
-                        <div class="container">
-                            <div class="row card-body">
-                                <p class="card-title">(주)SteelBird</p>
-                                <p class="card-text">겨울 철새 장관은 못참지</p>
-                            </div>
-                            <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 프로젝트5 -->
-            <div class="col">
-                <a href="#">
-                    <div class="card" style="width: 22rem;">
-                        <div class="card-reward-img">
-                            <img src="/img/mainImg/11cake.jpg" class="card-img-top" alt="...">
-                        </div>
-                        <div class="container">
-                            <div class="row card-body">
-                                <p class="card-title">금강제과</p>
-                                <p class="card-text">크리스마스 케이크를 직접 만들자</p>
-                            </div>
-                            <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 프로젝트6 -->
-            <div class="col">
-                <a href="#">
-                    <div class="card" style="width: 22rem;">
-                        <div class="card-reward-img">
-                            <img src="/img/mainImg/12leaf.jpg" class="card-img-top" alt="...">
-                        </div>
-                        <div class="container">
-                            <div class="row card-body">
-                                <p class="card-title">연골산악회</p>
-                                <p class="card-text">가을과 겨울, 그리고 낙엽</p>
-                            </div>
-                            <div class="row card-reward-row">
-                                <div class="card-reward-date col-2">D-999</div>
-                                <div class="card-reward-percent col-3">999%</div>
-                                <div class="card-reward-price null-color col-7">\999</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
         </div>
     </div>
 </div>
-</div>
+<script>
+    const $prePJs = $('.preProject');
+    for (let i = 0; i < $prePJs.length; i++) {
+
+        $prePJs[i].onclick = function () {
+            let no = $(this).children('.PJno').html();
+            location.href = "/project/projectInfo?no=" + no;
+        }
+    }
+</script>
 <!-- 더보기버튼 -->
 <div class="container text-center">
     <div class="row">
@@ -413,8 +226,17 @@
         <div class="col">
         </div>
     </div>
+    <script>
+        $(function () {
+            $('#morepre').click(function () {
+                $('#parentCard2 .col:hidden').slice(0, 3).show();
+                if ($('#parentCard2 .col').length == $('#parentCard2 .col:visible').length) {
+                    $('#morepre').hide();
+                }
+            });
+        });
+    </script>
 </div>
-
 
 <!-- ========================================preProject ========================================= -->
 <!-- ========================================preProject끝 ========================================= -->
@@ -523,7 +345,27 @@
             </a>자유롭게 소통하세요!
             </div>
             <div></div>
-            <div>==================게시판정보 뿌려주는란===============================</div>
+            <div></div>
+            <table class="table table-hover" id="indexCommunity">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>날짜</th>
+                    <th>조회수</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="indexCommunityList : ${indexCommunityList}">
+                    <td th:text="${indexCommunityList.articleNo}"></td>
+                    <td th:text="${indexCommunity.title}"></td>
+                    <td th:text="${indexCommunity.nickName}"></td>
+                    <td th:text="${#dates.format(indexCommunity.uploadDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${indexCommunity.readCount}"></td>
+                </tr>
+                </tbody>
+            </table>
             <br><br>
         </div>
     </div>

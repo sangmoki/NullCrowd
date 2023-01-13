@@ -18,4 +18,10 @@ public interface ProjectMapper {
     List<PJDetail> selectAllProject();
 
     List<PJDetail> selectPreProject();
+
+    int insertApproveProject();
+
+    PJDetail selectThisProject(int no);
+
+    List<ProjectRewardDTO> selectRewards(int no);
 }
