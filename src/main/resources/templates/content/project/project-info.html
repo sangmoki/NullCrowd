@@ -58,13 +58,14 @@
             <div class="col-sm-4 mb30 xs-mt25 xs-mb20 pl45 pr15 xs-pl15 xs-pr15">
                 <div class="reward-info-box">
                     <div class="reward-info-name">리워드</div>
-                    <div class="reward-info-amount" th:text="${ pjDetail.getRaisedFund() } + '원'">
+                    <div class="reward-info-amount" th:text="${ #numbers.formatInteger(pjDetail.getRaisedFund() , 3, 'COMMA') + '원' }">
+
                         <!----> <span class="reward-info-status">펀딩 중</span> <!---->
                     </div>
                     <div class="mt20"><span class="reward-info-text">달성률</span>
                         <span class="reward-info-now" th:text="${ pjDetail.getAchievePercent() } + '%'">
                                 &nbsp;</span> <span class="reward-info-goal"
-                                                    th:text="'목표금액 ' + ${ pjDetail.projectDTO.getFundGoal() }"></span>
+                                                    th:text="'목표금액 ' + ${ #numbers.formatInteger(pjDetail.projectDTO.getFundGoal() , 3, 'COMMA')}"></span>
                     </div>
                     <div class="mt5"><span class="reward-info-text">남은기간</span>
                         <span class="reward-info-now mr5" th:text="${ pjDetail.remainDate }"></span>
