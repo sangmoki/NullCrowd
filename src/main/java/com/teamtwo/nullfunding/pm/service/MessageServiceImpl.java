@@ -40,7 +40,7 @@ public class MessageServiceImpl implements MessageService {
         return result;
     }
 
-    // 현재 확인된 닉네임의 모든 메시지를 불러하는 메소드
+    // 현재 확인된 닉네임의 모든 메시지를 불러오는 메소드
     @Override
     public List<MessageDTO> viewAllMessageList(MessageSelectCriteria messageSelectCriteria) {
 
