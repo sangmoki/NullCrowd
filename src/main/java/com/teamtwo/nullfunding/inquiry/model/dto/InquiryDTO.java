@@ -18,6 +18,7 @@ public class InquiryDTO {
     private String type; // 문의 타입 (1, 2, 3)
     private String inquiryContent; // 문의 내용
     private Date inquiryDate; // 문의 요청일
+    private String readYn;
 
 
 }

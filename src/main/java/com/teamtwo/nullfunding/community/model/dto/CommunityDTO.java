@@ -8,12 +8,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Getter
-@Setter
+@Data
 public class CommunityDTO {
 
     private int articleNo; // 게시글 번호
-    private int memCode; // 회원번호(시퀀스), 닉네임?
+    private int memCode; // 회원번호(시퀀스)
     private String nickName; // 회원닉네임
     private String title; // 제목
     private String content; // 내용

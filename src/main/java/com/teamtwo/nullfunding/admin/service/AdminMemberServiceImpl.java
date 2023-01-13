@@ -1,6 +1,7 @@
 package com.teamtwo.nullfunding.admin.service;
 
 import com.teamtwo.nullfunding.admin.model.dao.AdminMemberMapper;
+import com.teamtwo.nullfunding.admin.model.dto.AdminInquiry;
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
@@ -37,12 +38,22 @@ public class AdminMemberServiceImpl implements AdminMemberService {
     }
 
     @Override
-    public List<MemberDTO> selectAllPersonal() {
+    public int selectInquiryCount(Map<String, Object> map) {
 
-        List<MemberDTO> personalList = mapper.selectAllPersonal();
+        int result = mapper.selectInquiryCount(map);
 
-        return personalList;
+        return result;
     }
+
+
+    @Override
+    public List<AdminInquiry> unreadInquiry(Map<String, Object> map) {
+
+        List<AdminInquiry> unreadInquiryList = mapper.unreadInquiry(map);
+
+        return unreadInquiryList;
+    }
+
 
     @Override
     public List<ProjectDTO> selectAllProject() {

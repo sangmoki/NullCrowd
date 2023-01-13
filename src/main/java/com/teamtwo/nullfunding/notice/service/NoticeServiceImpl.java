@@ -34,8 +34,6 @@ public class NoticeServiceImpl implements NoticeService {
 
         Date nowDate = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-
-        // 원하는 데이터 포맷 지정
         simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
 
         List<NoticeDTO> noticeList = noticeMapper.selectAllNoticeList(selectCriteria);
