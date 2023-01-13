@@ -35,11 +35,8 @@ public class AdminProjectController {
 
     @PostMapping("/confirmProject")
     @ResponseBody
-    public void confirmProject(@RequestParam int projectNo, @RequestParam int decision){
-
+    public void confirmProject(@RequestParam("projectNo") int projectNo, @RequestParam("decision") int decision){
         adminMemberService.confirmProject(projectNo, decision);
-
-
 
     }
 }
