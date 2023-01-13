@@ -3,27 +3,27 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <div th:fragment="adminHeaderFragment" class="adminHeader">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="generator" content="Hugo 0.104.2">
-        <title>프로젝트 관리</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>프로젝트 관리</title>
 
-        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-        <script src="/js/adminProject.js"></script>
-        <meta name="theme-color" content="#712cf9">
-
-
-        <!-- Custom styles for this template -->
-        <link rel="stylesheet" href="/css/admin.css">
-    </head>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="/js/adminProject.js"></script>
+    <meta name="theme-color" content="#712cf9">
 
 
-    <body>
-    <!-- 메인 헤더 -->
-    <header th:replace="fragments/adminHeader :: adminHeaderFragment"></header>
-    <div class="col-10" style="display: flex; flex-direction: column;" id="adminContain">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/css/admin.css">
+  </head>
+
+
+  <body>
+  <!-- 메인 헤더 -->
+  <header th:replace="fragments/adminHeader :: adminHeaderFragment"></header>
+  <div class="col-10" style="display: flex; flex-direction: column;" id="adminContain">
 
         <!-- 메인 바디 시작 -->
         <!-- 여기부터 바디 시작하시면 됩니다.  -->
