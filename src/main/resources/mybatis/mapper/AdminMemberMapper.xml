@@ -15,18 +15,17 @@
         <result property="readYn" column="READ_YN"/>
     </resultMap>
 
-    <resultMap type="MemberDTO" id="memberResultMap">
+    <resultMap type="InquiryDTO" id="memberResultMap">
         <id property="memCode" column="MEM_CODE"/>
         <result property="memEmail" column="MEM_EMAIL"/>
         <result property="nickName" column="NICKNAME"/>
         <result property="regiDate" column="REGI_DATE"/>
         <result property="recentLogin" column="RECENTLOGIN"/>
         <result property="isActive" column="IS_ACTIVE"/>
-        <result property="inqueryDate" column="INQUIRY_TYPE"/>
-
+        <result property="inquiryDate" column="INQUIRY_TYPE"/>
     </resultMap>
 
-    <resultMap type="PersonalInfoDTO" id="persnalResultMap">
+    <resultMap type="PersonalInfoDTO" id="personalResultMap">
         <id property="personalNo" column="PERSONAL_NO"/>
         <result property="memCode" column="MEM_CODE"/>
         <result property="phone" column="PHONE"/>
@@ -68,6 +67,13 @@
         <result property="videoURL" column="VIDEO_URL"/>
 
         <association property="approveProjectDTO" resultMap="approveProject"/>
+    </resultMap>
+
+    <resultMap id="approveProject" type="ApproveProject">
+        <id property="projectNo" column=""/>
+        <result property="processedDate" column="PROCESSED_DATE"/>
+        <result property="isApproved" column="IS_APPROVED"/>
+        <result property="deniedReason" column="DENIED_REASAON"/>
     </resultMap>
 
 
