@@ -125,5 +125,6 @@ public class SelectCriteria {
                 + ", buttonAmount=" + buttonAmount + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
                 + endPage + ", startRow=" + startRow + ", endRow=" + endRow + ", searchCondition=" + searchCondition
                 + ", searchValue=" + searchValue + "]";
+
     }
 }

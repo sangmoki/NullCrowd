@@ -30,4 +30,5 @@ public interface CommunityMapper {
 
     // 게시글 조회 시 조회 수 증가하는 용도의 메서드
     int incrementCommunityCount(int no);
+
 }

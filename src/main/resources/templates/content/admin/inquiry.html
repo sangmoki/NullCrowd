@@ -56,25 +56,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="text-center" th:each="member: ${memberList}">
+                <tr class="text-center" th:each="inquiry: ${unreadInquiryList}">
                   <td class="text-center">
                     <div class="user-info">
                       <div class="user-info__basic">
-                        <h5 class="mb-0" th:text="${member.personalInfoDTO.getName()}"></h5>
+                        <h5 class="mb-0" th:text="${inquiry.getName()}"></h5>
                       </div>
                     </div>
                   </td>
                   <td width="180px" class="text-center">
-                    <h6 class="mb-0" th:text="${member.personalInfoDTO.getPhone()}"></h6>
+                    <h6 class="mb-0" th:text="${inquiry.getPhone()}"></h6>
                   </td>
                   <td calss="text-center">
-                    <h6 class="mb-0" th:text="${member.getMemEmail()}"></h6>
+                    <h6 class="mb-0" th:text="${inquiry.getMemEmail()}"></h6>
                   </td>
                   <td width="200px" class="text-center">
-                    <h6 class="mb-0" th:text="${member.inquiryType.getTypeName()}"></h6>
+                    <h6 class="mb-0" th:text="${inquiry.getTypeName()}"></h6>
                   </td>
                   <td class="text-center">
-                    <h6 class="mb-0" th:text="${#dates.format(member.inquiry.getInquiryDate(), 'yyyy-MM-dd')}"></h6>
+                    <h6 class="mb-0" th:text="${#dates.format(inquiry.getInquiryDate(), 'yyyy-MM-dd')}"></h6>
                   <td>
                   </td>
                   <td>
@@ -86,7 +86,8 @@
                         <i class="fa fa-ellipsis-v"></i>
                       </a>
                       <div class="dropdown-menu" aria-labelledby="triggerId1">
-                        <a class="dropdown-item" href="#"><i class="fa fa-pencil mr-1"></i> 답변하기</a>
+<!--                        <a class="dropdown-item" href="#"><i class="fa fa-pencil mr-1"></i> 답변하기</a>-->
+                        <a class="dropdown-item" href="#"><i class="fa fa-pencil mr-1"></i> 내용확인</a>
                         <a class="dropdown-item text-danger" href="#"><i class="fa fa-trash mr-1"></i> 삭제하기</a>
                       </div>
                     </div>
@@ -95,34 +96,74 @@
                 </tbody>
               </table>
             </div>
-
             <div class="row pt-4" align="center">
               <div class="col-md-12">
                 <div class="btn-group btn-group col-4" role="group">
-                  <div class="btn-group align-center" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                    <label class="btn btn-outline-dark" for="btnradio1">읽지 않은 문의 내역</label>
+                  <div class="btn-group align-center" role="group" aria-label="Basic radio toggle button group"
+                  style="margin-left:30px;">
 
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked>
-                    <label class="btn btn-outline-dark" for="btnradio2">답변한 문의 내역</label>
+                    <div class="selectInquiry">
+                    <button type="button" class="btn btn-secondary" onclick="location.href='/admin/inquiry?readYn=N'">
+                      읽지 않은 문의사항
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='/admin/inquiry?readYn=Y'">
+                      확인한 문의사항
+                    </button>
+                    </div>
+
+                    <script>
+
+
+
+                    </script>
                   </div>
                 </div>
                 <br><br>
-                <!-- board seach area -->
-                <div id="board-search">
-                  <div class="container">
-                    <div class="search-window">
-                      <form action="">
-                        <div class="search-wrap">
-                          <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
-                          <button type="submit" class="btn btn-dark">검색</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
+
+            <!-- 페이지 처리 -->
+            <div class="pageNation" align="center">
+              <!-- 맨 앞으로 이동 버튼 -->
+              <button
+                      th:onclick="'location.href=\'/admin/inquiry?currentPage='+ @{${selectCriteria.startPage}} + '\''"
+                      th:disabled="${selectCriteria.pageNo == 1}"
+              >
+                <<
+              </button>
+              <!-- 이전 페이지 버튼 -->
+              <button
+                      th:onclick="'location.href=\'/admin/inquiry?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                      th:disabled="${selectCriteria.pageNo == 1}"
+              >
+                <
+              </button>
+              <!-- 숫자 버튼 -->
+              <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                <button
+                        th:text="${ page }"
+                        th:onclick="'location.href=\'/admin/inquiry?currentPage='+ @{${page}} + '\''"
+                        th:disabled="${ selectCriteria.pageNo eq page }">
+                </button>
+              </th:block>
+
+              <!-- 다음 페이지 버튼 -->
+              <button
+                      th:onclick="'location.href=\'/admin/inquiry?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                      th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+              >
+                >
+              </button>
+              <!-- 마지막 페이지로 이동 버튼 -->
+              <button
+                      th:onclick="'location.href=\'/admin/inquiry?currentPage='+ @{${selectCriteria.maxPage}} + '\''"
+                      th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+              >
+                >>
+              </button>
+            </div>
+
+
           </div>
         </div>
       </div>

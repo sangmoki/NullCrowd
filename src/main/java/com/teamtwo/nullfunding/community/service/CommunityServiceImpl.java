@@ -3,7 +3,6 @@ package com.teamtwo.nullfunding.community.service;
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
 import com.teamtwo.nullfunding.community.model.dao.CommunityMapper;
 import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
-import com.teamtwo.nullfunding.community.model.dto.CommunityDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -99,4 +98,11 @@ public class CommunityServiceImpl implements CommunityService {
         return result;
 
     }
+
+//    @Override
+//    public List<CommunityDTO> indexCommunity() {
+//        return null;
+//    }
+
+
 }

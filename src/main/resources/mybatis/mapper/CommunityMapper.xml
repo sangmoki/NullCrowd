@@ -143,4 +143,6 @@
         WHERE A.ARTICLE_NO = #{ no }
     </update>
 
+
+
 </mapper>

@@ -53,21 +53,20 @@ public class ProjectMapperTests {
 
          //given
         ProjectDTO projectDTO = new ProjectDTO();
-        projectDTO.setRaiserCode(10);
-        projectDTO.setTitle("Hell 2023! 즐거운 신년 파티");
-        projectDTO.setDescription("프젝설명");
-        projectDTO.setFundGoal(3000000);
-        projectDTO.setStartDate(new Date(2023-01-26));
-        projectDTO.setEndDate(new Date((2023-02-03)));
-        projectDTO.setMainImg("/img/thumbnail/07e61069cd37409dafd8d7b6b6a0870c.png");
-        projectDTO.setTel("010-1234-5432");
-        projectDTO.setPjEmail("creba@naver.com");
-        projectDTO.setRefundRule("환불정책입니다.");
-        projectDTO.setVideoURL("https://www.youtube.com/watch?v=rXPfovXw2tw&list=RDrXPfovXw2tw&start_radio=1");
-
+        projectDTO.setRaiserCode(59);
+        projectDTO.setTitle("여수 짚코스터");
+        projectDTO.setDescription("상공 50M의 높이에서 스릴을 만끽하세요!");
+        projectDTO.setFundGoal(1700000);
+        projectDTO.setStartDate(new Date(123,2,5));
+        projectDTO.setEndDate(new Date(123,3,5));
+        projectDTO.setMainImg("/img/thumbnail/17zip.jpg");
+        projectDTO.setTel("010-5555-5555");
+        projectDTO.setPjEmail("nullmember5@naver.com");
+        projectDTO.setRefundRule("5일 전까지 100% 환불가능합니다.");
+        projectDTO.setVideoURL("https://youtu.be/Wfcdycqn3w8");
         List<ProjectRewardDTO> projectRewardDTOList = new ArrayList<>();
-        ProjectRewardDTO reward1 = new ProjectRewardDTO(0, 0,"리워드명1", 10000, "만원짜리리워드입니다."  );
-        ProjectRewardDTO reward2 = new ProjectRewardDTO(0, 1, "리워드명2", 20000, "이만원짜리요"  );
+        ProjectRewardDTO reward1 = new ProjectRewardDTO(0, 0,"리워드1", 20000, "짚코스터 기본 패키지");
+        ProjectRewardDTO reward2 = new ProjectRewardDTO(0, 1, "리워드2", 30000, "짚코스터 고급 패키지(기념품 포함)");
         projectRewardDTOList.add(reward1);
         projectRewardDTOList.add(reward2);
 
@@ -76,11 +75,36 @@ public class ProjectMapperTests {
         int result = projectMapper.requestProject(projectDTO);
         assertEquals(1, result);
         int result2 = 0;
+        int result3 = 0;
         if(result == 1 ){
 
            result2 = projectMapper.insertRewards(projectRewardDTOList);
+           result3 =  projectMapper.insertApproveProject();
         }
 
+        assertEquals(1, result3);
         assertEquals(2, result2);
+    }
+
+    @Test
+    void 퍼센트_시험_메소드(){
+
+        List<PJDetail> projectList = projectMapper.selectAllProject();
+
+        int fundGoal = projectList.get(0).getProjectDTO().getFundGoal();
+        System.out.println("fundGoal = " + fundGoal);
+        int raisedFund = projectList.get(0).getRaisedFund();
+        System.out.println("raisedFund = " + raisedFund);
+
+
+//        System.out.println("achievePercent = " + achievePercent);
+    }
+
+    @Test
+    void 리워드_시험_메소드(){
+
+        List<ProjectRewardDTO> projectRewardDTOList = projectMapper.selectRewards(49);
+
+        System.out.println("projectRewardDTOList = " + projectRewardDTOList);
     }
 }
