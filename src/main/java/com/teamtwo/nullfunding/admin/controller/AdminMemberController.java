@@ -1,10 +1,8 @@
 package com.teamtwo.nullfunding.admin.controller;
 
-import com.teamtwo.nullfunding.admin.model.dto.AdminInquiry;
 import com.teamtwo.nullfunding.admin.service.AdminMemberService;
 import com.teamtwo.nullfunding.common.paging.Pagenation;
 import com.teamtwo.nullfunding.common.paging.SelectCriteria;
-import com.teamtwo.nullfunding.inquiry.model.dto.InquiryDTO;
 import com.teamtwo.nullfunding.member.dto.MemberDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.lang.model.SourceVersion;
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,31 +86,33 @@ public class AdminMemberController {
 
     /* 문의 관리 부분 */
     @GetMapping("/inquiry")
-    public ModelAndView adminInquiry(@RequestParam String readYn,
-                                    @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
-                                     ModelAndView mv) {
+    public ModelAndView adminInquiry(@RequestParam(defaultValue = "") String searchCondition,
+                                     @RequestParam(defaultValue = "") String searchValue,
+                                     @RequestParam(value="currentPage", defaultValue = "1") int pageNo, ModelAndView mv) {
 
-        System.out.println("readYn = " + readYn);
-        Map<String, Object> map = new HashMap<>();
-        map.put("readYn", readYn);
-        int totalCount = adminMemberService.selectInquiryCount(map); // Map으로 생성한 searchMap객체를 보내 service에서 담아 갖고 와 totalCount에 담아준다,.
-        System.out.println("totalCount = " + totalCount);
-        /* 한 페이지에 보여 줄 게시물 수 */
-        int limit = 10;		//얘도 파라미터로 전달받아도 된다.
-
-        /* 한 번에 보여질 페이징 버튼의 갯수 */
-        int buttonAmount = 5;
-
-        /* 페이징 처리를 위한 로직 호출 후 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환받는다. */
-        SelectCriteria selectCriteria = null;
-
-
-        selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
-
-        map.put("selectCriteria",selectCriteria);
-        List<AdminInquiry> unreadInquiryList = adminMemberService.unreadInquiry(map);
-        mv.addObject("unreadInquiryList", unreadInquiryList);
-        mv.addObject("selectCriteria", selectCriteria);
+        Map<String, String> searchMap = new HashMap<>();
+//        searchMap.put("searchCondition", searchCondition);
+//        searchMap.put("searchValue", searchValue);
+//
+//        int totalCount = adminMemberService.selectTotalCount(searchMap);
+//        /* 한 페이지에 보여 줄 게시물 수 */
+//        int limit = 10;		//얘도 파라미터로 전달받아도 된다.
+//
+//        /* 한 번에 보여질 페이징 버튼의 갯수 */
+//        int buttonAmount = 5;
+//
+//        /* 페이징 처리를 위한 로직 호출 후 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환받는다. */
+//        SelectCriteria selectCriteria = null;
+//
+//        if(searchCondition != null && !"".equals(searchCondition)) { // 검색조건이 null이 아니고 검색조건과 동일하면 검색조건으로 처리한 select 쿼리문을 들고와 담아준다.
+//            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue);
+//        } else {  // 만약 둘중 하나라도 아니면 아래 로직을 담는다.
+//            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+//        }
+//
+        List<MemberDTO> memberList = adminMemberService.();
+        mv.addObject("member", memberList);
+//        mv.addObject("selectCriteria", selectCriteria);
 
         mv.setViewName("content/admin/inquiry");
 

@@ -54,6 +54,26 @@
         <result property="typeName" column="TYPE_NAME"></result>
     </resultMap>
 
+    <resultMap id="projectDTO" type="ProjectDTO">
+        <id property="projectNo" column="PROJECT_NO"/>
+        <result property="raiserCode" column="RAISER_CODE"/>
+        <result property="title" column="PJ_TITLE"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="fundGoal" column="FUNDGOAL"/>
+        <result property="regiDate" column="REGI_DATE"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="isFundable" column="IS_FUNDABLE"/>
+        <result property="funderNum" column="FUNDERNUM"/>
+        <result property="mainImg" column="MAINIMG"/>
+        <result property="tel" column="TEL"/>
+        <result property="pjEmail" column="PJ_EMAIL"/>
+        <result property="refundRule" column="REFUNDRULE"/>
+        <result property="videoURL" column="VIDEO_URL"/>
+
+        <association property="approveProjectDTO" resultMap="approveProject"/>
+    </resultMap>
+
 
 
     <!-- 회원 관리 -->
@@ -122,40 +142,8 @@
     <!-- 회원 관리 끝 -->
 
     <!-- 문의 관리 -->
-    <select id="selectInquiryCount" resultType="_int">
-        SELECT
-        COUNT(*)
-        FROM INQUIRY A
-        <where>
-            <if test='readYn == "Y"'>
-                A.READ_YN = 'Y'
-            </if>
-            <if test='readYn == "N"'>
-                A.READ_YN = 'N'
-            </if>
-        </where>
-    </select>
-
-    <select id="unreadInquiry" resultMap="adminInquiry">
-    SELECT F.RNUM
-        , F.MEM_CODE
-        , F.MEM_EMAIL
-        , F.NAME
-        , F.PHONE
-        , F.INQUIRY_DATE
-        , F.READ_YN
-        , F.TYPE_NAME
-    FROM
-    (SELECT ROWNUM RNUM
-        , E.MEM_CODE
-        , E.MEM_EMAIL
-        , E.NAME
-        , E.PHONE
-        , E.INQUIRY_DATE
-        , E.READ_YN
-        , E.TYPE_NAME
-    FROM
-    (SELECT A.MEM_CODE
+    <select id="unreadInquiry" resultMap="memberResultMap">
+    SELECT A.MEM_CODE
          , A.MEM_EMAIL
          , B.NAME
          , B.PHONE
@@ -180,6 +168,20 @@
         </if>
         AND F.RNUM >= #{ selectCriteria.startRow }
     </where>
+    </select>
+
+    <select id="selectInquiryCount" resultType="_int" parameterType="hashMap">
+        SELECT
+        COUNT(*)
+        FROM INQUIRY A
+        <where>
+            <if test='readYn == "Y"'>
+                A.READ_YN = 'Y'
+            </if>
+            <if test='readYn == "N"'>
+                A.READ_YN = 'N'
+            </if>
+        </where>
     </select>
 
     <update id="updateRead">
