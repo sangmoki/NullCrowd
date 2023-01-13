@@ -3,6 +3,7 @@ package com.teamtwo.nullfunding.project.service;
 import com.teamtwo.nullfunding.project.model.dao.ProjectMapper;
 import com.teamtwo.nullfunding.project.model.dto.PJDetail;
 import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
+import com.teamtwo.nullfunding.project.model.dto.ProjectRewardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -45,6 +46,7 @@ public class ProjectServiceImpl implements ProjectService {
     public PJDetail selectThisProject(int no) {
 
         PJDetail pjDetail = projectMapper.selectThisProject(no);
+        List<ProjectRewardDTO> projectRewardDTOList = projectMapper.selectRewards(no);
 
         /* D-Day 넣어주기 */
         Date endDate = pjDetail.getProjectDTO().getEndDate();
@@ -56,6 +58,7 @@ public class ProjectServiceImpl implements ProjectService {
         int achievePercent = (int)(((double)raisedFund/(double)fundGoal)*100);
 
         pjDetail.setAchievePercent(achievePercent);
+        pjDetail.getProjectDTO().setProjectRewardDTOList(projectRewardDTOList);
 
         return pjDetail;
     }

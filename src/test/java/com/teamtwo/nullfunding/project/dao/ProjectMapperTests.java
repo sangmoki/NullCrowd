@@ -99,4 +99,12 @@ public class ProjectMapperTests {
 
 //        System.out.println("achievePercent = " + achievePercent);
     }
+
+    @Test
+    void 리워드_시험_메소드(){
+
+        List<ProjectRewardDTO> projectRewardDTOList = projectMapper.selectRewards(49);
+
+        System.out.println("projectRewardDTOList = " + projectRewardDTOList);
+    }
 }

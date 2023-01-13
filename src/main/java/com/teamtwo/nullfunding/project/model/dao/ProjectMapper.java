@@ -22,4 +22,6 @@ public interface ProjectMapper {
     int insertApproveProject();
 
     PJDetail selectThisProject(int no);
+
+    List<ProjectRewardDTO> selectRewards(int no);
 }

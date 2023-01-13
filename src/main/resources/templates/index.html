@@ -123,16 +123,16 @@
             </div>
         </div>
     </div>
-<script>
-    const $mainPJs = $('.mainProject');
-    for (let i = 0; i < $mainPJs.length; i++) {
+    <script>
+        const $mainPJs = $('.mainProject');
+        for (let i = 0; i < $mainPJs.length; i++) {
 
-        $mainPJs[i].onclick = function () {
-            let no = $(this).children('.PJno').html();
-            location.href = "/project/projectInfo?no=" + no;
+            $mainPJs[i].onclick = function () {
+                let no = $(this).children('.PJno').html();
+                location.href = "/project/projectInfo?no=" + no;
+            }
         }
-    }
-</script>
+    </script>
 </div>
 </div>
 </div>
@@ -177,7 +177,8 @@
         </div>
         <br><br>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard2">
-            <div class="col" th:each=" preProject : ${ preProjectList }">
+            <div class="col preProject" th:each=" preProject : ${ preProjectList }">
+                <div class="PJno" style="display: none" th:text="${preProject.projectDTO.getProjectNo()}"></div>
                 <a href="#">
                     <div class="card" style="width: 22rem;">
                         <div class="card-reward-img">
@@ -201,7 +202,16 @@
         </div>
     </div>
 </div>
-</div>
+<script>
+    const $prePJs = $('.preProject');
+    for (let i = 0; i < $prePJs.length; i++) {
+
+        $prePJs[i].onclick = function () {
+            let no = $(this).children('.PJno').html();
+            location.href = "/project/projectInfo?no=" + no;
+        }
+    }
+</script>
 <!-- 더보기버튼 -->
 <div class="container text-center">
     <div class="row">
