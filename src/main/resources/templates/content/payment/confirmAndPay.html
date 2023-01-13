@@ -1,10 +1,292 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>결제내용 확인 및 결제</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Bootstrap core CSS -->
+    <script src="https:code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <!-- 아임포트 결제 연동 관련 : 시작 -->
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js"></script>
+    <!-- 아임포트 결제 연동 관련 : 끝 -->
+
 </head>
 <body>
+<!-- 메인 헤더 -->
+<header th:replace="fragments/header :: headerFragment"></header>
+<br>
+<!-- 멤버십 바디 시작 -->
+<div style="padding: 50px; margin: 20px">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="myMembership" style="padding: 20px">
+                        <br>
+                        <p class="fs-1">결제내용 확인 및 결제</p>
+                        <br>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="fs-2"> 회원님의 결제 예정 목록입니다</p>
+                                <br><br>
+                                <div>
+                                    <p class="fs-4" style="text-align: left">
+                                        <span th:text="'상품명 : '"/>
+                                        <span th:if="${ content } == 'membership'" th:text="'NULL MEMBERSHIP'">
+                                        <span th:if="${ content } != 'membership'" th:text="${ content }">
+                                    </p>
+                                    <div class="card" th:if="${ content } == 'membership'">
+                                        <div class="card-body">
+                                            <p class="fs-5" style="text-align: left;">
+                                                지금 멤버십을 구매하시면 : </p>
+                                            <p class="fs-5" style="text-align: right;">
+                                                <span id="startDate" th:text="${ startDate }"/> 부터<br>
+                                                ~ <span id="endDate" th:text="${ endDate }"/> 까지
+                                                <br><br> <span> 멤버십 혜택이 적용됩니다.</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div>
+                                    <p class="fs-4" th:if="${ content } != 'membership'" style="text-align: left">
+                                        <span th:text="'수량 : '"/>
+                                        <span th:text="${ quantity }"/>
+                                    </p>
+                                </div>
+                                <br>
+                                <div>
+                                    <p class="fs-4" style="text-align: right">
+                                        <span th:text="'결제하실 금액 : '"/>
+                                        <span th:if="${ content } == 'membership'" th:text="'10000원'">
+                                        <span th:if="${ content } != 'membership'" th:text="${ amount }">
+                                    </p>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <br><br>
+                        <p class="fs-4" style="text-align: left">위 내용을 확인 및 동의하신다면 아래에 결제/환불을 위한 정보를 입력해주세요.</p>
+                        <br>
+
+                        <!-- API 연동용 사용자 입력 폼 -->
+                        <div>
+                        <form th:action="@{/payment/doPay}" method="post" id="doPay">
+                            <div class="mb-3">
+                                <label class="form-label">연락처 (*필수 입력 사항입니다)</label>
+                                <input type="email" class="form-control required" id="buyer_tel" name="buyer_tel" placeholder="010-1234-5678">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email 주소</label>
+                                <input type="email" class="form-control" id="buyer_email" name="buyer_email" placeholder="name@null.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">이름</label>
+                                <input type="email" class="form-control" id="buyer_name" name="buyer_name" placeholder="유승제">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">주소</label>
+                                <input type="email" class="form-control" id="buyer_addr" name="buyer_addr" placeholder="서울시 종로구 하이미디어 9강의실">
+                            </div>
+                            <input type="hidden" id="pg" name="pg" th:value="'kakaopay'">
+                            <input type="hidden" id="pay_method" name="pay_method" th:value="'kakaopay'">
+                            <input type="hidden" id="amount" name="amount" th:value="'10000000'">
+                            <input type="hidden" id="name" name="name" th:value="${ content }">
+                        </form>
+                        </div>
+                        <br><br>
+                        <div class="col">
+                            <div class="col-sm-10"></div>
+                            <div class="col-sm">
+                                <button class="btn btn-primary" type="button" onclick="requestPay()">결제 하기</button>
+                            </div>
+                        </div>
+                        </div>
+                        <br>
+                        <!--              <div>-->
+                        <!--              <a class="btn btn-primary" href="#" role="button">NULL MEMBERSHIP 연장하기</a>-->
+                        <!--              </div>-->
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="membershipRecord" style="padding: 20px">
+                    <br>
+                    <p class="fs-1">회원님의 NULL MEMBERSHIP 이력</p>
+                    <br>
+                </div>
+                <div class="tab-pane fade" id="membershipNotice" style="padding: 20px">
+                    <br>
+                    <p class="fs-1">NULL MEMBERSHIP 유의사항</p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 메인 푸터  -->
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+
+
+
+<!-- 결제/환불 버튼 -->
+<button onClick="requestPay()">결제하기</button>
+<button onClick="requestRefund()">환불하기</button>
+
+<script>
+
+    <!-- 아임포트 결제 관련 코드 -->
+
+    <!-- client-side 부분 시작 -->
+
+    <!-- 결제 준비하기 : 주문 페이지에 가맹점 식별코드를 이용하여 'IMP' 객체를 초기화합니다. -->
+    var IMP = window.IMP; // 생략 가능
+    IMP.init("imp26704127"); // 입력 완료.
+
+    <!-- client-side -->
+    <!-- 결제 요청하기 : 필요한 결제 정보로 IMP.request_pay를 호출하여 결제 요청을 하면 PG사의 결제 페이지가 열립니다. -->
+    function requestPay() {
+
+        // $('#doPay').submit();
+
+        // IMP.request_pay(param, callback) 결제창 호출
+        IMP.request_pay({ // param
+
+            pg: $('#pg'),
+            pay_method: $('#pay_method'),
+            merchant_uid: "ORD20180131-0000011",
+            name: $('#pg'),
+            amount: 10000000,
+            buyer_email: $('#buyer_email'),
+            buyer_name: $('#buyer_name'),
+            buyer_tel: $('#buyer_tel'),
+            buyer_addr: $('#buyer_addr'),
+            buyer_postcode: "null"
+
+        }, function (rsp) { // callback
+
+            if (rsp.success) {
+
+                var msg = '결제가 완료되었습니다.';
+                msg += '고유ID : ' + rsp.imp_uid;
+                msg += '상점 거래ID : ' + rsp.merchant_uid;
+                msg += '결제 금액 : ' + rsp.paid_amount;
+                msg += '카드 승인번호 : ' + rsp.apply_num;
+
+            } else {
+
+                var msg = '결제에 실패하였습니다.';
+                msg += '에러내용 : ' + rsp.error_msg;
+            }
+        });
+
+    }
+
+    <!-- client-side -->
+    <!-- 결제 정보 전달하기 : (* 결제 요청 시 처리될 콜백 함수 역할임) -->
+    // 결제가 완료되면 반환되는 응답 객체(rsp)의 결제 성공 여부에 따라 처리 로직을 callback 함수에 작성합니다.
+    // 요청이 성공했을 경우에 결제번호(imp_uid)와 주문번호(merchant_uid)를 서버에 전달하는 로직을 다음과 같이 작성합니다.
+    IMP.request_pay({
+
+            // 어쩌구 저쩌구
+
+        },
+        function (rsp) { // callback : 콜백함수의 콜백함수임
+
+            if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+
+                // jQuery로 HTTP 요청
+                jQuery.ajax({
+
+                    url: "{서버의 결제 정보를 받는 endpoint}", // 예: https://www.myservice.com/payments/complete
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    data: {
+
+                        imp_uid: rsp.imp_uid,
+                        merchant_uid: rsp.merchant_uid
+
+                    }
+
+                }).done(function (data) {
+
+                    // 가맹점 서버 결제 API 성공시 로직
+
+                })
+
+            } else {
+
+                alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+
+            }
+
+        });
+
+
+    // <!-- client-side -->
+    // <!-- 환불하기 : -->
+    // function requestRefund(){
+    //     console.log("남은이용권"+$('#pay_coupon').text());
+    //     if($('#pay_coupon').text() >= 5){
+    //         $.ajax({
+    //             url: "/samsam/coupon_cancel.do",
+    //             type:"post",
+    //             //datatype:"json",
+    //             contentType : 'application/x-www-form-urlencoded; charset = utf-8',
+    //             data : {
+    //                 "biz_email" : '<%=email%>' // 주문번호
+    //                 //"cancle_request_amount" : 2000, //환불금액
+    //                 //"reason": "테스트 결제 환불", //환불사유
+    //                 //"refund_holder": "홍길동", //[가상계좌 환불시 필수입력] 환불 가상계좌 예금주
+    //                 //"refund_bank":"88", //[가상계좌 환불시 필수입력] 환불 가상계좌 은행코드(ex Kg이니시스의 경우 신한은행 88)
+    //                 //"refund_account": "56211105948400" // [가상계좌 환불시 필수입력] 환불 가상계좌 번호
+    //             }
+    //         }).done(function(result){ //환불 성공
+    //             pay -= 5;
+    //             $('#pay_coupon').html(pay);
+    //             console.log("환불 성공 : "+ result);
+    //         }).fail(function(error){
+    //             console.log("환불 실패 : "+ error);
+    //         });//ajax
+    //     } else{
+    //         console.log("환불 실패 : 남은 결제권 환불 불가");
+    //     }
+    // }); //check2 클릭
+    // }); //doc.ready)
+
+    <!-- client-side 부분 끝 -->
+
+    <!-- server-side 부분 시작 -->
+    //서버는 클라이언트로 부터 결제 정보를 수신한 후에 해당 거래의 결제금액의 위변조 여부를 검증하고 결제 정보를 데이터베이스에 저장합니다.
+
+    <!--server-side -->
+
+
+
+    <!-- server-side 부분 끝 -->
+
+
+
+
+</script>
 
 </body>
 </html>
