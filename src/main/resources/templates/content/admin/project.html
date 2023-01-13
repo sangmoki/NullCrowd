@@ -46,8 +46,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="parentCard">
-                  <div class="col mainProject" th:each=" project : ${ ProjectList }">
+                <tr>
+                <td th:each=" project : ${ ProjectList }"></td>
                     <td class="projectNo" th:text="${project.projectNo}"></td>
                     <td th:text="${project.title}"></td>
                     <td th:text="${project.description}"></td>
@@ -59,6 +59,7 @@
                     <div class="projectNo" style="display: none" :text="${project.projectDTO.getProjectNo()}"></div>
                     <a href="#"></a>
                   </div>
+
                   <script>
                     const $mainProject = $('.mainProject');
                     for (let i = 0; i < $mainProject.length; i++) {
