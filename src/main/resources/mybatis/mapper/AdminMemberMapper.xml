@@ -43,6 +43,32 @@
     </resultMap>
 
 
+    <resultMap id="approveProject" type="ApproveProject">
+        <id property="projectNo" column="PROJECT_NO"/>
+        <result property="processedDate" column="PROCESSED_DATE"/>
+        <result property="isApproved" column="IS_APPROVED"/>
+        <result property="deniedReason" column="DENIED_REASAON"/>
+    </resultMap>
+
+    <resultMap id="projectDTO" type="ProjectDTO">
+        <id property="projectNo" column="PROJECT_NO"/>
+        <result property="raiserCode" column="RAISER_CODE"/>
+        <result property="title" column="PJ_TITLE"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="fundGoal" column="FUNDGOAL"/>
+        <result property="regiDate" column="REGI_DATE"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="isFundable" column="IS_FUNDABLE"/>
+        <result property="funderNum" column="FUNDERNUM"/>
+        <result property="mainImg" column="MAINIMG"/>
+        <result property="tel" column="TEL"/>
+        <result property="pjEmail" column="PJ_EMAIL"/>
+        <result property="refundRule" column="REFUNDRULE"/>
+        <result property="videoURL" column="VIDEO_URL"/>
+
+        <association property="approveProjectDTO" resultMap="approveProject"/>
+    </resultMap>
 
     <!-- 회원 관리 -->
     <!-- 검색한 멤버 개수 -->
@@ -124,5 +150,25 @@
      ORDER BY A.MEM_CODE ASC
     </select>
 
+    <!-- 프로젝트 조회 -->
+    <select id="selectAllProject" resultMap="projectDTO">
+        SELECT A.PROJECT_NO
+             , A.PJ_TITLE
+             , A.DESCRIPTION
+             , A.REGI_DATE
+             , B.IS_APPROVED
+        FROM FUNDINGPROJECT A
+        LEFT JOIN APPROVEPROJECT B ON (A.PROJECT_NO = B.PROJECT_NO)
+       WHERE B.IS_APPROVED = 3
+    </select>
+
+    <!-- 프로젝트 관리 -->
+    <update id="confirmProject" parameterType="_int">
+    UPDATE APPROVEPROJECT
+    SET
+        IS_APPROVED = #{ decision }
+    WHERE
+        PROJECT_NO = #{ projectNo }
+    </update>
 
 </mapper>

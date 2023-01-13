@@ -11,15 +11,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +29,7 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
     private MemberService memberService;
     private EmailController emailController;
+    private int nickResult;
 
     public MemberController(PasswordEncoder passwordEncoder, MemberService memberService, EmailController emailController) {
         this.passwordEncoder = passwordEncoder;
@@ -166,7 +164,7 @@ public class MemberController {
         mv.addObject("amount", amount);
 
         // 구매 쪽으로 넘겨야 하니까, 구매로 보낸다.
-        mv.setViewName("content/payment/payment");
+        mv.setViewName("content/payment/confirmAndPay");
 
         return mv;
     }

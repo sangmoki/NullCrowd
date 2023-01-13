@@ -1,7 +1,6 @@
 package com.teamtwo.nullfunding.main.controller;
 
 import com.teamtwo.nullfunding.project.model.dto.PJDetail;
-import com.teamtwo.nullfunding.project.model.dto.ProjectDTO;
 import com.teamtwo.nullfunding.project.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,4 +42,6 @@ public class MainController {
 
         return "redirect:/";
     }
+
+
 }

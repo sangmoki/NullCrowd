@@ -104,7 +104,7 @@
               <div class="row">
                 <div class="col-sm-9"></div>
                 <div class="col-sm" th:if="${ startDate } == null" >
-                  <a class="btn btn-primary" href="#" role="button">NULL MEMBERSHIP 구매하기</a>
+                  <a class="btn btn-primary" type="button" onclick="goReplyMessage()">NULL MEMBERSHIP 구매하기</a>
                 </div>
               </div>
               <br>
@@ -136,6 +136,25 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<script>
+
+  // 멤버십 구매 이벤트
+  function goReplyMessage(){
+
+    // 구매 대상과 수량을 파라미터로 넘김
+    const content = "membership";
+    const quantity = 1;
+
+    console.log('/payment/confirmAndPay'+'?'+'content='+content+'&'+'quantity='+quantity);
+
+    window.location.href = '/payment/confirmAndPay'+'?'+'content='+content+'&'+'quantity='+quantity;
+
+  }
+
+
+
+</script>
 
 
 </body>

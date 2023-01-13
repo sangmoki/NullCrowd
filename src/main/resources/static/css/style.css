@@ -306,9 +306,6 @@ a {
 .card-img-top{
   height: 200px;
 }
-#parentCard>.col:nth-child(n+4){
-    display:none;
-}
 .null-title-01 {
 font-weight: 700;
 font-size: 30px;

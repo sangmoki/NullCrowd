@@ -56,6 +56,45 @@
         <collection property="projectMediaList" resultMap="projectMediaDTO"/>
     </resultMap>
 
+    <select id="selectRewards" resultMap="projectRewardDTO">
+       SELECT
+              PROJECT_NO
+            , NO
+            , NAME
+            , PRICE
+            , DETAILS
+         FROM PROJECT_REWARD
+        WHERE PROJECT_NO = #{ no }
+    </select>
+
+    <select id="selectThisProject" resultMap="pjDetail">
+        SELECT A.PROJECT_NO
+             , A.PJ_TITLE
+             , A.DESCRIPTION
+             , A.FUNDGOAL
+             , A.START_DATE
+             , A.END_DATE
+             , A.FUNDERNUM
+             , A.IS_FUNDABLE
+             , A.MAINIMG
+             , A.TEL
+             , A.PJ_EMAIL
+             , A.REFUNDRULE
+             , A.VIDEO_URL
+             , B.RAI_NICKNAME
+             , C.RAISED_FUND
+             , D.PROJECT_NO
+             , D.NO
+             , D.NAME
+             , D.PRICE
+             , D.DETAILS
+        FROM FUNDINGPROJECT A
+                 LEFT JOIN FUNDRAISER B ON (A.RAISER_CODE = B.RAISER_CODE)
+                 LEFT JOIN PROJECTFUND C ON (A.PROJECT_NO = C.PROJECT_NO)
+                 LEFT JOIN PROJECT_REWARD D ON (A.PROJECT_NO = D.PROJECT_NO)
+        WHERE A.PROJECT_NO = #{ no }
+    </select>
+
     <select id="selectPreProject" resultMap="pjDetail">
         SELECT A.PROJECT_NO
              , A.PJ_TITLE
