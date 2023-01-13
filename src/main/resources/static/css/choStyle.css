@@ -7,7 +7,7 @@
 }
 
 .see-more{
-    border-radius: 4px; 
+    border-radius: 4px;
     border: solid 1px #bcc2ce;
 }
 #parentCard>.col:nth-child(n+4){

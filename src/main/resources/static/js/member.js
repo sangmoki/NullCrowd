@@ -41,18 +41,12 @@ $(function(){
     $("#certifyEmail2").on('click', function(){
 
         if($("#confirmCode").val() == code){
-            // $(".successEmailChk").text("인증번호가 일치합니다.");
-            // $(".successEmailChk").css("color","green");
             alert('인증번호가 일치합니다.')
             $("#emailDoubleChk").val("true");
-            // $("#confirmCode").attr("disabled",true);
             isCertification = true;
         }else{
-            // $(".successEmailChk").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다.");
-            // $(".successEmailChk").css("color","red");
             alert('인증번호가 일치하지 않습니다. 확인해주시기 바랍니다.')
             $("#emailDoubleChk").val("false");
-            // $("#confirmCode").attr("autofocus",true);
             isCertification = false;
         }
 
