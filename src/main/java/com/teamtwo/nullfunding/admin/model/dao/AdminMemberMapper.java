@@ -27,5 +27,6 @@ public interface AdminMemberMapper {
     List<ProjectDTO> selectAllProject();
 
 
+
     int confirmProject(int projectNo, int decision);
 }
