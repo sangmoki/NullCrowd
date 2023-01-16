@@ -36,7 +36,7 @@ public interface MessageMapper {
     int getMessageboxNoByNicknameFromMember(String nickname);
 
     // 닉네임에 딸린 메시지 박스 찾는 메소드2
-    int getMessageboxNoByNicknameFromFundrasier(String nickname);
+    int getMessageboxNoByNicknameFromFundraiser(String nickname);
 
     // 닉네임에 딸린 가입일 찾는 메소드
     String getRegiDate(String nickname);

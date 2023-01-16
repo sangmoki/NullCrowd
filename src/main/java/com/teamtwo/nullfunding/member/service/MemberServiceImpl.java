@@ -108,7 +108,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-    // 멤버쉽 적용기간 뽑아옴
+    // 멤버쉽 적용기간 뽑기
     @Override
     public Map<String, String> getMembershipPeriod(List<MembershipDTO> membershipList) throws ParseException {
 

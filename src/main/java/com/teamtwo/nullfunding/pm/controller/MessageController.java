@@ -217,7 +217,7 @@ public class MessageController {
         // 3-1-1-1. 'Member' 테이블에서 수신자 닉네임이 있는지 확인, 'Member'테이블의 서포터 닉네임이 디폴트 닉네임이기 때문에, 이때 메시지함이 메시지함 번호는 1(서포터 메시지함)
         if(messageService.getMessageboxNoByNicknameFromMember(message.getReceiverNickname())==1){receiverMessageboxNo=1;}
         // 3-1-1-2. 'Member' 테이블에서 수신자 닉네임이 없다면, 'Fundraiser' 테이블에서 닉네임을 찾는다. 이때 Fundraiser는 프로젝트 매니저 역할의 닉네임이므로 메시지함 번호는 2(프로젝트 매니저 메시지함)
-        if(messageService.getMessageboxNoByNicknameFromFundrasier(message.getReceiverNickname())==1){receiverMessageboxNo=2;}
+        if(messageService.getMessageboxNoByNicknameFromFundraiser(message.getReceiverNickname())==1){receiverMessageboxNo=2;}
         // 3-1-2. 위에서 구한 receiverMessageboxNo를 MessageDTO객체 message에 담음
         message.setBoxType(receiverMessageboxNo);
 
@@ -259,7 +259,7 @@ public class MessageController {
         // 3-1-1-1. 'Member' 테이블에서 수신자 닉네임이 있는지 확인, 'Member'테이블의 서포터 닉네임이 디폴트 닉네임이기 때문에, 이때 메시지함이 메시지함 번호는 1(서포터 메시지함)
         if(messageService.getMessageboxNoByNicknameFromMember(message.getReceiverNickname())==1){receiverMessageboxNo=1;}
         // 3-1-1-2. 'Member' 테이블에서 수신자 닉네임이 없다면, 'Fundraiser' 테이블에서 닉네임을 찾는다. 이때 Fundraiser는 프로젝트 매니저 역할의 닉네임이므로 메시지함 번호는 2(프로젝트 매니저 메시지함)
-        if(messageService.getMessageboxNoByNicknameFromFundrasier(message.getReceiverNickname())==1){receiverMessageboxNo=2;}
+        if(messageService.getMessageboxNoByNicknameFromFundraiser(message.getReceiverNickname())==1){receiverMessageboxNo=2;}
         // 3-1-2. 위에서 구한 receiverMessageboxNo를 MessageDTO객체 message에 담음
         message.setBoxType(receiverMessageboxNo);
 

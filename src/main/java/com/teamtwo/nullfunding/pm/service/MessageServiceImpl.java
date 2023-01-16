@@ -93,9 +93,9 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     // 닉네임에 딸린 메시지 박스 찾는 메소드2
-    public int getMessageboxNoByNicknameFromFundrasier(String nickname){
+    public int getMessageboxNoByNicknameFromFundraiser(String nickname){
 
-        int result = mapper.getMessageboxNoByNicknameFromFundrasier(nickname);
+        int result = mapper.getMessageboxNoByNicknameFromFundraiser(nickname);
 
         return result;
     }
@@ -122,7 +122,7 @@ public class MessageServiceImpl implements MessageService {
             result[1] = 1+"";
             result[2] = getRegiDate(nickname)+"";
 
-        } else if(mapper.getMessageboxNoByNicknameFromFundrasier(nickname)==1){
+        } else if(mapper.getMessageboxNoByNicknameFromFundraiser(nickname)==1){
 
             result[0] = nickname;
             result[1] = 2+"";
