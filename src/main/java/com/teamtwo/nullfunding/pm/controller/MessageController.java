@@ -6,6 +6,8 @@ import com.teamtwo.nullfunding.pm.dto.MessageDTO;
 import com.teamtwo.nullfunding.pm.dto.MessageSelectCriteria;
 import com.teamtwo.nullfunding.pm.dto.MessagePagenation;
 import com.teamtwo.nullfunding.pm.service.MessageService;
+import org.apache.ibatis.binding.BindingException;
+import org.apache.ibatis.jdbc.Null;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -203,25 +205,47 @@ public class MessageController {
         Map<String, Object> searchMap = new HashMap<>();
 
         // 2. 발신자 닉네임은 해당 메시지박스를 연 유저 닉네임으로 넣음
-        objectNickname = request.getParameter("nickname");
-        messageboxNo = Integer.valueOf(request.getParameter("nicknamesBoxType"));
         log.info("[MessageController] 발신자 닉네임 : " + objectNickname);
         message.setSenderNickname(objectNickname);
 
-        // 3-1. 먼저 수신자 닉네임을 MessageDTO에서 가져오고, 해당 닉네임으로 수신자의 부모 속성인 회원번호를 검색하고, 검색된 수신자 회원번호를 MessageDTO 객체의 '받는 회원'에 set
+        // 수신자 닉네임 확인
         log.info("[MessageController] 수신자 닉네임 : " + message.getReceiverNickname());
-        message.setReceiverMemberNo(messageService.getMemberNoByNickname(message.getSenderNickname()));
-        log.info("[MessageController] 수신자 유저번호 : " + message.getReceiverMemberNo());
-        // 3-1-1. 수신자 닉네임에 연결된 메시지박스 번호를 구해서, 저장될 메시지함 번호로 지정함 -> 그러기 위해 우선 메시지박스를 담을 변수를 선언
-        int receiverMessageboxNo = 0;
-        // 3-1-1-1. 'Member' 테이블에서 수신자 닉네임이 있는지 확인, 'Member'테이블의 서포터 닉네임이 디폴트 닉네임이기 때문에, 이때 메시지함이 메시지함 번호는 1(서포터 메시지함)
-        if(messageService.getMessageboxNoByNicknameFromMember(message.getReceiverNickname())==1){receiverMessageboxNo=1;}
-        // 3-1-1-2. 'Member' 테이블에서 수신자 닉네임이 없다면, 'Fundraiser' 테이블에서 닉네임을 찾는다. 이때 Fundraiser는 프로젝트 매니저 역할의 닉네임이므로 메시지함 번호는 2(프로젝트 매니저 메시지함)
-        if(messageService.getMessageboxNoByNicknameFromFundraiser(message.getReceiverNickname())==1){receiverMessageboxNo=2;}
-        // 3-1-2. 위에서 구한 receiverMessageboxNo를 MessageDTO객체 message에 담음
-        message.setBoxType(receiverMessageboxNo);
 
-        // 3-2. 수신자 정보가 set된 MessageDTO객체 message를, DB INSERT할 조건이 담길 searchMap객체에 저장
+        // 3-1. 수신자 닉네임에 연결된 회원번호(receiverMemberNo)와 메시지박스 번호(boxType)를 구해서, 저장될 메시지함 번호로 지정함 -> 그러기 위해 우선 메시지박스를 담을 변수를 선언하고
+        int receiverMessageboxNo = 0;
+        // 3-1-1. 'Member' 테이블에서 수신자 닉네임이 있는지 확인, 'Member'테이블의 서포터 닉네임이 디폴트 닉네임이기 때문에, 이때 메시지함이 메시지함 번호는 1(서포터 메시지함)
+        if(messageService.getMessageboxNoByNicknameFromMember(message.getReceiverNickname())==1){receiverMessageboxNo=1;}
+        // 3-1-2. 'Fundraiser' 테이블에서 닉네임을 찾는다. 이때 Fundraiser는 프로젝트 매니저 역할의 닉네임이므로 메시지함 번호는 2(프로젝트 매니저 메시지함)
+        try{
+            messageService.getMessageboxNoByNicknameFromFundraiser(message.getReceiverNickname());
+
+            if(messageService.getMessageboxNoByNicknameFromFundraiser(message.getReceiverNickname())==1){
+                receiverMessageboxNo=2;
+            }
+        } catch(NullPointerException | BindingException e ) {
+            receiverMessageboxNo=0;
+        }
+
+        // 3-2. 위에서 구한 수신자 메시지박스번호를 MessageDTO 객체의 boxType에 set.
+        message.setBoxType(receiverMessageboxNo);
+        log.info("[MessageController] 수신자 메시지박스 번호 : " + message.getReceiverMemberNo());
+
+
+        // 3-3. 위에서 검색된 수신자 닉네임으로 수신자의 부모 속성인 회원번호를 검색해, 검색된 수신자 회원번호를 MessageDTO 객체의 receiverMemberNo에 set.
+        // 단, 3-2. 에서 구한 boxType이 0이면, 수신자 회원번호(receiverMemberNo)도 0으로 설정
+        if(receiverMessageboxNo==0){
+
+            message.setReceiverMemberNo(0);
+            log.info("[MessageController] : 수신자 닉네임이 유효하지 않아, 수신자 멤버 번호도 0으로 설정");
+
+        } else {
+
+            message.setReceiverMemberNo(messageService.getMemberNoByNickname(message.getReceiverNickname()));
+            log.info("[MessageController] 수신자 유저 번호 : " + message.getReceiverMemberNo());
+
+        }
+
+        // 3-4. 수신자 정보가 set된 MessageDTO객체 message를, DB INSERT할 조건이 담길 searchMap객체에 저장
         searchMap.put("message", message);
         log.info("[MessageController] 다음 메시지에 대한 발신 요청 확인 : " + message);
 
@@ -246,24 +270,47 @@ public class MessageController {
         Map<String, Object> searchMap = new HashMap<>();
 
         // 2. 발신자 닉네임은 해당 메시지박스를 연 유저 닉네임으로 넣음
-        objectNickname = request.getParameter("nickname");
-        messageboxNo = Integer.valueOf(request.getParameter("nicknamesBoxType"));
+        log.info("[MessageController] 발신자 닉네임 : " + objectNickname);
         message.setSenderNickname(objectNickname);
 
-        // 3-1. 먼저 수신자 닉네임을 MessageDTO에서 가져오고, 해당 닉네임으로 수신자의 부모 속성인 회원번호를 검색하고, 검색된 수신자 회원번호를 MessageDTO 객체의 '받는 회원'에 set
+        // 수신자 닉네임 확인
         log.info("[MessageController] 수신자 닉네임 : " + message.getReceiverNickname());
-        message.setReceiverMemberNo(messageService.getMemberNoByNickname(message.getSenderNickname()));
-        log.info("[MessageController] 수신자 유저번호 : " + message.getReceiverMemberNo());
-        // 3-1-1. 수신자 닉네임에 연결된 메시지박스 번호를 구해서, 저장될 메시지함 번호로 지정함 -> 그러기 위해 우선 메시지박스를 담을 변수를 선언
-        int receiverMessageboxNo = 0;
-        // 3-1-1-1. 'Member' 테이블에서 수신자 닉네임이 있는지 확인, 'Member'테이블의 서포터 닉네임이 디폴트 닉네임이기 때문에, 이때 메시지함이 메시지함 번호는 1(서포터 메시지함)
-        if(messageService.getMessageboxNoByNicknameFromMember(message.getReceiverNickname())==1){receiverMessageboxNo=1;}
-        // 3-1-1-2. 'Member' 테이블에서 수신자 닉네임이 없다면, 'Fundraiser' 테이블에서 닉네임을 찾는다. 이때 Fundraiser는 프로젝트 매니저 역할의 닉네임이므로 메시지함 번호는 2(프로젝트 매니저 메시지함)
-        if(messageService.getMessageboxNoByNicknameFromFundraiser(message.getReceiverNickname())==1){receiverMessageboxNo=2;}
-        // 3-1-2. 위에서 구한 receiverMessageboxNo를 MessageDTO객체 message에 담음
-        message.setBoxType(receiverMessageboxNo);
 
-        // 3-2. 수신자 정보가 set된 MessageDTO객체 message를, DB INSERT할 조건이 담길 searchMap객체에 저장
+        // 3-1. 수신자 닉네임에 연결된 회원번호(receiverMemberNo)와 메시지박스 번호(boxType)를 구해서, 저장될 메시지함 번호로 지정함 -> 그러기 위해 우선 메시지박스를 담을 변수를 선언하고
+        int receiverMessageboxNo = 0;
+        // 3-1-1. 'Member' 테이블에서 수신자 닉네임이 있는지 확인, 'Member'테이블의 서포터 닉네임이 디폴트 닉네임이기 때문에, 이때 메시지함이 메시지함 번호는 1(서포터 메시지함)
+        if(messageService.getMessageboxNoByNicknameFromMember(message.getReceiverNickname())==1){receiverMessageboxNo=1;}
+        // 3-1-2. 'Fundraiser' 테이블에서 닉네임을 찾는다. 이때 Fundraiser는 프로젝트 매니저 역할의 닉네임이므로 메시지함 번호는 2(프로젝트 매니저 메시지함)
+        try{
+            messageService.getMessageboxNoByNicknameFromFundraiser(message.getReceiverNickname());
+
+            if(messageService.getMessageboxNoByNicknameFromFundraiser(message.getReceiverNickname())==1){
+                receiverMessageboxNo=2;
+            }
+        } catch(NullPointerException | BindingException e ) {
+            receiverMessageboxNo=0;
+        }
+
+        // 3-2. 위에서 구한 수신자 메시지박스번호를 MessageDTO 객체의 boxType에 set.
+        message.setBoxType(receiverMessageboxNo);
+        log.info("[MessageController] 수신자 메시지박스 번호 : " + message.getReceiverMemberNo());
+
+
+        // 3-3. 위에서 검색된 수신자 닉네임으로 수신자의 부모 속성인 회원번호를 검색해, 검색된 수신자 회원번호를 MessageDTO 객체의 receiverMemberNo에 set.
+        // 단, 3-2. 에서 구한 boxType이 0이면, 수신자 회원번호(receiverMemberNo)도 0으로 설정
+        if(receiverMessageboxNo==0){
+
+            message.setReceiverMemberNo(0);
+            log.info("[MessageController] : 수신자 닉네임이 유효하지 않아, 수신자 멤버 번호도 0으로 설정");
+
+        } else {
+
+            message.setReceiverMemberNo(messageService.getMemberNoByNickname(message.getReceiverNickname()));
+            log.info("[MessageController] 수신자 유저 번호 : " + message.getReceiverMemberNo());
+
+        }
+
+        // 3-4. 수신자 정보가 set된 MessageDTO객체 message를, DB INSERT할 조건이 담길 searchMap객체에 저장
         searchMap.put("message", message);
         log.info("[MessageController] 다음 메시지에 대한 발신 요청 확인 : " + message);
 
@@ -271,6 +318,10 @@ public class MessageController {
         messageService.sendMessage(searchMap);
 
         // 5. 페이지 새로고침을 위해, 되돌아갈 변수들을 model에 담고, 새로고침 페이지 (/reloadMessageList) 호출
+        // 되돌아갈 페이지 정보는 파라미터에서 뽑아옴
+        objectNickname = request.getParameter("nickname");
+        messageboxNo = Integer.valueOf(request.getParameter("nicknamesBoxType"));
+
         model.addAttribute("box_Type", messageboxNo);
         model.addAttribute("success","success");
 

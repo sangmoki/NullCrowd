@@ -38,6 +38,7 @@
             <label for="inputMessageReceiver" class="col-sm-2 col-form-label">답장 대상자</label>
             <div class="col-sm-10" style="padding: 3px">
                 <input type="text" readonly class="form-control-plaintext" id="inputMessageReceiver" name="receiverNickname" th:value="${ messageSender }">
+                <input type="hidden" id="checkedMessageboxNo" name="checkedMessageboxNo">
             </div>
         </div>
         <div class="row" style="margin: 10px; color: gray; height: 20px">

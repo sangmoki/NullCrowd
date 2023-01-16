@@ -38,8 +38,8 @@ public interface MessageMapper {
     // 닉네임에 딸린 메시지 박스 찾는 메소드2
     int getMessageboxNoByNicknameFromFundraiser(String nickname);
 
-    // 닉네임에 딸린 가입일 찾는 메소드
-    String getRegiDate(String nickname);
+    // 회원번호에 딸린 가입일 찾는 메소드
+    String getRegiDate(int memberNo);
 
     // 닉네임에 딸린 메시지 박스 가져가는 메소드
     String searchMessageboxByNickname(String nickname);

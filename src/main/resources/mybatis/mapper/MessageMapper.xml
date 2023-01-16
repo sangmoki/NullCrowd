@@ -106,29 +106,30 @@
          WHERE MEMBER.NICKNAME = #{ nickname }
     </select>
 
-    <select id="getMessageboxNoByNicknameFromFundrasier" resultType="_int" parameterType="String">
+    <select id="getMessageboxNoByNicknameFromFundraiser" resultType="_int" parameterType="String">
         SELECT
             COUNT(*)
         FROM FUNDRAISER
         WHERE FUNDRAISER.RAI_NICKNAME = #{ nickname }
     </select>
 
-    <select id="getRegiDate" resultType="String" parameterType="String">
+    <select id="getRegiDate" resultType="String" parameterType="_int">
         SELECT
                TO_CHAR(REGI_DATE, 'YYYY-MM-DD')
           FROM MEMBER
-          JOIN FUNDRAISER ON (MEMBER.MEM_CODE = FUNDRAISER.RAISER_CODE)
-         WHERE MEMBER.NICKNAME = #{ nickname }
-            OR FUNDRAISER.RAI_NICKNAME = #{ nickname }
+         WHERE MEMBER.MEM_CODE = #{ memberNo }
     </select>
 
     <select id="getMemberNoByNickname" resultType="_int" parameterType="String">
         SELECT
-               MEM_CODE
-          FROM MEMBER
-          JOIN FUNDRAISER ON (MEMBER.MEM_CODE = FUNDRAISER.RAISER_CODE)
-         WHERE MEMBER.NICKNAME = #{ nickname }
-            OR FUNDRAISER.RAI_NICKNAME = #{ nickname }
+            C.MEM_CODE
+        FROM ( SELECT
+                   MEM_CODE,
+                   MEMBER.NICKNAME AS NICKNAME1,
+                   COALESCE(FUNDRAISER.RAI_NICKNAME, MEMBER.NICKNAME)AS NICKNAME2
+               FROM MEMBER
+                        FULL OUTER JOIN FUNDRAISER ON (MEMBER.MEM_CODE = FUNDRAISER.RAISER_CODE) ) C
+        WHERE C.NICKNAME1= #{ nickname } OR C.NICKNAME2= #{ nickname }
     </select>
 
 

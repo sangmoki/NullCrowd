@@ -100,11 +100,11 @@ public class MessageServiceImpl implements MessageService {
         return result;
     }
 
-    // 닉네임에 딸린 가입일 찾는 메소드
+    // 회원번호에 딸린 가입일 찾는 메소드
     @Override
-    public String getRegiDate(String nickname){
+    public String getRegiDate(int memberNo){
 
-         String result = mapper.getRegiDate(nickname);
+         String result = mapper.getRegiDate(memberNo);
 
          return result;
     }
@@ -120,13 +120,13 @@ public class MessageServiceImpl implements MessageService {
 
             result[0] = nickname;
             result[1] = 1+"";
-            result[2] = getRegiDate(nickname)+"";
+            result[2] = getRegiDate(getMemberNoByNickname(nickname))+"";
 
         } else if(mapper.getMessageboxNoByNicknameFromFundraiser(nickname)==1){
 
             result[0] = nickname;
             result[1] = 2+"";
-            result[2] = getRegiDate(nickname)+"";
+            result[2] = getRegiDate(getMemberNoByNickname(nickname))+"";
 
         }
 
