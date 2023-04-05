@@ -23,4 +23,4 @@ Null Crowd Funding
 논리/물리 모델링 : https://www.notion.so/cdcf0583a8104d34b2ad0ce6919241ce
 
 ### 기능 정리 PDF 파일
-https://www.notion.so/Null-Crowd-fc9c4c61d78e4ceaa57347d0eb9b80a9
+https://www.notion.so/PPT-9815ee25c6074f13be3decbb4218dff3
