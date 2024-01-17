@@ -18,7 +18,7 @@ Null Crowd Funding
 
 요구사항 명세 : https://www.notion.so/d82e7b8a2fed4360a99174ae1d11b035?pvs=4
 
-피그마 : https://www.notion.so/6f05a26fbab04b02b8d4f7e4ea595c78?pvs=4
+피그마 : https://www.figma.com/file/p15POXD3XV9txbFLzW4XUF/NullCrowd?type=design&node-id=21-2&mode=design&t=VrAKjvHM11zxAFc9-0
 
 논리/물리 모델링 : https://www.notion.so/cdcf0583a8104d34b2ad0ce6919241ce
 
